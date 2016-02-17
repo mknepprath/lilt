@@ -27,7 +27,7 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+    message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
     print message
 
     #mentions = self.api.mentions_timeline(count=1)
