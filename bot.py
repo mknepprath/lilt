@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     for status in tweepy.Cursor(twitter.api.user_timeline).items():
         try:
-            print status
+            print status.id
         except:
             pass
 
