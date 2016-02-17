@@ -26,7 +26,7 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    twitter.tweet("Testing! Hello moon!") #You probably want to remove this line
+    twitter.tweet("Hello Pluto!") #You probably want to remove this line
     while True:
         #Send a tweet here!
         time.sleep(60)
