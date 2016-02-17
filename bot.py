@@ -30,6 +30,12 @@ if __name__ == "__main__":
     message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     print message
 
+    for status in tweepy.Cursor(api.user_timeline).items():
+        try:
+            api.destroy_status(status.id)
+        except:
+            pass
+
     #mentions = self.api.mentions_timeline(count=1)
     #for mention in mentions:
     #    print mention.text
@@ -37,5 +43,5 @@ if __name__ == "__main__":
 
     while True:
         #Send a tweet here!
-        twitter.tweet(message)
         time.sleep(60)
+        twitter.tweet(message)
