@@ -26,9 +26,8 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = "Hello Mars!"
+    message = "This is a test tweet. It is very different from the last tweet."
     print message
-    twitter.tweet(message) #You probably want to remove this line
 
     #mentions = self.api.mentions_timeline(count=1)
     #for mention in mentions:
@@ -37,4 +36,5 @@ if __name__ == "__main__":
 
     while True:
         #Send a tweet here!
+        twitter.tweet(message) #You probably want to remove this line
         time.sleep(60)
