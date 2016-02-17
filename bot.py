@@ -37,6 +37,13 @@ if __name__ == "__main__":
         except:
             pass
 
+    for status in tweepy.Cursor(twitter.api.mentions_timeline).items():
+        try:
+            print status.id
+            print status.text
+        except:
+            pass
+
     #mentions = self.api.mentions_timeline(count=1)
     #for mention in mentions:
     #    print mention.text
