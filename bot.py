@@ -1,6 +1,7 @@
 import os
 import time
-
+import string
+import random
 import tweepy
 
 class TwitterAPI:
@@ -26,7 +27,7 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = "This is a test tweet. It is very different from the last tweet."
+    message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
     print message
 
     #mentions = self.api.mentions_timeline(count=1)
@@ -36,5 +37,5 @@ if __name__ == "__main__":
 
     while True:
         #Send a tweet here!
-        twitter.tweet(message) #You probably want to remove this line
+        #twitter.tweet(message)
         time.sleep(60)
