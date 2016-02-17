@@ -26,7 +26,15 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    twitter.tweet("Hello Pluto!") #You probably want to remove this line
+    message = "Hello Saturn!"
+    twitter.tweet(message) #You probably want to remove this line
+    print message
+
+    #mentions = self.api.mentions_timeline(count=1)
+    #for mention in mentions:
+    #    print mention.text
+    #    print mention.user.screen_name
+
     while True:
         #Send a tweet here!
         time.sleep(60)
