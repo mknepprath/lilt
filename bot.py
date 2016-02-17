@@ -30,9 +30,9 @@ if __name__ == "__main__":
     message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     print message
 
-    for status in tweepy.Cursor(api.user_timeline).items():
+    for status in tweepy.Cursor(twitter.api.user_timeline).items():
         try:
-            api.destroy_status(status.id)
+            twitter.api.destroy_status(status.id)
         except:
             pass
 
