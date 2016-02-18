@@ -31,7 +31,7 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = '@mknepprath test roborespooooooonse again'
+    message = '@mknepprath beep boop'
     print message
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
@@ -42,4 +42,4 @@ if __name__ == "__main__":
         except:
             pass
 
-    twitter.reply(message, 700104621553881088)
+    twitter.reply(message, 698356019622072320)
