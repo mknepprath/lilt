@@ -40,10 +40,10 @@ if __name__ == "__main__":
             tweetid = mention.id
             print tweet
 
-            randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+            randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
             if tweet == "start":
-                message = '@' + screen_name + ' You wake up in an unfamiliar room.'
+                message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                 print message
                 twitter.reply(message, tweetid)
             else:
