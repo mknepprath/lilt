@@ -31,15 +31,19 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = '@mknepprath beep boop ' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
-    print message
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
+
             print mention.id
             print mention.user.screen_name
             print mention.text
+
+            if mention.text == "Start":
+                message = '@' + mention.user.screen_name + ' You wake up in an unfamiliar room.'
+                twitter.reply(message, mention.id)
+            else:
+                message = '@' + mention.user.screen_name + ' Oops, didn't work.' + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+                twitter.reply(message, mention.id)
         except:
             pass
-
-    twitter.reply(message, 698356019622072320)
