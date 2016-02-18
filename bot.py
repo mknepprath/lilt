@@ -25,9 +25,13 @@ class TwitterAPI:
         """Send a tweet"""
         self.api.update_status(status=message)
 
+    def reply(self, message, tweetid):
+        """Send a tweet"""
+        self.api.update_status(status=message, in_reply_to_status_id=tweetid)
+
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+    message = '@mknepprath '.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     print message
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
@@ -38,4 +42,4 @@ if __name__ == "__main__":
         except:
             pass
 
-    twitter.tweet(message)
+    twitter.reply(message, 698356019622072320)
