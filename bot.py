@@ -34,7 +34,8 @@ if __name__ == "__main__":
 
     for status in tweepy.Cursor(api.user_timeline).items():
         try:
-            api.destroy_status(status.id)
+            print status.text
+            twitter.api.destroy_status(status.id)
         except:
             pass
 
