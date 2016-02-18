@@ -21,6 +21,10 @@ class TwitterAPI:
         auth.set_access_token(access_token, access_token_secret)
         self.api = tweepy.API(auth)
 
+    def mentions(self):
+        """Get mentions"""
+        self.api.mentions_timeline
+
     def tweet(self, message):
         """Send a tweet"""
         self.api.update_status(status=message)
@@ -30,7 +34,7 @@ if __name__ == "__main__":
     message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     print message
 
-    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+    for mention in tweepy.Cursor(twitter.mentions).items():
         try:
             print mention.id
             print mention.user.screen_name
