@@ -32,6 +32,12 @@ class TwitterAPI:
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
+    for status in tweepy.Cursor(api.user_timeline).items():
+        try:
+            api.destroy_status(status.id)
+        except:
+            pass
+
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
 
