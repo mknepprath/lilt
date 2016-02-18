@@ -3,6 +3,19 @@ import time
 import string
 import random
 import tweepy
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["postgres://gnibsiifkyefsh:xYeF5Yifpv8Q7eCzDwRUP8vzQt@ec2-54-83-17-9.compute-1.amazonaws.com:5432/d63nb0hmp6e1va"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 class TwitterAPI:
     """
