@@ -32,7 +32,7 @@ class TwitterAPI:
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
-    for status in tweepy.Cursor(api.user_timeline).items():
+    for status in tweepy.Cursor(twitter.api.user_timeline).items():
         try:
             print status.text
             twitter.api.destroy_status(status.id)
