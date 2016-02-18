@@ -31,7 +31,7 @@ class TwitterAPI:
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-    message = '@mknepprath '.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+    message = '@mknepprath test respooooooonse'
     print message
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
