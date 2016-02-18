@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
             randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
 
-            if mention.text == "Start":
+            if mention.text == "@keycityconf start":
                 message = '@' + mention.user.screen_name + ' You wake up in an unfamiliar room.'
                 twitter.reply(message, mention.id)
             else:
