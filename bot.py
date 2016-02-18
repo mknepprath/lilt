@@ -40,6 +40,7 @@ if __name__ == "__main__":
     for status in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
             print status.id
+            print status.user.screen_name
             print status.text
         except:
             pass
