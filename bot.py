@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 message = '@' + mention.user.screen_name + ' You wake up in an unfamiliar room.'
                 twitter.reply(message, mention.id)
             else:
-                message = '@' + mention.user.screen_name + ' Oops, didn't work. ' + randstring
+                message = '@' + mention.user.screen_name + ' Oops, didn\'t work. ' + randstring
                 twitter.reply(message, mention.id)
         except:
             pass
