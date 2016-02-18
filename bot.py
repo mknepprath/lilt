@@ -35,17 +35,18 @@ if __name__ == "__main__":
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
 
-            print mention.id
-            print mention.user.screen_name
-            print mention.text
+            screen_name = mention.user.screen_name
+            game_name, tweet = (mention.text).split(" ",1)
+            tweetid = mention.id
+            print tweet
 
             randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
 
-            if mention.text == "@keycityconf start":
-                message = '@' + mention.user.screen_name + ' You wake up in an unfamiliar room.'
-                twitter.reply(message, mention.id)
+            if tweet == "start":
+                message = '@' + screen_name + ' You wake up in an unfamiliar room.'
+                twitter.reply(message, tweetid)
             else:
-                message = '@' + mention.user.screen_name + ' Oops, didn\'t work. ' + randstring
-                twitter.reply(message, mention.id)
+                message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
+                twitter.reply(message, tweetid)
         except:
             pass
