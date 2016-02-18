@@ -30,27 +30,12 @@ if __name__ == "__main__":
     message = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
     print message
 
-    for status in tweepy.Cursor(twitter.api.user_timeline).items():
+    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
-            print status.id
-            print status.text
+            print mention.id
+            print mention.user.screen_name
+            print mention.text
         except:
             pass
 
-    for status in tweepy.Cursor(twitter.api.mentions_timeline).items():
-        try:
-            print status.id
-            print status.user.screen_name
-            print status.text
-        except:
-            pass
-
-    #mentions = self.api.mentions_timeline(count=1)
-    #for mention in mentions:
-    #    print mention.text
-    #    print mention.user.screen_name
-
-    while True:
-        #Send a tweet here!
-        time.sleep(60)
-        twitter.tweet(message)
+    twitter.tweet(message)
