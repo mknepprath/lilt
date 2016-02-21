@@ -18,16 +18,19 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
-cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
+cur.execute("CREATE TABLE moves (id serial PRIMARY KEY, num integer, data varchar);")
+cur.execute("INSERT INTO moves (num, data) VALUES (%s, %s)", (100, "abc'def"))
 
-print url.username
-print url.password
-cur.execute("SELECT * FROM test;")
+cur.execute("SELECT * FROM moves;")
 cur.fetchone()
+
+conn.commit()
 
 print cur.fetchone()
 print cur
+
+cur.close()
+conn.close()
 
 class TwitterAPI:
     """
