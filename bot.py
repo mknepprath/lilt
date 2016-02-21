@@ -18,7 +18,6 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
-cur.execute("CREATE TABLE moves (id serial PRIMARY KEY, num integer, data varchar);")
 cur.execute("INSERT INTO moves (num, data) VALUES (%s, %s)", (100, "abc'def"))
 
 print cur.execute("SELECT * FROM pg_catalog.pg_tables")
