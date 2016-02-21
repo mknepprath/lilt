@@ -21,7 +21,8 @@ cur = conn.cursor()
 cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
 cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", (100, "abc'def"))
 
-print url
+print url.username
+print url.password
 cur.execute("SELECT * FROM test;")
 cur.fetchone()
 
