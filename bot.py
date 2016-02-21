@@ -17,7 +17,9 @@ conn = psycopg2.connect(
     port=url.port
 )
 
-print conn
+cur = conn.cursor()
+
+print cur
 
 class TwitterAPI:
     """
