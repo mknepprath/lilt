@@ -66,7 +66,7 @@ if __name__ == "__main__":
             users = cur.fetchall()
             print users
             print users[0]
-            print users[0].id
+            print users[0][2]
 
             #for user in users:
             #    try:
