@@ -61,8 +61,14 @@ if __name__ == "__main__":
             user_id = mention.user.id
             game_name, tweet = (mention.text).split(" ",1)
             tweetid = mention.id
-            cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-            conn.commit()
+
+            cur.execute("SELECT * FROM users")
+            users = cur.fetchall()
+            pprint.pprint(users)
+
+            #cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+            #conn.commit()
+
             print tweet
 
             randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
