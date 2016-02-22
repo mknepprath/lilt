@@ -65,6 +65,14 @@ if __name__ == "__main__":
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
             print users
+            print users[0]
+            print users[0].id
+
+            for user in users:
+                try:
+
+                except:
+                    pass
 
             cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
             conn.commit()
