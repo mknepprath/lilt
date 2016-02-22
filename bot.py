@@ -18,18 +18,6 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
-cur.execute("INSERT INTO moves (num, data) VALUES (%s, %s)", (100, "abc'def"))
-
-print cur.execute("SELECT * FROM pg_catalog.pg_tables")
-cur.fetchone()
-
-conn.commit()
-
-print cur.fetchone()
-print cur
-
-cur.close()
-conn.close()
 
 class TwitterAPI:
     """
@@ -70,8 +58,11 @@ if __name__ == "__main__":
         try:
 
             screen_name = mention.user.screen_name
+            user_id = mention.user.id
             game_name, tweet = (mention.text).split(" ",1)
             tweetid = mention.id
+            cur.execute("INSERT INTO users (data, num, num) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+            conn.commit()
             print tweet
 
             randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -86,3 +77,6 @@ if __name__ == "__main__":
                 twitter.reply(message, tweetid)
         except:
             pass
+
+cur.close()
+conn.close()
