@@ -66,8 +66,8 @@ if __name__ == "__main__":
             users = cur.fetchall()
             pprint.pprint(users)
 
-            #cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-            #conn.commit()
+            cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+            conn.commit()
 
             print tweet
 
