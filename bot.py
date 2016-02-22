@@ -61,7 +61,7 @@ if __name__ == "__main__":
             user_id = mention.user.id
             game_name, tweet = (mention.text).split(" ",1)
             tweetid = mention.id
-            cur.execute("INSERT INTO users (data, num, num) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+            cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
             conn.commit()
             print tweet
 
