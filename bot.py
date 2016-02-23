@@ -65,7 +65,7 @@ if __name__ == "__main__":
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
 
-            cur.execute("SELECT 1 FROM users WHERE name=%s", ("mknepprath"))
+            cur.execute("SELECT 1 FROM users WHERE name=%s", ('mknepprath'))
             mk = cur.fetchone()
             print mk
 
