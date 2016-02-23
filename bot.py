@@ -65,10 +65,6 @@ if __name__ == "__main__":
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
 
-            cur.execute("SELECT EXISTS(SELECT 1 FROM users WHERE name=%s) AS 'exists';")
-            user_exists = cur.fetchone()
-            print "user exists: " + user_exists
-
             cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
             #conn.commit()
 
