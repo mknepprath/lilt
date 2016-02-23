@@ -65,7 +65,7 @@ if __name__ == "__main__":
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
 
-            cur.execute("SELECT 1 FROM users WHERE name=%s", (scree_name,))
+            cur.execute("SELECT 1 FROM users WHERE name=%s;", (screen_name,))
             user_exists = cur.fetchone()
             print user_exists
 
