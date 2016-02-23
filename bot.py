@@ -66,7 +66,7 @@ if __name__ == "__main__":
             users = cur.fetchall()
 
             cur.execute("SELECT 1 FROM users WHERE name='mknepprath'")
-            mk = cur.fetchall()
+            mk = cur.fetchone()
             print mk
 
             cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
