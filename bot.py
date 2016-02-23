@@ -67,25 +67,26 @@ if __name__ == "__main__":
 
             for user in users:
                 try:
-                    if user[1] != user_id & user[2] != tweetid:
-
-                        cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-                        conn.commit()
-
-                        print tweet
-
-                        randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-
-                        if tweet == "start":
-                            message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
-                            print message
-                            twitter.reply(message, tweetid)
-                        else:
-                            message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                            print message
-                            twitter.reply(message, tweetid)
+                    if user[1] == user_id & user[2] != tweetid:
+                        print "user: " + user[0]
                 except:
                     pass
+
+            cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+            conn.commit()
+
+            print tweet
+
+            randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+
+            if tweet == "start":
+                message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
+                print message
+                twitter.reply(message, tweetid)
+            else:
+                message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
+                print message
+                twitter.reply(message, tweetid)
         except:
             pass
 
