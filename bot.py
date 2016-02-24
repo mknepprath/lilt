@@ -73,13 +73,14 @@ if __name__ == "__main__":
                 tweet_exists = cur.fetchone()
                 if tweet_exists == None:
                     print "new tweet"
+                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE name = %s;", (tweetid, screen_name))
+                    #conn.commit()
                 else:
                     print "old tweet"
             else:
                 print "new player"
-
-            cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-            #conn.commit()
+                cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
+                #conn.commit()
 
             print tweet
 
