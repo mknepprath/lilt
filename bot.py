@@ -67,11 +67,13 @@ if __name__ == "__main__":
 
             cur.execute("""SELECT 1 FROM users WHERE name = %s;""", (screen_name,))
             user_exists = cur.fetchone()
+
+            cur.execute("""SELECT 1 FROM users WHERE tweetid = %s;""", (tweetid,))
+            tweet_exists = cur.fetchone()
+            print tweet_exists
+
             if user_exists == None:
                 print "new player"
-                cur.execute("""SELECT 1 FROM users WHERE tweetid = %s;""", (tweetid,))
-                tweet_exists = cur.fetchone()
-                print tweet_exists
             else:
                 print "current player"
 
