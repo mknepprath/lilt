@@ -58,6 +58,7 @@ if __name__ == "__main__":
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
+            print mention
 
             screen_name = mention.user.screen_name
             user_id = mention.user.id
@@ -73,8 +74,6 @@ if __name__ == "__main__":
 
         except:
             pass
-
-    print mentions
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
