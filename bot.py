@@ -69,7 +69,7 @@ if __name__ == "__main__":
             user_exists = cur.fetchone()
             if user_exists == None:
                 print "new player"
-                cur.execute("""SELECT 1 FROM users WHERE tweetid = %s;""", (str(tweetid),))
+                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (str(tweetid),))
                 tweet_exists = cur.fetchone()
                 if tweet_exists == None:
                     print "new tweet"
