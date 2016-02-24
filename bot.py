@@ -65,10 +65,10 @@ if __name__ == "__main__":
             tweetid = mention.id
 
             mentions.append({
-                'screen_name': screen_name,
-                'user_id': user_id,
-                'tweet': tweet,
-                'tweetid': tweetid
+                screen_name,
+                user_id,
+                tweet,
+                tweetid
             })
 
         except:
