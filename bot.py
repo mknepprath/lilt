@@ -67,7 +67,10 @@ if __name__ == "__main__":
 
             cur.execute("""SELECT 1 FROM users WHERE name = %s;""", (screen_name,))
             user_exists = cur.fetchone()
-            print user_exists
+            if user_exists == None:
+                print "new player"
+            else:
+                print "current player"
 
             cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
             #conn.commit()
