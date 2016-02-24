@@ -68,7 +68,7 @@ if __name__ == "__main__":
             cur.execute("""SELECT 1 FROM users WHERE name = %s;""", (screen_name,))
             user_exists = cur.fetchone()
 
-            cur.execute("""SELECT 1 FROM users WHERE tweetid = %s;""", (tweetid,))
+            cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (tweetid,))
             tweet_exists = cur.fetchone()
             print tweet_exists
 
