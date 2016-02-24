@@ -54,6 +54,28 @@ if __name__ == "__main__":
     #    except:
     #        pass
 
+    mentions = []
+
+    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+        try:
+
+            screen_name = mention.user.screen_name
+            user_id = mention.user.id
+            game_name, tweet = (mention.text).split(" ",1)
+            tweetid = mention.id
+
+            mentions.append({
+                screen_name: screen_name,
+                user_id: user_id,
+                tweet: tweet,
+                tweetid: tweetid
+            })
+
+        except:
+            pass
+
+    print mentions
+
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
 
