@@ -64,12 +64,16 @@ if __name__ == "__main__":
             for m in mentions:
                 try:
                     if mention.user.id == m['user_id']:
-                        print "SAME"
+                        print "SAME ID"
                         mentioned = True
+                    else:
+                        print "NEW ID"
                 except:
                     pass
 
             if mentioned == True:
+                print "ALREADY GOT MOST RECENT TWEET"
+            else:
                 mentions.append({
                     'screen_name': mention.user.screen_name,
                     'user_id': mention.user.id,
