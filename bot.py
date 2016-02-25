@@ -123,6 +123,7 @@ if __name__ == "__main__":
                 conn.commit()
 
             # the below stuff should get moved into if statements above
+            # also might want to add double check to make sure tweet sent
             if doreply == True:
                 print tweet
 
@@ -132,12 +133,12 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print message
                     print int(tweetid)
-                    twitter.reply(message, int(tweetid))
+                    twitter.reply(message, str(tweetid))
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print message
                     print int(tweetid)
-                    twitter.reply(message, int(tweetid))
+                    twitter.reply(message, str(tweetid))
         except:
             pass
 
