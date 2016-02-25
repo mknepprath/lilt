@@ -58,6 +58,8 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    twitter.reply('@katobeeronsale what up test tweet geohgoho', 702898656072986624)
+
     # go through mentions from Twitter using Tweepy
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
@@ -121,8 +123,6 @@ if __name__ == "__main__":
                 cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
                 doreply = True
                 conn.commit()
-
-            twitter.reply('@katobeeronsale what up test tweet geohgoho', '702898656072986624')
 
             # the below stuff should get moved into if statements above
             # also might want to add double check to make sure tweet sent
