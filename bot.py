@@ -74,15 +74,13 @@ if __name__ == "__main__":
         except:
             pass
 
-    print mentions[0]['screen_name']
-
-    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+    for mention in mentions:
         try:
 
-            screen_name = mention.user.screen_name
-            user_id = mention.user.id
-            game_name, tweet = (mention.text).split(" ",1)
-            tweetid = mention.id
+            screen_name = mention['screen_name']
+            user_id = mention['user_id']
+            tweet = mention['tweet']
+            tweetid = mention['tweetid']
 
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
