@@ -61,9 +61,8 @@ if __name__ == "__main__":
             game_name, tweet = (mention.text).split(" ",1)
 
             print mention.user.screen_name
-            print mentions.values()
 
-            if mention.user.screen_name in mentions.values():
+            if mention.user.screen_name in mentions.intervalues():
                 print "repeat: " + mention.user.screen_name
             else:
                 mentions.append({
