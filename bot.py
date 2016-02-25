@@ -131,11 +131,11 @@ if __name__ == "__main__":
                 if tweet == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print message
-                    twitter.reply(message, tweetid)
+                    twitter.reply(message, int(tweetid))
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print message
-                    twitter.reply(message, tweetid)
+                    twitter.reply(message, int(tweetid))
         except:
             pass
 
