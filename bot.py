@@ -103,7 +103,7 @@ if __name__ == "__main__":
             user_exists = cur.fetchone()
             # if they're in the table, grab tweet id from table
             if user_exists != None:
-                print "current player"
+                print "current player: " + screen_name
                 cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (str(tweetid),))
                 tweet_exists = cur.fetchone()
                 # if tweetid isn't in users table, update tweetid
@@ -117,27 +117,27 @@ if __name__ == "__main__":
                     print "old tweet"
             else:
                 # if user is not in the users table, add user and tweetid
-                print "new player"
+                print "new player: " + screen_name
                 cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
                 reply = True
                 conn.commit()
 
-            # the below stuff should get moved into if statements above
-            # also might want to add double check to make sure tweet sent
+            # might want to add double check to make sure tweet sent
+            # if this mention should be replied to, do so
             if reply == True:
-                print tweet
+                print "tweet: " + tweet
 
+                # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
+                # if tweet is start, init game - otherwise give error
                 if tweet == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
-                    print message
-                    print int(tweetid)
+                    print "reply: " + message
                     twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                    print message
-                    print int(tweetid)
+                    print "reply: " + message
                     twitter.reply(message, tweetid)
         except:
             pass
