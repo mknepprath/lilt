@@ -58,9 +58,6 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
-    randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-    twitter.reply('@katobeeronsale what up test tweet geohgoho ' + randstring, 702898656072986624)
-
     # go through mentions from Twitter using Tweepy
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
