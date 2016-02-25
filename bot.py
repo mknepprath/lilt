@@ -58,25 +58,22 @@ if __name__ == "__main__":
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
-
-            screen_name = mention.user.screen_name
-            user_id = mention.user.id
             game_name, tweet = (mention.text).split(" ",1)
-            tweetid = mention.id
 
-            mentions.append({
-                'screen_name': screen_name,
-                'user_id': user_id,
-                'tweet': tweet,
-                'tweetid': tweetid
-            })
-
+            if mention.user.screen_name not in mentions.values():
+                mentions.append({
+                    'screen_name': mention.user.screen_name,
+                    'user_id': mention.user.id,
+                    'tweet': tweet,
+                    'tweetid': mention.id
+                })
+            else:
+                pass
         except:
             pass
 
     for mention in mentions:
         try:
-
             screen_name = mention['screen_name']
             user_id = mention['user_id']
             tweet = mention['tweet']
