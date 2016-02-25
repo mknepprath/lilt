@@ -58,6 +58,8 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    twitter.reply('@katobeeronsale what up test tweet geohgoho', 702898656072986624)
+
     # go through mentions from Twitter using Tweepy
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
