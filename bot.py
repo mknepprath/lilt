@@ -118,7 +118,7 @@ if __name__ == "__main__":
             else:
                 # if user is not in the users table, add user and tweet_id
                 print "new player: " + screen_name
-                cur.execute("INSERT INTO users (name, id, last_tweet) VALUES (%s, %s, %s)", (screen_name, user_id, tweet_id))
+                cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweet_id))
                 reply = True
                 conn.commit()
 
