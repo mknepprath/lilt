@@ -92,6 +92,7 @@ if __name__ == "__main__":
             user_id = mention['user_id']
             tweet = mention['tweet']
             tweetid = mention['tweetid']
+            reply = False
 
             # ... this might not be necessary. assigns user data to users
             cur.execute("SELECT * FROM users")
@@ -109,7 +110,8 @@ if __name__ == "__main__":
                 if tweet_exists == None:
                     print "new tweet"
                     cur.execute("UPDATE users SET last_tweet_id = %s WHERE name = %s;", (tweetid, screen_name))
-                    #conn.commit()
+                    reply = True
+                    conn.commit()
                 # otherwise, do nothing - tweet has already been replied to
                 else:
                     print "old tweet"
@@ -117,21 +119,23 @@ if __name__ == "__main__":
                 # if user is not in the users table, add user and tweetid
                 print "new player"
                 cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-                #conn.commit()
+                reply = True
+                conn.commit()
 
             # the below stuff should get moved into if statements above
-            print tweet
+            if reply = True:
+                print tweet
 
-            randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
-            if tweet == "start":
-                message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
-                print message
-                twitter.reply(message, tweetid)
-            else:
-                message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                print message
-                twitter.reply(message, tweetid)
+                if tweet == "start":
+                    message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
+                    print message
+                    twitter.reply(message, tweetid)
+                else:
+                    message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
+                    print message
+                    twitter.reply(message, tweetid)
         except:
             pass
 
