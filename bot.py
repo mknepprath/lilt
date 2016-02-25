@@ -74,7 +74,7 @@ if __name__ == "__main__":
         except:
             pass
 
-    print mentions[0].screen_name
+    print mentions[0]['screen_name']
 
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
