@@ -40,9 +40,9 @@ class TwitterAPI:
         """Send a tweet"""
         self.api.update_status(status=message)
 
-    def reply(self, message, tweet_id):
+    def reply(self, message, tweetid):
         """Send a tweet"""
-        self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
+        self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                     'screen_name': mention.user.screen_name,
                     'user_id': mention.user.id,
                     'tweet': tweet,
-                    'tweet_id': mention.id
+                    'tweetid': mention.id
                 })
 
         except:
@@ -91,7 +91,7 @@ if __name__ == "__main__":
             screen_name = mention['screen_name']
             user_id = mention['user_id']
             tweet = mention['tweet']
-            tweet_id = mention['tweet_id']
+            tweetid = mention['tweetid']
             reply = False
 
             # ... this might not be necessary. assigns user data to users
@@ -104,21 +104,21 @@ if __name__ == "__main__":
             # if they're in the table, grab tweet id from table
             if user_exists != None:
                 print "current player: " + screen_name
-                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (str(tweet_id),))
+                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (str(tweetid),))
                 tweet_exists = cur.fetchone()
-                # if tweet_id isn't in users table, update tweet_id
+                # if tweetid isn't in users table, update tweetid
                 if tweet_exists == None:
                     print "new tweet"
-                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE name = %s;", (tweet_id, screen_name))
+                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE name = %s;", (tweetid, screen_name))
                     reply = True
                     conn.commit()
                 # otherwise, do nothing - tweet has already been replied to
                 else:
                     print "old tweet"
             else:
-                # if user is not in the users table, add user and tweet_id
+                # if user is not in the users table, add user and tweetid
                 print "new player: " + screen_name
-                cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweet_id))
+                cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
                 reply = True
                 conn.commit()
 
@@ -134,7 +134,7 @@ if __name__ == "__main__":
                 if tweet == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweet_id)
+                    twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
