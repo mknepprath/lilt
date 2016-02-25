@@ -122,6 +122,8 @@ if __name__ == "__main__":
                 doreply = True
                 conn.commit()
 
+            twitter.reply('@katobeeronsale what up test tweet geohgoho', '702898656072986624')
+
             # the below stuff should get moved into if statements above
             # also might want to add double check to make sure tweet sent
             if doreply == True:
