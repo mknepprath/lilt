@@ -123,7 +123,7 @@ if __name__ == "__main__":
                 conn.commit()
 
             # the below stuff should get moved into if statements above
-            if reply = True:
+            if reply == True:
                 print tweet
 
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
