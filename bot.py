@@ -64,6 +64,7 @@ if __name__ == "__main__":
 
             for m in mentions:
                 try:
+                    print "m: " + m['screen_name']
                     if mention.user.screen_name in m.values():
                         print "repeat: " + mention.user.screen_name
                     else:
