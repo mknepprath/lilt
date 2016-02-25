@@ -60,6 +60,9 @@ if __name__ == "__main__":
         try:
             game_name, tweet = (mention.text).split(" ",1)
 
+            print mention.user.screen_name
+            print mentions.values()
+            
             if mention.user.screen_name not in mentions.values():
                 mentions.append({
                     'screen_name': mention.user.screen_name,
@@ -67,8 +70,7 @@ if __name__ == "__main__":
                     'tweet': tweet,
                     'tweetid': mention.id
                 })
-            else:
-                pass
+
         except:
             pass
 
