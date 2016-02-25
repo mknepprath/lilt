@@ -64,6 +64,8 @@ if __name__ == "__main__":
                 try:
                     print "mentions screen_name " + mention.user.screen_name
                     print "m screen_name " + m['screen_name']
+                    if mention.user.screen_name == m['screen_name']:
+                        print "SAME"
                 except:
                     pass
 
