@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
             for m in mentions:
                 try:
-                    print m
+                    print m['screen_name']
                 except:
                     pass
 
