@@ -66,8 +66,6 @@ if __name__ == "__main__":
                     if mention.user.id == m['user_id']:
                         print "SAME"
                         mentioned = True
-                    else:
-
                 except:
                     pass
 
