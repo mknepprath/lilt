@@ -58,8 +58,6 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
-    twitter.reply('@katobeeronsale what up test tweet geohgoho', 702898656072986624)
-
     # go through mentions from Twitter using Tweepy
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
@@ -94,7 +92,7 @@ if __name__ == "__main__":
             user_id = mention['user_id']
             tweet = mention['tweet']
             tweetid = mention['tweetid']
-            doreply = False
+            reply = False
 
             # ... this might not be necessary. assigns user data to users
             cur.execute("SELECT * FROM users")
@@ -112,7 +110,7 @@ if __name__ == "__main__":
                 if tweet_exists == None:
                     print "new tweet"
                     cur.execute("UPDATE users SET last_tweet_id = %s WHERE name = %s;", (tweetid, screen_name))
-                    doreply = True
+                    reply = True
                     conn.commit()
                 # otherwise, do nothing - tweet has already been replied to
                 else:
@@ -121,12 +119,12 @@ if __name__ == "__main__":
                 # if user is not in the users table, add user and tweetid
                 print "new player"
                 cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
-                doreply = True
+                reply = True
                 conn.commit()
 
             # the below stuff should get moved into if statements above
             # also might want to add double check to make sure tweet sent
-            if doreply == True:
+            if reply == True:
                 print tweet
 
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -135,12 +133,12 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print message
                     print int(tweetid)
-                    twitter.reply(message, str(tweetid))
+                    twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print message
                     print int(tweetid)
-                    twitter.reply(message, str(tweetid))
+                    twitter.reply(message, tweetid)
         except:
             pass
 
