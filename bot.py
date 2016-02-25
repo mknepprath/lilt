@@ -60,21 +60,25 @@ if __name__ == "__main__":
         try:
             game_name, tweet = (mention.text).split(" ",1)
 
+            mentioned = False
             for m in mentions:
                 try:
-                    print "mentions screen_name " + mention.user.screen_name
-                    print "m screen_name " + m['screen_name']
                     if mention.user.id == m['user_id']:
                         print "SAME"
+                        mentioned = True
+                    else:
+
                 except:
                     pass
 
-            mentions.append({
-                'screen_name': mention.user.screen_name,
-                'user_id': mention.user.id,
-                'tweet': tweet,
-                'tweetid': mention.id
-            })
+            if mentioned == True:
+                mentions.append({
+                    'screen_name': mention.user.screen_name,
+                    'user_id': mention.user.id,
+                    'tweet': tweet,
+                    'tweetid': mention.id
+                })
+
         except:
             pass
 
