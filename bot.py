@@ -59,23 +59,13 @@ if __name__ == "__main__":
     for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
         try:
             game_name, tweet = (mention.text).split(" ",1)
-
-            print mention.user.screen_name
-
-            for m in mentions:
-                try:
-                    print "m: " + m['screen_name']
-                    if mention.user.screen_name in m.values():
-                        print "repeat: " + mention.user.screen_name
-                    else:
-                        mentions.append({
-                            'screen_name': mention.user.screen_name,
-                            'user_id': mention.user.id,
-                            'tweet': tweet,
-                            'tweetid': mention.id
-                        })
-                except:
-                    pass
+            print mentions
+            mentions.append({
+                'screen_name': mention.user.screen_name,
+                'user_id': mention.user.id,
+                'tweet': tweet,
+                'tweetid': mention.id
+            })
         except:
             pass
 
