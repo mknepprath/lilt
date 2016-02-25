@@ -62,6 +62,9 @@ if __name__ == "__main__":
 
             for m in mentions:
                 try:
+                    print "mentions screen_name"
+                    print mention.user.screen_name
+                    print "m screen_name"
                     print m['screen_name']
                 except:
                     pass
