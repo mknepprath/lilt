@@ -61,9 +61,10 @@ if __name__ == "__main__":
             game_name, tweet = (mention.text).split(" ",1)
 
             for m in mentions:
-                print m
-            except:
-                pass
+                try:
+                    print m
+                except:
+                    pass
 
             mentions.append({
                 'screen_name': mention.user.screen_name,
