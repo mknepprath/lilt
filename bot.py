@@ -41,7 +41,7 @@ class TwitterAPI:
         self.api.update_status(status=message)
 
     def reply(self, message, tweetid):
-        """Send a tweet"""
+        """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
 if __name__ == "__main__":
@@ -126,6 +126,7 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 print "tweet: " + tweet
+                # removes punctuation and makes move lowercase
                 exclude = set(string.punctuation)
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
@@ -136,6 +137,10 @@ if __name__ == "__main__":
                 # if move is start, init game - otherwise give error
                 if move == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
+                    print "reply: " + message
+                    twitter.reply(message, tweetid)
+                elif move == "look around":
+                    message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                 else:
