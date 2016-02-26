@@ -127,14 +127,14 @@ if __name__ == "__main__":
             if reply == True:
                 print "tweet: " + tweet
                 exclude = set(string.punctuation)
-                move = ''.join(ch for ch in tweet if ch not in exclude)
+                move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
-                # if tweet is start, init game - otherwise give error
-                if tweet == "start":
+                # if move is start, init game - otherwise give error
+                if move == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
