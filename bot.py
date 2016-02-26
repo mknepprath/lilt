@@ -126,6 +126,9 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 print "tweet: " + tweet
+                exclude = set(string.punctuation)
+                move = ''.join(ch for ch in tweet if ch not in exclude)
+                print "move: " + move
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
