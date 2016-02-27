@@ -149,7 +149,6 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inventory2 = cur.fetchone()
                 inv = json.loads(inventory2[0])
-                print "inventory: " + str(inv)
                 print type(inv)
                 print inv[0]
 
