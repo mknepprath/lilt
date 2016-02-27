@@ -128,11 +128,6 @@ if __name__ == "__main__":
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
 
-                # ... this might not be necessary. assigns user data to users
-                cur.execute("SELECT * FROM users")
-                users = cur.fetchall()
-                print users
-
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
                 user = cur.fetchone()
