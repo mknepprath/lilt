@@ -133,19 +133,16 @@ if __name__ == "__main__":
                 user = cur.fetchone()
                 position = user[0]
                 print "position: " + position
-                inventory = {
-                    "banana": {
-                        quantity: 1,
-                        health: 3
-                    },
-                    "rock": {
-                        quantity: 1,
-                        damage: 1
-                    }
-                }
-                print str(inventory)
-                print str(inventory['banana'])
-                print str(inventory['banana']['quantity'])
+
+                inventory = {}
+                inventory['banana'] = {}
+                inventory['banana']['quantity'] = 1
+                inventory['banana']['health'] = 3
+                inventory['rock'] = {}
+                inventory['rock']['quantity'] = 1
+                inventory['rock']['damage'] = 1
+
+                print inventory['banana']['quantity']
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
