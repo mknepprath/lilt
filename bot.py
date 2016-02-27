@@ -94,11 +94,6 @@ if __name__ == "__main__":
             tweetid = mention['tweetid']
             reply = False
 
-            # ... this might not be necessary. assigns user data to users
-            cur.execute("SELECT * FROM users")
-            users = cur.fetchall()
-            print users
-
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
             user_exists = cur.fetchone()
@@ -133,10 +128,16 @@ if __name__ == "__main__":
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
 
+                # ... this might not be necessary. assigns user data to users
+                cur.execute("SELECT * FROM users")
+                users = cur.fetchall()
+                print users
+
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-                pos = cur.fetchone()
-                print "position: " + str(pos)
+                user = cur.fetchone()
+                position = user[0]
+                print "position: " + str(position)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
