@@ -148,9 +148,9 @@ if __name__ == "__main__":
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inventory2 = cur.fetchone()
-                inv = json.loads(inventory2[0])
-                print type(inv)
-                print inv[0]
+                m = json.dumps(inventory2[0])
+                inv = json.loads(m)
+                print str(inv['banana'])
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
