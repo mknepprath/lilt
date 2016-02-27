@@ -130,18 +130,22 @@ if __name__ == "__main__":
                 exclude = set(string.punctuation)
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
+                # get position of user
+                cur.execute("""SELECT position FROM users WHERE id = %s;""", (str(user_id),))
+                position = cur.fetchone()
+                print "position: " + position
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
                 # if move is start, init game - otherwise give error
-                if move == "start":
+                if (move == "start") and (position == "start"):
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
-                elif move == "look around":
+                elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
