@@ -139,6 +139,8 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
+                    cur.execute("UPDATE users SET position = 'room' WHERE name = %s;", (screen_name,))
+                    conn.commit()
                 elif move == "look around":
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
