@@ -99,7 +99,7 @@ if __name__ == "__main__":
             users = cur.fetchall()
 
             # attempts to grab current user from users table
-            cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (user_id,))
+            cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
             user_exists = cur.fetchone()
             # if they're in the table, grab tweet id from table
             if user_exists != None:
@@ -109,7 +109,7 @@ if __name__ == "__main__":
                 # if tweetid isn't in users table, update tweetid
                 if tweet_exists == None:
                     print "new tweet"
-                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE id = %s;", (tweetid, user_id))
+                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE id = %s;", (tweetid, str(user_id)))
                     reply = True
                     conn.commit()
                 # otherwise, do nothing - tweet has already been replied to
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
-                    cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (user_id,))
+                    cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif move == "look around":
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
