@@ -143,9 +143,9 @@ if __name__ == "__main__":
                         damage: 1
                     }
                 }
-                print inventory
-                print inventory['banana']
-                print inventory['quantity']
+                print str(inventory)
+                print str(inventory['banana'])
+                print str(inventory['banana']['quantity'])
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
