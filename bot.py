@@ -134,10 +134,9 @@ if __name__ == "__main__":
                 print "move: " + move
 
                 # get position
-                cur.execute("""SELECT position FROM users WHERE id = %s;""", (str(user_id),))
+                cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
                 p = cur.fetchone()
                 print "position: " + pl
-
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -146,17 +145,17 @@ if __name__ == "__main__":
                 if move == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    #twitter.reply(message, tweetid)
+                    twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif move == "look around":
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
-                    #twitter.reply(message, tweetid)
+                    twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
-                    #twitter.reply(message, tweetid)
+                    twitter.reply(message, tweetid)
         except:
             pass
 
