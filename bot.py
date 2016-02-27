@@ -127,11 +127,17 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 print "tweet: " + tweet
+
                 # removes punctuation and makes move lowercase
                 exclude = set(string.punctuation)
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
-                # get position of user here
+
+                # get position
+                cur.execute("""SELECT position FROM users WHERE id = %s;""", (str(user_id),))
+                p = cur.fetchone()
+                print "position: " + pl
+
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
