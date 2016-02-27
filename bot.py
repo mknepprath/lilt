@@ -97,6 +97,7 @@ if __name__ == "__main__":
             # ... this might not be necessary. assigns user data to users
             cur.execute("SELECT * FROM users")
             users = cur.fetchall()
+            print users
 
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
@@ -139,17 +140,17 @@ if __name__ == "__main__":
                 if move == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    #twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif move == "look around":
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    #twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    #twitter.reply(message, tweetid)
         except:
             pass
 
