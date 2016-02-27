@@ -135,8 +135,8 @@ if __name__ == "__main__":
 
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-                p = cur.fetchone()
-                print "position: "
+                pos = cur.fetchone()
+                print "position: " + str(pos)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
