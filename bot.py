@@ -151,6 +151,7 @@ if __name__ == "__main__":
                 inv = inventory2[0]
                 print "inventory: " + str(inv)
                 print type(inv)
+                print inv[0]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
