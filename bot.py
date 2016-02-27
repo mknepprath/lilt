@@ -150,7 +150,7 @@ if __name__ == "__main__":
                 inventory2 = cur.fetchone()
                 inv = inventory2[0]
                 print "inventory: " + str(inv)
-                print inv['banana']['quantity']
+                print type(inv)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
