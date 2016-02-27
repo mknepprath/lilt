@@ -139,13 +139,13 @@ if __name__ == "__main__":
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
                 # if move is start, init game - otherwise give error
-                if (move == "start") and (position == "start"):
+                if move == "start":
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
-                elif (move == "look around") and (position == "room"):
+                elif move == "look around":
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
                     twitter.reply(message, tweetid)
