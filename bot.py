@@ -141,6 +141,7 @@ if __name__ == "__main__":
                 inventory['rock'] = {}
                 inventory['rock']['quantity'] = 1
                 inventory['rock']['damage'] = 1
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (inventory, str(user_id)))
 
                 print inventory['banana']['quantity']
 
