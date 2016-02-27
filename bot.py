@@ -130,10 +130,7 @@ if __name__ == "__main__":
                 exclude = set(string.punctuation)
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
-                # get position of user
-                cur.execute("""SELECT position FROM users WHERE id = %s;""", (str(user_id),))
-                position = cur.fetchone()
-                print "position: " + position
+                # get position of user here
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
