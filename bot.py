@@ -143,7 +143,13 @@ if __name__ == "__main__":
                 inventory['rock']['damage'] = 1
 
                 print inventory['banana']['quantity']
-                cur.execute("""UPDATE users SET inventory = %s WHERE id = %s;""", (str(inventory), str(user_id)))
+                # cur.execute("""UPDATE users SET inventory = %s WHERE id = %s;""", (str(inventory), str(user_id)))
+
+                # get inventory
+                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+                inventory2 = cur.fetchone()
+                inv = inventory2[0]
+                print "inventory: " + str(inv)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
