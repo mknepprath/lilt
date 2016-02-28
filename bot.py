@@ -91,7 +91,7 @@ if __name__ == "__main__":
     mentions.append({
         'screen_name': 'mknepprath',
         'user_id': 15332057,
-        'tweet': 'pick up apple',
+        'tweet': 'pick up banana',
         'tweetid': 703619369989853185
     })
 
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             user_id = mention['user_id']
             tweet = mention['tweet']
             tweetid = mention['tweetid']
-    #make false once debugging is done
+    #       make false once debugging is done
             reply = True
 
             # attempts to grab current user from users table
