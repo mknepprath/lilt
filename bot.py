@@ -187,7 +187,7 @@ if __name__ == "__main__":
                                     message += u'\u2022'
                                 except:
                                     pass
-                            message += ' , '
+                            message += ', '
                         except:
                             pass
                     print "reply: " + message
