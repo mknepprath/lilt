@@ -181,13 +181,13 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' '
                     for item in inventory:
                         try:
-                            message += item
+                            message += item + ' '
                             for quantity in item:
                                 try:
                                     message += u'\u2022'
                                 except:
                                     pass
-                            message += ', '
+                            message += ' , '
                         except:
                             pass
                     print "reply: " + message
