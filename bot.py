@@ -153,7 +153,7 @@ if __name__ == "__main__":
                 print str(inventory['apple'])
                 print str(inventory['banana'])
                 print inventory
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory), str(user_id)))
+                cur.execute("UPDATE users SET inventory = '{"banana": {"quantity": 1, "health": 3}, "rock": {"quantity": 3, "damage": 1}}' WHERE id = %s;", (str(user_id),))
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
