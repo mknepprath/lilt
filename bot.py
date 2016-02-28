@@ -101,7 +101,8 @@ if __name__ == "__main__":
             user_id = mention['user_id']
             tweet = mention['tweet']
             tweetid = mention['tweetid']
-            reply = False
+    #make false once debugging is done
+            reply = True
 
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
