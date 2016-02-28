@@ -182,12 +182,12 @@ if __name__ == "__main__":
                     for item in inventory:
                         try:
                             message += item
-                            message += ', '
                             for quantity in item:
                                 try:
                                     message += u'\u2022'
                                 except:
                                     pass
+                            message += ', '
                         except:
                             pass
                     print "reply: " + message
