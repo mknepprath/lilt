@@ -158,9 +158,9 @@ if __name__ == "__main__":
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(invb), str(user_id),))
                 #get inventory again
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inva = cur.fetchone()
+                invc = cur.fetchone()
                 print "updated inventory:"
-                print inva[0]
+                print invc[0]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
