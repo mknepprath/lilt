@@ -159,7 +159,8 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     inventory['apple'] = {}
                     inventory['apple']['quantity'] = 1
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory, user_id)))
+                    print str(inventory['apple'])
+                    #cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory, user_id)))
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                 else:
