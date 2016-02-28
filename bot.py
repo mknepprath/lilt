@@ -146,7 +146,8 @@ if __name__ == "__main__":
 
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inventory = cur.fetchone()
+                inv = cur.fetchone()
+                inventory = inv[0]
                 print inventory
                 inventory['apple'] = {}
                 inventory['apple']['quantity'] = 1
