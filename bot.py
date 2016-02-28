@@ -146,14 +146,8 @@ if __name__ == "__main__":
 
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inva = cur.fetchone()
-                inventory = json.loads(inva[0])
-                inventoryb = json.loads(cur.fetchone()[0])
-                print inventory
-                print inventoryb
-                inventory['banana']['quantity'] = 2
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                conn.commit()
+                inv = cur.fetchone()
+                inventory = json.loads(inv[0])
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -171,6 +165,16 @@ if __name__ == "__main__":
     #                twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
+                    inventory['apple']['quantity'] += 1
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                    conn.commit()
+                    print "reply: " + message
+    #                twitter.reply(message, tweetid)
+                elif (move == "pick up banana") and (position == "room"):
+                    message = '@' + screen_name + ' You acquired an banana. ' + randstring
+                    inventory['banana']['quantity'] += 1
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                    conn.commit()
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 else:
