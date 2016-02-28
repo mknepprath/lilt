@@ -150,7 +150,7 @@ if __name__ == "__main__":
                 print "old inventory:"
                 print inva[0]
                 inventory = json.loads(inva[0])
-                inventory['banana']['quantity'] = 3
+                inventory['banana']['quantity'] = 2
                 # push inventory
                 invb = json.dumps(inventory)
                 print "new inventory:"
