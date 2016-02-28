@@ -135,22 +135,11 @@ if __name__ == "__main__":
                 position = user[0]
                 print "position: " + position
 
-                inventory = {}
-                inventory['banana'] = {}
-                inventory['banana']['quantity'] = 1
-                inventory['banana']['health'] = 3
-                inventory['rock'] = {}
-                inventory['rock']['quantity'] = 1
-                inventory['rock']['damage'] = 1
-
-                print inventory['banana']['quantity']
-                # cur.execute("""UPDATE users SET inventory = %s WHERE id = %s;""", (str(inventory), str(user_id)))
-
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inventory2 = cur.fetchone()
-                inv = json.loads(inventory2[0])
-                print str(inv['banana'])
+                inv = cur.fetchone()
+                inventory = json.loads(inv[0])
+                print str(inventory['banana'])
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -164,6 +153,13 @@ if __name__ == "__main__":
                     conn.commit()
                 elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
+                    print "reply: " + message
+                    twitter.reply(message, tweetid)
+                elif (move == "pick up apple") and (position == "room"):
+                    message = '@' + screen_name + ' You acquired an apple. ' + randstring
+                    inventory['apple'] = {}
+                    inventory['apple']['quantity'] = 1
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory, user_id)))
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                 else:
