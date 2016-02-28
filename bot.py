@@ -147,21 +147,13 @@ if __name__ == "__main__":
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inva = cur.fetchone()
-                print "old inventory:"
-                print inva[0]
                 inventory = json.loads(inva[0])
+                inventoryb = json.loads((cur.fetchone)[0])
+                print inventory
+                print inventoryb
                 inventory['banana']['quantity'] = 2
-                # push inventory
-                invb = json.dumps(inventory)
-                print "new inventory:"
-                print invb
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
-                #get inventory again
-                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                invc = cur.fetchone()
-                print "updated inventory:"
-                print invc[0]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
