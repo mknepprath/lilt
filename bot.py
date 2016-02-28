@@ -150,8 +150,8 @@ if __name__ == "__main__":
                 print inva
                 inventory = json.loads(inva[0])
                 print inventory
-                inventory['apple'] = {}
-                inventory['apple']['quantity'] = 1
+                inventory['banana'] = {}
+                inventory['banana']['quantity'] = 1
                 print type(inventory)
                 print inventory
                 invb = json.dumps(inventory)
