@@ -149,6 +149,7 @@ if __name__ == "__main__":
                 inv = cur.fetchone()
                 inventory = inv[0]
                 print inventory
+                print type(inventory)
                 print str(inventory['banana'])
                 print inventory
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (inventory, str(user_id),))
