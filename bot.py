@@ -152,6 +152,7 @@ if __name__ == "__main__":
                 inventory['apple'] = {}
                 inventory['apple']['quantity'] = 1
                 print type(inventory)
+                print inventory
                 cur.execute("UPDATE users SET inventory = %s::json WHERE id = %s;", (inventory, str(user_id),))
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
