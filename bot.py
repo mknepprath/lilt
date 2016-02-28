@@ -149,10 +149,10 @@ if __name__ == "__main__":
                 inva = cur.fetchone()
                 inventory = json.loads(inva[0])
                 print inventory
+                inventory['apple'] = {}
+                inventory['apple']['quantity'] = 1
                 print type(inventory)
-                invb = str(inventory)
-                print invb
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (invb, str(user_id),))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.load(inventory), str(user_id),))
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
