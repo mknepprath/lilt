@@ -147,13 +147,9 @@ if __name__ == "__main__":
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inva = cur.fetchone()
-                print inva
+                print inva[0]
                 inventory = json.loads(inva[0])
-                print inventory
-                inventory['banana'] = {}
-                inventory['banana']['quantity'] = 1
-                print type(inventory)
-                print inventory
+                inventory['banana']['quantity'] = 3
                 invb = json.dumps(inventory)
                 print invb
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
