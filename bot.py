@@ -156,6 +156,7 @@ if __name__ == "__main__":
                 print "new inventory:"
                 print invb
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(invb), str(user_id),))
+                conn.commit()
                 #get inventory again
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 invc = cur.fetchone()
