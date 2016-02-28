@@ -178,10 +178,16 @@ if __name__ == "__main__":
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 elif (move == "inventory"):
-                    message = '@' + screen_name + " "
+                    message = '@' + screen_name + ' '
                     for item in inventory:
                         try:
-                            message += " " + item
+                            message += item
+                            message += ', '
+                            for quantity in item:
+                                try:
+                                    message += '•'
+                                except:
+                                    pass
                         except:
                             pass
                     print "reply: " + message
