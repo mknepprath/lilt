@@ -91,7 +91,7 @@ if __name__ == "__main__":
     mentions.append({
         'screen_name': 'mknepprath',
         'user_id': 15332057,
-        'tweet': 'pick up banana',
+        'tweet': 'inventory',
         'tweetid': 703619369989853185
     })
 
@@ -175,6 +175,10 @@ if __name__ == "__main__":
                     inventory['banana']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
+                    print "reply: " + message
+    #                twitter.reply(message, tweetid)
+                elif (move == "inventory"):
+                    message = '@' + screen_name + " " + str(inventory)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 else:
