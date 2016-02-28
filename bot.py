@@ -139,6 +139,10 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
                 inventory = json.loads(inv[0])
+                inventory['apple'] = {}
+                inventory['apple']['quantity'] = 1
+                print str(inventory['apple'])
+                #cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory, user_id)))
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -156,10 +160,6 @@ if __name__ == "__main__":
                     twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
-                    inventory['apple'] = {}
-                    inventory['apple']['quantity'] = 1
-                    print str(inventory)
-                    #cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (str(inventory, user_id)))
                     print "reply: " + message
                     twitter.reply(message, tweetid)
                 else:
