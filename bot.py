@@ -185,7 +185,7 @@ if __name__ == "__main__":
                             message += ', '
                             for quantity in item:
                                 try:
-                                    message += '•'
+                                    message += u'\u2022'
                                 except:
                                     pass
                         except:
