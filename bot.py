@@ -60,32 +60,40 @@ if __name__ == "__main__":
     mentions = []
 
     # go through mentions from Twitter using Tweepy
-    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
-        try:
+    #for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+    #    try:
             # splits tweet at first space, game_name = @familiarlilt
-            game_name, tweet = (mention.text).split(" ",1)
+    #        game_name, tweet = (mention.text).split(" ",1)
 
             # init mentioned
-            mentioned = False
+    #        mentioned = False
             # runs through mentions and notes if current user has been mentioned
-            for m in mentions:
-                try:
-                    if mention.user.id == m['user_id']:
-                        mentioned = True
-                except:
-                    pass
+    #        for m in mentions:
+    #            try:
+    #                if mention.user.id == m['user_id']:
+    #                    mentioned = True
+    #            except:
+    #                pass
 
             # if user was already added, don't append it to mentions again
-            if mentioned != True:
-                mentions.append({
-                    'screen_name': mention.user.screen_name,
-                    'user_id': mention.user.id,
-                    'tweet': tweet,
-                    'tweetid': mention.id
-                })
+    #        if mentioned != True:
+    #            mentions.append({
+    #                'screen_name': mention.user.screen_name,
+    #                'user_id': mention.user.id,
+    #                'tweet': tweet,
+    #                'tweetid': mention.id
+    #            })
 
-        except:
-            pass
+    #    except:
+    #        pass
+
+    #just for testing purposes
+    mentions.append({
+        'screen_name': 'mknepprath',
+        'user_id': 15332057,
+        'tweet': 'pick up apple',
+        'tweetid': 703648600958500864
+    })
 
     for mention in mentions:
         try:
@@ -153,21 +161,21 @@ if __name__ == "__main__":
                 if (move == "start") and (position == "start"):
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+    #                twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+    #                twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+    #                twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+    #                twitter.reply(message, tweetid)
         except:
             pass
 
