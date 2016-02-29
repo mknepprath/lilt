@@ -184,7 +184,7 @@ if __name__ == "__main__":
                     while i < len(items):
                         for _ in range(inventory[items[i]]['quantity']):
                             items[i] += u'\u2022'
-                        index += 1
+                        i += 1
                     print "item 1: " + items[0]
                     print "item 2: " + items[1]
                     print "item 3: " + items[2]
