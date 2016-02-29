@@ -88,12 +88,12 @@ if __name__ == "__main__":
             pass
 
     #just for testing purposes
-    mentions.append({
-        'screen_name': 'mknepprath',
-        'user_id': 15332057,
-        'tweet': 'inventory',
-        'tweetid': 703619369989853185
-    })
+    #mentions.append({
+    #    'screen_name': 'mknepprath',
+    #    'user_id': 15332057,
+    #    'tweet': 'inventory',
+    #    'tweetid': 703619369989853185
+    #})
 
     for mention in mentions:
         try:
