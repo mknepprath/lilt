@@ -191,12 +191,10 @@ if __name__ == "__main__":
                             message += ', '
                         except:
                             pass
-                    for item in items:
-                        try:
-                            item += u'\u2022'
-                            print item
-                        except:
-                            pass
+                    index = 0
+                    while index < len(items):
+                        items[index] += u'\u2022'
+                        index += 1
                     print "items: " + str(items)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
