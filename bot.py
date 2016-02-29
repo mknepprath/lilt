@@ -7,6 +7,9 @@ import psycopg2
 import urlparse
 import json
 
+debug = False
+delete_tweets = False
+
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
 
@@ -49,51 +52,54 @@ if __name__ == "__main__":
     twitter = TwitterAPI()
 
     # deletes all tweets so far
-    #for status in tweepy.Cursor(twitter.api.user_timeline).items():
-    #    try:
-    #        print status.text
-    #        twitter.api.destroy_status(status.id)
-    #    except:
-    #        pass
+    if delete_tweets == True:
+        for status in tweepy.Cursor(twitter.api.user_timeline).items():
+            try:
+                print status.text
+                twitter.api.destroy_status(status.id)
+            except:
+                pass
 
     # init mentions
     mentions = []
 
-    # go through mentions from Twitter using Tweepy
-    for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
-        try:
-            # splits tweet at first space, game_name = @familiarlilt
-            game_name, tweet = (mention.text).split(" ",1)
+    if debug == False:
+        # go through mentions from Twitter using Tweepy
+        for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+            try:
+                # splits tweet at first space, game_name = @familiarlilt
+                game_name, tweet = (mention.text).split(" ",1)
 
-            # init mentioned
-            mentioned = False
-            # runs through mentions and notes if current user has been mentioned
-            for m in mentions:
-                try:
-                    if mention.user.id == m['user_id']:
-                        mentioned = True
-                except:
-                    pass
+                # init mentioned
+                mentioned = False
+                # runs through mentions and notes if current user has been mentioned
+                for m in mentions:
+                    try:
+                        if mention.user.id == m['user_id']:
+                            mentioned = True
+                    except:
+                        pass
 
-            # if user was already added, don't append it to mentions again
-            if mentioned != True:
-                mentions.append({
-                    'screen_name': mention.user.screen_name,
-                    'user_id': mention.user.id,
-                    'tweet': tweet,
-                    'tweetid': mention.id
-                })
+                # if user was already added, don't append it to mentions again
+                if mentioned != True:
+                    mentions.append({
+                        'screen_name': mention.user.screen_name,
+                        'user_id': mention.user.id,
+                        'tweet': tweet,
+                        'tweetid': mention.id
+                    })
 
-        except:
-            pass
+            except:
+                pass
 
-    #just for testing purposes
-    #mentions.append({
-    #    'screen_name': 'mknepprath',
-    #    'user_id': 15332057,
-    #    'tweet': 'inventory',
-    #    'tweetid': 703619369989853185
-    #})
+    if debug == True:
+        # just for testing purposes
+        mentions.append({
+            'screen_name': 'mknepprath',
+            'user_id': 15332057,
+            'tweet': 'inventory', # update this with tweet to test
+            'tweetid': 703619369989853185
+        })
 
     for mention in mentions:
         try:
@@ -156,27 +162,31 @@ if __name__ == "__main__":
                 if (move == "start") and (position == "start"):
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     inventory['apple']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an banana. ' + randstring
                     inventory['banana']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
                 elif (move == "inventory"):
                     items = list(inventory.keys())
                     i = 0
@@ -187,11 +197,13 @@ if __name__ == "__main__":
                         i += 1
                     message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
-                    twitter.reply(message, tweetid)
+                    if debug == False
+                        twitter.reply(message, tweetid)
         except:
             pass
 
