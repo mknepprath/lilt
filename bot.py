@@ -107,7 +107,6 @@ if __name__ == "__main__":
             user_id = mention['user_id']
             tweet = mention['tweet']
             tweetid = mention['tweetid']
-    #       make false once debugging is done
             reply = False
 
             # attempts to grab current user from users table
@@ -133,6 +132,9 @@ if __name__ == "__main__":
                 cur.execute("INSERT INTO users (name, id, last_tweet_id) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid))
                 reply = True
                 conn.commit()
+
+            if debug == True:
+                reply = True
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
@@ -160,30 +162,30 @@ if __name__ == "__main__":
 
                 # if move is start, init game - otherwise give error
                 if (move == "start") and (position == "start"):
+                    cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
+                    conn.commit()
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
-                    cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
-                    conn.commit()
                 elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
-                    message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     inventory['apple']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
+                    message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
-                    message = '@' + screen_name + ' You acquired a banana. ' + randstring
                     inventory['banana']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
+                    message = '@' + screen_name + ' You acquired a banana. ' + randstring
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
