@@ -182,6 +182,7 @@ if __name__ == "__main__":
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
+                        items[i] += ' '
                         for _ in range(inventory[items[i]]['quantity']):
                             items[i] += u'\u2022'
                         i += 1
