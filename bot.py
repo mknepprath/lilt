@@ -181,7 +181,7 @@ if __name__ == "__main__":
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
-                        iq = inventory[item]['quantity'] # item quantity
+                        iq = inventory[items[i]]['quantity'] # item quantity
                         if iq > 1:
                             items[i] += " "
                             for _ in range(iq):
