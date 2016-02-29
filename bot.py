@@ -183,11 +183,12 @@ if __name__ == "__main__":
 
                     index = 0
                     while index < len(items):
-                        for _ in range(inventory[items[index]]['quantity']):
-                            print "test"
+                        for _ in range(inventory[index]['quantity']):
                             items[index] += u'\u2022'
                         index += 1
-                    print "item: " + items[0]
+                    print "item 1: " + items[0]
+                    print "item 2: " + items[1]
+                    print "item 3: " + items[2]
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 else:
