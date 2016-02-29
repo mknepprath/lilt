@@ -193,12 +193,7 @@ if __name__ == "__main__":
                             pass
                     for item in items:
                         try:
-                            item += ' '
-                            for quantity in item:
-                                try:
-                                    item += u'\u2022'
-                                except:
-                                    pass
+                            print item
                         except:
                             pass
                     print "items: " + str(items)
