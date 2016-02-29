@@ -180,9 +180,9 @@ if __name__ == "__main__":
                 elif (move == "inventory"):
                     message = '@' + screen_name + ' '
                     items = []
-                    for i, item in enumerate(inventory):
+                    for index, item in enumerate(inventory):
                         try:
-                            items[i] = item
+                            items[index] = item
                             message += item + ' '
                             for quantity in item:
                                 try:
