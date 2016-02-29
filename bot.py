@@ -162,14 +162,14 @@ if __name__ == "__main__":
                 if (move == "start") and (position == "start"):
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                 elif (move == "look around") and (position == "room"):
                     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
@@ -177,7 +177,7 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
                     message = '@' + screen_name + ' You acquired an banana. ' + randstring
@@ -185,7 +185,7 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "inventory"):
                     items = list(inventory.keys())
@@ -197,12 +197,12 @@ if __name__ == "__main__":
                         i += 1
                     message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
-                    if debug == False
+                    if debug == False:
                         twitter.reply(message, tweetid)
         except:
             pass
