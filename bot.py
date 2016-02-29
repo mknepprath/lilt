@@ -7,7 +7,7 @@ import psycopg2
 import urlparse
 import json
 
-debug = False
+debug = True
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
