@@ -180,11 +180,9 @@ if __name__ == "__main__":
                 elif (move == "inventory"):
                     message = '@' + screen_name + ' '
                     items = list(inventory.keys())
-
                     i = 0
                     while i < len(items):
-                        item = items[i]
-                        for _ in range(inventory[item]['quantity']):
+                        for _ in range(inventory[item[i]]['quantity']):
                             items[i] += u'\u2022'
                         index += 1
                     print "item 1: " + items[0]
