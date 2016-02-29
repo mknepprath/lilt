@@ -191,6 +191,16 @@ if __name__ == "__main__":
                             message += ', '
                         except:
                             pass
+                    for item in items:
+                        try:
+                            item += ' '
+                            for quantity in item:
+                                try:
+                                    item += u'\u2022'
+                                except:
+                                    pass
+                        except:
+                            pass
                     print "items: " + str(items)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
