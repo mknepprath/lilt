@@ -181,11 +181,12 @@ if __name__ == "__main__":
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
-                        item = items[i]
-                        items[i] += " "
-                        for _ in range(inventory[item]['quantity']):
-                            items[i] += u'\u2022'
-                        i += 1
+                        iq = inventory[item]['quantity'] # item quantity
+                        if iq > 1:
+                            items[i] += " "
+                            for _ in range(iq):
+                                items[i] += u'\u2022'
+                            i += 1
                     print "item 1: " + items[0]
                     print "item 2: " + items[1]
                     print "item 3: " + items[2]
