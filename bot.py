@@ -180,7 +180,7 @@ if __name__ == "__main__":
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
-                    message = '@' + screen_name + ' You acquired an banana. ' + randstring
+                    message = '@' + screen_name + ' You acquired a banana. ' + randstring
                     inventory['banana']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
