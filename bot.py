@@ -195,7 +195,7 @@ if __name__ == "__main__":
                     while index < len(items):
                         items[index] += u'\u2022'
                         index += 1
-                    print "items: " + str(items)
+                    print "item: " + items[0]
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 else:
