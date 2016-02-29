@@ -181,10 +181,11 @@ if __name__ == "__main__":
                     message = '@' + screen_name + ' '
                     items = list(inventory.keys())
 
-                    index = 0
-                    while index < len(items):
-                        for _ in range(inventory[index]['quantity']):
-                            items[index] += u'\u2022'
+                    i = 0
+                    while i < len(items):
+                        item = items[i]
+                        for _ in range(inventory[item]['quantity']):
+                            items[i] += u'\u2022'
                         index += 1
                     print "item 1: " + items[0]
                     print "item 2: " + items[1]
