@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
                     index = 0
                     while index < len(items):
-                        for _ in range(inventory[item])
+                        for _ in range(inventory[item]['quantity'])
                             print "test"
                             items[index] += u'\u2022'
                         index += 1
