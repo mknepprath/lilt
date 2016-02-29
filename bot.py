@@ -191,7 +191,7 @@ if __name__ == "__main__":
                             message += ', '
                         except:
                             pass
-                    print "items: " + items
+                    print "items: " + str(items)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
                 else:
