@@ -183,9 +183,8 @@ if __name__ == "__main__":
                     while i < len(items):
                         items[i] += ' ' # such as banana
                         for _ in range(inventory[items[i]]['quantity']): # would then read as inventory['banana']['quantity']
-                            items[i] += u'\u2022'
+                            items[i] += u'\u2022' # adds bullet points after item equal to quantity
                         i += 1
-                    print items[0]
                     message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
