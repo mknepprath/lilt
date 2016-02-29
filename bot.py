@@ -193,7 +193,8 @@ if __name__ == "__main__":
                             pass
                     for item in items:
                         try:
-                            item = item + ' ' + u'\u2022'
+                            item += u'\u2022'
+                            print item
                         except:
                             pass
                     print "items: " + str(items)
