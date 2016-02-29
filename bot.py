@@ -181,17 +181,11 @@ if __name__ == "__main__":
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
-                        iq = inventory[items[i]]['quantity'] # item quantity
-                        print items[i]
-                        print iq
-                        if iq > 1:
+                        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
+                        if iq > 1: # only append quantity info if more than one
                             items[i] += " "
-                            for _ in range(iq):
-                                items[i] += u'\u2022'
+                            items[i] += u'\u2022'*iq
                         i += 1
-                    print "item 1: " + items[0]
-                    print "item 2: " + items[1]
-                    print "item 3: " + items[2]
                     message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
     #                twitter.reply(message, tweetid)
