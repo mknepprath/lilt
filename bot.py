@@ -156,9 +156,9 @@ if __name__ == "__main__":
                     if a == 'drop':
                         print 'so you want to drop ' + b
                         # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
-                        #inventory[b]['quantity'] -= 1
-                        #cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                        #conn.commit()
+                        inventory[b]['quantity'] -= 1
+                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                        conn.commit()
                     elif a == 'give':
                         # c will be the item, and b should be the recipient
                         b, c = (b).split(' ',1)
