@@ -145,6 +145,22 @@ if __name__ == "__main__":
             if reply == True:
                 print "tweet: " + tweet
 
+                # removes punctuation and makes move lowercase
+                exclude = set(string.punctuation)
+                move = ''.join(ch for ch in tweet if ch not in exclude).lower()
+                print "move: " + move
+
+                # get position
+                cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
+                user = cur.fetchone()
+                position = user[0]
+                print "position: " + position
+
+                # get inventory
+                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+                inv = cur.fetchone()
+                inventory = json.loads(inv[0])
+
                 # break apart tweet to figure out intent - should go in reply check
                 tweet_len = len((tweet).split())
 
@@ -165,22 +181,6 @@ if __name__ == "__main__":
                         print 'so you want to give ' + c + ' to ' + b
                     else:
                         print 'so you\'re just gonna tweet someting'
-
-                # removes punctuation and makes move lowercase
-                exclude = set(string.punctuation)
-                move = ''.join(ch for ch in tweet if ch not in exclude).lower()
-                print "move: " + move
-
-                # get position
-                cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-                user = cur.fetchone()
-                position = user[0]
-                print "position: " + position
-
-                # get inventory
-                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inv = cur.fetchone()
-                inventory = json.loads(inv[0])
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
