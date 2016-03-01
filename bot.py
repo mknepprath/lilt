@@ -120,11 +120,11 @@ if __name__ == "__main__":
             if tweet_len == 1:
                 print "one word tweet: " + tweet
             elif tweet_len == 2:
-                a, b = (mention.text).split(' ',1)
+                a, b = (tweet).split(' ',1)
                 print "a: " + a
                 print "b: " + b
             else:
-                a, b, c = (mention.text).split(' ',2)
+                a, b, c = (tweet).split(' ',2)
                 print "a: " + a
                 print "b: " + b
                 print "c: " + c
