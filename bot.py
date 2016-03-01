@@ -115,19 +115,21 @@ if __name__ == "__main__":
 
             # break apart tweet to figure out intent
             tweet_len = len((tweet).split())
-            print "tweet_len:"
+            print 'tweet_len:'
             print tweet_len
             if tweet_len == 1:
-                print "one word tweet: " + tweet
-            elif tweet_len == 2:
-                a, b = (tweet).split(' ',1)
-                print "a: " + a
-                print "b: " + b
+                print 'one word tweet: ' + tweet
             else:
-                a, b, c = (tweet).split(' ',2)
-                print "a: " + a
-                print "b: " + b
-                print "c: " + c
+                a, b = (tweet).split(' ',1)
+                print 'a: ' + a
+                print 'b: ' + b
+                if a == 'drop':
+                    print 'so you want to drop ' + b
+                elif a == 'give':
+                    b, c = (b).split(' ',1)
+                    print 'so you want to give ' + c + ' to ' + b
+                else:
+                    print 'so you\'re just gonna tweet someting'
 
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
