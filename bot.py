@@ -67,7 +67,7 @@ if __name__ == "__main__":
         # go through mentions from Twitter using Tweepy
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
-                # splits tweet at first space, game_name = @familiarlilt
+                # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
                 mention_len = len((mention.text).split())
                 if mention_len == 1:
                     tweet = ''
@@ -113,24 +113,6 @@ if __name__ == "__main__":
             tweetid = mention['tweetid']
             reply = False
 
-            # break apart tweet to figure out intent
-            tweet_len = len((tweet).split())
-            print 'tweet_len:'
-            print tweet_len
-            if tweet_len == 1:
-                print 'one word tweet: ' + tweet
-            else:
-                a, b = (tweet).split(' ',1)
-                print 'a: ' + a
-                print 'b: ' + b
-                if a == 'drop':
-                    print 'so you want to drop ' + b
-                elif a == 'give':
-                    b, c = (b).split(' ',1)
-                    print 'so you want to give ' + c + ' to ' + b
-                else:
-                    print 'so you\'re just gonna tweet someting'
-
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
             user_exists = cur.fetchone()
@@ -162,6 +144,27 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 print "tweet: " + tweet
+
+                # break apart tweet to figure out intent - should go in reply check
+                tweet_len = len((tweet).split())
+
+                if tweet_len == 1:
+                    print 'one word tweet: ' + tweet
+                else:
+                    # a will be the basic command if there is one
+                    a, b = (tweet).split(' ',1)
+                    if a == 'drop':
+                        print 'so you want to drop ' + b
+                        # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
+                        #inventory[b]['quantity'] -= 1
+                        #cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                        #conn.commit()
+                    elif a == 'give':
+                        # c will be the item, and b should be the recipient
+                        b, c = (b).split(' ',1)
+                        print 'so you want to give ' + c + ' to ' + b
+                    else:
+                        print 'so you\'re just gonna tweet someting'
 
                 # removes punctuation and makes move lowercase
                 exclude = set(string.punctuation)
