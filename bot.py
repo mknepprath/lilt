@@ -68,7 +68,11 @@ if __name__ == "__main__":
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
                 # splits tweet at first space, game_name = @familiarlilt
-                game_name, tweet = (mention.text).split(" ",1)
+                mention_len = len((mention.text).split())
+                if mention_len == 1:
+                    tweet = ''
+                else:
+                    game_name, tweet = (mention.text).split(' ',1)
 
                 # init mentioned
                 mentioned = False
@@ -80,8 +84,8 @@ if __name__ == "__main__":
                     except:
                         pass
 
-                # if user was already added, don't append it to mentions again
-                if mentioned != True:
+                # if user hasn't been mentioned, append it to mentions
+                if mentioned == False:
                     mentions.append({
                         'screen_name': mention.user.screen_name,
                         'user_id': mention.user.id,
@@ -108,6 +112,22 @@ if __name__ == "__main__":
             tweet = mention['tweet']
             tweetid = mention['tweetid']
             reply = False
+
+            # break apart tweet to figure out intent
+            tweet_len = len((tweet).split())
+            print "tweet_len:"
+            print tweet_len
+            if tweet_len == 1:
+                print "one word tweet: " + tweet
+            elif tweet_len == 2:
+                a, b = (mention.text).split(' ',1)
+                print "a: " + a
+                print "b: " + b
+            else:
+                a, b, c = (mention.text).split(' ',2)
+                print "a: " + a
+                print "b: " + b
+                print "c: " + c
 
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
@@ -173,12 +193,16 @@ if __name__ == "__main__":
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
-                elif (move == "pick up apple") and (position == "room"):
+                elif (move == "pick up apple") and (position == "room"): # anatomy of a move
+                    # update values here: items, triggers, etc
                     inventory['apple']['quantity'] += 1
+                    # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
+                    # formulate reply message and print it to the console
                     message = '@' + screen_name + ' You acquired an apple. ' + randstring
                     print "reply: " + message
+                    # send to Twitter when not debugging
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
