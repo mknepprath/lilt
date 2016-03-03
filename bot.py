@@ -177,12 +177,14 @@ if __name__ == "__main__":
                     print 'so you want to drop ' + b
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
                     if b not in inventory:
-                        message = '@' + screen_name + ' You don't have any of those. ' + randstring
+                        message = '@' + screen_name + ' You don\'t have any of those. ' + randstring
                         print "reply: " + message
                     elif inventory[b]['quantity'] <= 0:
                         del inventory[b]
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
+                        message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
+                        print "reply: " + message
                     else:
                         inventory[b]['quantity'] -= 1
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
