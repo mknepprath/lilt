@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'drop banana', # update this with tweet to test
+            'tweet': 'pick up banana', # update this with tweet to test
             'tweetid': 703619369989853185
         })
 
@@ -222,7 +222,8 @@ if __name__ == "__main__":
                 elif (move == "pick up banana") and (position == "room"):
                     # need to add this to apple, and add limitation
                     if 'banana' not in inventory:
-                        inventory['banana'] = 1
+                        inventory['banana'] = {}
+                        inventory['banana']['quantity'] = 1
                     else:
                         inventory['banana']['quantity'] += 1
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
