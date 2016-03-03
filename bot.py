@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'drop banana', # update this with tweet to test
+            'tweet': 'pick up banana', # update this with tweet to test
             'tweetid': 703619369989853185
         })
 
@@ -179,7 +179,7 @@ if __name__ == "__main__":
                     if b not in inventory:
                         message = '@' + screen_name + ' You don\'t have anything like that. ' + randstring
                         print "reply: " + message
-                    elif inventory[b]['quantity'] <= 0:
+                    elif inventory[b]['quantity'] <= 0: # double check to make sure this is working
                         del inventory[b]
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
