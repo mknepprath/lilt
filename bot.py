@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'pick up banana', # update this with tweet to test
+            'tweet': 'drop banana', # update this with tweet to test
             'tweetid': 703619369989853185
         })
 
@@ -176,6 +176,7 @@ if __name__ == "__main__":
                 if a == 'drop':
                     print 'so you want to drop ' + b
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
+                    del inventory[b]
                     if b not in inventory:
                         message = '@' + screen_name + ' You don\'t have anything like that. ' + randstring
                         print "reply: " + message
