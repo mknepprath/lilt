@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'drop banana', # update this with tweet to test
+            'tweet': 'pick up banana', # update this with tweet to test
             'tweetid': 703619369989853185
         })
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
                     print 'so you want to drop ' + b
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
                     if b not in inventory:
-                        message = '@' + screen_name + ' You don\'t have any of those. ' + randstring
+                        message = '@' + screen_name + ' You don\'t have anything like that. ' + randstring
                         print "reply: " + message
                     elif inventory[b]['quantity'] <= 0:
                         del inventory[b]
@@ -189,6 +189,8 @@ if __name__ == "__main__":
                         inventory[b]['quantity'] -= 1
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
+                        message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
+                        print "reply: " + message
                 elif a == 'give':
                     # c will be the item, and b should be the recipient
                     b, c = (b).split(' ',1)
