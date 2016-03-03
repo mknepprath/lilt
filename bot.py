@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'drubink',
             'user_id': 36259942,
-            'tweet': 'pick up banana', # update this with tweet to test
+            'tweet': 'start', # update this with tweet to test
             'tweetid': 703619369989853185
         })
 
