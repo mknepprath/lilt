@@ -195,7 +195,6 @@ if __name__ == "__main__":
                     # c will be the item, and b should be the recipient
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
-                # if move is start, init game - otherwise give error
                 elif (move == "start") and (position == "start"):
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
