@@ -161,6 +161,9 @@ if __name__ == "__main__":
                 inv = cur.fetchone()
                 inventory = json.loads(inv[0])
 
+                # randstring to avoid Twitter getting mad about duplicate tweets
+                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+
                 # break apart tweet to figure out intent - should go in reply check
                 tweet_len = len((tweet).split())
 
@@ -169,31 +172,26 @@ if __name__ == "__main__":
                 else:
                     # a will be the basic command if there is one
                     a, b = (tweet).split(' ',1)
-                    if a == 'drop':
-                        print 'so you want to drop ' + b
-                        # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
-                        if b not in inventory:
-                            print "whathwhathwaht"
-                        elif inventory[b]['quantity'] <= 0:
-                            del inventory[b]
-                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                            conn.commit()
-                        else:
-                            inventory[b]['quantity'] -= 1
-                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                            conn.commit()
-                    elif a == 'give':
-                        # c will be the item, and b should be the recipient
-                        b, c = (b).split(' ',1)
-                        print 'so you want to give ' + c + ' to ' + b
+
+                if a == 'drop':
+                    print 'so you want to drop ' + b
+                    # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
+                    if b not in inventory:
+                        print "you don't have one of those to drop"
+                    elif inventory[b]['quantity'] <= 0:
+                        del inventory[b]
+                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                        conn.commit()
                     else:
-                        print 'so you\'re just gonna tweet someting'
-
-                # randstring to avoid Twitter getting mad about duplicate tweets
-                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-
+                        inventory[b]['quantity'] -= 1
+                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                        conn.commit()
+                elif a == 'give':
+                    # c will be the item, and b should be the recipient
+                    b, c = (b).split(' ',1)
+                    print 'so you want to give ' + c + ' to ' + b
                 # if move is start, init game - otherwise give error
-                if (move == "start") and (position == "start"):
+                elif (move == "start") and (position == "start"):
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
                     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
