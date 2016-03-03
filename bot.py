@@ -99,10 +99,10 @@ if __name__ == "__main__":
     if debug == True:
         # just for testing purposes
         mentions.append({
-            'screen_name': 'phonefromhell',
-            'user_id': 2577808022,
+            'screen_name': 'mknepprath',
+            'user_id': 15332057,
             'tweet': 'pick up banana', # update this with tweet to test
-            'tweetid': 703619369989853182
+            'tweetid': 703619369989853185
         })
 
     for mention in mentions:
