@@ -170,7 +170,7 @@ if __name__ == "__main__":
                 print item_trait_vals
                 print item_trait_vals[0]
                 cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'items'")
-                item_traits = cur.fetchone()
+                item_traits = cur.fetchall()
                 print item_traits
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
