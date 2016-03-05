@@ -166,9 +166,12 @@ if __name__ == "__main__":
                     inventory = json.loads(inv[0])
 
                 cur.execute("SELECT health, damage, max FROM items WHERE name = 'banana';")
+                item_trait_vals = cur.fetchone()
+                print item_trait_vals
+                print item_trait_vals[0]
+                cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'items'")
                 item_traits = cur.fetchone()
                 print item_traits
-                print item_traits[0]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
