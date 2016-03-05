@@ -162,7 +162,10 @@ if __name__ == "__main__":
                 print "test 1"
                 inv = cur.fetchone()
                 print "test 2"
-                inventory = json.loads(inv[0])
+                if inv[0] == None:
+                    inventory = {}
+                else:
+                    inventory = json.loads(inv[0])
                 print "test 3"
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
@@ -226,8 +229,6 @@ if __name__ == "__main__":
                 elif (move == "pick up banana") and (position == "room"):
                     # need to add this to apple, and add limitation
                     if 'banana' not in inventory:
-                        if inventory == None:
-                            inventory = {}
                         inventory['banana'] = {}
                         inventory['banana']['quantity'] = 1
                     else:
