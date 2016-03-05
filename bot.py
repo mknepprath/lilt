@@ -176,8 +176,8 @@ if __name__ == "__main__":
                 print item_traits[1]
                 print item_traits[0][0]
                 print item_traits[1][0]
-                for i in item_traits:
-                    print item_traits[i][0]
+                for item_trait in item_traits:
+                    print item_trait
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
