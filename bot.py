@@ -173,7 +173,9 @@ if __name__ == "__main__":
                 item_traits = cur.fetchall()
                 print item_traits
                 print item_traits[0]
+                print item_traits[1]
                 print item_traits[0][0]
+                print item_traits[1][0]
                 for i in item_traits:
                     print item_traits[i][0]
 
