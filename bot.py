@@ -171,8 +171,8 @@ if __name__ == "__main__":
                 print item_trait_vals[0]
                 cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'items'")
                 item_traits = cur.fetchall()
-                for i in item_traits:
-                    print item_traits[i]
+                for i in item_traits[0]:
+                    print item_traits[0][i]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
