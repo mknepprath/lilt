@@ -99,10 +99,10 @@ if __name__ == "__main__":
     if debug == True:
         # just for testing purposes
         mentions.append({
-            'screen_name': 'mknepprath',
-            'user_id': 15332057,
+            'screen_name': 'phonefromhell',
+            'user_id': 2577808022,
             'tweet': 'pick up banana', # update this with tweet to test
-            'tweetid': 703619369989853185
+            'tweetid': 703619369989853172
         })
 
     for mention in mentions:
@@ -222,6 +222,8 @@ if __name__ == "__main__":
                 elif (move == "pick up banana") and (position == "room"):
                     # need to add this to apple, and add limitation
                     if 'banana' not in inventory:
+                        if inventory == None:
+                            inventory = {}
                         inventory['banana'] = {}
                         inventory['banana']['quantity'] = 1
                     else:
