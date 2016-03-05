@@ -171,6 +171,8 @@ if __name__ == "__main__":
                 print item_trait_vals[0]
                 cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'items'")
                 item_traits = cur.fetchall()
+                print item_traits
+                print item_traits[0]
                 for i in item_traits[0]:
                     print item_traits[0][i]
 
