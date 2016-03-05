@@ -157,10 +157,13 @@ if __name__ == "__main__":
                 print "position: " + position
 
                 # get inventory
-                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inv = cur.fetchone()
-                inventory = json.loads(inv[0])
                 print "test 0"
+                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+                print "test 1"
+                inv = cur.fetchone()
+                print "test 2"
+                inventory = json.loads(inv[0])
+                print "test 3"
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
