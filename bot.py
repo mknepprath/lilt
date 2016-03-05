@@ -157,16 +157,18 @@ if __name__ == "__main__":
                 print "position: " + position
 
                 # get inventory
-                print "test 0"
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                print "test 1"
                 inv = cur.fetchone()
-                print "test 2"
+                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if inv[0] == None:
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
-                print "test 3"
+
+                cur.execute("SELECT health, damage, max FROM items WHERE name = 'banana';")
+                item_traits = cur.fetchone()
+                print item_traits
+                print item_traits[0]
 
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -216,7 +218,11 @@ if __name__ == "__main__":
                         twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"): # anatomy of a move
                     # update values here: items, triggers, etc
-                    inventory['apple']['quantity'] += 1
+                    if 'apple' not in inventory:
+                        inventory['apple'] = {}
+                        inventory['apple']['quantity'] = 1
+                    else:
+                        inventory['apple']['quantity'] += 1
                     # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
