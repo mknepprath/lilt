@@ -171,9 +171,7 @@ if __name__ == "__main__":
                 # break apart tweet to figure out intent - should go in reply check
                 tweet_len = len((tweet).split())
 
-                if tweet_len == 1:
-                    print 'one word tweet: ' + tweet
-                else:
+                if tweet_len <= 2:
                     # a will be the basic command if there is one
                     a, b = (tweet).split(' ',1)
 
