@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'phonefromhell',
             'user_id': 2577808022,
-            'tweet': 'inventory', # update this with tweet to test
+            'tweet': 'drop banana', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -155,7 +155,7 @@ if __name__ == "__main__":
                 user = cur.fetchone()
                 position = user[0]
                 print "position: " + position
-                print "test 0"
+
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
@@ -164,17 +164,17 @@ if __name__ == "__main__":
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
-                print "test 1"
+
                 # randstring to avoid Twitter getting mad about duplicate tweets
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "test 2"
+
                 # break apart tweet to figure out intent - should go in reply check
                 tweet_len = len((tweet).split())
-                print "test 3"
+
                 if tweet_len >= 2:
                     # a will be the basic command if there is one
                     move, b = (tweet).split(' ',1)
-                print "test 4"
+
                 if move == 'drop':
                     print 'so you want to drop ' + b
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
@@ -198,7 +198,6 @@ if __name__ == "__main__":
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
                 elif move == 'inventory':
-                    print "test inventory"
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
