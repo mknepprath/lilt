@@ -249,19 +249,28 @@ if __name__ == "__main__":
                     if 'banana' not in inventory:
                         inventory['banana'] = {}
                         inventory['banana']['quantity'] = 1
+                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                        conn.commit()
+                        message = '@' + screen_name + ' You acquired a banana. ' + randstring
+                        print "reply: " + message
+                        if debug == False:
+                            twitter.reply(message, tweetid)
                     else:
                         cur.execute("SELECT max FROM items WHERE name = 'banana';")
                         item_max = cur.fetchone()
                         if inventory['banana']['quantity'] <= item_max[0]:
                             inventory['banana']['quantity'] += 1
+                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                            conn.commit()
+                            message = '@' + screen_name + ' You acquired a banana. ' + randstring
+                            print "reply: " + message
+                            if debug == False:
+                                twitter.reply(message, tweetid)
                         else:
-                            print "2 many banana"
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                    conn.commit()
-                    message = '@' + screen_name + ' You acquired a banana. ' + randstring
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
+                            message = '@' + screen_name + ' You can\'t hold anymore bananas! ' + randstring
+                            print "reply: " + message
+                            if debug == False:
+                                twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
