@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'phonefromhell',
             'user_id': 2577808022,
-            'tweet': 'inventory', # update this with tweet to test
+            'tweet': 'drop banana', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -198,7 +198,7 @@ if __name__ == "__main__":
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
                 elif move == 'inventory':
-                    print "test 5"
+                    print "test inventory"
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
@@ -261,9 +261,7 @@ if __name__ == "__main__":
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
-                print "test 6"
         except:
             pass
-        print "test 7"
 cur.close()
 conn.close()
