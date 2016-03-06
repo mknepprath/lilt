@@ -197,8 +197,8 @@ if __name__ == "__main__":
                     # c will be the item, and b should be the recipient
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
-                elif (move == "inventory"):
-                    print "got to inventory"
+                elif move == 'inventory':
+                    print 'got to inventory'
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
