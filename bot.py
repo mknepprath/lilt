@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'phonefromhell',
             'user_id': 2577808022,
-            'tweet': 'pick up banana', # update this with tweet to test
+            'tweet': 'DROp ', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -146,7 +146,7 @@ if __name__ == "__main__":
                 print "tweet: " + tweet
 
                 # removes punctuation and makes move lowercase
-                exclude = set(string.punctuation)
+                exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
                 move = ''.join(ch for ch in tweet if ch not in exclude).lower()
                 print "move: " + move
 
@@ -174,8 +174,15 @@ if __name__ == "__main__":
                 if tweet_len >= 2:
                     # a will be the basic command if there is one
                     a, b = (tweet).split(' ',1)
-                    if (a == 'drop') or (a == 'give'):
+                    a = ''.join(ch for ch in a if ch not in exclude).lower()
+                    if (a == 'drop'):
                         move = a
+                        b = ''.join(ch for ch in b if ch not in exclude).lower()
+                    elif (a == 'give'):
+                        move = a
+                        # c will be the item, and b should be the recipient
+                        b, c = (b).split(' ',1)
+                        c = ''.join(ch for ch in c if ch not in exclude).lower()
 
                 if move == 'drop':
                     print 'so you want to drop ' + b
@@ -196,8 +203,6 @@ if __name__ == "__main__":
                         message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
                         print "reply: " + message
                 elif move == 'give':
-                    # c will be the item, and b should be the recipient
-                    b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
                 elif move == 'inventory':
                     items = list(inventory.keys())
