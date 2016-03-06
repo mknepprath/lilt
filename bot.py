@@ -199,6 +199,19 @@ if __name__ == "__main__":
                     # c will be the item, and b should be the recipient
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
+                elif (move == "inventory"):
+                    print "got to inventory"
+                    items = list(inventory.keys())
+                    i = 0
+                    while i < len(items):
+                        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
+                        if iq > 1: # only append quantity info if more than one
+                            items[i] += ' ' + u'\u2022'*iq
+                        i += 1
+                    message = '@' + screen_name + ' ' + ', '.join(items)
+                    print "reply: " + message
+                    if debug == False:
+                        twitter.reply(message, tweetid)
                 elif (move == "start") and (position == "start"):
                     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
                     conn.commit()
@@ -233,19 +246,8 @@ if __name__ == "__main__":
                         inventory['banana'] = {}
                         inventory['banana']['quantity'] = 1
                     else:
-                        # adding other banana traits
-                        #cur.execute("SELECT * FROM items WHERE name = 'banana';")
-                        #item_trait_vals = cur.fetchone()
-                        #cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'items'")
-                        #item_traits = cur.fetchall()
-                        #t = 0
-                        #for item_trait in item_traits:
-                        #    print item_trait[0]
-                        #    print item_trait_vals[t]
-                        #    t += 1
                         cur.execute("SELECT max FROM items WHERE name = 'banana';")
                         item_max = cur.fetchone()
-                        print item_max[0]
                         if inventory['banana']['quantity'] <= item_max[0]:
                             inventory['banana']['quantity'] += 1
                         else:
@@ -253,19 +255,6 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     message = '@' + screen_name + ' You acquired a banana. ' + randstring
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
-                elif (move == "inventory"):
-                    print "got to inventory"
-                    items = list(inventory.keys())
-                    i = 0
-                    while i < len(items):
-                        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
-                        if iq > 1: # only append quantity info if more than one
-                            items[i] += ' ' + u'\u2022'*iq
-                        i += 1
-                    message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
