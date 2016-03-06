@@ -48,6 +48,42 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
+def getitem(item_name):
+    # update values here: items, triggers, etc
+    if item_name not in inventory:
+        inventory[item_name] = {}
+        inventory[item_name]['quantity'] = 1
+        # update database with updated values
+        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+        conn.commit()
+        # formulate reply message and print it to the console
+        message = '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
+        print "reply: " + message
+        # send to Twitter when not debugging
+        if debug == False:
+            twitter.reply(message, tweetid)
+    else:
+        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item_name),))
+        item_max = cur.fetchone()
+        if inventory[item_name]['quantity'] <= item_max[0]:
+            inventory[item_name]['quantity'] += 1
+            # update database with updated values
+            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+            conn.commit()
+            # formulate reply message and print it to the console
+            message = '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
+            print "reply: " + message
+            # send to Twitter when not debugging
+            if debug == False:
+                twitter.reply(message, tweetid)
+        else:
+            # formulate reply message and print it to the console
+            message = '@' + screen_name + ' You can\'t hold more ' + item_name + '! ' + randstring
+            print "reply: " + message
+            # send to Twitter when not debugging
+            if debug == False:
+                twitter.reply(message, tweetid)
+
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
@@ -233,44 +269,38 @@ if __name__ == "__main__":
                     if 'apple' not in inventory:
                         inventory['apple'] = {}
                         inventory['apple']['quantity'] = 1
-                    else:
-                        inventory['apple']['quantity'] += 1
-                    # update database with updated values
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                    conn.commit()
-                    # formulate reply message and print it to the console
-                    message = '@' + screen_name + ' You acquired an apple. ' + randstring
-                    print "reply: " + message
-                    # send to Twitter when not debugging
-                    if debug == False:
-                        twitter.reply(message, tweetid)
-                elif (move == "pick up banana") and (position == "room"):
-                    # need to add this to apple, and add limitation
-                    if 'banana' not in inventory:
-                        inventory['banana'] = {}
-                        inventory['banana']['quantity'] = 1
+                        # update database with updated values
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
-                        message = '@' + screen_name + ' You acquired a banana. ' + randstring
+                        # formulate reply message and print it to the console
+                        message = '@' + screen_name + ' You acquired an apple. ' + randstring
                         print "reply: " + message
+                        # send to Twitter when not debugging
                         if debug == False:
                             twitter.reply(message, tweetid)
                     else:
-                        cur.execute("SELECT max FROM items WHERE name = 'banana';")
+                        cur.execute("SELECT max FROM items WHERE name = 'apple';")
                         item_max = cur.fetchone()
-                        if inventory['banana']['quantity'] <= item_max[0]:
-                            inventory['banana']['quantity'] += 1
+                        if inventory['apple']['quantity'] <= item_max[0]:
+                            inventory['apple']['quantity'] += 1
+                            # update database with updated values
                             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                             conn.commit()
-                            message = '@' + screen_name + ' You acquired a banana. ' + randstring
+                            # formulate reply message and print it to the console
+                            message = '@' + screen_name + ' You acquired an apple. ' + randstring
                             print "reply: " + message
+                            # send to Twitter when not debugging
                             if debug == False:
                                 twitter.reply(message, tweetid)
                         else:
-                            message = '@' + screen_name + ' You can\'t hold more bananas! ' + randstring
+                            # formulate reply message and print it to the console
+                            message = '@' + screen_name + ' You can\'t hold more apples! ' + randstring
                             print "reply: " + message
+                            # send to Twitter when not debugging
                             if debug == False:
                                 twitter.reply(message, tweetid)
+                elif (move == "pick up banana") and (position == "room"):
+                    getitem('banana')
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
