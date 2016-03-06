@@ -173,7 +173,9 @@ if __name__ == "__main__":
 
                 if tweet_len >= 2:
                     # a will be the basic command if there is one
-                    move, b = (tweet).split(' ',1)
+                    a, b = (tweet).split(' ',1)
+                    if (a == 'drop') or (a == 'give'):
+                        move = a
 
                 if move == 'drop':
                     print 'so you want to drop ' + b
