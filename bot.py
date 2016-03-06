@@ -173,9 +173,9 @@ if __name__ == "__main__":
                 print "test 3"
                 if tweet_len >= 2:
                     # a will be the basic command if there is one
-                    a, b = (tweet).split(' ',1)
+                    move, b = (tweet).split(' ',1)
                 print "test 4"
-                if a == 'drop':
+                if move == 'drop':
                     print 'so you want to drop ' + b
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
                     if b not in inventory:
@@ -193,7 +193,7 @@ if __name__ == "__main__":
                         conn.commit()
                         message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
                         print "reply: " + message
-                elif a == 'give':
+                elif move == 'give':
                     # c will be the item, and b should be the recipient
                     b, c = (b).split(' ',1)
                     print 'so you want to give ' + c + ' to ' + b
