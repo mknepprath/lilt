@@ -257,6 +257,7 @@ if __name__ == "__main__":
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "inventory"):
+                    print "got to inventory"
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
