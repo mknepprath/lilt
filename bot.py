@@ -101,7 +101,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'phonefromhell',
             'user_id': 2577808022,
-            'tweet': 'pick... up... banana...!', # update this with tweet to test
+            'tweet': 'Drop banana.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -267,7 +267,7 @@ if __name__ == "__main__":
                             if debug == False:
                                 twitter.reply(message, tweetid)
                         else:
-                            message = '@' + screen_name + ' You can\'t hold anymore bananas! ' + randstring
+                            message = '@' + screen_name + ' You can\'t hold more bananas! ' + randstring
                             print "reply: " + message
                             if debug == False:
                                 twitter.reply(message, tweetid)
