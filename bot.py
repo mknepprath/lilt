@@ -125,7 +125,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'phonefromhell',
             'user_id': 2577808022,
-            'tweet': 'Pick up banana.', # update this with tweet to test
+            'tweet': 'Pick up apple.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -189,19 +189,20 @@ if __name__ == "__main__":
                 else:
                     inventory = json.loads(inv[0])
 
-                # randstring to avoid Twitter getting mad about duplicate tweets
+                # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
                 # break apart tweet to figure out intent - should go in reply check
                 tweet_len = len((tweet).split())
-
+                # if tweet is two words or more, break off first word
                 if tweet_len >= 2:
-                    # a will be the basic command if there is one
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
+                    # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         move = a
                         b = ''.join(ch for ch in b if ch not in exclude).lower()
+                    # if first word is give - break part b
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
