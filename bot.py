@@ -57,11 +57,7 @@ def getitem(item_name):
         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
         # formulate reply message and print it to the console
-        message = '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
-        print "reply: " + message
-        # send to Twitter when not debugging
-        if debug == False:
-            twitter.reply(message, tweetid)
+        return '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
     else:
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item_name),))
         item_max = cur.fetchone()
@@ -71,18 +67,10 @@ def getitem(item_name):
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
-            message = '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
-            print "reply: " + message
-            # send to Twitter when not debugging
-            if debug == False:
-                twitter.reply(message, tweetid)
+            return '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
         else:
             # formulate reply message and print it to the console
-            message = '@' + screen_name + ' You can\'t hold more ' + item_name + '! ' + randstring
-            print "reply: " + message
-            # send to Twitter when not debugging
-            if debug == False:
-                twitter.reply(message, tweetid)
+            return '@' + screen_name + ' You can\'t hold more ' + item_name + '! ' + randstring
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -265,42 +253,17 @@ if __name__ == "__main__":
                     if debug == False:
                         twitter.reply(message, tweetid)
                 elif (move == "pick up apple") and (position == "room"): # anatomy of a move
-                    # update values here: items, triggers, etc
-                    if 'apple' not in inventory:
-                        inventory['apple'] = {}
-                        inventory['apple']['quantity'] = 1
-                        # update database with updated values
-                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                        conn.commit()
-                        # formulate reply message and print it to the console
-                        message = '@' + screen_name + ' You acquired an apple. ' + randstring
-                        print "reply: " + message
-                        # send to Twitter when not debugging
-                        if debug == False:
-                            twitter.reply(message, tweetid)
-                    else:
-                        cur.execute("SELECT max FROM items WHERE name = 'apple';")
-                        item_max = cur.fetchone()
-                        if inventory['apple']['quantity'] <= item_max[0]:
-                            inventory['apple']['quantity'] += 1
-                            # update database with updated values
-                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                            conn.commit()
-                            # formulate reply message and print it to the console
-                            message = '@' + screen_name + ' You acquired an apple. ' + randstring
-                            print "reply: " + message
-                            # send to Twitter when not debugging
-                            if debug == False:
-                                twitter.reply(message, tweetid)
-                        else:
-                            # formulate reply message and print it to the console
-                            message = '@' + screen_name + ' You can\'t hold more apples! ' + randstring
-                            print "reply: " + message
-                            # send to Twitter when not debugging
-                            if debug == False:
-                                twitter.reply(message, tweetid)
+                    message = getitem('apple')
+                    print "reply: " + message
+                    # send to Twitter when not debugging
+                    if debug == False:
+                        twitter.reply(message, tweetid)
                 elif (move == "pick up banana") and (position == "room"):
-                    getitem('banana')
+                    message = getitem('banana')
+                    print "reply: " + message
+                    # send to Twitter when not debugging
+                    if debug == False:
+                        twitter.reply(message, tweetid)
                 else:
                     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                     print "reply: " + message
