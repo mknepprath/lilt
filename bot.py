@@ -206,7 +206,8 @@ if __name__ == "__main__":
                     inventory = json.loads(inv[0])
                     print "got inventory"
                 print "shoulda got inventory before this"
-
+                print move
+                
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
