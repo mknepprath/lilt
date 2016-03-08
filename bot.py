@@ -207,7 +207,7 @@ if __name__ == "__main__":
                     print "got inventory"
                 print "shoulda got inventory before this"
                 print move
-                
+
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
@@ -229,6 +229,8 @@ if __name__ == "__main__":
                     recipient, c = (b).split(' ',1)
                     item = ''.join(ch for ch in c if ch not in exclude).lower()
 
+                print move
+                
                 if move == 'drop':
                         message = dropitem(item)
                         print "reply: " + message
