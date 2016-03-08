@@ -48,29 +48,29 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
-def getitem(item_name):
+def getitem(item):
     # update values here: items, triggers, etc
-    if item_name not in inventory:
-        inventory[item_name] = {}
-        inventory[item_name]['quantity'] = 1
+    if item not in inventory:
+        inventory[item] = {}
+        inventory[item]['quantity'] = 1
         # update database with updated values
         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
         # formulate reply message and print it to the console
-        return '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
+        return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
     else:
-        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item_name),))
+        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
         item_max = cur.fetchone()
-        if inventory[item_name]['quantity'] <= item_max[0]:
-            inventory[item_name]['quantity'] += 1
+        if inventory[item]['quantity'] <= item_max[0]:
+            inventory[item]['quantity'] += 1
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' You acquired a ' + item_name + '. ' + randstring
+            return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
         else:
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' You can\'t hold more ' + item_name + '! ' + randstring
+            return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -201,34 +201,34 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         move = a
-                        b = ''.join(ch for ch in b if ch not in exclude).lower()
-                    # if first word is give - break part b
+                        item = ''.join(ch for ch in b if ch not in exclude).lower()
+                    # if first word is give - break apart b
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
-                        b, c = (b).split(' ',1)
-                        c = ''.join(ch for ch in c if ch not in exclude).lower()
+                        recipient, c = (b).split(' ',1)
+                        item = ''.join(ch for ch in c if ch not in exclude).lower()
 
                 if move == 'drop':
-                    print 'so you want to drop ' + b
+                    print 'so you want to drop ' + item
                     # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
-                    if b not in inventory:
+                    if item not in inventory:
                         message = '@' + screen_name + ' You don\'t have anything like that. ' + randstring
                         print "reply: " + message
-                    elif inventory[b]['quantity'] <= 1: # double check to make sure this is working
-                        del inventory[b]
+                    elif inventory[item]['quantity'] <= 1:
+                        del inventory[item]
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
-                        message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
+                        message = '@' + screen_name + ' You drop one ' + item + '.' + randstring
                         print "reply: " + message
                     else:
-                        inventory[b]['quantity'] -= 1
+                        inventory[item]['quantity'] -= 1
                         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                         conn.commit()
-                        message = '@' + screen_name + ' You drop one ' + b + '.' + randstring
+                        message = '@' + screen_name + ' You drop one ' + item + '.' + randstring
                         print "reply: " + message
                 elif move == 'give':
-                    print 'so you want to give ' + c + ' to ' + b
+                    print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
                     items = list(inventory.keys())
                     i = 0
