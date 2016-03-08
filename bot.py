@@ -72,6 +72,23 @@ def getitem(item):
             # formulate reply message and print it to the console
             return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
+def dropitem(item):
+    if item not in inventory:
+        return '@' + screen_name + ' You don\'t have anything like that. ' + randstring
+        print "reply: " + message
+    elif inventory[item]['quantity'] <= 1:
+        del inventory[item]
+        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+        conn.commit()
+        return '@' + screen_name + ' You drop one ' + item + '.' + randstring
+        print "reply: " + message
+    else:
+        inventory[item]['quantity'] -= 1
+        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+        conn.commit()
+        return '@' + screen_name + ' You drop one ' + item + '.' + randstring
+
+
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
@@ -125,7 +142,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'Pick up apple.', # update this with tweet to test
+            'tweet': 'Drop apple.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -211,22 +228,7 @@ if __name__ == "__main__":
                     item = ''.join(ch for ch in c if ch not in exclude).lower()
 
                 if move == 'drop':
-                    print 'so you want to drop ' + item
-                    # need to add check to make sure this is 1) an actual item, 2) one you have, 3) and delete it if you only have one
-                    if item not in inventory:
-                        message = '@' + screen_name + ' You don\'t have anything like that. ' + randstring
-                        print "reply: " + message
-                    elif inventory[item]['quantity'] <= 1:
-                        del inventory[item]
-                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                        conn.commit()
-                        message = '@' + screen_name + ' You drop one ' + item + '.' + randstring
-                        print "reply: " + message
-                    else:
-                        inventory[item]['quantity'] -= 1
-                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                        conn.commit()
-                        message = '@' + screen_name + ' You drop one ' + item + '.' + randstring
+                        message = dropitem(item)
                         print "reply: " + message
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
