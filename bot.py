@@ -123,9 +123,9 @@ if __name__ == "__main__":
     if debug == True:
         # just for testing purposes
         mentions.append({
-            'screen_name': 'phonefromhell',
-            'user_id': 2577808022,
-            'tweet': 'Drop apple.', # update this with tweet to test
+            'screen_name': 'mknepprath',
+            'user_id': 15332057,
+            'tweet': 'look around.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
