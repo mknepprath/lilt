@@ -61,7 +61,7 @@ def getitem(item):
     else:
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
         item_max = cur.fetchone()
-        if inventory[item]['quantity'] <= item_max[0]:
+        if inventory[item]['quantity'] < item_max[0]:
             inventory[item]['quantity'] += 1
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
