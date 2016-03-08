@@ -88,7 +88,8 @@ def dropitem(item):
         conn.commit()
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
-def inventory(items):
+def inventory():
+    items = list(inventory.keys())
     i = 0
     print "in the inventory function"
     while i < len(items):
@@ -244,9 +245,7 @@ if __name__ == "__main__":
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
                     print "we reached move = inventory"
-                    items = list(inventory.keys())
-                    print "made it past the inventory function"
-                    message = inventory(items)
+                    message = inventory()
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
