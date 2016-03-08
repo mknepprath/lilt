@@ -217,20 +217,19 @@ if __name__ == "__main__":
                 if tweet_len >= 2:
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
-
-                # if first word is drop - a is the move, b is the item
-                if (a == 'drop'):
-                    move = a
-                    item = ''.join(ch for ch in b if ch not in exclude).lower()
-                # if first word is give - break apart b
-                elif (a == 'give'):
-                    move = a
-                    # c will be the item, and b should be the recipient
-                    recipient, c = (b).split(' ',1)
-                    item = ''.join(ch for ch in c if ch not in exclude).lower()
+                    # if first word is drop - a is the move, b is the item
+                    if (a == 'drop'):
+                        move = a
+                        item = ''.join(ch for ch in b if ch not in exclude).lower()
+                    # if first word is give - break apart b
+                    elif (a == 'give'):
+                        move = a
+                        # c will be the item, and b should be the recipient
+                        recipient, c = (b).split(' ',1)
+                        item = ''.join(ch for ch in c if ch not in exclude).lower()
 
                 print move
-                
+
                 if move == 'drop':
                         message = dropitem(item)
                         print "reply: " + message
