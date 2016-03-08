@@ -90,6 +90,7 @@ def dropitem(item):
 
 def inventory(items):
     i = 0
+    print "in the inventory function"
     while i < len(items):
         iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
         if iq > 1: # only append quantity info if more than one
@@ -242,7 +243,9 @@ if __name__ == "__main__":
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
+                    print "we reached move = inventory"
                     items = list(inventory.keys())
+                    print "made it past the inventory function"
                     message = inventory(items)
                     print "reply: " + message
                     if debug == False:
