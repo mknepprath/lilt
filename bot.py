@@ -262,37 +262,6 @@ if __name__ == "__main__":
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
-
-
-                # elif (move == "start") and (position == "start"):
-                #     cur.execute("UPDATE users SET position = 'room' WHERE id = %s;", (str(user_id),))
-                #     conn.commit()
-                #     message = '@' + screen_name + ' You wake up in an unfamiliar room. ' + randstring
-                #     print "reply: " + message
-                #     if debug == False:
-                #         twitter.reply(message, tweetid)
-                # elif (move == "look around") and (position == "room"):
-                #     message = '@' + screen_name + ' It\'s pretty neat in here. ' + randstring
-                #     print "reply: " + message
-                #     if debug == False:
-                #         twitter.reply(message, tweetid)
-                # elif (move == "pick up apple") and (position == "room"): # anatomy of a move
-                #     message = getitem('apple')
-                #     print "reply: " + message
-                #     # send to Twitter when not debugging
-                #     if debug == False:
-                #         twitter.reply(message, tweetid)
-                # elif (move == "pick up banana") and (position == "room"):
-                #     message = getitem('banana')
-                #     print "reply: " + message
-                #     # send to Twitter when not debugging
-                #     if debug == False:
-                #         twitter.reply(message, tweetid)
-                # else:
-                #     message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                #     print "reply: " + message
-                #     if debug == False:
-                #         twitter.reply(message, tweetid)
         except:
             pass
 cur.close()
