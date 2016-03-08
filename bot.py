@@ -88,15 +88,6 @@ def dropitem(item):
         conn.commit()
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
-def inventory(items):
-    i = 0
-    while i < len(items):
-        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
-        if iq > 1: # only append quantity info if more than one
-            items[i] += ' ' + u'\u2022'*iq
-        i += 1
-    return '@' + screen_name + ' ' + ', '.join(items)
-
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
@@ -150,7 +141,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'inventory.', # update this with tweet to test
+            'tweet': 'Inventory.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -242,7 +233,13 @@ if __name__ == "__main__":
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
                     items = list(inventory.keys())
-                    message = inventory(items)
+                    i = 0
+                    while i < len(items):
+                        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
+                        if iq > 1: # only append quantity info if more than one
+                            items[i] += ' ' + u'\u2022'*iq
+                        i += 1
+                    message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
