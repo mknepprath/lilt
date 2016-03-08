@@ -204,9 +204,6 @@ if __name__ == "__main__":
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
-                    print "got inventory"
-                print "shoulda got inventory before this"
-                print move
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -218,6 +215,7 @@ if __name__ == "__main__":
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
                     # if first word is drop - a is the move, b is the item
+                    # this has to be nested or inventory doesn't work... not sure why
                     if (a == 'drop'):
                         move = a
                         item = ''.join(ch for ch in b if ch not in exclude).lower()
@@ -228,19 +226,15 @@ if __name__ == "__main__":
                         recipient, c = (b).split(' ',1)
                         item = ''.join(ch for ch in c if ch not in exclude).lower()
 
-                print move
-
                 if move == 'drop':
                         message = dropitem(item)
                         print "reply: " + message
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
-                    print "yep, the move is inventory"
                     items = list(inventory.keys())
                     i = 0
                     while i < len(items):
-                        print "doing the loop through inventory"
                         iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
                         if iq > 1: # only append quantity info if more than one
                             items[i] += ' ' + u'\u2022'*iq
