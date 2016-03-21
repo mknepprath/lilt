@@ -205,6 +205,15 @@ if __name__ == "__main__":
                 else:
                     inventory = json.loads(inv[0])
 
+                # create printable inventory array: items
+                items = list(inventory.keys())
+                i = 0
+                while i < len(items):
+                    iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
+                    if iq > 1: # only append quantity info if more than one
+                        items[i] += ' ' + u'\u2022'*iq
+                    i += 1
+
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
@@ -233,13 +242,6 @@ if __name__ == "__main__":
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
-                    items = list(inventory.keys())
-                    i = 0
-                    while i < len(items):
-                        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
-                        if iq > 1: # only append quantity info if more than one
-                            items[i] += ' ' + u'\u2022'*iq
-                        i += 1
                     message = '@' + screen_name + ' ' + ', '.join(items)
                     print "reply: " + message
                     if debug == False:
