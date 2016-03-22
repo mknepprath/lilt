@@ -53,21 +53,29 @@ def getitem(item):
     if item not in inventory:
         inventory[item] = {}
         inventory[item]['quantity'] = 1
-        # update database with updated values
-        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-        conn.commit()
-        # formulate reply message and print it to the console
-        return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
-    else:
-        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-        item_max = cur.fetchone()
-        if inventory[item]['quantity'] < item_max[0]:
-            inventory[item]['quantity'] += 1
+        # check if there's room in the inventory
+        if len(invbuilder(inventory)) > 140:
+            return '@' + screen_name + ' Your inventry is full. ' + randstring
+        else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
             return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
+    else:
+        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+        item_max = cur.fetchone()
+        if inventory[item]['quantity'] < item_max[0]:
+            # check if there's room in the inventory
+            if len(invbuilder(inventory)) > 140:
+                return '@' + screen_name + ' Your inventry is full. ' + randstring
+            else:
+                inventory[item]['quantity'] += 1
+                # update database with updated values
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                conn.commit()
+                # formulate reply message and print it to the console
+                return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
         else:
             # formulate reply message and print it to the console
             return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
@@ -151,7 +159,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'Inventory.', # update this with tweet to test
+            'tweet': 'pick up apple.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
