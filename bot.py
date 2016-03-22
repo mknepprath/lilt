@@ -88,7 +88,7 @@ def dropitem(item):
         conn.commit()
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
-def inventorybuilder(inventory):
+def invbuilder(inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -96,7 +96,7 @@ def inventorybuilder(inventory):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    return ', '.join(items)
+    return '@' + screen_name + ' ' + ', '.join(items)
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -236,12 +236,12 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                        message = dropitem(item)
-                        print "reply: " + message
+                    message = dropitem(item)
+                    print "reply: " + message
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
-                    message = '@' + screen_name + ' ' + inventorybuilder(inventory)
+                    message = invbuilder(inventory)
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
