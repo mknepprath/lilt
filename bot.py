@@ -54,8 +54,8 @@ def getitem(item):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory)) > 140:
-            return '@' + screen_name + ' Your inventry is full. ' + randstring
+        if len(invbuilder(inventory, "123451234512345")) > 140:
+            return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -67,8 +67,8 @@ def getitem(item):
         item_max = cur.fetchone()
         if inventory[item]['quantity'] < item_max[0]:
             # check if there's room in the inventory
-            if len(invbuilder(inventory)) > 140:
-                return '@' + screen_name + ' Your inventry is full. ' + randstring
+            if len(invbuilder(inventory, "123451234512345")) > 140:
+                return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 inventory[item]['quantity'] += 1
                 # update database with updated values
@@ -96,7 +96,7 @@ def dropitem(item):
         conn.commit()
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
-def invbuilder(inventory):
+def invbuilder(inventory, screen_name):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -249,7 +249,7 @@ if __name__ == "__main__":
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
                 elif move == 'inventory':
-                    message = invbuilder(inventory)
+                    message = invbuilder(inventory, screen_name)
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
