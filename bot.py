@@ -54,7 +54,7 @@ def getitem(item):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, "123451234512345")) > 140:
+        if len(invbuilder(inventory, "123451234512345")) >= 140:
             return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
@@ -67,7 +67,7 @@ def getitem(item):
         item_max = cur.fetchone()
         if inventory[item]['quantity'] < item_max[0]:
             # check if there's room in the inventory
-            if len(invbuilder(inventory, "123451234512345")) > 140:
+            if len(invbuilder(inventory, "123451234512345")) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 inventory[item]['quantity'] += 1
@@ -159,7 +159,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'inventory.', # update this with tweet to test
+            'tweet': 'drop apple.', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
