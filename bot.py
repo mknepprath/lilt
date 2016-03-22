@@ -108,8 +108,8 @@ if __name__ == "__main__":
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
                 # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
-                mention_len = len((mention.text).split())
-                if mention_len == 1:
+                if len((mention.text).split()) == 1:
+                    # clarifying this for myself... if the tweet is only 1 word, it's just the name '@familiarlilt', so no command
                     tweet = ''
                 else:
                     game_name, tweet = (mention.text).split(' ',1)
@@ -217,10 +217,8 @@ if __name__ == "__main__":
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
-                # break apart tweet to figure out intent - should go in reply check
-                tweet_len = len((tweet).split())
                 # if tweet is two words or more, break off first word
-                if tweet_len >= 2:
+                if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
                     # if first word is drop - a is the move, b is the item
