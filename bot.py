@@ -347,12 +347,12 @@ if __name__ == "__main__":
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
                     print str(item) #TESTING
-                    if (response != None) or (response[0] != None):
+                    if (response != None) and (response[0] != None):
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
-                    elif (item != None) or (item[0] != None):
+                    elif (item != None) and (item[0] != None):
                         print 'so you\'re trying to pick up an item' #TESTING
                         print item[0] #TESTING
                         print 'that item' #TESTING
