@@ -207,6 +207,15 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    if debug == True:
+        # just for testing purposes
+        mentions.append({
+            'screen_name': 'mknepprath',
+            'user_id': 15332057,
+            'tweet': 'give @drubink key', # update this with tweet to test
+            'tweetid': 703619369989853172
+        })
+
     if debug == False:
         # go through mentions from Twitter using Tweepy
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
@@ -239,15 +248,6 @@ if __name__ == "__main__":
 
             except:
                 pass
-
-    if debug == True:
-        # just for testing purposes
-        mentions.append({
-            'screen_name': 'mknepprath',
-            'user_id': 15332057,
-            'tweet': 'give @drubink apple', # update this with tweet to test
-            'tweetid': 703619369989853172
-        })
 
     for mention in mentions:
         try:
