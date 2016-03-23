@@ -218,7 +218,7 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if inv[0] == None:
+                if (inv == None) and (inv[0] == None):
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
@@ -264,7 +264,7 @@ if __name__ == "__main__":
                         inv = cur.fetchone()
                         print 'got the inventory for recipient I think' #TESTING
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                        if inv == None:
+                        if (inv == None) and (inv[0] == None):
                             recipient_inventory = {}
                             print 'their inventory was empty so created an empty json deal' #TESTING
                         else:
