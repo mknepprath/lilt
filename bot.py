@@ -270,7 +270,7 @@ if __name__ == "__main__":
                         # modify recipient inventory, see if it fits
                         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                         item_max = cur.fetchone()
-                        print item_max[0] + ' this is the item max that I have grabbed' #TESTING
+                        print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
                         if recipient_inventory[item]['quantity'] < item_max[0]:
                             print 'shuld be room in that inventory for the item' #TESTING
                             recipient_inventory[item]['quantity'] += 1
