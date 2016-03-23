@@ -109,7 +109,7 @@ def giveitem(item, recipient):
         givable = cur.fetchone()
         print str(givable)
         print 'givableness of item should be above this...'
-        if givable[0] = FALSE:
+        if givable[0] == FALSE:
             print 'cant give that away!'
             return '@' + screen_name + item + ' can\'t be given. ' + randstring
         else:
