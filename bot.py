@@ -239,8 +239,9 @@ if __name__ == "__main__":
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
-                        recipient, c = (b).split(' ',1)
-                        item = ''.join(ch for ch in c if ch not in exclude).lower()
+                        c, d = (b).split(' ',1)
+                        recipient = ''.join(ch for ch in c if ch not in exclude).lower()
+                        item = ''.join(ch for ch in d if ch not in exclude).lower()
 
                 # logic that generates response to player's move
                 if move == 'drop':
