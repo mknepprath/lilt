@@ -335,16 +335,16 @@ if __name__ == "__main__":
                     print 'position is now: ' + position #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
-                    print response[0] #TESTING
+                    print str(response) #TESTING
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
-                    print item[0] #TESTING
-                    if response[0] != None:
+                    print str(item) #TESTING
+                    if str(response) != None:
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
-                    elif item[0] != None:
+                    elif str(item) != None:
                         message = getitem(item[0])
                         print "reply: " + message
                         if debug == False:
