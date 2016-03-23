@@ -268,32 +268,48 @@ if __name__ == "__main__":
                             recipient_inventory = json.loads(inv[0])
                         print 'got tha recipients inventory' #TESTING
                         # modify recipient inventory, see if it fits
-                        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-                        item_max = cur.fetchone()
-                        print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
-                        if recipient_inventory[item]['quantity'] < item_max[0]:
-                            print 'shuld be room in that inventory for the item' #TESTING
-                            recipient_inventory[item]['quantity'] += 1
-                            inventory[item]['quantity'] -= 1
+                        if item not in recipient_inventory:
+                            print 'oh ya they dind\'t have that item'
+                            recipient_inventory[item] = {}
+                            recipient_inventory[item]['quantity'] = 1
                             # check if there's room in the inventory
                             if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
-                                message = '@' + screen_name + ' Their inventory is full. ' + randstring
-                                print "reply: " + message
+                                print 'hmm yup they couldn\'t hold anything else'
+                                return '@' + screen_name + ' Their inventory is full. ' + randstring
                             else:
-                                print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
                                 # update database with updated values
-                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
-                                conn.commit()
-                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                                print 'alright so they should be able to hold this item'
+                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
                                 conn.commit()
                                 # formulate reply message and print it to the console
-                                message = '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
-                                print "reply: " + message
+                                print 'now they got it'
+                                return '@' + screen_name + ' You gave them ' + item + '. ' + randstring
                         else:
-                            # formulate reply message and print it to the console
-                            message = '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
-                            print "reply: " + message
-                        # if so, make the updates
+                            cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+                            item_max = cur.fetchone()
+                            print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
+                            if recipient_inventory[item]['quantity'] < item_max[0]:
+                                print 'shuld be room in that inventory for the item' #TESTING
+                                recipient_inventory[item]['quantity'] += 1
+                                inventory[item]['quantity'] -= 1
+                                # check if there's room in the inventory
+                                if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                                    message = '@' + screen_name + ' Their inventory is full. ' + randstring
+                                    print "reply: " + message
+                                else:
+                                    print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
+                                    # update database with updated values
+                                    cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
+                                    conn.commit()
+                                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                                    conn.commit()
+                                    # formulate reply message and print it to the console
+                                    message = '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                                    print "reply: " + message
+                            else:
+                                # formulate reply message and print it to the console
+                                message = '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                                print "reply: " + message
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
                     print "reply: " + message
