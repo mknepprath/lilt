@@ -250,7 +250,8 @@ if __name__ == "__main__":
                     print 'so you want to give ' + item + ' to ' + recipient
                     # update values here: items, triggers, etc
                     if item not in inventory:
-                        return '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
+                        message = '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
+                        print "reply: " + message
                     else:
                         # get recipient inventory
                         cur.execute("SELECT inventory FROM users WHERE name = %s;", (recipient,))
@@ -268,7 +269,8 @@ if __name__ == "__main__":
                             inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
                             if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
-                                return '@' + screen_name + ' Their inventory is full. ' + randstring
+                                message = '@' + screen_name + ' Their inventory is full. ' + randstring
+                                print "reply: " + message
                             else:
                                 # update database with updated values
                                 cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), recipient))
@@ -276,10 +278,12 @@ if __name__ == "__main__":
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
-                                return '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                                message = '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                                print "reply: " + message
                         else:
                             # formulate reply message and print it to the console
-                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                            message = '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                            print "reply: " + message
                         # if so, make the updates
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
