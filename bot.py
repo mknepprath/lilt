@@ -247,13 +247,15 @@ if __name__ == "__main__":
                     message = dropitem(item)
                     print "reply: " + message
                 elif move == 'give':
-                    print 'so you want to give ' + item + ' to ' + recipient
+                    print 'so you want to give ' + item + ' to ' + recipient #TESTING
                     # update values here: items, triggers, etc
                     if item not in inventory:
+                        print item + ' wasn\'t in the inventory' #TESTING
                         message = '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
                         print "reply: " + message
                     else:
                         # get recipient inventory
+                        print 'okay so you do have the item' #TESTING
                         cur.execute("SELECT inventory FROM users WHERE name = %s;", (recipient,))
                         inv = cur.fetchone()
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
@@ -261,10 +263,13 @@ if __name__ == "__main__":
                             recipient_inventory = {}
                         else:
                             recipient_inventory = json.loads(inv[0])
+                        print 'got tha recipients inventory' #TESTING
                         # modify recipient inventory, see if it fits
                         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                         item_max = cur.fetchone()
+                        print item_max + ' this is the item max that I have grabbed' #TESTING
                         if recipient_inventory[item]['quantity'] < item_max[0]:
+                            print 'shuld be room in that inventory for the item' #TESTING
                             recipient_inventory[item]['quantity'] += 1
                             inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
@@ -272,6 +277,7 @@ if __name__ == "__main__":
                                 message = '@' + screen_name + ' Their inventory is full. ' + randstring
                                 print "reply: " + message
                             else:
+                                print 'update the database with inventory stuff cuz it\'s all gud'
                                 # update database with updated values
                                 cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), recipient))
                                 conn.commit()
