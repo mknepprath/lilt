@@ -217,6 +217,7 @@ if __name__ == "__main__":
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
+                print str(inv)
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if (inv == None) and (inv[0] == None):
                     inventory = {}
