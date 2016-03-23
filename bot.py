@@ -335,10 +335,10 @@ if __name__ == "__main__":
                     print 'position is now: ' + position #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
-                    print 'response: ' + str(response) #TESTING
+                    print response[0] #TESTING
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
-                    print 'item: ' + str(item) #TESTING
+                    print item[0] #TESTING
                     if response[0] != None:
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
