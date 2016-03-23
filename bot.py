@@ -272,6 +272,7 @@ if __name__ == "__main__":
                             print 'oh ya they dind\'t have that item'
                             recipient_inventory[item] = {}
                             recipient_inventory[item]['quantity'] = 1
+                            inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
                             if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
                                 print 'hmm yup they couldn\'t hold anything else'
@@ -281,6 +282,8 @@ if __name__ == "__main__":
                                 # update database with updated values
                                 print 'alright so they should be able to hold this item'
                                 cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
+                                conn.commit()
+                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
                                 print 'now they got it'
