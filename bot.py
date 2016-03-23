@@ -159,7 +159,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'inventory.', # update this with tweet to test
+            'tweet': 'give @drubink banana', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -248,6 +248,39 @@ if __name__ == "__main__":
                     print "reply: " + message
                 elif move == 'give':
                     print 'so you want to give ' + item + ' to ' + recipient
+                    # update values here: items, triggers, etc
+                    if item not in inventory:
+                        return '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
+                    else:
+                        # get recipient inventory
+                        cur.execute("SELECT inventory FROM users WHERE name = %s;", (recipient,))
+                        inv = cur.fetchone()
+                        # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+                        if inv[0] == None:
+                            recipient_inventory = {}
+                        else:
+                            recipient_inventory = json.loads(inv[0])
+                        # modify recipient inventory, see if it fits
+                        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+                        item_max = cur.fetchone()
+                        if recipient_inventory[item]['quantity'] < item_max[0]:
+                            recipient_inventory[item]['quantity'] += 1
+                            inventory[item]['quantity'] -= 1
+                            # check if there's room in the inventory
+                            if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                                return '@' + screen_name + ' Their inventory is full. ' + randstring
+                            else:
+                                # update database with updated values
+                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), recipient))
+                                conn.commit()
+                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                                conn.commit()
+                                # formulate reply message and print it to the console
+                                return '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                        else:
+                            # formulate reply message and print it to the console
+                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                        # if so, make the updates
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
                     print "reply: " + message
