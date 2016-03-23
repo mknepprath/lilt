@@ -333,8 +333,10 @@ if __name__ == "__main__":
                     print 'made it to the else statement in move check' #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
+                    print 'response: ' + response
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
+                    print 'item: ' + item
                     if response[0] != None:
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
