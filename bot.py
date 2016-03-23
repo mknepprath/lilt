@@ -278,18 +278,18 @@ if __name__ == "__main__":
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
                             if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
-                                print 'hmm yup they couldn\'t hold anything else'
+                                print 'hmm yup they couldn\'t hold anything else' #TESTING
                                 message = '@' + screen_name + ' Their inventory is full. ' + randstring
                                 print "reply: " + message
                             else:
                                 # update database with updated values
-                                print 'alright so they should be able to hold this item'
+                                print 'alright so they should be able to hold this item' #TESTING
                                 cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
                                 conn.commit()
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
-                                print 'now they got it'
+                                print 'now they got it' #TESTING
                                 message = '@' + screen_name + ' You gave them ' + item + '. ' + randstring
                                 print "reply: " + message
                         else:
