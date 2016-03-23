@@ -262,6 +262,7 @@ if __name__ == "__main__":
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                         if inv[0] == None:
                             recipient_inventory = {}
+                            print 'their inventory was empty so created an empty json deal' #TESTING
                         else:
                             recipient_inventory = json.loads(inv[0])
                         print 'got tha recipients inventory' #TESTING
