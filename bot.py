@@ -275,7 +275,8 @@ if __name__ == "__main__":
                             # check if there's room in the inventory
                             if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
                                 print 'hmm yup they couldn\'t hold anything else'
-                                return '@' + screen_name + ' Their inventory is full. ' + randstring
+                                message = '@' + screen_name + ' Their inventory is full. ' + randstring
+                                print "reply: " + message
                             else:
                                 # update database with updated values
                                 print 'alright so they should be able to hold this item'
@@ -283,7 +284,8 @@ if __name__ == "__main__":
                                 conn.commit()
                                 # formulate reply message and print it to the console
                                 print 'now they got it'
-                                return '@' + screen_name + ' You gave them ' + item + '. ' + randstring
+                                message = '@' + screen_name + ' You gave them ' + item + '. ' + randstring
+                                print "reply: " + message
                         else:
                             cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                             item_max = cur.fetchone()
