@@ -96,6 +96,83 @@ def dropitem(item):
         conn.commit()
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
+def giveitem(item, recipient):
+    print 'so you want to give ' + item + ' to ' + recipient #TESTING
+    # update values here: items, triggers, etc
+    if item not in inventory:
+        print item + ' wasn\'t in the inventory' #TESTING
+        return '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
+    else:
+        print 'okay so you do have the item' #TESTING
+        #check if recipient exists
+        cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
+        recipient_id = cur.fetchone()
+        if recipient_id == None:
+            print 'ya that person doesn\'t exist' #TESTING
+            return '@' + screen_name + ' They aren\'t playing Lilt! ' + randstring
+        else:
+            # get recipient inventory
+            cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
+            inv = cur.fetchone()
+            print str(inv)
+            print 'got the inventory for recipient I think' #TESTING
+            # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+            if (inv == None) or (inv[0] == None):
+                recipient_inventory = {}
+                print 'their inventory was empty so created an empty json deal' #TESTING
+            else:
+                recipient_inventory = json.loads(inv[0])
+            print 'got tha recipients inventory' #TESTING
+            # modify recipient inventory, see if it fits
+            if item not in recipient_inventory:
+                print 'oh ya they dind\'t have that item'
+                recipient_inventory[item] = {}
+                recipient_inventory[item]['quantity'] = 1
+                if inventory[item]['quantity'] <= 1:
+                    del inventory[item]
+                else:
+                    inventory[item]['quantity'] -= 1
+                # check if there's room in the inventory
+                if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                    print 'hmm yup they couldn\'t hold anything else' #TESTING
+                    return '@' + screen_name + ' Their inventory is full. ' + randstring
+                else:
+                    # update database with updated values
+                    print 'alright so they should be able to hold this item' #TESTING
+                    cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
+                    conn.commit()
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
+                    conn.commit()
+                    # formulate reply message and print it to the console
+                    print 'now they got it' #TESTING
+                    return '@' + screen_name + ' You gave them ' + item + '. ' + randstring
+            else:
+                cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+                item_max = cur.fetchone()
+                print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
+                if recipient_inventory[item]['quantity'] < item_max[0]:
+                    print 'shuld be room in that inventory for the item' #TESTING
+                    recipient_inventory[item]['quantity'] += 1
+                    if inventory[item]['quantity'] <= 1:
+                        del inventory[item]
+                    else:
+                        inventory[item]['quantity'] -= 1
+                    # check if there's room in the inventory
+                    if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                        return '@' + screen_name + ' Their inventory is full. ' + randstring
+                    else:
+                        print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
+                        # update database with updated values
+                        cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
+                        conn.commit()
+                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                        conn.commit()
+                        # formulate reply message and print it to the console
+                        return '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                else:
+                    # formulate reply message and print it to the console
+                    return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+
 def invbuilder(inventory, screen_name):
     items = list(inventory.keys())
     i = 0
@@ -250,89 +327,13 @@ if __name__ == "__main__":
                 if move == 'drop':
                     message = dropitem(item)
                     print "reply: " + message
+                    if debug == False:
+                        twitter.reply(message, tweetid)
                 elif move == 'give':
-                    print 'so you want to give ' + item + ' to ' + recipient #TESTING
-                    # update values here: items, triggers, etc
-                    if item not in inventory:
-                        print item + ' wasn\'t in the inventory' #TESTING
-                        message = '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
-                        print "reply: " + message
-                    else:
-                        print 'okay so you do have the item' #TESTING
-                        #check if recipient exists
-                        cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
-                        recipient_id = cur.fetchone()
-                        if recipient_id == None:
-                            print 'ya that person doesn\'t exist' #TESTING
-                            message = '@' + screen_name + ' They aren\'t playing Lilt! ' + randstring
-                            print "reply: " + message
-                        else:
-                            # get recipient inventory
-                            cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
-                            inv = cur.fetchone()
-                            print str(inv)
-                            print 'got the inventory for recipient I think' #TESTING
-                            # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                            if (inv == None) or (inv[0] == None):
-                                recipient_inventory = {}
-                                print 'their inventory was empty so created an empty json deal' #TESTING
-                            else:
-                                recipient_inventory = json.loads(inv[0])
-                            print 'got tha recipients inventory' #TESTING
-                            # modify recipient inventory, see if it fits
-                            if item not in recipient_inventory:
-                                print 'oh ya they dind\'t have that item'
-                                recipient_inventory[item] = {}
-                                recipient_inventory[item]['quantity'] = 1
-                                if inventory[item]['quantity'] <= 1:
-                                    del inventory[item]
-                                else:
-                                    inventory[item]['quantity'] -= 1
-                                # check if there's room in the inventory
-                                if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
-                                    print 'hmm yup they couldn\'t hold anything else' #TESTING
-                                    message = '@' + screen_name + ' Their inventory is full. ' + randstring
-                                    print "reply: " + message
-                                else:
-                                    # update database with updated values
-                                    print 'alright so they should be able to hold this item' #TESTING
-                                    cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
-                                    conn.commit()
-                                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
-                                    conn.commit()
-                                    # formulate reply message and print it to the console
-                                    print 'now they got it' #TESTING
-                                    message = '@' + screen_name + ' You gave them ' + item + '. ' + randstring
-                                    print "reply: " + message
-                            else:
-                                cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-                                item_max = cur.fetchone()
-                                print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
-                                if recipient_inventory[item]['quantity'] < item_max[0]:
-                                    print 'shuld be room in that inventory for the item' #TESTING
-                                    recipient_inventory[item]['quantity'] += 1
-                                    if inventory[item]['quantity'] <= 1:
-                                        del inventory[item]
-                                    else:
-                                        inventory[item]['quantity'] -= 1
-                                    # check if there's room in the inventory
-                                    if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
-                                        message = '@' + screen_name + ' Their inventory is full. ' + randstring
-                                        print "reply: " + message
-                                    else:
-                                        print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
-                                        # update database with updated values
-                                        cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
-                                        conn.commit()
-                                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
-                                        conn.commit()
-                                        # formulate reply message and print it to the console
-                                        message = '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
-                                        print "reply: " + message
-                                else:
-                                    # formulate reply message and print it to the console
-                                    message = '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
-                                    print "reply: " + message
+                    message = giveitem(item, recipient)
+                    print "reply: " + message
+                    if debug == False:
+                        twitter.reply(message, tweetid)
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
                     print "reply: " + message
