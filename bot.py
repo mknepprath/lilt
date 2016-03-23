@@ -159,7 +159,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'give @benlundsten banana', # update this with tweet to test
+            'tweet': 'give @drubink banana', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -265,6 +265,7 @@ if __name__ == "__main__":
                         if recipient_id == None:
                             print 'ya that person doesn\'t exist' #TESTING
                             message = '@' + screen_name + ' They aren\'t playing Lilt! ' + randstring
+                            print "reply: " + message
                         else:
                             # get recipient inventory
                             cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
