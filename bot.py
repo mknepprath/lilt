@@ -259,6 +259,7 @@ if __name__ == "__main__":
                         cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
                         inv = cur.fetchone()
                         print inv
+                        print recipient
                         print 'got the inventory for recipient I think' #TESTING
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                         if inv == None:
