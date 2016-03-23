@@ -244,6 +244,8 @@ if __name__ == "__main__":
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item = ''.join(ch for ch in d if ch not in exclude).lower()
 
+                print "the move is now: " + move
+
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
