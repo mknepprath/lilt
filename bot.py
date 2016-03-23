@@ -330,6 +330,7 @@ if __name__ == "__main__":
                     if debug == False:
                         twitter.reply(message, tweetid)
                 else:
+                    print 'made it to the else statement in move check' #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
