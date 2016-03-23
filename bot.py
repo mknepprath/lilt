@@ -256,8 +256,9 @@ if __name__ == "__main__":
                     else:
                         # get recipient inventory
                         print 'okay so you do have the item' #TESTING
-                        cur.execute("SELECT inventory FROM users WHERE name = %s;", (recipient,))
+                        cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
                         inv = cur.fetchone()
+                        print 'got the inventory for recipient I think' #TESTING
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                         if inv[0] == None:
                             recipient_inventory = {}
@@ -277,9 +278,9 @@ if __name__ == "__main__":
                                 message = '@' + screen_name + ' Their inventory is full. ' + randstring
                                 print "reply: " + message
                             else:
-                                print 'update the database with inventory stuff cuz it\'s all gud'
+                                print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
                                 # update database with updated values
-                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), recipient))
+                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
                                 conn.commit()
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
