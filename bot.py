@@ -352,7 +352,7 @@ if __name__ == "__main__":
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
-                    elif item != None or (item[0] != None):
+                    elif (item != None) or (item[0] != None):
                         print 'so you\'re trying to pick up an item' #TESTING
                         print item[0] #TESTING
                         print 'that item' #TESTING
