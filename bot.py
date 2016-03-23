@@ -218,7 +218,7 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if (inv == None) and (inv[0] == None):
+                if (inv == None) or (inv[0] == None):
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
@@ -265,7 +265,7 @@ if __name__ == "__main__":
                         print str(inv)
                         print 'got the inventory for recipient I think' #TESTING
                         # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                        if (inv == None) and (inv[0] == None):
+                        if (inv == None) or (inv[0] == None):
                             recipient_inventory = {}
                             print 'their inventory was empty so created an empty json deal' #TESTING
                         else:
@@ -340,12 +340,12 @@ if __name__ == "__main__":
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
                     print str(item) #TESTING
-                    if (response != None) and (response[0] != None):
+                    if (response != None) or (response[0] != None):
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
-                    elif item != None and (item[0] != None):
+                    elif item != None or (item[0] != None):
                         print 'so you\'re trying to pick up an item' #TESTING
                         print item[0] #TESTING
                         print 'that item' #TESTING
