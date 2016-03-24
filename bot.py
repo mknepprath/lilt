@@ -347,9 +347,6 @@ if __name__ == "__main__":
                     if debug == False:
                         twitter.reply(message, tweetid)
                 else:
-                    print 'made it to the else statement in move check' #TESTING
-                    print 'move is now: ' + move #TESTING
-                    print 'position is now: ' + position #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
@@ -360,9 +357,6 @@ if __name__ == "__main__":
                         if debug == False:
                             twitter.reply(message, tweetid)
                     elif (item != None) and (item[0] != None):
-                        print 'so you\'re trying to pick up an item' #TESTING
-                        print item[0] #TESTING
-                        print 'that item' #TESTING
                         message = getitem(item[0])
                         print "reply: " + message
                         if debug == False:
