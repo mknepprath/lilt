@@ -107,7 +107,6 @@ def giveitem(item, recipient):
         #check if item can be given
         cur.execute("SELECT give FROM items WHERE name = %s;", (str(item),))
         givable = cur.fetchone()
-        print str(givable)
         print 'givableness of item should be above this...'
         if givable[0] == False:
             print 'cant give that away!'
@@ -123,7 +122,6 @@ def giveitem(item, recipient):
                 # get recipient inventory
                 cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
                 inv = cur.fetchone()
-                print str(inv)
                 print 'got the inventory for recipient I think' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if (inv == None) or (inv[0] == None):
@@ -354,10 +352,8 @@ if __name__ == "__main__":
                     print 'position is now: ' + position #TESTING
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
-                    print str(response) #TESTING
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
-                    print str(item) #TESTING
                     if (response != None) and (response[0] != None):
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
