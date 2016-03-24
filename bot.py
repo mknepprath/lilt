@@ -111,7 +111,7 @@ def giveitem(item, recipient):
         print 'givableness of item should be above this...'
         if givable[0] == False:
             print 'cant give that away!'
-            return '@' + screen_name + item + ' can\'t be given. ' + randstring
+            return '@' + screen_name + ' The ' + item + ' can\'t be given. ' + randstring
         else:
             #check if recipient exists
             cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
