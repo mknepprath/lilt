@@ -189,7 +189,8 @@ def invbuilder(inventory, screen_name):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    reply(screen_name, ', '.join(items))
+    print 'init reply func here'
+    reply(screen_name, (', '.join(items)))
 
 def reply(message, screen_name):
     return '@' + screen_name + ' ' + message
