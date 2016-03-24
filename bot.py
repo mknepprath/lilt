@@ -189,7 +189,10 @@ def invbuilder(inventory, screen_name):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    return '@' + screen_name + ' ' + ', '.join(items)
+    reply(screen_name, ', '.join(items))
+
+def reply(message, screen_name):
+    return '@' + screen_name + ' ' + message
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -211,7 +214,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'give @drubink key', # update this with tweet to test
+            'tweet': 'inventory', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
