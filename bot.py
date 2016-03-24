@@ -7,6 +7,7 @@ import psycopg2
 import urlparse
 import json
 
+# debugging options
 debug = True
 delete_tweets = False
 
@@ -190,6 +191,11 @@ def invbuilder(inventory, screen_name):
         i += 1
     return '@' + screen_name + ' ' + ', '.join(items)
 
+def reply(message, tweetid):
+    print "reply: " + message
+    if debug == False:
+        twitter.reply(message, tweetid)
+
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
@@ -333,19 +339,13 @@ if __name__ == "__main__":
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
+                    reply(message, tweetid)
                 elif move == 'give':
                     message = giveitem(item, recipient)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
+                    reply(message, tweetid)
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
+                    reply(message, tweetid)
                 else:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
@@ -353,19 +353,13 @@ if __name__ == "__main__":
                     item = cur.fetchone()
                     if (response != None) and (response[0] != None):
                         message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
+                        reply(message, tweetid)
                     elif (item != None) and (item[0] != None):
                         message = getitem(item[0])
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
+                        reply(message, tweetid)
                     else:
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
+                        reply(message, tweetid)
         except:
             pass
 cur.close()
