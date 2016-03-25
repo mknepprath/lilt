@@ -209,9 +209,9 @@ if __name__ == "__main__":
     if debug == True:
         # just for testing purposes
         mentions.append({
-            'screen_name': 'mknepprath',
+            'screen_name': 'phonefromhell',
             'user_id': 15332057,
-            'tweet': 'give @drubink key', # update this with tweet to test
+            'tweet': '💀', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -345,6 +345,8 @@ if __name__ == "__main__":
                     print "reply: " + message
                     if debug == False:
                         twitter.reply(message, tweetid)
+                elif move == '💀':
+                    cur.execute("DELETE FROM users WHERE id = %s;", (str(user_id),))
                 else:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     response = cur.fetchone()
