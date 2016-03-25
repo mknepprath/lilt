@@ -55,7 +55,7 @@ def getitem(item):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, "123451234512345")) >= 140:
+        if len(invbuilder(inventory, "x" * 15)) >= 140:
             return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
@@ -69,7 +69,7 @@ def getitem(item):
         if inventory[item]['quantity'] < item_max[0]:
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, "123451234512345")) >= 140:
+            if len(invbuilder(inventory, "x" * 15)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -141,7 +141,7 @@ def giveitem(item, recipient):
                     else:
                         inventory[item]['quantity'] -= 1
                     # check if there's room in the inventory
-                    if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                    if len(invbuilder(recipient_inventory, "x" * 15)) >= 140:
                         print 'hmm yup they couldn\'t hold anything else' #TESTING
                         return '@' + screen_name + ' Their inventory is full. ' + randstring
                     else:
@@ -166,7 +166,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder(recipient_inventory, "123451234512345")) >= 140:
+                        if len(invbuilder(recipient_inventory, "x" * 15)) >= 140:
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
                             print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
@@ -206,8 +206,8 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    # just for testing purposes
     if debug == True:
-        # just for testing purposes
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
@@ -215,8 +215,8 @@ if __name__ == "__main__":
             'tweetid': 703619369989853172
         })
 
+    # go through mentions from Twitter using Tweepy
     if debug == False:
-        # go through mentions from Twitter using Tweepy
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
                 # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
@@ -248,6 +248,7 @@ if __name__ == "__main__":
             except:
                 pass
 
+    # go through all mentions that require a response from Lilt
     for mention in mentions:
         try:
             screen_name = mention['screen_name']
