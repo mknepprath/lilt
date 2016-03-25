@@ -189,10 +189,7 @@ def invbuilder(inventory, screen_name):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    return reply(screen_name, ', '.join(items))
-
-def reply(screen_name, message):
-    return '@' + screen_name + ' ' + message
+    return '@' + screen_name + ' ' + ', '.join(items)
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -214,7 +211,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'inventory', # update this with tweet to test
+            'tweet': 'give @drubink key', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -331,8 +328,6 @@ if __name__ == "__main__":
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item = ''.join(ch for ch in d if ch not in exclude).lower()
-
-                print "the move is now: " + move
 
                 # logic that generates response to player's move
                 if move == 'drop':
