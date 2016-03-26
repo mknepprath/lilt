@@ -153,8 +153,9 @@ def giveitem(item, recipient):
                         conn.commit()
                         # formulate reply message and print it to the console
                         print 'now they got it' #TESTING
-                        return '@' + screen_name + ' You gave them ' + item + '. ' + randstring
+                        return '@' + screen_name + ' You gave ' + item + ' to @' + recipient '. ' + randstring
                 else:
+                    #they've got the item already, so we have to make sure they can accept more
                     cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                     item_max = cur.fetchone()
                     print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
@@ -176,7 +177,7 @@ def giveitem(item, recipient):
                             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                             conn.commit()
                             # formulate reply message and print it to the console
-                            return '@' + screen_name + ' You gave ' + item + ' to ' + recipient + '. ' + randstring
+                            return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
                     else:
                         # formulate reply message and print it to the console
                         return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
