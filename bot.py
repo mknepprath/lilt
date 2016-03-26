@@ -49,34 +49,34 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
-def getitem(item):
+def getitem(item, response):
     # update values here: items, triggers, etc
     if item not in inventory:
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, "x" * 15)) >= 140:
+        if len(invbuilder(inventory, 'x'*15)) >= 140:
             return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
+            return '@' + screen_name + ' ' + response + ' ' + randstring
     else:
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
         item_max = cur.fetchone()
         if inventory[item]['quantity'] < item_max[0]:
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, "x" * 15)) >= 140:
+            if len(invbuilder(inventory, 'x'*15)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' You acquired a ' + item + '. ' + randstring
+                return '@' + screen_name + ' ' + response + ' ' + randstring
         else:
             # formulate reply message and print it to the console
             return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
@@ -141,7 +141,7 @@ def giveitem(item, recipient):
                     else:
                         inventory[item]['quantity'] -= 1
                     # check if there's room in the inventory
-                    if len(invbuilder(recipient_inventory, "x" * 15)) >= 140:
+                    if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
                         print 'hmm yup they couldn\'t hold anything else' #TESTING
                         return '@' + screen_name + ' Their inventory is full. ' + randstring
                     else:
@@ -166,7 +166,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder(recipient_inventory, "x" * 15)) >= 140:
+                        if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
                             print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
@@ -211,7 +211,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'give @drubink key', # update this with tweet to test
+            'tweet': 'pick up apple', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -352,12 +352,10 @@ if __name__ == "__main__":
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                     item = cur.fetchone()
                     if (response != None) and (response[0] != None):
-                        message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
-                    elif (item != None) and (item[0] != None):
-                        message = getitem(item[0])
+                        if (item != None) and (item[0] != None):
+                            message = getitem(item[0], response[0])
+                        else:
+                            message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                         print "reply: " + message
                         if debug == False:
                             twitter.reply(message, tweetid)
