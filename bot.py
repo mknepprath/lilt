@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'pick up apple', # update this with tweet to test
+            'tweet': 'pick up coin', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -297,8 +297,8 @@ if __name__ == "__main__":
 
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-                user = cur.fetchone()
-                position = user[0]
+                pos = cur.fetchone()
+                position = pos[0]
                 print "position: " + position
 
                 # get inventory
@@ -310,6 +310,18 @@ if __name__ == "__main__":
                 else:
                     inventory = json.loads(inv[0])
                 print "inventory: " + str(inventory)
+
+                # get trigger
+                cur.execute("SELECT trigger FROM users WHERE id = %s;", (str(user_id),))
+                trig = cur.fetchone()
+                trigger = trig[0]
+                print "trigger: " + trigger
+
+                # get condition
+                cur.execute("SELECT condition FROM users WHERE id = %s;", (str(user_id),))
+                cond = cur.fetchone()
+                condition = cond[0]
+                print "condition: " + condition
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
