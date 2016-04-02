@@ -318,7 +318,7 @@ if __name__ == "__main__":
                     trigger = {}
                 else:
                     trigger = trig[0]
-                    print "trigger: " + str(trigger)
+                print "trigger: " + str(trigger)
 
                 # get condition // need to modify to account for if there is no condition
                 cur.execute("SELECT condition FROM users WHERE id = %s;", (str(user_id),))
@@ -327,7 +327,7 @@ if __name__ == "__main__":
                     condition = {}
                 else:
                     condition = cond[0]
-                    print "condition: " + condition
+                print "condition: " + condition
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
