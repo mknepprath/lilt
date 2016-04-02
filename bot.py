@@ -153,7 +153,7 @@ def giveitem(item, recipient):
                         conn.commit()
                         # formulate reply message and print it to the console
                         print 'now they got it' #TESTING
-                        return '@' + screen_name + ' You gave ' + item + ' to @' + recipient '. ' + randstring
+                        return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
                 else:
                     #they've got the item already, so we have to make sure they can accept more
                     cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
