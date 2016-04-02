@@ -320,6 +320,11 @@ if __name__ == "__main__":
                     trigger = trig[0]
                 print "trigger: " + str(trigger)
 
+                # put trigger in events
+                cur.execute("INSERT INTO users (events) VALUES (%s)", (trigger))
+
+                # check events for condition
+
                 # get condition
                 cur.execute("SELECT condition FROM moves WHERE move = %s;", (str(move),))
                 cond = cur.fetchone()
