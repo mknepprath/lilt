@@ -311,17 +311,23 @@ if __name__ == "__main__":
                     inventory = json.loads(inv[0])
                 print "inventory: " + str(inventory)
 
-                # get trigger
+                # get trigger // need to modify to account for if there is no trigger
                 cur.execute("SELECT trigger FROM users WHERE id = %s;", (str(user_id),))
                 trig = cur.fetchone()
-                trigger = trig[0]
-                print "trigger: " + trigger
+                if (trig == None) or (trig[0] == None):
+                    trigger = {}
+                else:
+                    trigger = trig[0]
+                    print "trigger: " + str(trigger)
 
-                # get condition
+                # get condition // need to modify to account for if there is no condition
                 cur.execute("SELECT condition FROM users WHERE id = %s;", (str(user_id),))
                 cond = cur.fetchone()
-                condition = cond[0]
-                print "condition: " + condition
+                if (cond == None) or (cond[0] == None):
+                    condition = {}
+                else:
+                    condition = cond[0]
+                    print "condition: " + condition
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
