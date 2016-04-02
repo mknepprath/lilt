@@ -312,7 +312,7 @@ if __name__ == "__main__":
                 print "inventory: " + str(inventory)
 
                 # get trigger // need to modify to account for if there is no trigger
-                cur.execute("SELECT trigger FROM users WHERE id = %s;", (str(user_id),))
+                cur.execute("SELECT trigger FROM moves WHERE move = %s;", (str(move),))
                 trig = cur.fetchone()
                 if (trig == None) or (trig[0] == None):
                     trigger = {}
@@ -321,7 +321,7 @@ if __name__ == "__main__":
                 print "trigger: " + str(trigger)
 
                 # get condition // need to modify to account for if there is no condition
-                cur.execute("SELECT condition FROM users WHERE id = %s;", (str(user_id),))
+                cur.execute("SELECT condition FROM moves WHERE move = %s;", (str(move),))
                 cond = cur.fetchone()
                 if (cond == None) or (cond[0] == None):
                     condition = {}
