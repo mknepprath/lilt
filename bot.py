@@ -311,17 +311,26 @@ if __name__ == "__main__":
                     inventory = json.loads(inv[0])
                 print "inventory: " + str(inventory)
 
+                # get inventory
+                cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
+                ev = cur.fetchone()
+                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+                if (ev == None) or (ev[0] == None):
+                    events = {}
+                else:
+                    events = json.loads(ev[0])
+                print "events: " + str(events)
+
                 # get trigger
                 cur.execute("SELECT trigger FROM moves WHERE move = %s;", (str(move),))
                 trig = cur.fetchone()
                 if (trig == None) or (trig[0] == None):
                     trigger = {}
                 else:
-                    trigger = trig[0]
+                    trigger = json.loads(trig[0])
                 print "trigger: " + str(trigger)
 
-                # put trigger in events
-                cur.execute("INSERT INTO users (events) VALUES (%s)", (trigger))
+                # put trigger in events // actually should add to an events list and store that...
 
                 # check events for condition
 
