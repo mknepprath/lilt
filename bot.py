@@ -352,6 +352,11 @@ if __name__ == "__main__":
                 response = cur.fetchone()
                 print "response: " + str(response)
 
+                # get item (if one exists)
+                cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                newitem = cur.fetchone()
+                print "item: " + str(newitem)
+
                 # if condition is met, get conditional response
                 completed = False
                 for event in events:
@@ -363,11 +368,9 @@ if __name__ == "__main__":
                 if completed = True:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
                     response = cur.fetchone()
+                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
+                    newitem = cur.fetchone()
                 print "response: " + str(response)
-
-                # get item (if one exists)
-                cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                newitem = cur.fetchone()
                 print "item: " + str(newitem)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
