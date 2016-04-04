@@ -331,6 +331,9 @@ if __name__ == "__main__":
                 print "trigger: " + str(trigger)
 
                 # put trigger in events // actually should add to an events list and store that...
+                events[position] = trigger
+                cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
+                conn.commit()
 
                 # check events for condition
 
