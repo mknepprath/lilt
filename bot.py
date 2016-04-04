@@ -361,6 +361,7 @@ if __name__ == "__main__":
                 completed = False
                 for event in events:
                     try:
+                        print "event: " + str(event)
                         if event == condition:
                             completed = True
                     except:
