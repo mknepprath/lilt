@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'open chest', # update this with tweet to test
+            'tweet': 'close chest', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -331,11 +331,8 @@ if __name__ == "__main__":
                     if position not in events:
                         # add position dict item to events if it's not there yet
                         events[position] = {}
-                        print "events: " + str(events)
-                    print "test"
                     # append trigger to events
                     events[position].update(trigger)
-                    print "events: " + str(events)
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
                 print "events: " + str(events)
