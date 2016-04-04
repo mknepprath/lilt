@@ -326,7 +326,7 @@ if __name__ == "__main__":
                 cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 trig = cur.fetchone()
                 if (trig != None) and (trig[0] != None):
-                    trigger = trig[0]
+                    trigger = json.loads(trig[0])
                     print "trigger: " + str(trigger)
                     if position not in events:
                         # add position dict item to events if it's not there yet
