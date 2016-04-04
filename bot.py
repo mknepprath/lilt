@@ -350,9 +350,9 @@ if __name__ == "__main__":
 
                 if condition_response == True:
                     # get item (if one exists)
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position),json.dumps(current_event)))
+                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position)))
+                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 newitem = cur.fetchone()
                 print "item: " + str(newitem)
 
