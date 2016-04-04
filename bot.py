@@ -322,6 +322,7 @@ if __name__ == "__main__":
                     events = json.loads(ev[0])
                 print "events: " + str(events)
 
+                # get trigger for move and add it to events
                 cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 trig = cur.fetchone()
                 if (trig != None) and (trig[0] != None):
@@ -329,10 +330,11 @@ if __name__ == "__main__":
                     print "trigger: " + str(trigger)
                     if position not in events:
                         events[position] = []
-                    events[position].append(trigger)
-                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                    conn.commit()
-                    print "events: " + str(events)
+                    if trigger not in events[position]:
+                        events[position].append(trigger)
+                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
+                        conn.commit()
+                print "events: " + str(events)
 
                 # get response
                 cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
