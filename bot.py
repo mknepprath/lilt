@@ -333,6 +333,7 @@ if __name__ == "__main__":
                         events[position] = {}
                         print "events: " + str(events)
                     if trigger not in events[position]:
+                        print "test"
                         # append trigger to events
                         events[position].update(trigger)
                         print "events: " + str(events)
