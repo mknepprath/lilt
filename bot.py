@@ -343,6 +343,9 @@ if __name__ == "__main__":
                         event = {}
                         event[key] = value
                         print "event: " + str(event)
+                        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(event)))
+                        response = cur.fetchone()
+                        print "response w condition: " + str(response)
                     except:
                         pass
 
