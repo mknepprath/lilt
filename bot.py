@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'pick up coin', # update this with tweet to test
+            'tweet': 'open chest', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -325,16 +325,19 @@ if __name__ == "__main__":
                 # get trigger
                 cur.execute("SELECT trigger FROM moves WHERE move = %s;", (str(move),))
                 trig = cur.fetchone()
-                if (trig == None) or (trig[0] == None):
-                    trigger = {}
-                else:
+                print "trig: " + str(trig)
+                # if there is a trigger, assing json to trigger
+                if (trig != None) and (trig[0] != None):
                     trigger = json.loads(trig[0])
+                    print "trigger: " + str(trigger)
+                    # if trigger isn't in events, add it
+                    if trigger not in events[position]:
+                        events[position].append(trigger)
+                        print "events: " + str(events)
+                        # update events
+                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
+                        conn.commit()
                 print "trigger: " + str(trigger)
-
-                # put trigger in events // actually should add to an events list and store that...
-                events[position] = trigger
-                cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                conn.commit()
 
                 # get condition
                 cur.execute("SELECT condition FROM moves WHERE move = %s;", (str(move),))
