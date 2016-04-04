@@ -315,7 +315,6 @@ if __name__ == "__main__":
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
                 ev = cur.fetchone()
-                print str(ev)
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if (ev == None) or (ev[0] == None):
                     events = {}
@@ -328,6 +327,7 @@ if __name__ == "__main__":
                 if (trig != None) and (trig[0] != None):
                     trigger = trig[0]
                     print "trigger: " + str(trigger)
+                    events[position] = []
                     events[position].append(trigger)
                     print "events: " + str(events)
 
