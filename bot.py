@@ -338,9 +338,9 @@ if __name__ == "__main__":
                 print "events: " + str(events)
 
                 # loop through move/event combos to see if a condition matches
-                for event in events:
+                for key, value in events.iteritems():
                     try:
-                        print "print: " + str(event)
+                        print "print: " + str(key) + ":" + str(value)
                     except:
                         pass
 
