@@ -322,31 +322,7 @@ if __name__ == "__main__":
                     events = json.loads(ev[0])
                 print "events: " + str(events)
 
-                # get trigger
-                cur.execute("SELECT trigger FROM moves WHERE move = %s;", (str(move),))
-                trig = cur.fetchone()
-                print "trig: " + str(trig)
-                # if there is a trigger, assing json to trigger
-                if (trig != None) and (trig[0] != None):
-                    trigger = json.loads(trig[0])
-                    print "test"
-                    events[position].append(trigger)
-                    print "events: " + str(events)
-                    # update events
-                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                    conn.commit()
-                print "trigger: " + str(trigger)
-
-                # get condition
-                cur.execute("SELECT condition FROM moves WHERE move = %s;", (str(move),))
-                cond = cur.fetchone()
-                if (cond == None) or (cond[0] == None):
-                    condition = {}
-                else:
-                    condition = json.loads(cond[0])
-                print "condition: " + str(condition)
-
-                # check events for condition
+                del events[position]
 
                 # get response
                 cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
@@ -356,23 +332,6 @@ if __name__ == "__main__":
                 # get item (if one exists)
                 cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 newitem = cur.fetchone()
-                print "item: " + str(newitem)
-
-                # if condition is met, get conditional response
-                completed = False
-                for event in events[position]:
-                    try:
-                        print "event: " + str(event)
-                        if event == condition:
-                            completed = True
-                    except:
-                        pass
-                if completed == True:
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
-                    response = cur.fetchone()
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
-                    newitem = cur.fetchone()
-                print "response: " + str(response)
                 print "item: " + str(newitem)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
