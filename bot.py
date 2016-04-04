@@ -334,10 +334,9 @@ if __name__ == "__main__":
                         cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(event)))
                         response = cur.fetchone()
                         print "response w condition: " + str(response)
-                        if response != None {
+                        if response != None:
                             condition_response = True
                             current_event = event
-                        }
                     except:
                         pass
 
