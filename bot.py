@@ -374,32 +374,6 @@ if __name__ == "__main__":
                     conn.commit()
                 print "events: " + str(events)
 
-                else:
-                    # get response
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                    response = cur.fetchone()
-                    print "response: " + str(response)
-
-                    # get item (if one exists)
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                    newitem = cur.fetchone()
-                    print "item: " + str(newitem)
-
-                    # get trigger for move and add it to events
-                    cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                    trig = cur.fetchone()
-                    if (trig != None) and (trig[0] != None):
-                        trigger = json.loads(trig[0])
-                        print "trigger: " + str(trigger)
-                        if position not in events:
-                            # add position dict item to events if it's not there yet
-                            events[position] = {}
-                        # add trigger to events (this adds or updates current value at key of trigger)
-                        events[position].update(trigger)
-                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                        conn.commit()
-                    print "events: " + str(events)
-
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
