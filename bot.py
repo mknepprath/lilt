@@ -322,7 +322,13 @@ if __name__ == "__main__":
                     events = json.loads(ev[0])
                 print "events: " + str(events)
 
-                del events[position]
+                cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                trig = cur.fetchone()
+                if (trig != None) and (trig[0] != None):
+                    trigger = trig[0]
+                    print "trigger: " + str(trigger)
+                    events[position].append(trigger)
+                    print "events: " + str(events)
 
                 # get response
                 cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
