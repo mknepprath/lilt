@@ -359,7 +359,7 @@ if __name__ == "__main__":
 
                 # if condition is met, get conditional response
                 completed = False
-                for event in events:
+                for event in events[position]:
                     try:
                         print "event: " + str(event)
                         if event == condition:
