@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'open chest', # update this with tweet to test
+            'tweet': 'pick up coin', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -352,10 +352,18 @@ if __name__ == "__main__":
                 response = cur.fetchone()
                 print "response: " + str(response)
 
-                # get conditional response
-                cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
-                condresponse = cur.fetchone()
-                print "conditional response: " + str(condresponse)
+                # if condition is met, get conditional response
+                completed = False
+                for event in events:
+                    try:
+                        if event == condition:
+                            completed = True
+                    except:
+                        pass
+                if completed = True:
+                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
+                    response = cur.fetchone()
+                print "response: " + str(response)
 
                 # get item (if one exists)
                 cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
