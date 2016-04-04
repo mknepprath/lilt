@@ -340,7 +340,9 @@ if __name__ == "__main__":
                 # loop through move/event combos to see if a condition matches
                 for key, value in events[position].iteritems():
                     try:
-                        print "print: " + str(key) + ":" + str(value)
+                        event = {}
+                        event[key] = value
+                        print "event: " + str(event)
                     except:
                         pass
 
