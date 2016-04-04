@@ -331,6 +331,7 @@ if __name__ == "__main__":
                     if position not in events:
                         # add position dict item to events if it's not there yet
                         events[position] = {}
+                        print "events: " + str(events)
                     if trigger not in events[position]:
                         # append trigger to events
                         events[position].update(trigger)
