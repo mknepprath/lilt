@@ -329,9 +329,11 @@ if __name__ == "__main__":
                     trigger = trig[0]
                     print "trigger: " + str(trigger)
                     if position not in events:
-                        events[position] = []
+                        # add position dict item to events if it's not there yet
+                        events[position] = {}
                     if trigger not in events[position]:
-                        events[position].append(trigger)
+                        # append trigger to events
+                        events[position].update(trigger)
                         cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                         conn.commit()
                 print "events: " + str(events)
