@@ -365,7 +365,7 @@ if __name__ == "__main__":
                             completed = True
                     except:
                         pass
-                if completed = True:
+                if completed == True:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
                     response = cur.fetchone()
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
