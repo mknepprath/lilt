@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'inventory', # update this with tweet to test
+            'tweet': 'close chest', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -282,6 +282,7 @@ if __name__ == "__main__":
                 reply = True
                 conn.commit()
 
+            # when debugging, always reply (even if tweet id is the same)
             if debug == True:
                 reply = True
 
@@ -301,14 +302,6 @@ if __name__ == "__main__":
                 position = pos[0]
                 print "position: " + position
 
-                # get response
-                cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                response = cur.fetchone()
-
-                # get item (if one exists)
-                cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                item = cur.fetchone()
-
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
@@ -319,7 +312,7 @@ if __name__ == "__main__":
                     inventory = json.loads(inv[0])
                 print "inventory: " + str(inventory)
 
-                # get inventory
+                # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
                 ev = cur.fetchone()
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
@@ -343,16 +336,31 @@ if __name__ == "__main__":
                 cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                 conn.commit()
 
-                # check events for condition
-
                 # get condition
                 cur.execute("SELECT condition FROM moves WHERE move = %s;", (str(move),))
                 cond = cur.fetchone()
                 if (cond == None) or (cond[0] == None):
                     condition = {}
                 else:
-                    condition = trig[0]
+                    condition = json.loads(cond[0])
                 print "condition: " + str(condition)
+
+                # check events for condition
+
+                # get response
+                cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                response = cur.fetchone()
+                print "response: " + str(response)
+
+                # get conditional response
+                cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(condition)))
+                condresponse = cur.fetchone()
+                print "conditional response: " + str(condresponse)
+
+                # get item (if one exists)
+                cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                newitem = cur.fetchone()
+                print "item: " + str(newitem)
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
@@ -382,14 +390,18 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
                 else:
+                    # if there is a response...
                     if (response != None) and (response[0] != None):
-                        if (item != None) and (item[0] != None):
-                            message = getitem(item[0], response[0])
+                        # if there is an item...
+                        if (newitem != None) and (newitem[0] != None):
+                            message = getitem(newitem[0], response[0])
+                        # if there isn't an item...
                         else:
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
+                    # if there is no valid response
                     else:
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-
+                # print reply and tweet it
                 print "reply: " + message
                 if debug == False:
                     twitter.reply(message, tweetid)
