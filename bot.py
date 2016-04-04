@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'open chest', # update this with tweet to test
+            'tweet': 'inventory', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -301,6 +301,14 @@ if __name__ == "__main__":
                 position = pos[0]
                 print "position: " + position
 
+                # get response
+                cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                response = cur.fetchone()
+
+                # get item (if one exists)
+                cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                item = cur.fetchone()
+
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
@@ -369,37 +377,22 @@ if __name__ == "__main__":
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
                 elif move == 'give':
                     message = giveitem(item, recipient)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
-                    print "reply: " + message
-                    if debug == False:
-                        twitter.reply(message, tweetid)
                 else:
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                    response = cur.fetchone()
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                    item = cur.fetchone()
                     if (response != None) and (response[0] != None):
                         if (item != None) and (item[0] != None):
                             message = getitem(item[0], response[0])
                         else:
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
                     else:
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                        print "reply: " + message
-                        if debug == False:
-                            twitter.reply(message, tweetid)
+
+                print "reply: " + message
+                if debug == False:
+                    twitter.reply(message, tweetid)
         except:
             pass
 cur.close()
