@@ -329,15 +329,12 @@ if __name__ == "__main__":
                 # if there is a trigger, assing json to trigger
                 if (trig != None) and (trig[0] != None):
                     trigger = json.loads(trig[0])
-                    print "trigger: " + str(trigger)
-                    # if trigger isn't in events, add it
-                    if trigger not in events[position]:
-                        print "test"
-                        events[position].append(trigger)
-                        print "events: " + str(events)
-                        # update events
-                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                        conn.commit()
+                    print "test"
+                    events[position].append(trigger)
+                    print "events: " + str(events)
+                    # update events
+                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
+                    conn.commit()
                 print "trigger: " + str(trigger)
 
                 # get condition
