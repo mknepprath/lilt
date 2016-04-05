@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'pick up coin', # update this with tweet to test
+            'tweet': 'pick up paste', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -326,13 +326,12 @@ if __name__ == "__main__":
                 events_and_items = events
                 items = list(inventory.keys())
                 for item in items:
-                    print "item: " + str(item)
                     events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
                 # loop through move/event combos to see if a condition matches
-                for key, value in events[position].iteritems():
+                for key, value in events_and_items[position].iteritems():
                     try:
                         event = {}
                         # assign current event to event
