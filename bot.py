@@ -343,8 +343,7 @@ if __name__ == "__main__":
                         if response != None:
                             condition_response = True
                             current_event = event
-                            except:
-                                pass
+                            break
                     except:
                         pass
 
