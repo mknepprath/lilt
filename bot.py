@@ -207,7 +207,7 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
-    # just for testing purposes
+    # mentions for testing purposes
     if debug == True:
         mentions.append({
             'screen_name': 'mknepprath',
@@ -320,7 +320,13 @@ if __name__ == "__main__":
                     events = {}
                 else:
                     events = json.loads(ev[0])
+                    events_and_items = json.loads(ev[0])
                 print "events: " + str(events)
+
+                events_and_items = events
+                items = list(inventory.keys())
+                for item in items:
+                    print "item: " + str(item)
 
                 condition_response = False
                 # loop through move/event combos to see if a condition matches
@@ -333,35 +339,35 @@ if __name__ == "__main__":
                         # check if there is a response for this move when condition is met (this event)
                         cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(event)))
                         response = cur.fetchone()
-                        print "response w condition: " + str(response)
                         if response != None:
                             condition_response = True
                             current_event = event
                     except:
                         pass
 
+                # get response
                 if condition_response == True:
-                    # get response
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 response = cur.fetchone()
                 print "response: " + str(response)
 
+                # get item (if one exists)
                 if condition_response == True:
-                    # get item (if one exists)
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 newitem = cur.fetchone()
                 print "item: " + str(newitem)
 
+                # get trigger for move and add it to events
                 if condition_response == True:
-                    # get trigger for move and add it to events
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 trig = cur.fetchone()
+                # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
                     trigger = json.loads(trig[0])
                     print "trigger: " + str(trigger)
