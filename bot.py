@@ -328,7 +328,7 @@ if __name__ == "__main__":
                 for item in items:
                     print "item: " + str(item)
                     events_and_items[position][item] = 'inventory'
-                print "events_and_items: " + events_and_items
+                print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
                 # loop through move/event combos to see if a condition matches
