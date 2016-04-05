@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'close chest', # update this with tweet to test
+            'tweet': 'open chest', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -343,6 +343,7 @@ if __name__ == "__main__":
                         if response != None:
                             condition_response = True
                             current_event = event
+                            pass
                     except:
                         pass
 
