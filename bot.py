@@ -323,13 +323,13 @@ if __name__ == "__main__":
                     events_and_items = json.loads(ev[0])
                 print "events: " + str(events)
 
-                events_and_items = events
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
+                current_event = {}
                 # loop through move/event combos to see if a condition matches
                 for key, value in events_and_items[position].iteritems():
                     try:
@@ -345,6 +345,8 @@ if __name__ == "__main__":
                             current_event = event
                     except:
                         pass
+
+                print "current event: " + str(current_event)
 
                 # get response
                 if condition_response == True:
