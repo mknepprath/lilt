@@ -373,7 +373,7 @@ if __name__ == "__main__":
                 drop = cur.fetchone()
                 print "drop: " + str(drop[0])
                 message = dropitem(drop[0])
-                print "message after drop: " + str(message)
+                print message
 
                 # get trigger for move and add it to events
                 if condition_response == True:
