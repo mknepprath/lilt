@@ -365,14 +365,14 @@ if __name__ == "__main__":
                 newitem = cur.fetchone()
                 print "item: " + str(newitem)
 
-                # get item (if one exists)
+                # get drop (if one exists)
                 if condition_response == True:
                     cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 drop = cur.fetchone()
-                print "item: " + str(drop)
-                message = dropitem(drop)
+                print "drop: " + str(drop)
+                message = dropitem(drop[0])
                 print "message after drop: " + message
 
                 # get trigger for move and add it to events
