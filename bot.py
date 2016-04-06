@@ -371,9 +371,9 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 drop = cur.fetchone()
-                print "drop: " + str(drop)
+                print "drop: " + str(drop[0])
                 message = dropitem(drop[0])
-                print "message after drop: " + message
+                print "message after drop: " + str(message)
 
                 # get trigger for move and add it to events
                 if condition_response == True:
