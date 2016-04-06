@@ -212,7 +212,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': 'use the coin with the door', # update this with tweet to test
+            'tweet': 'use coin on door', # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
@@ -364,6 +364,16 @@ if __name__ == "__main__":
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
                 newitem = cur.fetchone()
                 print "item: " + str(newitem)
+
+                # get item (if one exists)
+                if condition_response == True:
+                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
+                else:
+                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                drop = cur.fetchone()
+                print "item: " + str(drop)
+                message = dropitem(drop)
+                print "message after drop: " + message
 
                 # get trigger for move and add it to events
                 if condition_response == True:
