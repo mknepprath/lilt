@@ -490,7 +490,7 @@ if __name__ == "__main__":
                                             # update database with updated values
                                             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                                             conn.commit()
-                                            del inventory[drop]
+                                            inventory[drop]['quantity'] -= 1
                                             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                                             conn.commit()
                                             # formulate reply message and print it to the console
