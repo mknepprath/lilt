@@ -373,18 +373,6 @@ if __name__ == "__main__":
                 dr = cur.fetchone()
                 drop = dr[0]
                 print "drop: " + str(drop)
-                if drop not in inventory:
-                    print 'You don\'t have anything like that.'
-                elif inventory[drop]['quantity'] <= 1:
-                    del inventory[drop]
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                    conn.commit()
-                    print 'You drop one ' + drop + '.'
-                else:
-                    inventory[drop]['quantity'] -= 1
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
-                    conn.commit()
-                    print 'You drop one ' + drop + '.'
 
                 # get trigger for move and add it to events
                 if condition_response == True:
@@ -437,7 +425,22 @@ if __name__ == "__main__":
                     if (response != None) and (response[0] != None):
                         # if there is an item...
                         if (newitem != None) and (newitem[0] != None):
-                            message = getitem(newitem[0], response[0])
+                            # if there is an item to drop...
+                            if (drop != None) and (drop[0] != None):
+                                if drop not in inventory:
+                                    print 'You don\'t have anything like that.'
+                                elif inventory[drop]['quantity'] <= 1:
+                                    del inventory[drop]
+                                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                                    conn.commit()
+                                    print 'You drop one ' + drop + ' due to a move.'
+                                else:
+                                    inventory[drop]['quantity'] -= 1
+                                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
+                                    conn.commit()
+                                    print 'You drop one ' + drop + ' due to a move.'
+                            else:
+                                message = getitem(newitem[0], response[0])
                         # if there isn't an item...
                         else:
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
