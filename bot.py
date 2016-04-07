@@ -429,16 +429,19 @@ if __name__ == "__main__":
                             if (drop != None) and (drop[0] != None):
                                 if drop not in inventory:
                                     print 'You don\'t have anything like that.'
+                                    message = getitem(newitem[0], response[0])
                                 elif inventory[drop]['quantity'] <= 1:
                                     del inventory[drop]
                                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                                     conn.commit()
                                     print 'You drop one ' + drop + ' due to a move.'
+                                    message = getitem(newitem[0], response[0])
                                 else:
                                     inventory[drop]['quantity'] -= 1
                                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                                     conn.commit()
                                     print 'You drop one ' + drop + ' due to a move.'
+                                    message = getitem(newitem[0], response[0])
                             else:
                                 message = getitem(newitem[0], response[0])
                         # if there isn't an item...
