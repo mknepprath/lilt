@@ -328,6 +328,7 @@ if __name__ == "__main__":
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
+                print "items: " + str(items)
                 print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
@@ -395,10 +396,10 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
                 print "events: " + str(events)
-
+                print "13"
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "13"
+                print "14"
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -415,7 +416,7 @@ if __name__ == "__main__":
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item = ''.join(ch for ch in d if ch not in exclude).lower()
-                print "14"
+                print "15"
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
@@ -537,7 +538,7 @@ if __name__ == "__main__":
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
-                        print "15"
+                        print "16"
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                 # print reply and tweet it
                 print "reply: " + message
