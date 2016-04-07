@@ -358,7 +358,7 @@ if __name__ == "__main__":
                 if condition_response == True:
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 response = cur.fetchone()
                 print "response: " + str(response)
 
@@ -366,7 +366,7 @@ if __name__ == "__main__":
                 if condition_response == True:
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 it = cur.fetchone()
                 item = it[0]
                 print "item: " + str(item)
@@ -375,7 +375,7 @@ if __name__ == "__main__":
                 if condition_response == True:
                     cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 dr = cur.fetchone()
                 drop = dr[0]
                 print "drop: " + str(drop)
@@ -384,7 +384,7 @@ if __name__ == "__main__":
                 if condition_response == True:
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
+                    cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 trig = cur.fetchone()
                 # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
@@ -398,10 +398,10 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
                 print "events: " + str(events)
-                print "13"
+
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "14"
+
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -418,7 +418,7 @@ if __name__ == "__main__":
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item = ''.join(ch for ch in d if ch not in exclude).lower()
-                print "15"
+
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
