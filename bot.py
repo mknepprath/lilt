@@ -373,7 +373,8 @@ if __name__ == "__main__":
                 print "D"
                 it = cur.fetchone()
                 print "E"
-                item = it[0]
+                if it != None:
+                    item = it[0]
                 print "F"
                 print "item: " + str(item)
                 print "G"
@@ -384,7 +385,8 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 dr = cur.fetchone()
-                drop = dr[0]
+                if dr != None:
+                    drop = dr[0]
                 print "drop: " + str(drop)
 
                 # get trigger for move and add it to events
