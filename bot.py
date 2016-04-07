@@ -361,15 +361,22 @@ if __name__ == "__main__":
                     cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 response = cur.fetchone()
                 print "response: " + str(response)
+                print "A"
 
                 # get item (if one exists)
                 if condition_response == True:
+                    print "B"
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
+                    print "C"
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
+                print "D"
                 it = cur.fetchone()
+                print "E"
                 item = it[0]
+                print "F"
                 print "item: " + str(item)
+                print "G"
 
                 # get drop (if one exists)
                 if condition_response == True:
