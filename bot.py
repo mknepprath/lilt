@@ -304,17 +304,6 @@ if __name__ == "__main__":
                 position = pos[0]
                 print "position: " + position
 
-                # get events
-                cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
-                ev = cur.fetchone()
-                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if (ev == None) or (ev[0] == None):
-                    events = {}
-                else:
-                    events = json.loads(ev[0])
-                    events_and_items = json.loads(ev[0])
-                print "events: " + str(events)
-
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
@@ -323,11 +312,24 @@ if __name__ == "__main__":
                     inventory = {}
                 else:
                     inventory = json.loads(inv[0])
-                    items = list(inventory.keys())
-                    for item in items:
-                        events_and_items[position][item] = 'inventory'
-                    print "events_and_items: " + str(events_and_items)
                 print "inventory: " + str(inventory)
+
+                # get events
+                cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
+                ev = cur.fetchone()
+                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+                if (ev == None) or (ev[0] == None):
+                    events = {}
+                    events[position] = {}
+                else:
+                    events = json.loads(ev[0])
+                    events_and_items = json.loads(ev[0])
+                print "events: " + str(events)
+
+                items = list(inventory.keys())
+                for item in items:
+                    events_and_items[position][item] = 'inventory'
+                print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
                 current_event = {}
