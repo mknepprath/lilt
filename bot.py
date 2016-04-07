@@ -458,7 +458,9 @@ if __name__ == "__main__":
                                 else:
                                     print "7"
                                     cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+                                    print "7.1"
                                     item_max = cur.fetchone()
+                                    print "7.2"
                                     if inventory[item]['quantity'] < item_max[0]:
                                         print "8"
                                         inventory[item]['quantity'] += 1
