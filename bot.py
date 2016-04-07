@@ -462,6 +462,7 @@ if __name__ == "__main__":
                                     item_max = cur.fetchone()
                                     print "7.2"
                                     print item
+                                    print str(inventory)
                                     print str(inventory[item])
                                     print inventory[item]['quantity']
                                     print item_max[0]
