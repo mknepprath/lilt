@@ -319,13 +319,17 @@ if __name__ == "__main__":
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
+                print "17"
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if (inv == None) or (inv[0] == None):
+                    print "18"
                     inventory = {}
                 else:
+                    print "19"
                     inventory = json.loads(inv[0])
                     items = list(inventory.keys())
                     for item in items:
+                        print "20"
                         events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
                 print "inventory: " + str(inventory)
