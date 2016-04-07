@@ -398,7 +398,7 @@ if __name__ == "__main__":
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-
+                print "13"
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -415,7 +415,7 @@ if __name__ == "__main__":
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item = ''.join(ch for ch in d if ch not in exclude).lower()
-
+                print "14"
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = dropitem(item)
@@ -537,6 +537,7 @@ if __name__ == "__main__":
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
+                        print "15"
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                 # print reply and tweet it
                 print "reply: " + message
