@@ -471,10 +471,10 @@ if __name__ == "__main__":
                                                 print 'You drop one ' + drop + ' due to a move.'
                                                 # formulate reply message and print it to the console
                                                 message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
-                                    else:
-                                        print "6"
-                                        # formulate reply message and print it to the console
-                                        message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
+                                        else:
+                                            print "6"
+                                            # formulate reply message and print it to the console
+                                            message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
                                 else:
                                     print "7"
                                     if item not in inventory:
