@@ -362,8 +362,9 @@ if __name__ == "__main__":
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s;", (str(move),str(position)))
-                newitem = cur.fetchone()
-                print "item: " + str(newitem)
+                it = cur.fetchone()
+                item = it[0]
+                print "item: " + str(item)
 
                 # get drop (if one exists)
                 if condition_response == True:
@@ -424,9 +425,9 @@ if __name__ == "__main__":
                     # if there is a response...
                     if (response != None) and (response[0] != None):
                         # if there is an item...
-                        if (newitem != None) and (newitem[0] != None):
+                        if item != None:
                             # if there is an item that the new item is replacing...
-                            if (drop != None) and (drop[0] != None):
+                            if drop != None:
                                 if inventory[drop]['quantity'] <= 1:
                                     cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                                     item_max = cur.fetchone()
@@ -470,7 +471,7 @@ if __name__ == "__main__":
                                         # formulate reply message and print it to the console
                                         message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
                             else:
-                                message = getitem(newitem[0], response[0])
+                                message = getitem(item, response[0])
                         # if there isn't an item...
                         else:
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
