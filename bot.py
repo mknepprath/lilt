@@ -428,10 +428,10 @@ if __name__ == "__main__":
                             # if there is an item that the new item is replacing...
                             if (drop != None) and (drop[0] != None):
                                 if inventory[drop]['quantity'] <= 1:
-                                    cur.execute("SELECT max FROM items WHERE name = %s;", (str(newitem[0]),))
+                                    cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                                     item_max = cur.fetchone()
-                                    if inventory[newitem[0]]['quantity'] < item_max[0]:
-                                        inventory[newitem[0]]['quantity'] += 1
+                                    if inventory[item]['quantity'] < item_max[0]:
+                                        inventory[item]['quantity'] += 1
                                         # check if there's room in the inventory
                                         if len(invbuilder(inventory, 'x'*15)) >= 140:
                                             message = '@' + screen_name + ' Your inventory is full. ' + randstring
@@ -447,12 +447,12 @@ if __name__ == "__main__":
                                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                                     else:
                                         # formulate reply message and print it to the console
-                                        message = '@' + screen_name + ' You can\'t hold more ' + newitem[0] + '! ' + randstring
+                                        message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
                                 else:
-                                    cur.execute("SELECT max FROM items WHERE name = %s;", (str(newitem[0]),))
+                                    cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
                                     item_max = cur.fetchone()
-                                    if inventory[newitem[0]]['quantity'] < item_max[0]:
-                                        inventory[newitem[0]]['quantity'] += 1
+                                    if inventory[item]['quantity'] < item_max[0]:
+                                        inventory[item]['quantity'] += 1
                                         # check if there's room in the inventory
                                         if len(invbuilder(inventory, 'x'*15)) >= 140:
                                             message = '@' + screen_name + ' Your inventory is full. ' + randstring
@@ -468,7 +468,7 @@ if __name__ == "__main__":
                                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                                     else:
                                         # formulate reply message and print it to the console
-                                        message = '@' + screen_name + ' You can\'t hold more ' + newitem[0] + '! ' + randstring
+                                        message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
                             else:
                                 message = getitem(newitem[0], response[0])
                         # if there isn't an item...
