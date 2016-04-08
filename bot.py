@@ -462,7 +462,7 @@ if __name__ == "__main__":
                 trig = cur.fetchone()
                 print "trig: " + str(trig)
                 # if there is a trigger, add it
-                if (trig != None) and (trig[0] != None):
+                if trig != None:
                     print "Trigger exists,"
                     trigger = json.loads(trig[0])
                     print "so I've loaded it into trigger."
