@@ -18,6 +18,8 @@ for movedata in movesdata["results"]:
         blap += 1
     elif 'halt' in movedata:
         blap += 1
+    elif movedata["condition"] != 0;
+        blap += 1
     else:
         print movedata["move"]
         bloop += 1
