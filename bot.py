@@ -373,8 +373,8 @@ if __name__ == "__main__":
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
                     cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
-                    reply = True
                     conn.commit()
+                    reply = True
                 else:
                     reply = False
                     print 'This person isn\'t playing Lilt.'
@@ -546,9 +546,15 @@ if __name__ == "__main__":
                     else:
                         print "I guess that move didn't work."
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
-                        cur.execute("SELECT move FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
-                        att = cur.fetchone()
-                        print str(att)
+                        cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
+                        attempt = cur.fetchone()
+                        if attempt == None:
+                            cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
+                            conn.commit()
+                        else:
+                            cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),attempt[0]+1))
+                            conn.commit()
+
                 # print reply and tweet it
                 print "reply: " + message
                 if debug == False:
