@@ -545,7 +545,9 @@ if __name__ == "__main__":
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
+                        response_options = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
+
+                        message = '@' + screen_name + ' ' + random.choice(response_options) + ' ' + randstring
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
@@ -554,6 +556,7 @@ if __name__ == "__main__":
                         else:
                             cur.execute("UPDATE attempts SET attempts = %s WHERE move = %s", (attempt[0]+1, str(move)))
                             conn.commit()
+                        print "Stored the failed attempt for future reference."
 
                 # print reply and tweet it
                 print "reply: " + message
