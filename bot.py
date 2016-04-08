@@ -460,17 +460,23 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 trig = cur.fetchone()
+                print "trig: " + str(trig)
                 # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
+                    print "Trigger exists,"
                     trigger = json.loads(trig[0])
+                    print "so I've loaded it into trigger."
                     print "trigger: " + str(trigger)
                     if position not in events:
                         # add position dict item to events if it's not there yet
                         events[position] = {}
+                        print "Position wasn't in events, so I added it."
                     # add trigger to events (this adds or updates current value at key of trigger)
                     events[position].update(trigger)
+                    print "Trigger added under the current location in events."
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
+                    print "Updated db with updated events."
 
                 # get travel
                 if condition_response == True:
