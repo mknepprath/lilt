@@ -11,8 +11,12 @@ from pprint import pprint
 with open('data/moves.json') as data_file:
     movesdata = json.load(data_file)
 
+bloop = 0
 for movedata in movesdata["results"]:
     print movedata["move"]
+    bloop += 1
+print bloop
+
 
 # debugging options
 debug = True
