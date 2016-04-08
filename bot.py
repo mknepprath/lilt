@@ -6,32 +6,6 @@ import tweepy
 import psycopg2
 import urlparse
 import json
-from pprint import pprint
-
-with open('data/moves.json') as data_file:
-    movesdata = json.load(data_file)
-
-bloop = 0
-blap = 0
-blip = 0
-for movedata in movesdata["results"]:
-    if 'trigger' in movedata:
-        blap += 1
-    elif 'halt' in movedata:
-        blap += 1
-    elif movedata["condition"] != 0:
-        blap += 1
-    else:
-        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-        response = cur.fetchone()
-        if (response != None) and (response[0] != None):
-            blip += 1
-        else:
-            print movedata["move"]
-            bloop += 1
-print "good: " + str(bloop)
-print "bad: " + str(blap)
-print "meh: " + str(blip)
 
 # debugging options
 debug = True
@@ -49,6 +23,31 @@ conn = psycopg2.connect(
 )
 
 cur = conn.cursor()
+
+with open('data/moves.json') as data_file:
+    movesdata = json.load(data_file)
+
+bloop = 0
+blap = 0
+blip = 0
+for movedata in movesdata["results"]:
+    if 'trigger' in movedata:
+        blap += 1
+    elif 'halt' in movedata:
+        blap += 1
+    elif movedata["condition"] != 0:
+        blap += 1
+    else:
+        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(movedata["move"]),str(movedata["position"])))
+        response = cur.fetchone()
+        if (response != None) and (response[0] != None):
+            blip += 1
+        else:
+            print movedata["move"]
+            bloop += 1
+print "good: " + str(bloop)
+print "bad: " + str(blap)
+print "meh: " + str(blip)
 
 class TwitterAPI:
     """
