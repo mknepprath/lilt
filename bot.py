@@ -38,7 +38,7 @@ for movedata in movesdata["results"]:
     elif movedata["condition"] != 0:
         blap += 1
     else:
-        if movedata["position"] = "cell":
+        if movedata["position"] == "cell":
             movedata["position"] = "room"
         cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(movedata["move"]),str(movedata["position"])))
         resp = cur.fetchone()
