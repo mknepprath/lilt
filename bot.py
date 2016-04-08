@@ -40,7 +40,7 @@ for movedata in movesdata["results"]:
     else:
         cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(movedata["move"]),str(movedata["position"])))
         response = cur.fetchone()
-        if (response != None) and (response[0] != None):
+        if response != None:
             print movedata["move"]
             blip += 1
         else:
