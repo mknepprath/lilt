@@ -484,8 +484,8 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
-                print "travel: " + str(tr[0])
-                if tr[0] != None:
+                print "tr: " + str(tr)
+                if tr != None:
                     print "A"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
                     conn.commit()
