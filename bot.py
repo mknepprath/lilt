@@ -546,6 +546,9 @@ if __name__ == "__main__":
                     else:
                         print "I guess that move didn't work."
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
+                        cur.execute("SELECT move FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
+                        att = cur.fetchone()
+                        print str(att)
                 # print reply and tweet it
                 print "reply: " + message
                 if debug == False:
