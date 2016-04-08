@@ -6,6 +6,12 @@ import tweepy
 import psycopg2
 import urlparse
 import json
+from pprint import pprint
+
+with open('data/moves.json') as data_file:
+    movesdata = json.load(data_file)
+
+pprint(movesdata)
 
 # debugging options
 debug = True
@@ -533,14 +539,12 @@ if __name__ == "__main__":
                                             # formulate reply message and print it to the console
                                             message = '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
                             else:
-                                print "12"
                                 message = getitem(item, response[0])
                         # if there isn't an item...
                         else:
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
-                        print "16"
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                 # print reply and tweet it
                 print "reply: " + message
