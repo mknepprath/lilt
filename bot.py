@@ -480,16 +480,16 @@ if __name__ == "__main__":
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
                 print "I"
-                
+
                 # get travel
                 if condition_response == True:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
-                travel = tr[0] if tr[0] != None else tr
+                travel = tr[0] if tr != None else tr
                 print "travel: " + str(travel)
-                if tr[0] != None:
+                if tr != None:
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
                     conn.commit()
 
