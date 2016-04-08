@@ -46,13 +46,7 @@ for movedata in movesdata["results"]:
         if response != None:
             blip += 1
         else:
-            print "move: " + movedata["move"]
-            print "response: " + movedata["response"]
-            print "position: " + movedata["position"]
-            print " "
-            movedata["response"] = movedata["response"].replace(u"\u2019", "'")
-            cur.execute("INSERT INTO moves (move, response, position, item) VALUES (%s, %s, %s, %s)", (str(movedata["move"]), str(movedata["response"]), str(movedata["position"]), str("fluff")))
-            conn.commit()
+            bloop += 1
 print "good: " + str(bloop)
 print "bad: " + str(blap)
 print "meh: " + str(blip)
