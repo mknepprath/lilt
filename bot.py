@@ -378,7 +378,7 @@ if __name__ == "__main__":
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
                 pos = cur.fetchone()
-                position = pos[0] if pos != None else 'start'
+                position = pos[0] if pos[0] != None else 'start'
                 print "position: " + str(position)
 
                 # get inventory
