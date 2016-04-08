@@ -50,6 +50,7 @@ for movedata in movesdata["results"]:
             print "response: " + movedata["response"]
             print "position: " + movedata["position"]
             print " "
+            movedata["response"] = movedata["response"].replace(u"\u2019", "'")
             cur.execute("INSERT INTO moves (move, response, position, item) VALUES (%s, %s, %s, %s)", (str(movedata["move"]), str(movedata["response"]), str(movedata["position"]), str("fluff")))
             conn.commit()
 print "good: " + str(bloop)
