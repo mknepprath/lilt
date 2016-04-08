@@ -376,15 +376,10 @@ if __name__ == "__main__":
                 print "move: " + move
 
                 # get position
-                print "1"
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-                print "2"
                 pos = cur.fetchone()
-                print "3"
-                position = pos[0] if pos != None else "start"
-                print "4"
-                print "position: " + position
-                print "5"
+                position = pos[0] if pos != None else 'start'
+                print "position: " + str(position)
 
                 # get inventory
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
