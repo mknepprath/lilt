@@ -359,7 +359,7 @@ if __name__ == "__main__":
             else:
                 # if user is not in the users table, add user and tweetid
                 print "new player: " + screen_name
-                cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
+                cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
                 reply = True
                 conn.commit()
 
@@ -454,32 +454,23 @@ if __name__ == "__main__":
                 drop = dr[0] if dr != None else dr
                 print "drop: " + str(drop)
 
-                print "A"
                 # get trigger for move and add it to events
                 if condition_response == True:
-                    print "B"
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
                 else:
-                    print "C"
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                print "D"
                 trig = cur.fetchone()
-                print "E"
                 # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
-                    print "F"
                     trigger = json.loads(trig[0])
                     print "trigger: " + str(trigger)
                     if position not in events:
-                        print "G"
                         # add position dict item to events if it's not there yet
                         events[position] = {}
                     # add trigger to events (this adds or updates current value at key of trigger)
-                    print "H"
                     events[position].update(trigger)
                     cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
-                print "I"
 
                 # get travel
                 if condition_response == True:
@@ -487,8 +478,8 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
-                print "travel: " + str(tr)
-                if tr != None:
+                print "travel: " + str(tr[0])
+                if tr[0] != None:
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
                     conn.commit()
 
