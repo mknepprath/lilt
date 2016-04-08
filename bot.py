@@ -462,7 +462,7 @@ if __name__ == "__main__":
                 trig = cur.fetchone()
                 print "trig: " + str(trig)
                 # if there is a trigger, add it
-                if trig != None:
+                if (trig != None) and (trig[0] != None):
                     print "Trigger exists,"
                     trigger = json.loads(trig[0])
                     print "so I've loaded it into trigger."
@@ -485,7 +485,7 @@ if __name__ == "__main__":
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
                 print "tr: " + str(tr)
-                if tr != None:
+                if (tr != None) and (tr[0] = None):
                     print "Records indicate that you will be traveling,"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
                     conn.commit()
