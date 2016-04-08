@@ -339,6 +339,15 @@ if __name__ == "__main__":
             tweetid = mention['tweetid']
             reply = False
 
+            # when debugging, always reply (even if tweet id is the same)
+            if debug == True:
+                reply = True
+
+            # removes punctuation and makes move lowercase
+            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
+            move = ''.join(ch for ch in tweet if ch not in exclude).lower()
+            print "move: " + move
+
             # attempts to grab current user from users table
             cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
             user_exists = cur.fetchone()
@@ -357,23 +366,18 @@ if __name__ == "__main__":
                 else:
                     print "old tweet"
             else:
-                # if user is not in the users table, add user and tweetid
-                print "new player: " + screen_name
-                cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
-                reply = True
-                conn.commit()
-
-            # when debugging, always reply (even if tweet id is the same)
-            if debug == True:
-                reply = True
+                if move == 'start':
+                    # if user is not in the users table, add user and tweetid
+                    print 'new player: ' + screen_name
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
+                    reply = True
+                    conn.commit()
+                else:
+                    reply = False
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
-                # removes punctuation and makes move lowercase
-                exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-                move = ''.join(ch for ch in tweet if ch not in exclude).lower()
-                print "move: " + move
 
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
