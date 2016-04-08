@@ -13,6 +13,7 @@ with open('data/moves.json') as data_file:
 
 bloop = 0
 blap = 0
+blip = 0
 for movedata in movesdata["results"]:
     if 'trigger' in movedata:
         blap += 1
@@ -21,10 +22,16 @@ for movedata in movesdata["results"]:
     elif movedata["condition"] != 0:
         blap += 1
     else:
-        print movedata["move"]
-        bloop += 1
-print bloop
-print blap
+        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
+        response = cur.fetchone()
+        if (response != None) and (response[0] != None):
+            blip += 1
+        else:
+            print movedata["move"]
+            bloop += 1
+print "good: " + str(bloop)
+print "bad: " + str(blap)
+print "meh: " + str(blip)
 
 # debugging options
 debug = True
