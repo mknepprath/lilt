@@ -552,7 +552,7 @@ if __name__ == "__main__":
                             cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
                             conn.commit()
                         else:
-                            cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),attempt[0]+1))
+                            cur.execute("UPDATE attempts SET attempts = %s WHERE move = %s", (attempt[0]+1, str(move)))
                             conn.commit()
 
                 # print reply and tweet it
