@@ -8,7 +8,7 @@ import urlparse
 import json
 
 # debugging options
-debug = True
+debug = False
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
@@ -543,7 +543,6 @@ if __name__ == "__main__":
                 if debug == False:
                     print "#TweetingIt"
                     twitter.reply(message, tweetid)
-                print "The proper response should've been all handled by now."
         except:
             pass
 cur.close()
