@@ -486,14 +486,15 @@ if __name__ == "__main__":
                 tr = cur.fetchone()
                 print "tr: " + str(tr)
                 if tr != None:
-                    print "A"
+                    print "Records indicate that you will be traveling,"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
                     conn.commit()
-                print "B"
+                    print "so I've updated your position."
+                print "Travel has been handled."
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
                 randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "C"
+                print "String of random characters created."
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -519,7 +520,7 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     message = invbuilder(inventory, screen_name)
                 else:
-                    print "D"
+                    print "Looks like we're going to dive into the db for responses."
                     # if there is a response...
                     if (response != None) and (response[0] != None):
                         # if there is an item...
@@ -531,18 +532,18 @@ if __name__ == "__main__":
                                 message = getitem(item, response[0])
                         # if there isn't an item...
                         else:
-                            print "E"
+                            print "Got one! Just a stock response."
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
-                        print "F"
+                        print "I guess that move didn't work."
                         message = '@' + screen_name + ' Oops, didn\'t work. ' + randstring
                 # print reply and tweet it
                 print "reply: " + message
                 if debug == False:
-                    print "G"
+                    print "#TweetingIt"
                     twitter.reply(message, tweetid)
-                print "H"
+                print "The proper response should've been all handled by now."
         except:
             pass
 cur.close()
