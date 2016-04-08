@@ -44,10 +44,12 @@ for movedata in movesdata["results"]:
         resp = cur.fetchone()
         response = resp[0] if resp != None else resp
         if response != None:
-            print movedata["move"]
             blip += 1
         else:
-            bloop += 1
+            print "move: " + movedata["move"]
+            print "response: " + movedata["response"]
+            print "position: " + movedata["position"]
+            print " "
 print "good: " + str(bloop)
 print "bad: " + str(blap)
 print "meh: " + str(blip)
