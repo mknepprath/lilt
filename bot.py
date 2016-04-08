@@ -487,10 +487,9 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
-                travel = tr[0] if tr != None else tr
-                print "travel: " + str(travel)
+                print "travel: " + str(tr)
                 if tr != None:
-                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
+                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
                     conn.commit()
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
