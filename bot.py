@@ -402,7 +402,6 @@ if __name__ == "__main__":
                 else:
                     events = json.loads(ev[0])
                     events_and_items = json.loads(ev[0])
-                print "events and items: " + str(events)
 
                 items = list(inventory.keys())
                 for item in items:
