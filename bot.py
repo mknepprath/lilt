@@ -24,33 +24,6 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-with open('data/moves.json') as data_file:
-    movesdata = json.load(data_file)
-
-bloop = 0
-blap = 0
-blip = 0
-for movedata in movesdata["results"]:
-    if 'trigger' in movedata:
-        blap += 1
-    elif 'halt' in movedata:
-        blap += 1
-    elif movedata["condition"] != 0:
-        blap += 1
-    else:
-        if movedata["position"] == "cell":
-            movedata["position"] = "room"
-        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(movedata["move"]),str(movedata["position"])))
-        resp = cur.fetchone()
-        response = resp[0] if resp != None else resp
-        if response != None:
-            blip += 1
-        else:
-            bloop += 1
-print "good: " + str(bloop)
-print "bad: " + str(blap)
-print "meh: " + str(blip)
-
 class TwitterAPI:
     """
     Class for accessing the Twitter API.
