@@ -8,7 +8,7 @@ import urlparse
 import json
 
 # debugging options
-debug = False
+debug = True
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
@@ -378,7 +378,7 @@ if __name__ == "__main__":
                 # get position
                 cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
                 pos = cur.fetchone()
-                position = pos[0]
+                position = pos[0] if pos != None else "start"
                 print "position: " + position
 
                 # get inventory
