@@ -6,6 +6,7 @@ import tweepy
 import psycopg2
 import urlparse
 import json
+import re
 
 # debugging options
 debug = True
@@ -343,9 +344,10 @@ if __name__ == "__main__":
             if debug == True:
                 reply = True
 
-            # removes punctuation and makes move lowercase
+            # removes punctuation, links, and makes move lowercase
+            tweet_nolinks = re.sub(r'http\S+', '', tweet)
             exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move = ''.join(ch for ch in tweet if ch not in exclude).lower()
+            move = ''.join(ch for ch in tweet_nolinks if ch not in exclude).lower()
             print "move: " + move
 
             # attempts to grab current user from users table
