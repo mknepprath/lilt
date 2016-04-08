@@ -345,7 +345,8 @@ if __name__ == "__main__":
                 reply = True
 
             # removes punctuation, links, extra whitespace, and makes move lowercase
-            tweet_nolinks = re.sub(r'http\S+', '', tweet)
+            tweet = re.sub(r'http\S+', '', tweet)
+            tweet = re.sub(' +',' ', tweet)
             exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
             move = ''.join(ch for ch in tweet_nolinks if ch not in exclude).lower().rstrip()
             print "move: " + move
