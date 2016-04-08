@@ -501,7 +501,7 @@ if __name__ == "__main__":
                 print "Travel has been handled."
 
                 # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits + "♪♫") for _ in range(5))
                 print "String of random characters created."
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
@@ -546,7 +546,6 @@ if __name__ == "__main__":
                     else:
                         print "I guess that move didn't work."
                         response_options = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
-
                         message = '@' + screen_name + ' ' + random.choice(response_options) + ' ' + randstring
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
