@@ -44,7 +44,6 @@ for movedata in movesdata["results"]:
             print movedata["move"]
             blip += 1
         else:
-            print movedata["move"]
             bloop += 1
 print "good: " + str(bloop)
 print "bad: " + str(blap)
