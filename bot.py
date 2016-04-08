@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import time
 import string
@@ -7,7 +8,6 @@ import psycopg2
 import urlparse
 import json
 import re
-# encoding=utf8
 
 # debugging options
 debug = True
