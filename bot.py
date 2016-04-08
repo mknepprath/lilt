@@ -374,6 +374,7 @@ if __name__ == "__main__":
                     conn.commit()
                 else:
                     reply = False
+                    print 'This person isn\'t playing Lilt.'
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
