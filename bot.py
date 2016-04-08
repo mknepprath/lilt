@@ -345,10 +345,10 @@ if __name__ == "__main__":
                 reply = True
 
             # removes punctuation, links, extra whitespace, and makes move lowercase
-            tweet = re.sub(r'http\S+', '', tweet)
-            tweet = re.sub(' +',' ', tweet)
+            tweet_mod = re.sub(r'http\S+', '', tweet)
+            tweet_mod = re.sub(' +',' ', tweet_mod)
             exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move = ''.join(ch for ch in tweet_nolinks if ch not in exclude).lower().rstrip()
+            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
             print "move: " + move
 
             # attempts to grab current user from users table
