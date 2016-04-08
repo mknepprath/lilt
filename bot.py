@@ -14,7 +14,9 @@ with open('data/moves.json') as data_file:
 bloop = 0
 blap = 0
 for movedata in movesdata["results"]:
-    if 'trigger' not in movedata:
+    if 'trigger' in movedata:
+        blap += 1
+    elif 'halt' in movedata:
         blap += 1
     else:
         print movedata["move"]
