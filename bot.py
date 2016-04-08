@@ -12,11 +12,15 @@ with open('data/moves.json') as data_file:
     movesdata = json.load(data_file)
 
 bloop = 0
+blap = 0
 for movedata in movesdata["results"]:
-    print movedata["move"]
-    bloop += 1
+    if movedata["trigger"] != None:
+        blap += 1
+    else:
+        print movedata["move"]
+        bloop += 1
 print bloop
-
+print blap
 
 # debugging options
 debug = True
