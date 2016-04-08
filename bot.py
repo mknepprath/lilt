@@ -8,7 +8,7 @@ import urlparse
 import json
 
 # debugging options
-debug = True
+debug = False
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
