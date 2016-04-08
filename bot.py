@@ -345,8 +345,7 @@ if __name__ == "__main__":
 
             # removes punctuation and makes move lowercase
             exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move_and_links = ''.join(ch for ch in tweet if ch not in exclude).lower()
-            move = re.sub(r"http\S+", "", move_and_links)
+            move = ''.join(ch for ch in tweet if ch not in exclude).lower()
             print "move: " + move
 
             # attempts to grab current user from users table
