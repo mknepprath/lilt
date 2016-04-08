@@ -444,7 +444,7 @@ if __name__ == "__main__":
                 tr = cur.fetchone()
                 travel = tr[0] if tr != None else tr
                 print "travel: " + str(travel)
-                tr != None:
+                if tr != None:
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
                     conn.commit()
 
