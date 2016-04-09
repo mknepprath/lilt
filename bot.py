@@ -98,89 +98,98 @@ def dropitem(item):
         return '@' + screen_name + ' You drop one ' + item + '.' + randstring
 
 def giveitem(item, recipient):
-    print 'so you want to give ' + item + ' to ' + recipient #TESTING
+    print 'So you want to give ' + item + ' to ' + recipient + '.'
     # update values here: items, triggers, etc
     if item not in inventory:
-        print item + ' wasn\'t in the inventory' #TESTING
+        print item + ' wasn\'t in your inventory.' #TESTING
         return '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
     else:
-        print 'okay so you do have the item' #TESTING
+        print 'Okay, so you do have the item.' #TESTING
         #check if item can be given
         cur.execute("SELECT give FROM items WHERE name = %s;", (str(item),))
         givable = cur.fetchone()
-        print 'givableness of item should be above this...'
+        print 'Givableness of item should be above this...'
         if givable[0] == False:
-            print 'cant give that away!'
+            print 'Can\'t give that away!'
             return '@' + screen_name + ' ' + item.capitalize() + ' can\'t be given. ' + randstring
         else:
             #check if recipient exists
             cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
             recipient_id = cur.fetchone()
             if recipient_id == None:
-                print 'ya that person doesn\'t exist' #TESTING
+                print 'Yeah, that person doesn\'t exist.' #TESTING
                 return '@' + screen_name + ' They aren\'t playing Lilt! ' + randstring
             else:
                 # get recipient inventory
-                cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
-                inv = cur.fetchone()
-                print 'got the inventory for recipient I think' #TESTING
+                cur.execute("SELECT position FROM users WHERE name = %s;", (str(recipient),))
+                pos = cur.fetchone()
+                recipient_position = pos[0]
+                print 'Got the position for recipient, I think.' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if (inv == None) or (inv[0] == None):
-                    recipient_inventory = {}
-                    print 'their inventory was empty so created an empty json deal' #TESTING
+                if recipient_position != position:
+                    print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
                 else:
-                    recipient_inventory = json.loads(inv[0])
-                print 'got tha recipients inventory' #TESTING
-                # modify recipient inventory, see if it fits
-                if item not in recipient_inventory:
-                    print 'oh ya they dind\'t have that item'
-                    recipient_inventory[item] = {}
-                    recipient_inventory[item]['quantity'] = 1
-                    if inventory[item]['quantity'] <= 1:
-                        del inventory[item]
+                    # get recipient inventory
+                    cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
+                    inv = cur.fetchone()
+                    print 'Got the inventory for recipient, I think.' #TESTING
+                    # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+                    if (inv == None) or (inv[0] == None):
+                        recipient_inventory = {}
+                        print 'Their inventory was empty so I created an empty json deal.' #TESTING
                     else:
-                        inventory[item]['quantity'] -= 1
-                    # check if there's room in the inventory
-                    if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
-                        print 'hmm yup they couldn\'t hold anything else' #TESTING
-                        return '@' + screen_name + ' Their inventory is full. ' + randstring
-                    else:
-                        # update database with updated values
-                        print 'alright so they should be able to hold this item' #TESTING
-                        cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
-                        conn.commit()
-                        cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
-                        conn.commit()
-                        # formulate reply message and print it to the console
-                        print 'now they got it' #TESTING
-                        return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
-                else:
-                    #they've got the item already, so we have to make sure they can accept more
-                    cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-                    item_max = cur.fetchone()
-                    print 'I think the item max has been grabbed hopefully... we\'ll see' #TESTING
-                    if recipient_inventory[item]['quantity'] < item_max[0]:
-                        print 'shuld be room in that inventory for the item' #TESTING
-                        recipient_inventory[item]['quantity'] += 1
+                        recipient_inventory = json.loads(inv[0])
+                    print 'Got the recipient\'s inventory.' #TESTING
+                    # modify recipient inventory, see if it fits
+                    if item not in recipient_inventory:
+                        print 'Oh yeah, they didn\'t have that item.'
+                        recipient_inventory[item] = {}
+                        recipient_inventory[item]['quantity'] = 1
                         if inventory[item]['quantity'] <= 1:
                             del inventory[item]
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
                         if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                            print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
-                            print 'update the database with inventory stuff cuz it\'s all gud' #TESTING
                             # update database with updated values
-                            cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
+                            print 'Alright, so they should be able to hold this item.' #TESTING
+                            cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient),))
                             conn.commit()
-                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
                             conn.commit()
                             # formulate reply message and print it to the console
+                            print 'Now they got it.' #TESTING
                             return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
                     else:
-                        # formulate reply message and print it to the console
-                        return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                        #they've got the item already, so we have to make sure they can accept more
+                        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
+                        item_max = cur.fetchone()
+                        print 'I think the item max has been grabbed hopefully... we\'ll see.' #TESTING
+                        if recipient_inventory[item]['quantity'] < item_max[0]:
+                            print 'Should be room in their inventory for the item.' #TESTING
+                            recipient_inventory[item]['quantity'] += 1
+                            if inventory[item]['quantity'] <= 1:
+                                del inventory[item]
+                            else:
+                                inventory[item]['quantity'] -= 1
+                            # check if there's room in the inventory
+                            if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                                return '@' + screen_name + ' Their inventory is full. ' + randstring
+                            else:
+                                print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
+                                # update database with updated values
+                                cur.execute("UPDATE users SET inventory = %s WHERE name = %s;", (json.dumps(recipient_inventory), str(recipient)))
+                                conn.commit()
+                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
+                                conn.commit()
+                                # formulate reply message and print it to the console
+                                return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
+                        else:
+                            # formulate reply message and print it to the console
+                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
 
 def replaceitem(item, drop, response):
     if inventory[drop]['quantity'] <= 1:
