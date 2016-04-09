@@ -527,6 +527,7 @@ if __name__ == "__main__":
                 elif move == 'give':
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
+                    print str(inventory)
                     message = invbuilder(inventory, screen_name)
                 else:
                     print "Looks like we're going to dive into the db for responses."
