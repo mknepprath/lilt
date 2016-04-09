@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
@@ -128,6 +128,7 @@ def giveitem(item, recipient):
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
                     print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
+                    return '@' + screen_name + ' You aren\'t close enough to them to give them that! ' + randstring
                 else:
                     # get recipient inventory
                     cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
