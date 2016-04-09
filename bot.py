@@ -529,7 +529,9 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     if inventory == {}:
                         print "Empty inventory check worked, I guess."
-                    message = invbuilder(inventory, screen_name)
+                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
+                    else:
+                        message = invbuilder(inventory, screen_name)
                 else:
                     print "Looks like we're going to dive into the db for responses."
                     # if there is a response...
