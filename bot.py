@@ -527,11 +527,7 @@ if __name__ == "__main__":
                 elif move == 'give':
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
-                    if inventory[0] == None:
-                        # must check that this works
-                        message = "Your inventory is empty." + randstring
-                    else:
-                        message = invbuilder(inventory, screen_name)
+                    message = invbuilder(inventory, screen_name)
                 else:
                     print "Looks like we're going to dive into the db for responses."
                     # if there is a response...
