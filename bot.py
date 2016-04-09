@@ -527,7 +527,7 @@ if __name__ == "__main__":
                 elif move == 'give':
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
-                    if (inventory == None) or (inventory[0] == None):
+                    if inventory[0] == None:
                         # must check that this works
                         message = "Your inventory is empty." + randstring
                     else:
