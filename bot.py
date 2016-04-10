@@ -57,7 +57,7 @@ def getitem(item, response):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, 'x'*15)) >= 140:
+        if len(inventorybuilder(inventory, 'x'*15)) >= 140:
             return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
@@ -71,7 +71,7 @@ def getitem(item, response):
         if inventory[item]['quantity'] < item_max[0]:
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(inventorybuilder(inventory, 'x'*15)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -151,7 +151,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                        if len(inventorybuilder(recipient_inventory, 'x'*15)) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
@@ -177,7 +177,7 @@ def giveitem(item, recipient):
                             else:
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
-                            if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                            if len(inventorybuilder(recipient_inventory, 'x'*15)) >= 140:
                                 return '@' + screen_name + ' Their inventory is full. ' + randstring
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
@@ -198,7 +198,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(inventorybuilder(inventory, 'x'*15)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -215,7 +215,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(inventorybuilder(inventory, 'x'*15)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -235,7 +235,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(inventorybuilder(inventory, 'x'*15)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -257,7 +257,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(inventorybuilder(inventory, 'x'*15)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -273,7 +273,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
-def invbuilder(screen_name, inventory):
+def inventorybuilder(screen_name, inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -287,7 +287,7 @@ def mbuilder(screen_name, message):
     # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
     randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
     print "String of random characters created."
-    return '@' + screen_name + ' ' + message + ' ' + randstring
+    return '@' + screen_name + ' ' + message
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
@@ -544,9 +544,9 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     if inventory == {}:
                         print "Empty inventory check worked, I guess."
-                        message = mbuilder(screen_name, 'Your inventory is empty at the moment.')
+                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
                     else:
-                        message = invbuilder(inventory, screen_name)
+                        message = inventorybuilder(inventory, screen_name)
                 else:
                     print "Looks like we're going to dive into the db for responses."
                     # if there is a response...
@@ -561,11 +561,11 @@ if __name__ == "__main__":
                         # if there isn't an item...
                         else:
                             print "Got one! Just a stock response."
-                            message = mbuilder(screen_name, response[0])
+                            message = mbuilder(screen_name, response[0] + ' ' + randstring)
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        message = mbuilder(screen_name, random.choice(error_message))
+                        message = mbuilder(screen_name, random.choice(error_message) + ' ' + randstring)
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
