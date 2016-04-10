@@ -279,7 +279,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
-def invbuilder(screen_name, inventory):
+def invbuilder(inventory, screen_name):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
