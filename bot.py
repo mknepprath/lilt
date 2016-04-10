@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -290,6 +290,17 @@ def invbuild(inventory):
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message + ' ' + rstring
 
+def storeerror(move, position):
+    cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
+    attempt = cur.fetchone()
+    if attempt == None:
+        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
+        conn.commit()
+    else:
+        cur.execute("UPDATE attempts SET attempts = %s WHERE move = %s", (attempt[0]+1, str(move)))
+        conn.commit()
+    return "Stored the failed attempt for future reference."
+
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
@@ -567,15 +578,7 @@ if __name__ == "__main__":
                     else:
                         print "I guess that move didn't work."
                         message = mbuild(screen_name, random.choice(error_message))
-                        cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
-                        attempt = cur.fetchone()
-                        if attempt == None:
-                            cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
-                            conn.commit()
-                        else:
-                            cur.execute("UPDATE attempts SET attempts = %s WHERE move = %s", (attempt[0]+1, str(move)))
-                            conn.commit()
-                        print "Stored the failed attempt for future reference."
+                        print storeerror(move, position)
 
                 # print reply and tweet it
                 print "reply: " + message
