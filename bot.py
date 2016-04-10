@@ -49,20 +49,20 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
-def getitem(item, response):
+def getitem(item, inventory, user_id, response):
     # update values here: items, triggers, etc
     if item not in inventory:
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuild('x'*15, inventory)) >= 140:
-            return '@' + screen_name + ' Your inventory is full. ' + rstring
+        if len(mbuild('x'*15, invbuild(inventory))) >= 140:
+            return 'Your inventory is full.'
         else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' ' + response + ' ' + rstring
+            return response
     else:
         print 'You already have 1 or more of that item.'
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
@@ -72,22 +72,22 @@ def getitem(item, response):
             print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuild('x'*15, inventory)) >= 140:
+            if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                 print 'You\'re inventory is full, though.'
-                return '@' + screen_name + ' Your inventory is full. ' + rstring
+                return 'Your inventory is full.'
             else:
                 print 'You have room for it in your inventory, so I\'ll add it.'
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + rstring
+                return response
         else:
             print 'You\'ve reached the limit for that item.'
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
+            return 'You can\'t hold more ' + item + '!'
 
-def dropitem(item):
+def dropitem(item, inventory, user_id):
     if item not in inventory:
         return 'You don\'t have anything like that.'
     elif inventory[item]['quantity'] <= 1:
@@ -155,7 +155,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuild('x'*15, recipient_inventory)) >= 140:
+                        if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return '@' + screen_name + ' Their inventory is full. ' + rstring
                         else:
@@ -181,7 +181,7 @@ def giveitem(item, recipient):
                             else:
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
-                            if len(invbuild('x'*15, recipient_inventory)) >= 140:
+                            if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                                 return '@' + screen_name + ' Their inventory is full. ' + rstring
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
@@ -202,7 +202,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuild('x'*15, inventory)) >= 140:
+            if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + rstring
             else:
                 # update database with updated values
@@ -219,7 +219,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuild('x'*15, inventory)) >= 140:
+                if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + rstring
                 else:
                     # update database with updated values
@@ -239,7 +239,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuild('x'*15, inventory)) >= 140:
+            if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + rstring
             else:
                 # update database with updated values
@@ -261,7 +261,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuild('x'*15, inventory)) >= 140:
+                if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + rstring
                 else:
                     # update database with updated values
@@ -277,7 +277,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
 
-def invbuild(screen_name, inventory):
+def invbuild(inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -285,7 +285,7 @@ def invbuild(screen_name, inventory):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    return '@' + screen_name + ' ' + ', '.join(items)
+    return ', '.join(items)
 
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message + ' ' + rstring
@@ -534,7 +534,7 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(screen_name, dropitem(item))
+                    message = mbuild(screen_name, dropitem(item, inventory, user_id))
                 elif move == 'give':
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
@@ -542,7 +542,7 @@ if __name__ == "__main__":
                         print 'Empty inventory check worked, I guess.'
                         message = '@' + screen_name + ' Your inventory is empty at the moment. ' + rstring
                     else:
-                        message = invbuild(screen_name, inventory)
+                        message = mbuild(screen_name, invbuild(inventory))
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
                     # if there is a response...
@@ -557,7 +557,7 @@ if __name__ == "__main__":
                                 message = replaceitem(item, drop, response[0])
                             else:
                                 print 'Alright, I\'m going to get that item for you... if you can hold it.'
-                                message = getitem(item, response[0])
+                                message = mbuild(screen_name, getitem(item, inventory, user_id, response[0]))
                         # if there isn't an item...
                         else:
                             print 'Got one! Just a stock response.'
