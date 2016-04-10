@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -293,7 +293,7 @@ def mbuild(screen_name, message):
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
+rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 print 'String of random characters created.'
 
 if __name__ == "__main__":
@@ -484,7 +484,7 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 trig = cur.fetchone()
-                print "trig: " + str(trig)
+                print "trigger: " + str(trig)
                 # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
                     print "Trigger exists,"
@@ -508,7 +508,7 @@ if __name__ == "__main__":
                 else:
                     cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
                 tr = cur.fetchone()
-                print "tr: " + str(tr)
+                print "travel: " + str(tr)
                 if (tr != None) and (tr[0] != None):
                     print "Records indicate that you will be traveling,"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
