@@ -66,20 +66,26 @@ def getitem(item, response):
             # formulate reply message and print it to the console
             return '@' + screen_name + ' ' + response + ' ' + randstring
     else:
+        print 'You already have 1 or more of that item.'
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
         item_max = cur.fetchone()
+        print 'Got the quantity you\'re able to carry of that item.'
         if inventory[item]['quantity'] < item_max[0]:
+            print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
             if len(inventorybuilder(inventory, 'x'*15)) >= 140:
+                print 'You\'re inventory is full, though.'
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
+                print 'You have room for it in your inventory, so I\'ll add it.'
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' ' + response + ' ' + randstring
         else:
+            print 'You\'ve reached the limit for that item.'
             # formulate reply message and print it to the console
             return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
@@ -287,6 +293,10 @@ def messagebuilder(screen_name, message):
     return '@' + screen_name + ' ' + message
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
+
+# randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
+randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+print 'String of random characters created.'
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -516,9 +526,6 @@ if __name__ == "__main__":
                     print "so I've updated your position."
                 print "Travel has been handled."
 
-                # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "String of random characters created."
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
