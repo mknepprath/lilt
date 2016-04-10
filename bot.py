@@ -11,10 +11,11 @@ import re
 
 # debugging options
 debug = True
+delete_tweets = False
 
-# initializing database
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
 conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
@@ -22,6 +23,7 @@ conn = psycopg2.connect(
     host=url.hostname,
     port=url.port
 )
+
 cur = conn.cursor()
 
 class TwitterAPI:
@@ -293,6 +295,15 @@ print "String of random characters created."
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
+
+    # deletes all tweets so far
+    if delete_tweets == True:
+        for status in tweepy.Cursor(twitter.api.user_timeline).items():
+            try:
+                print status.text
+                twitter.api.destroy_status(status.id)
+            except:
+                pass
 
     # init mentions
     mentions = []
