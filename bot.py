@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 delete_tweets = False
 
 urlparse.uses_netloc.append("postgres")
@@ -273,7 +273,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
-def invbuilder(inventory, screen_name):
+def invbuilder(screen_name, inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -282,6 +282,14 @@ def invbuilder(inventory, screen_name):
             items[i] += ' ' + u'\u2022'*iq
         i += 1
     return '@' + screen_name + ' ' + ', '.join(items)
+
+def mbuilder(screen_name, message):
+    # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
+    randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+    print "String of random characters created."
+    return '@' + screen_name + ' ' + message + ' ' + randstring
+
+error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -511,9 +519,6 @@ if __name__ == "__main__":
                     print "so I've updated your position."
                 print "Travel has been handled."
 
-                # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                print "String of random characters created."
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -539,7 +544,7 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     if inventory == {}:
                         print "Empty inventory check worked, I guess."
-                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
+                        message = mbuilder(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = invbuilder(inventory, screen_name)
                 else:
@@ -556,12 +561,11 @@ if __name__ == "__main__":
                         # if there isn't an item...
                         else:
                             print "Got one! Just a stock response."
-                            message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
+                            message = mbuilder(screen_name, response[0])
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        response_options = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
-                        message = '@' + screen_name + ' ' + random.choice(response_options) + ' ' + randstring
+                        message = mbuilder(screen_name, random.choice(error_message))
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
