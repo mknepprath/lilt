@@ -283,10 +283,7 @@ def inventorybuilder(screen_name, inventory):
         i += 1
     return '@' + screen_name + ' ' + ', '.join(items)
 
-def mbuilder(screen_name, message):
-    # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-    randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-    print "String of random characters created."
+def messagebuilder(screen_name, message):
     return '@' + screen_name + ' ' + message
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
@@ -519,6 +516,9 @@ if __name__ == "__main__":
                     print "so I've updated your position."
                 print "Travel has been handled."
 
+                # randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
+                randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+                print "String of random characters created."
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -561,11 +561,11 @@ if __name__ == "__main__":
                         # if there isn't an item...
                         else:
                             print "Got one! Just a stock response."
-                            message = mbuilder(screen_name, response[0] + ' ' + randstring)
+                            message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        message = mbuilder(screen_name, random.choice(error_message) + ' ' + randstring)
+                        message = messagebuilder(screen_name, random.choice(error_message) + ' ' + randstring)
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
