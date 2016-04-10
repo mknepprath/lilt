@@ -196,14 +196,14 @@ def giveitem(item, inventory, user_id, position, recipient):
                             # formulate reply message and print it to the console
                             return 'They can\'t hold more ' + item + '!'
 
-def replaceitem(item, drop, response):
+def replaceitem(item, drop, inventory, user_id, response):
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
             if len(mbuild('x'*15, invbuild(inventory))) >= 140:
-                return '@' + screen_name + ' Your inventory is full. ' + rstring
+                return 'Your inventory is full.'
             else:
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -212,7 +212,7 @@ def replaceitem(item, drop, response):
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + rstring
+                return response
         else:
             cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
             item_max = cur.fetchone()
@@ -220,7 +220,7 @@ def replaceitem(item, drop, response):
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
-                    return '@' + screen_name + ' Your inventory is full. ' + rstring
+                    return 'Your inventory is full.'
                 else:
                     # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -230,17 +230,17 @@ def replaceitem(item, drop, response):
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
-                    return '@' + screen_name + ' ' + response + ' ' + rstring
+                    return response
             else:
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
+                return 'You can\'t hold more ' + item + '!'
     else:
         if item not in inventory:
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
             if len(mbuild('x'*15, invbuild(inventory))) >= 140:
-                return '@' + screen_name + ' Your inventory is full. ' + rstring
+                return 'Your inventory is full.'
             else:
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -249,7 +249,7 @@ def replaceitem(item, drop, response):
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + rstring
+                return response
         else:
             cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
             item_max = cur.fetchone()
@@ -262,7 +262,7 @@ def replaceitem(item, drop, response):
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
-                    return '@' + screen_name + ' Your inventory is full. ' + rstring
+                    return 'Your inventory is full.'
                 else:
                     # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -272,10 +272,10 @@ def replaceitem(item, drop, response):
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
-                    return '@' + screen_name + ' ' + response + ' ' + rstring
+                    return response
             else:
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
+                return 'You can\'t hold more ' + item + '!'
 
 def invbuild(inventory):
     items = list(inventory.keys())
@@ -554,7 +554,7 @@ if __name__ == "__main__":
                             # if there is an item that the new item is replacing...
                             if drop != None:
                                 print 'Also going to be dropping an item.'
-                                message = replaceitem(item, drop, response[0])
+                                message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response[0]))
                             else:
                                 print 'Alright, I\'m going to get that item for you... if you can hold it.'
                                 message = mbuild(screen_name, getitem(item, inventory, user_id, response[0]))
