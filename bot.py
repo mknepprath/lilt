@@ -57,8 +57,8 @@ def getitem(item, response):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, 'x'*15)) >= 140:
-            return '@' + screen_name + ' Your inventory is full. ' + randstring
+        if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
+            return mbuilder(screen_name, 'Your inventory is full.', rstring)
         else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -71,7 +71,7 @@ def getitem(item, response):
         if inventory[item]['quantity'] < item_max[0]:
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -151,7 +151,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                        if len(mbuilder('x'*15, invbuilder(recipient_inventory), rstring)) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
@@ -177,7 +177,7 @@ def giveitem(item, recipient):
                             else:
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
-                            if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                            if len(mbuilder('x'*15, invbuilder(recipient_inventory), rstring)) >= 140:
                                 return '@' + screen_name + ' Their inventory is full. ' + randstring
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
@@ -198,7 +198,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -215,7 +215,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -235,7 +235,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -257,7 +257,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(mbuilder('x'*15, invbuilder(inventory), rstring)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -273,7 +273,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
-def invbuilder(screen_name, inventory):
+def invbuilder(inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -281,9 +281,10 @@ def invbuilder(screen_name, inventory):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    return '@' + screen_name + ' ' + ', '.join(items)
+    return ', '.join(items)
 
 def mbuilder(screen_name, message, rstring):
+    print "Creating the reply tweet."
     return '@' + screen_name + ' ' + message + ' ' + rstring
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
@@ -547,7 +548,7 @@ if __name__ == "__main__":
                         print "Empty inventory check worked, I guess."
                         message = mbuilder(screen_name, 'Your inventory is empty at the moment.', rstring)
                     else:
-                        message = invbuilder(inventory, screen_name)
+                        message = mbuilder(screen_name, invbuilder(inventory), rstring)
                 else:
                     print "Looks like we're going to dive into the db for responses."
                     # if there is a response...
