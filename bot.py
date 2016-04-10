@@ -543,24 +543,28 @@ if __name__ == "__main__":
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
                     if inventory == {}:
-                        print "Empty inventory check worked, I guess."
+                        print 'Empty inventory check worked, I guess.'
                         message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
                     else:
                         message = inventorybuilder(inventory, screen_name)
                 else:
-                    print "Looks like we're going to dive into the db for responses."
+                    print 'Looks like we\'re going to dive into the db for responses.'
                     # if there is a response...
                     if (response != None) and (response[0] != None):
+                        print 'There is a response available for this move.'
                         # if there is an item...
                         if item != None:
+                            print 'We\'re going to be dealing with an item, as well.'
                             # if there is an item that the new item is replacing...
                             if drop != None:
+                                print 'Also going to be dropping an item.'
                                 message = replaceitem(item, drop, response[0])
                             else:
+                                print 'Alright, I\'m going to get that item for you... if you can hold it.'
                                 message = getitem(item, response[0])
                         # if there isn't an item...
                         else:
-                            print "Got one! Just a stock response."
+                            print 'Got one! Just a stock response.'
                             message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
                     # if there is no valid response
                     else:
