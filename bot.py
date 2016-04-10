@@ -11,11 +11,10 @@ import re
 
 # debugging options
 debug = True
-delete_tweets = False
 
+# init postgresql database
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
 conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
@@ -23,7 +22,6 @@ conn = psycopg2.connect(
     host=url.hostname,
     port=url.port
 )
-
 cur = conn.cursor()
 
 class TwitterAPI:
@@ -57,7 +55,7 @@ def getitem(item, response):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder(inventory, 'x'*15)) >= 140:
+        if len(invbuilder('x'*15, inventory)) >= 140:
             return '@' + screen_name + ' Your inventory is full. ' + randstring
         else:
             # update database with updated values
@@ -74,7 +72,7 @@ def getitem(item, response):
             print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(invbuilder('x'*15, inventory)) >= 140:
                 print 'You\'re inventory is full, though.'
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
@@ -157,7 +155,7 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                        if len(invbuilder('x'*15, recipient_inventory)) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return '@' + screen_name + ' Their inventory is full. ' + randstring
                         else:
@@ -183,7 +181,7 @@ def giveitem(item, recipient):
                             else:
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
-                            if len(invbuilder(recipient_inventory, 'x'*15)) >= 140:
+                            if len(invbuilder('x'*15, recipient_inventory)) >= 140:
                                 return '@' + screen_name + ' Their inventory is full. ' + randstring
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
@@ -204,7 +202,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(invbuilder('x'*15, inventory)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -221,7 +219,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(invbuilder('x'*15, inventory)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -241,7 +239,7 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder(inventory, 'x'*15)) >= 140:
+            if len(invbuilder('x'*15, inventory)) >= 140:
                 return '@' + screen_name + ' Your inventory is full. ' + randstring
             else:
                 # update database with updated values
@@ -263,7 +261,7 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder(inventory, 'x'*15)) >= 140:
+                if len(invbuilder('x'*15, inventory)) >= 140:
                     return '@' + screen_name + ' Your inventory is full. ' + randstring
                 else:
                     # update database with updated values
@@ -279,7 +277,7 @@ def replaceitem(item, drop, response):
                 # formulate reply message and print it to the console
                 return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
 
-def invbuilder(inventory, screen_name):
+def invbuilder(screen_name, inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -289,7 +287,7 @@ def invbuilder(inventory, screen_name):
         i += 1
     return '@' + screen_name + ' ' + ', '.join(items)
 
-def messagebuilder(screen_name, message):
+def mbuilder(screen_name, message):
     return '@' + screen_name + ' ' + message
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
@@ -300,15 +298,6 @@ print 'String of random characters created.'
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
-
-    # deletes all tweets so far
-    if delete_tweets == True:
-        for status in tweepy.Cursor(twitter.api.user_timeline).items():
-            try:
-                print status.text
-                twitter.api.destroy_status(status.id)
-            except:
-                pass
 
     # init mentions
     mentions = []
@@ -553,7 +542,7 @@ if __name__ == "__main__":
                         print 'Empty inventory check worked, I guess.'
                         message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
                     else:
-                        message = invbuilder(inventory, screen_name)
+                        message = invbuilder(screen_name, inventory)
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
                     # if there is a response...
@@ -576,7 +565,7 @@ if __name__ == "__main__":
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        message = messagebuilder(screen_name, random.choice(error_message) + ' ' + randstring)
+                        message = mbuilder(screen_name, random.choice(error_message) + ' ' + randstring)
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
