@@ -552,7 +552,7 @@ if __name__ == "__main__":
                 elif move == 'inventory':
                     if inventory == {}:
                         print 'Empty inventory check worked, I guess.'
-                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + rstring
+                        message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
                 else:
