@@ -55,14 +55,14 @@ def getitem(item, response):
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
-        if len(invbuilder('x'*15, inventory)) >= 140:
-            return '@' + screen_name + ' Your inventory is full. ' + randstring
+        if len(invbuild('x'*15, inventory)) >= 140:
+            return '@' + screen_name + ' Your inventory is full. ' + rstring
         else:
             # update database with updated values
             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' ' + response + ' ' + randstring
+            return '@' + screen_name + ' ' + response + ' ' + rstring
     else:
         print 'You already have 1 or more of that item.'
         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
@@ -72,41 +72,41 @@ def getitem(item, response):
             print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
-            if len(invbuilder('x'*15, inventory)) >= 140:
+            if len(invbuild('x'*15, inventory)) >= 140:
                 print 'You\'re inventory is full, though.'
-                return '@' + screen_name + ' Your inventory is full. ' + randstring
+                return '@' + screen_name + ' Your inventory is full. ' + rstring
             else:
                 print 'You have room for it in your inventory, so I\'ll add it.'
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + randstring
+                return '@' + screen_name + ' ' + response + ' ' + rstring
         else:
             print 'You\'ve reached the limit for that item.'
             # formulate reply message and print it to the console
-            return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
+            return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
 
 def dropitem(item):
     if item not in inventory:
-        return '@' + screen_name + ' You don\'t have anything like that. ' + randstring
+        return 'You don\'t have anything like that.'
     elif inventory[item]['quantity'] <= 1:
         del inventory[item]
         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
-        return '@' + screen_name + ' You drop one ' + item + '.' + randstring
+        return 'You drop one ' + item + '.'
     else:
         inventory[item]['quantity'] -= 1
         cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
-        return '@' + screen_name + ' You drop one ' + item + '.' + randstring
+        return 'You drop one ' + item + '.'
 
 def giveitem(item, recipient):
     print 'So you want to give ' + item + ' to ' + recipient + '.'
     # update values here: items, triggers, etc
     if item not in inventory:
         print item + ' wasn\'t in your inventory.' #TESTING
-        return '@' + screen_name + ' You don\'t have ' + item + '! ' + randstring
+        return '@' + screen_name + ' You don\'t have ' + item + '! ' + rstring
     else:
         print 'Okay, so you do have the item.' #TESTING
         #check if item can be given
@@ -115,14 +115,14 @@ def giveitem(item, recipient):
         print 'Givableness of item should be above this...'
         if givable[0] == False:
             print 'Can\'t give that away!'
-            return '@' + screen_name + ' ' + item.capitalize() + ' can\'t be given. ' + randstring
+            return '@' + screen_name + ' ' + item.capitalize() + ' can\'t be given. ' + rstring
         else:
             #check if recipient exists
             cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
             recipient_id = cur.fetchone()
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
-                return '@' + screen_name + ' They aren\'t playing Lilt! ' + randstring
+                return '@' + screen_name + ' They aren\'t playing Lilt! ' + rstring
             else:
                 # get recipient inventory
                 cur.execute("SELECT position FROM users WHERE name = %s;", (str(recipient),))
@@ -132,7 +132,7 @@ def giveitem(item, recipient):
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
                     print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
-                    return '@' + screen_name + ' You aren\'t close enough to them to give them that! ' + randstring
+                    return '@' + screen_name + ' You aren\'t close enough to them to give them that! ' + rstring
                 else:
                     # get recipient inventory
                     cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
@@ -155,9 +155,9 @@ def giveitem(item, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         # check if there's room in the inventory
-                        if len(invbuilder('x'*15, recipient_inventory)) >= 140:
+                        if len(invbuild('x'*15, recipient_inventory)) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
-                            return '@' + screen_name + ' Their inventory is full. ' + randstring
+                            return '@' + screen_name + ' Their inventory is full. ' + rstring
                         else:
                             # update database with updated values
                             print 'Alright, so they should be able to hold this item.' #TESTING
@@ -167,7 +167,7 @@ def giveitem(item, recipient):
                             conn.commit()
                             # formulate reply message and print it to the console
                             print 'Now they got it.' #TESTING
-                            return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
+                            return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + rstring
                     else:
                         #they've got the item already, so we have to make sure they can accept more
                         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
@@ -181,8 +181,8 @@ def giveitem(item, recipient):
                             else:
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
-                            if len(invbuilder('x'*15, recipient_inventory)) >= 140:
-                                return '@' + screen_name + ' Their inventory is full. ' + randstring
+                            if len(invbuild('x'*15, recipient_inventory)) >= 140:
+                                return '@' + screen_name + ' Their inventory is full. ' + rstring
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
                                 # update database with updated values
@@ -191,10 +191,10 @@ def giveitem(item, recipient):
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
-                                return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + randstring
+                                return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + rstring
                         else:
                             # formulate reply message and print it to the console
-                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + randstring
+                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + rstring
 
 def replaceitem(item, drop, response):
     if inventory[drop]['quantity'] <= 1:
@@ -202,8 +202,8 @@ def replaceitem(item, drop, response):
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder('x'*15, inventory)) >= 140:
-                return '@' + screen_name + ' Your inventory is full. ' + randstring
+            if len(invbuild('x'*15, inventory)) >= 140:
+                return '@' + screen_name + ' Your inventory is full. ' + rstring
             else:
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -212,15 +212,15 @@ def replaceitem(item, drop, response):
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + randstring
+                return '@' + screen_name + ' ' + response + ' ' + rstring
         else:
             cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
             item_max = cur.fetchone()
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder('x'*15, inventory)) >= 140:
-                    return '@' + screen_name + ' Your inventory is full. ' + randstring
+                if len(invbuild('x'*15, inventory)) >= 140:
+                    return '@' + screen_name + ' Your inventory is full. ' + rstring
                 else:
                     # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -230,17 +230,17 @@ def replaceitem(item, drop, response):
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
-                    return '@' + screen_name + ' ' + response + ' ' + randstring
+                    return '@' + screen_name + ' ' + response + ' ' + rstring
             else:
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
+                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
     else:
         if item not in inventory:
             inventory[item] = {}
             inventory[item]['quantity'] = 1
             # check if there's room in the inventory
-            if len(invbuilder('x'*15, inventory)) >= 140:
-                return '@' + screen_name + ' Your inventory is full. ' + randstring
+            if len(invbuild('x'*15, inventory)) >= 140:
+                return '@' + screen_name + ' Your inventory is full. ' + rstring
             else:
                 # update database with updated values
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -249,7 +249,7 @@ def replaceitem(item, drop, response):
                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' ' + response + ' ' + randstring
+                return '@' + screen_name + ' ' + response + ' ' + rstring
         else:
             cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
             item_max = cur.fetchone()
@@ -261,8 +261,8 @@ def replaceitem(item, drop, response):
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
-                if len(invbuilder('x'*15, inventory)) >= 140:
-                    return '@' + screen_name + ' Your inventory is full. ' + randstring
+                if len(invbuild('x'*15, inventory)) >= 140:
+                    return '@' + screen_name + ' Your inventory is full. ' + rstring
                 else:
                     # update database with updated values
                     cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
@@ -272,12 +272,12 @@ def replaceitem(item, drop, response):
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
-                    return '@' + screen_name + ' ' + response + ' ' + randstring
+                    return '@' + screen_name + ' ' + response + ' ' + rstring
             else:
                 # formulate reply message and print it to the console
-                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + randstring
+                return '@' + screen_name + ' You can\'t hold more ' + item + '! ' + rstring
 
-def invbuilder(screen_name, inventory):
+def invbuild(screen_name, inventory):
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -287,13 +287,13 @@ def invbuilder(screen_name, inventory):
         i += 1
     return '@' + screen_name + ' ' + ', '.join(items)
 
-def mbuilder(screen_name, message):
-    return '@' + screen_name + ' ' + message
+def mbuild(screen_name, message):
+    return '@' + screen_name + ' ' + message + ' ' + rstring
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
-# randstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-randstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+# rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
+rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 print 'String of random characters created.'
 
 if __name__ == "__main__":
@@ -534,15 +534,15 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = dropitem(item)
+                    message = mbuild(screen_name, dropitem(item))
                 elif move == 'give':
                     message = giveitem(item, recipient)
                 elif move == 'inventory':
                     if inventory == {}:
                         print 'Empty inventory check worked, I guess.'
-                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + randstring
+                        message = '@' + screen_name + ' Your inventory is empty at the moment. ' + rstring
                     else:
-                        message = invbuilder(screen_name, inventory)
+                        message = invbuild(screen_name, inventory)
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
                     # if there is a response...
@@ -561,11 +561,11 @@ if __name__ == "__main__":
                         # if there isn't an item...
                         else:
                             print 'Got one! Just a stock response.'
-                            message = '@' + screen_name + ' ' + response[0] + ' ' + randstring
+                            message = mbuild(screen_name, response[0])
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
-                        message = mbuilder(screen_name, random.choice(error_message) + ' ' + randstring)
+                        message = mbuild(screen_name, random.choice(error_message))
                         cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
                         attempt = cur.fetchone()
                         if attempt == None:
