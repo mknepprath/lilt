@@ -101,12 +101,12 @@ def dropitem(item, inventory, user_id):
         conn.commit()
         return 'You drop one ' + item + '.'
 
-def giveitem(item, recipient):
+def giveitem(item, inventory, user_id, position, recipient):
     print 'So you want to give ' + item + ' to ' + recipient + '.'
     # update values here: items, triggers, etc
     if item not in inventory:
         print item + ' wasn\'t in your inventory.' #TESTING
-        return '@' + screen_name + ' You don\'t have ' + item + '! ' + rstring
+        return 'You don\'t have ' + item + '!'
     else:
         print 'Okay, so you do have the item.' #TESTING
         #check if item can be given
@@ -115,14 +115,14 @@ def giveitem(item, recipient):
         print 'Givableness of item should be above this...'
         if givable[0] == False:
             print 'Can\'t give that away!'
-            return '@' + screen_name + ' ' + item.capitalize() + ' can\'t be given. ' + rstring
+            return item.capitalize() + ' can\'t be given.'
         else:
             #check if recipient exists
             cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
             recipient_id = cur.fetchone()
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
-                return '@' + screen_name + ' They aren\'t playing Lilt! ' + rstring
+                return 'They aren\'t playing Lilt!'
             else:
                 # get recipient inventory
                 cur.execute("SELECT position FROM users WHERE name = %s;", (str(recipient),))
@@ -132,7 +132,7 @@ def giveitem(item, recipient):
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
                     print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
-                    return '@' + screen_name + ' You aren\'t close enough to them to give them that! ' + rstring
+                    return 'You aren\'t close enough to them to give them that!'
                 else:
                     # get recipient inventory
                     cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
@@ -157,7 +157,7 @@ def giveitem(item, recipient):
                         # check if there's room in the inventory
                         if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
-                            return '@' + screen_name + ' Their inventory is full. ' + rstring
+                            return 'Their inventory is full.'
                         else:
                             # update database with updated values
                             print 'Alright, so they should be able to hold this item.' #TESTING
@@ -167,7 +167,7 @@ def giveitem(item, recipient):
                             conn.commit()
                             # formulate reply message and print it to the console
                             print 'Now they got it.' #TESTING
-                            return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + rstring
+                            return 'You gave ' + item + ' to @' + recipient + '.'
                     else:
                         #they've got the item already, so we have to make sure they can accept more
                         cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
@@ -182,7 +182,7 @@ def giveitem(item, recipient):
                                 inventory[item]['quantity'] -= 1
                             # check if there's room in the inventory
                             if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
-                                return '@' + screen_name + ' Their inventory is full. ' + rstring
+                                return 'Their inventory is full.'
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
                                 # update database with updated values
@@ -191,10 +191,10 @@ def giveitem(item, recipient):
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
-                                return '@' + screen_name + ' You gave ' + item + ' to @' + recipient + '. ' + rstring
+                                return 'You gave ' + item + ' to @' + recipient + '.'
                         else:
                             # formulate reply message and print it to the console
-                            return '@' + screen_name + ' They can\'t hold more ' + item + '! ' + rstring
+                            return 'They can\'t hold more ' + item + '!'
 
 def replaceitem(item, drop, response):
     if inventory[drop]['quantity'] <= 1:
@@ -536,7 +536,7 @@ if __name__ == "__main__":
                 if move == 'drop':
                     message = mbuild(screen_name, dropitem(item, inventory, user_id))
                 elif move == 'give':
-                    message = giveitem(item, recipient)
+                    message = mbuild(screen_name, giveitem(item, inventory, user_id, position, recipient))
                 elif move == 'inventory':
                     if inventory == {}:
                         print 'Empty inventory check worked, I guess.'
