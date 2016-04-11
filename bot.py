@@ -286,7 +286,12 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 
 def dbselect(col1, table, col2, val2, col3=None, val3=None, col4=None, val4=None):
-    cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
+    if (col3 != None) and (col4 != None):
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s AND " + col3 + " = %s AND " + col4 + " = %s;", (val2,val3,val4))
+    elif col3 != None:
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s AND " + col3 + " = %s;", (val2,val3))
+    else:
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
     o = cur.fetchone()
     if o == None:
         return o
