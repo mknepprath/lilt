@@ -302,10 +302,9 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 
 def db(action, col, user_id):
-    if action == 'select':
-        cur.execute("SELECT " + col + " FROM users WHERE id = %s;", (str(user_id),))
-        o = cur.fetchone()
-        return o[0]
+    cur.execute(action + " " + col + " FROM users WHERE id = %s;", (str(user_id),))
+    o = cur.fetchone()
+    return o[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
