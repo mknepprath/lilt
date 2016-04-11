@@ -134,16 +134,9 @@ def giveitem(item, inventory, user_id, position, recipient):
                     return 'You aren\'t close enough to them to give them that!'
                 else:
                     # get recipient inventory
-                    cur.execute("SELECT inventory FROM users WHERE name = %s;", (str(recipient),))
-                    inv = cur.fetchone()
-                    print 'Got the inventory for recipient, I think.' #TESTING
-                    # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                    if (inv == None) or (inv[0] == None):
-                        recipient_inventory = {}
-                        print 'Their inventory was empty so I created an empty json deal.' #TESTING
-                    else:
-                        recipient_inventory = json.loads(inv[0])
+                    recipient_inventory = json.loads(db('select', 'inventory', recipient_id))
                     print 'Got the recipient\'s inventory.' #TESTING
+                    print str(recipient_inventory)
                     # modify recipient inventory, see if it fits
                     if item not in recipient_inventory:
                         print 'Oh yeah, they didn\'t have that item.'
