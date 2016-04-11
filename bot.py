@@ -439,6 +439,7 @@ if __name__ == "__main__":
                 print str(ev[0])
                 print str(events)
                 print str(events['start'])
+                print str(events['room'])
 
                 items = list(inventory.keys())
                 for item in items:
