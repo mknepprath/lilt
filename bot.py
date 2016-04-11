@@ -304,15 +304,12 @@ def storeerror(move, position):
 def db(action, col, user_id):
     if action == 'select':
         if col == 'position':
-            # get inventory
             cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-            pos = cur.fetchone()
-            return pos[0]
         if col == 'inventory':
-            # get inventory
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-            inv = cur.fetchone()
-            return json.loads(inv[0])
+            
+        out = cur.fetchone()
+        return out[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
@@ -422,13 +419,11 @@ if __name__ == "__main__":
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
-
                 # get position
                 position = db('select', 'position', user_id)
                 print "position: " + str(position)
-
                 # get inventory
-                inventory = db('select', 'inventory', user_id)
+                inventory = json.loads(db('select', 'inventory', user_id))
                 print "inventory: " + str(inventory)
 
                 # get events
