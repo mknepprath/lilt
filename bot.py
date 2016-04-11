@@ -311,7 +311,7 @@ if __name__ == "__main__":
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': debug_tweet[0], # update this with tweet to test
+            'tweet': debug_tweet, # update this with tweet to test
             'tweetid': 703619369989853172
         })
 
