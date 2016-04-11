@@ -407,7 +407,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({}), json.dumps({"room":{}})))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({}), json.dumps({str('room'):{}})))
                     conn.commit()
                     reply = True
                 else:
