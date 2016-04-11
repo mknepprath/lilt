@@ -436,8 +436,7 @@ if __name__ == "__main__":
                         # assign current event to event
                         event[key] = value
                         # check if there is a response for this move when condition is met (this event)
-                        cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(event)))
-                        response = cur.fetchone()
+                        response = dbselect('response', 'moves', 'move', move, position, json.dumps(event))
                         if response != None:
                             condition_response = True
                             current_event = event
