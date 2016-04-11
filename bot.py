@@ -457,7 +457,7 @@ if __name__ == "__main__":
 
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
-                print "trigger: " + str(trig)
+                print "trigger: " + str(trigger)
                 # if there is a trigger, add it
                 if trigger != None:
                     print "Trigger exists, so I've loaded it into trigger."
