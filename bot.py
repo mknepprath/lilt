@@ -307,6 +307,8 @@ def db(action, col, user_id):
             cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
         if col == 'inventory':
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+        if col == 'events':
+            cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
         o = cur.fetchone()
         return o[0]
 
@@ -428,12 +430,10 @@ if __name__ == "__main__":
                 # get inventory
                 inventory = json.loads(db('select', 'inventory', user_id))
                 print "inventory: " + str(inventory)
-
                 # get events
-                cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
-                ev = cur.fetchone()
-                events = json.loads(ev[0])
-                events_and_items = json.loads(ev[0])
+                events = json.loads(db('select', 'events', user_id))
+                events_and_items = events
+                print "events: " + str(events)
 
                 items = list(inventory.keys())
                 for item in items:
