@@ -303,12 +303,7 @@ def storeerror(move, position):
 
 def db(action, col, user_id):
     if action == 'select':
-        if col == 'position':
-            cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
-        if col == 'inventory':
-            cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-        if col == 'events':
-            cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
+        cur.execute("SELECT %s FROM users WHERE id = %s;", (col, str(user_id),))
         o = cur.fetchone()
         return o[0]
 
@@ -432,9 +427,10 @@ if __name__ == "__main__":
                 print "inventory: " + str(inventory)
                 # get events
                 events = json.loads(db('select', 'events', user_id))
-                events_and_items = events
                 print "events: " + str(events)
 
+                # add items to events_and_items
+                events_and_items = events
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
