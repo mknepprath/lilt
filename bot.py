@@ -119,17 +119,18 @@ def giveitem(item, inventory, user_id, position, recipient):
         else:
             #check if recipient exists
             cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
-            recipient_id = cur.fetchone()
-            if recipient_id == None:
+            recip_id = cur.fetchone()
+            if recip_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
             else:
+                recipient_id = recip_id[0]
                 # get recipient inventory
-                recipient_position = db('select', 'position', str(recipient_id))
-                print "position: " + str(position)
+                recipient_position = db('select', 'position', recipient_id)
                 print 'Got the position for recipient, I think.' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
+                    print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
                     return 'You aren\'t close enough to them to give them that!'
                 else:
                     # get recipient inventory
