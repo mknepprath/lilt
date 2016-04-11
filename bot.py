@@ -276,6 +276,7 @@ def mbuild(screen_name, message):
 
 def storeerror(move, position):
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
+    print str(attempt)
     if attempt == None:
         cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
         conn.commit()
