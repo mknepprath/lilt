@@ -118,15 +118,15 @@ def giveitem(item, inventory, user_id, position, recipient):
             return item.capitalize() + ' can\'t be given.'
         else:
             #check if recipient exists
-            recipient_id = db('select', 'id', recipient, 'name')
+            cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
+            recipient_id = cur.fetchone()
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
             else:
                 # get recipient inventory
-                cur.execute("SELECT position FROM users WHERE name = %s;", (str(recipient),))
-                pos = cur.fetchone()
-                recipient_position = pos[0]
+                recipient_position = db('select', 'position', recipient_id)
+                print "position: " + str(position)
                 print 'Got the position for recipient, I think.' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
@@ -300,8 +300,8 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def db(action, col, user_id, pull='id'):
-    cur.execute(action + " " + col + " FROM users WHERE " + pull + " = %s;", (str(user_id),))
+def db(action, col, user_id):
+    cur.execute(action + " " + col + " FROM users WHERE id = %s;", (str(user_id),))
     o = cur.fetchone()
     return o[0]
 
