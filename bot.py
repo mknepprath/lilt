@@ -287,7 +287,7 @@ def storeerror(move, position):
 
 def dbselect(col1, table, col2, val2, position=None, condition=None):
     if condition != None:
-        cur.execute("SELECT " + col1 + " FROM moves WHERE move = %s AND position = %s AND condition = %s;", (val2,position,condition))
+        cur.execute("SELECT " + col1 + " FROM moves WHERE move = %s AND position = %s AND condition = %s;", (val2,position,json.dumps(condition)))
     elif position != None:
         cur.execute("SELECT " + col1 + " FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (val2,position))
     else:
@@ -428,7 +428,7 @@ if __name__ == "__main__":
 
                 # get current event
                 condition_response = False
-                current_event = {}
+                current_event = None
                 # loop through move/event combos to see if a condition matches
                 for key, value in events_and_items[position].iteritems():
                     try:
@@ -436,7 +436,7 @@ if __name__ == "__main__":
                         # assign current event to event
                         event[key] = value
                         # check if there is a response for this move when condition is met (this event)
-                        response = dbselect('response', 'moves', 'move', move, position, json.dumps(event))
+                        response = dbselect('response', 'moves', 'move', move, position, event)
                         if response != None:
                             condition_response = True
                             current_event = event
@@ -446,11 +446,7 @@ if __name__ == "__main__":
                 print "current event: " + str(current_event)
 
                 # get response
-                if condition_response == True:
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
-                else:
-                    cur.execute("SELECT response FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                response = cur.fetchone()
+                response = dbselect('response', 'moves', 'move', move, position, current_event)
                 print "response: " + str(response)
 
                 # get item (if one exists)
