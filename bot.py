@@ -526,7 +526,6 @@ if __name__ == "__main__":
                     print str(events)
                     print str(events[0])
                     if travel not in events:
-                        print str(events[travel])
                         events[travel] = {}
                         cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id)))
                         conn.commit()
