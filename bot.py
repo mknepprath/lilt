@@ -456,13 +456,11 @@ if __name__ == "__main__":
                 print "drop: " + str(drop)
 
                 # get trigger for move and add it to events
-                trig = dbselect('trigger', 'moves', 'move', move, position, current_event)
+                trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
                 print "trigger: " + str(trig)
                 # if there is a trigger, add it
-                if (trig != None) and (trig[0] != None):
-                    print "Trigger exists,"
-                    trigger = json.loads(trig[0])
-                    print "so I've loaded it into trigger."
+                if trigger != None:
+                    print "Trigger exists, so I've loaded it into trigger."
                     print "trigger: " + str(trigger)
                     if position not in events:
                         # add position dict item to events if it's not there yet
