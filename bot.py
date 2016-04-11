@@ -118,7 +118,7 @@ def giveitem(item, inventory, user_id, position, recipient):
             return item.capitalize() + ' can\'t be given.'
         else:
             #check if recipient exists
-            recipient_id = db('select', 'id', user_id)
+            recipient_id = db('select', 'id', recipient, 'name')
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
@@ -300,8 +300,8 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def db(action, col, user_id):
-    cur.execute(action + " " + col + " FROM users WHERE id = %s;", (str(user_id),))
+def db(action, col, user_id, pull='id'):
+    cur.execute(action + " " + col + " FROM users WHERE " + pull + " = %s;", (str(user_id),))
     o = cur.fetchone()
     return o[0]
 
