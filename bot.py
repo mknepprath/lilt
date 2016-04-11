@@ -50,8 +50,10 @@ class TwitterAPI:
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
 def getitem(item, inventory, user_id, response):
+    print 'Running getitem()...'
     # update values here: items, triggers, etc
     if item not in inventory:
+        print 'That item wasn\'t in the inventory yet.'
         inventory[item] = {}
         inventory[item]['quantity'] = 1
         # check if there's room in the inventory
