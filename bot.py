@@ -285,18 +285,13 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 
 def dbselect(col1, table, col2, val2, position=None, condition=None):
-    print "Running dbselect..."
     if condition != None:
-        print "There was a condition."
-        cur.execute("SELECT " + col1 + " FROM moves WHERE move = %s AND position = %s AND condition = %s;", (val2,position,json.dumps(condition)))
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val2,position,json.dumps(condition)))
     elif position != None:
-        print "There was no condition."
-        cur.execute("SELECT " + col1 + " FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (val2,position))
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val2,position))
     else:
-        print "Simple dbselect."
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
     o = cur.fetchone()
-    print str(o)
     if o == None:
         return o
     else:
