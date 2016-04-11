@@ -373,13 +373,11 @@ if __name__ == "__main__":
             print "move: " + move
 
             # attempts to grab current user from users table
-            cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (user_id,))
-            user_exists = cur.fetchone()
+            user_exists = dbselect('name', 'users', 'id', user_id)
             # if they're in the table, grab tweet id from table
             if user_exists != None:
                 print "current player: " + screen_name
-                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (tweetid,))
-                tweet_exists = cur.fetchone()
+                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweetid)
                 # if tweetid isn't in users table, update tweetid
                 if tweet_exists == None:
                     print "new tweet"
