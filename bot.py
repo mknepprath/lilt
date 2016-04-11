@@ -450,12 +450,7 @@ if __name__ == "__main__":
                 print "response: " + str(response)
 
                 # get item (if one exists)
-                if condition_response == True:
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
-                else:
-                    cur.execute("SELECT item FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                it = cur.fetchone()
-                item = it[0] if it != None else it
+                item = dbselect('item', 'moves', 'move', move, position, current_event)
                 print "item: " + str(item)
 
                 # get drop (if one exists)
