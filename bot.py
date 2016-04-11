@@ -117,13 +117,11 @@ def giveitem(item, inventory, user_id, position, recipient):
             return item.capitalize() + ' can\'t be given.'
         else:
             #check if recipient exists
-            cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
-            recip_id = cur.fetchone()
-            if recip_id == None:
+            recipient_id = dbselect('id', 'users', 'name', recipient)
+            if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
             else:
-                recipient_id = recip_id[0]
                 # get recipient inventory
                 recipient_position = dbselect('position', 'users', 'id', recipient_id)
                 print 'Got the position for recipient, I think.' #TESTING
@@ -291,7 +289,10 @@ def storeerror(move, position):
 def dbselect(col1, table, col2, val2):
     cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
     o = cur.fetchone()
-    return o[0]
+    if o == None:
+        return o
+    else:
+        return o[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
