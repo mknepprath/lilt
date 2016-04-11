@@ -311,6 +311,7 @@ def db(action, col, user_id):
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
             inv = cur.fetchone()
             print "Got it, and returning it."
+            print str(inv[0])
             return inv[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
@@ -430,6 +431,7 @@ if __name__ == "__main__":
 
                 # get inventory
                 inventory = db('select', 'inventory', user_id)
+                print str(inventory)
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
