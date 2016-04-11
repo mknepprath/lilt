@@ -431,6 +431,8 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
+                print str(inv)
+                print str(inv[0])
                 inventory = json.loads(inv[0])
 
                 # get events
