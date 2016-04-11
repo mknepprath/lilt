@@ -431,6 +431,8 @@ if __name__ == "__main__":
 
                 # get inventory
                 inventory = db('select', 'inventory', user_id)
+                print str(inventory)
+                print str(inventory[0])
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
@@ -445,12 +447,12 @@ if __name__ == "__main__":
                     events = json.loads(ev[0])
                     events_and_items = json.loads(ev[0])
                 print "Got events json."
-                if inventory[0] != None:
+                if inventory == {}:
                     items = list(inventory.keys())
                     print "There are no items, so this shouldn't do much."
                     for item in items:
                         events_and_items[position][item] = 'inventory'
-                    print "events_and_items: " + str(events_and_items)
+                print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
                 current_event = {}
