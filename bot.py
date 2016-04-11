@@ -125,12 +125,11 @@ def giveitem(item, inventory, user_id, position, recipient):
                 return 'They aren\'t playing Lilt!'
             else:
                 # get recipient inventory
-                recipient_position = db('select', 'position', recipient_id)
+                recipient_position = db('select', 'position', str(recipient_id))
                 print "position: " + str(position)
                 print 'Got the position for recipient, I think.' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
-                    print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
                     return 'You aren\'t close enough to them to give them that!'
                 else:
                     # get recipient inventory
