@@ -56,6 +56,7 @@ def getitem(item, inventory, user_id, response):
         print 'That item wasn\'t in the inventory yet.'
         inventory[item] = {}
         inventory[item]['quantity'] = 1
+        print 'Added item to inventory with a quantity of 1.'
         # check if there's room in the inventory
         if len(mbuild('x'*15, invbuild(inventory))) >= 140:
             return 'Your inventory is full.'
@@ -413,7 +414,8 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({})))
+                    inventory = {}
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps(inventory)))
                     conn.commit()
                     reply = True
                 else:
