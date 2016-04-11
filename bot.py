@@ -475,7 +475,7 @@ if __name__ == "__main__":
 
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
-                print "travel: " + str(tr)
+                print "travel: " + str(travel)
                 if travel != None:
                     print travel
                     print "Records indicate that you will be traveling,"
