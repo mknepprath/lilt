@@ -359,7 +359,7 @@ if __name__ == "__main__":
             screen_name = mention['screen_name']
             user_id = str(mention['user_id'])
             tweet = mention['tweet']
-            tweetid = mention['tweetid']
+            tweetid = str(mention['tweetid'])
             reply = False
 
             # when debugging, always reply (even if tweet id is the same)
@@ -379,7 +379,7 @@ if __name__ == "__main__":
             # if they're in the table, grab tweet id from table
             if user_exists != None:
                 print "current player: " + screen_name
-                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (str(tweetid),))
+                cur.execute("""SELECT 1 FROM users WHERE last_tweet_id = %s;""", (tweetid,))
                 tweet_exists = cur.fetchone()
                 # if tweetid isn't in users table, update tweetid
                 if tweet_exists == None:
