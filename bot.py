@@ -50,13 +50,10 @@ class TwitterAPI:
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
 def getitem(item, inventory, user_id, response):
-    print 'Running getitem()...'
     # update values here: items, triggers, etc
     if item not in inventory:
-        print 'That item wasn\'t in the inventory yet.'
         inventory[item] = {}
         inventory[item]['quantity'] = 1
-        print 'Added item to inventory with a quantity of 1.'
         # check if there's room in the inventory
         if len(mbuild('x'*15, invbuild(inventory))) >= 140:
             return 'Your inventory is full.'
@@ -305,17 +302,12 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 
 def db(action, col, user_id):
-    print "Running db..."
     if action == 'select':
-        print "You want to SELECT..."
         if col == 'inventory':
-            print "the inventory."
             # get inventory
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
             inv = cur.fetchone()
-            print "Got it, and returning it."
-            print str(inv[0])
-            return inv[0]
+            return json.loads(inv[0])
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
@@ -414,8 +406,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    inventory = {}
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps(inventory)))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({})))
                     conn.commit()
                     reply = True
                 else:
@@ -435,8 +426,6 @@ if __name__ == "__main__":
 
                 # get inventory
                 inventory = db('select', 'inventory', user_id)
-                print str(inventory)
-                print str(inventory[0])
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
@@ -450,12 +439,10 @@ if __name__ == "__main__":
                 else:
                     events = json.loads(ev[0])
                     events_and_items = json.loads(ev[0])
-                print "Got events json."
-                if inventory == {}:
-                    items = list(inventory.keys())
-                    print "There are no items, so this shouldn't do much."
-                    for item in items:
-                        events_and_items[position][item] = 'inventory'
+
+                items = list(inventory.keys())
+                for item in items:
+                    events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
