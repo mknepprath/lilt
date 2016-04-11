@@ -476,10 +476,9 @@ if __name__ == "__main__":
                     print "Updated db with updated events."
 
                 # get travel
-                tr = dbselect('travel', 'moves', 'move', move, position, current_event)
+                travel = dbselect('travel', 'moves', 'move', move, position, current_event)
                 print "travel: " + str(tr)
-                if (tr != None) and (tr[0] != None):
-                    travel = tr[0]
+                if travel != None:
                     print travel
                     print "Records indicate that you will be traveling,"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), user_id,))
