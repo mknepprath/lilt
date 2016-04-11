@@ -409,7 +409,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps('{}')))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({})))
                     conn.commit()
                     reply = True
                 else:
@@ -434,6 +434,7 @@ if __name__ == "__main__":
                 print str(inv)
                 print str(inv[0])
                 inventory = json.loads(inv[0])
+                print str(inventory)
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
