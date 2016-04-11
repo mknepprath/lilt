@@ -301,16 +301,13 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def db(action, get, user_id):
+def db(action, col, user_id):
     if action == 'select':
-        if get == 'inventory':
+        if col == 'inventory':
             # get inventory
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
             inv = cur.fetchone()
-            if inv != None:
-                return inv[0]
-            else:
-                return inv
+            return inv[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
@@ -428,13 +425,7 @@ if __name__ == "__main__":
                 print "position: " + str(position)
 
                 # get inventory
-                cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-                inv = cur.fetchone()
-                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                print str(inv)
-                print str(inv[0])
-                inventory = json.loads(inv[0])
-                print str(inventory)
+                inventory = db('select', 'inventory', user_id)
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
