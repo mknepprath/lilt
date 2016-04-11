@@ -427,7 +427,6 @@ if __name__ == "__main__":
                 print "events_and_items: " + str(events_and_items)
 
                 # get current event
-                condition_response = False
                 current_event = None
                 # loop through move/event combos to see if a condition matches
                 for key, value in events_and_items[position].iteritems():
@@ -438,7 +437,6 @@ if __name__ == "__main__":
                         # check if there is a response for this move when condition is met (this event)
                         response = dbselect('response', 'moves', 'move', move, position, event)
                         if response != None:
-                            condition_response = True
                             current_event = event
                             break
                     except:
@@ -454,20 +452,11 @@ if __name__ == "__main__":
                 print "item: " + str(item)
 
                 # get drop (if one exists)
-                if condition_response == True:
-                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
-                else:
-                    cur.execute("SELECT drop FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                dr = cur.fetchone()
-                drop = dr[0] if dr != None else dr
+                drop = dbselect('drop', 'moves', 'move', move, position, current_event)
                 print "drop: " + str(drop)
 
                 # get trigger for move and add it to events
-                if condition_response == True:
-                    cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
-                else:
-                    cur.execute("SELECT trigger FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                trig = cur.fetchone()
+                trig = dbselect('trigger', 'moves', 'move', move, position, current_event)
                 print "trigger: " + str(trig)
                 # if there is a trigger, add it
                 if (trig != None) and (trig[0] != None):
@@ -487,11 +476,7 @@ if __name__ == "__main__":
                     print "Updated db with updated events."
 
                 # get travel
-                if condition_response == True:
-                    cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition = %s;", (str(move),str(position),json.dumps(current_event)))
-                else:
-                    cur.execute("SELECT travel FROM moves WHERE move = %s AND position = %s AND condition IS NULL;", (str(move),str(position)))
-                tr = cur.fetchone()
+                tr = dbselect('travel', 'moves', 'move', move, position, current_event)
                 print "travel: " + str(tr)
                 if (tr != None) and (tr[0] != None):
                     travel = tr[0]
