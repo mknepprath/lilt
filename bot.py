@@ -518,9 +518,14 @@ if __name__ == "__main__":
                 tr = cur.fetchone()
                 print "travel: " + str(tr)
                 if (tr != None) and (tr[0] != None):
+                    travel = tr[0]
                     print "Records indicate that you will be traveling,"
-                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(tr[0]), str(user_id),))
+                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
                     conn.commit()
+                    if events[travel] == None:
+                        events[travel] = {}
+                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id)))
+                        conn.commit()
                     print "so I've updated your position."
                 print "Travel has been handled."
 
