@@ -307,8 +307,7 @@ if __name__ == "__main__":
 
     # mentions for testing purposes
     if debug == True:
-        cur.execute("SELECT tweet FROM debug WHERE tweet_id = '1';")
-        debug_tweet = cur.fetchone()
+        debug_tweet = dbselect('tweet', 'debug', 'tweet_id', '1')
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
