@@ -109,10 +109,9 @@ def giveitem(item, inventory, user_id, position, recipient):
     else:
         print 'Okay, so you do have the item.' #TESTING
         #check if item can be given
-        cur.execute("SELECT give FROM items WHERE name = %s;", (str(item),))
-        givable = cur.fetchone()
+        givable = dbselect('give', 'items', 'name', item)
         print 'Givableness of item should be above this...'
-        if givable[0] == False:
+        if givable == False:
             print 'Can\'t give that away!'
             return item.capitalize() + ' can\'t be given.'
         else:
