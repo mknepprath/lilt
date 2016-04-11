@@ -407,7 +407,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    position = 'room'
+                    position = 'start'
                     inventory = {}
                     events = {}
                     events[position] = {}
