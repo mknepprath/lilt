@@ -523,8 +523,8 @@ if __name__ == "__main__":
                     conn.commit()
                     if events[tr[0]] == None:
                         events[tr[0]] = {}
-                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
-                    conn.commit()
+                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
+                        conn.commit()
                     print "so I've updated your position."
                 print "Travel has been handled."
 
