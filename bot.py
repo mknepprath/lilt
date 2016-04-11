@@ -445,11 +445,12 @@ if __name__ == "__main__":
                     events = json.loads(ev[0])
                     events_and_items = json.loads(ev[0])
                 print "Got events json."
-                items = list(inventory.keys())
-                print "There are no items, so this shouldn't do much."
-                for item in items:
-                    events_and_items[position][item] = 'inventory'
-                print "events_and_items: " + str(events_and_items)
+                if inventory[0] != None:
+                    items = list(inventory.keys())
+                    print "There are no items, so this shouldn't do much."
+                    for item in items:
+                        events_and_items[position][item] = 'inventory'
+                    print "events_and_items: " + str(events_and_items)
 
                 condition_response = False
                 current_event = {}
