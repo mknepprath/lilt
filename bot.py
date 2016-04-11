@@ -126,7 +126,7 @@ def giveitem(item, inventory, user_id, position, recipient):
             else:
                 recipient_id = recip_id[0]
                 # get recipient inventory
-                recipient_position = dbselect('position', recipient_id)
+                recipient_position = dbselect('position', 'users', 'id', recipient_id)
                 print 'Got the position for recipient, I think.' #TESTING
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
@@ -134,7 +134,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                     return 'You aren\'t close enough to them to give them that!'
                 else:
                     # get recipient inventory
-                    recipient_inventory = json.loads(dbselect('inventory', recipient_id))
+                    recipient_inventory = json.loads(dbselect('inventory', 'users', 'id', recipient_id))
                     print 'Got the recipient\'s inventory.' #TESTING
                     # modify recipient inventory, see if it fits
                     if item not in recipient_inventory:
@@ -292,8 +292,8 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def dbselect(col, user_id):
-    cur.execute("SELECT " + col + " FROM users WHERE id = %s;", (user_id,))
+def dbselect(col1, table, col2, user_id):
+    cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (user_id,))
     o = cur.fetchone()
     return o[0]
 
@@ -410,13 +410,13 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 # get position
-                position = dbselect('position', user_id)
+                position = dbselect('position', 'users', 'id', user_id)
                 print "position: " + str(position)
                 # get inventory
-                inventory = json.loads(dbselect('inventory', user_id))
+                inventory = json.loads(dbselect('inventory', 'users', 'id', user_id))
                 print "inventory: " + str(inventory)
                 # get events
-                events = json.loads(dbselect('events', user_id))
+                events = json.loads(dbselect('events', 'users', 'id', user_id))
                 print "events: " + str(events)
 
                 # add items to events_and_items
