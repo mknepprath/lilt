@@ -435,12 +435,6 @@ if __name__ == "__main__":
                 events = json.loads(ev[0])
                 events_and_items = json.loads(ev[0])
 
-                print str(ev)
-                print str(ev[0])
-                print str(events)
-                print str(events['start'])
-                print str(events['room'])
-
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
@@ -531,7 +525,7 @@ if __name__ == "__main__":
                     conn.commit()
                     print str(events)
                     print str(events[0])
-                    if events[travel] == None:
+                    if travel not in events:
                         print str(events[travel])
                         events[travel] = {}
                         cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id)))
