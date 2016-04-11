@@ -303,7 +303,12 @@ def storeerror(move, position):
 
 def db(action, col, user_id):
     if action == 'select':
-        cur.execute("SELECT %s FROM users WHERE id = %s;", (eval(col), str(user_id),))
+        if col == 'position':
+            cur.execute("SELECT " + col + " FROM users WHERE id = %s;", (str(user_id),))
+        if col == 'inventory':
+            cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+        if col == 'events':
+            cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
         o = cur.fetchone()
         return o[0]
 
