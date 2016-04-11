@@ -432,13 +432,13 @@ if __name__ == "__main__":
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
                 ev = cur.fetchone()
-                events = ev[0]
-                events_and_items = ev[0]
+                events = json.loads(ev[0])
+                events_and_items = json.loads(ev[0])
 
                 print str(ev)
                 print str(ev[0])
                 print str(events)
-                print str(events[0])
+                print str(events['start'])
 
                 items = list(inventory.keys())
                 for item in items:
