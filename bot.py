@@ -307,9 +307,8 @@ def db(action, col, user_id):
             cur.execute("SELECT position FROM users WHERE id = %s;", (str(user_id),))
         if col == 'inventory':
             cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
-            
-        out = cur.fetchone()
-        return out[0]
+        o = cur.fetchone()
+        return o[0]
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
@@ -408,7 +407,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({})))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps({}), json.dumps({"room":{}})))
                     conn.commit()
                     reply = True
                 else:
@@ -429,15 +428,8 @@ if __name__ == "__main__":
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
                 ev = cur.fetchone()
-                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if (ev == None) or (ev[0] == None):
-                    events = {}
-                    events[position] = {}
-                    events_and_items = {}
-                    events_and_items[position] = {}
-                else:
-                    events = json.loads(ev[0])
-                    events_and_items = json.loads(ev[0])
+                events = json.loads(ev[0])
+                events_and_items = json.loads(ev[0])
 
                 items = list(inventory.keys())
                 for item in items:
