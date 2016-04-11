@@ -519,11 +519,12 @@ if __name__ == "__main__":
                 print "travel: " + str(tr)
                 if (tr != None) and (tr[0] != None):
                     travel = tr[0]
-                    print str(tr[0])
+                    print travel
                     print "Records indicate that you will be traveling,"
                     cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
                     conn.commit()
                     print str(events)
+                    print str(events[0])
                     if events[travel] == None:
                         print str(events[travel])
                         events[travel] = {}
