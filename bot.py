@@ -59,7 +59,7 @@ def getitem(item, inventory, user_id, response):
             return 'Your inventory is full.'
         else:
             # update database with updated values
-            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+            cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
             conn.commit()
             # formulate reply message and print it to the console
             return response
@@ -78,7 +78,7 @@ def getitem(item, inventory, user_id, response):
             else:
                 print 'You have room for it in your inventory, so I\'ll add it.'
                 # update database with updated values
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
                 return response
@@ -92,12 +92,12 @@ def dropitem(item, inventory, user_id):
         return 'You don\'t have anything like that.'
     elif inventory[item]['quantity'] <= 1:
         del inventory[item]
-        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
         return 'You drop one ' + item + '.'
     else:
         inventory[item]['quantity'] -= 1
-        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+        cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
         conn.commit()
         return 'You drop one ' + item + '.'
 
@@ -154,7 +154,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                             print 'Alright, so they should be able to hold this item.' #TESTING
                             cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(recipient_inventory), recipient_id))
                             conn.commit()
-                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), user_id))
+                            cur.execute("UPDATE users SET inventory = %s WHERE id = %s", (json.dumps(inventory), str(user_id)))
                             conn.commit()
                             # formulate reply message and print it to the console
                             print 'Now they got it.' #TESTING
@@ -179,7 +179,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                                 # update database with updated values
                                 cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(recipient_inventory), recipient_id))
                                 conn.commit()
-                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id))
+                                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id)))
                                 conn.commit()
                                 # formulate reply message and print it to the console
                                 return 'You gave ' + item + ' to @' + recipient + '.'
@@ -197,10 +197,10 @@ def replaceitem(item, drop, inventory, user_id, response):
                 return 'Your inventory is full.'
             else:
                 # update database with updated values
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 del inventory[drop]
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
                 return response
@@ -214,10 +214,10 @@ def replaceitem(item, drop, inventory, user_id, response):
                     return 'Your inventory is full.'
                 else:
                     # update database with updated values
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     del inventory[drop]
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
@@ -234,10 +234,10 @@ def replaceitem(item, drop, inventory, user_id, response):
                 return 'Your inventory is full.'
             else:
                 # update database with updated values
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 inventory[drop]['quantity'] -= 1
-                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                 conn.commit()
                 # formulate reply message and print it to the console
                 return response
@@ -256,10 +256,10 @@ def replaceitem(item, drop, inventory, user_id, response):
                     return 'Your inventory is full.'
                 else:
                     # update database with updated values
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     inventory[drop]['quantity'] -= 1
-                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), user_id,))
+                    cur.execute("UPDATE users SET inventory = %s WHERE id = %s;", (json.dumps(inventory), str(user_id),))
                     conn.commit()
                     print 'You drop one ' + drop + ' due to a move.'
                     # formulate reply message and print it to the console
@@ -293,7 +293,7 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 
 def db(action, col, user_id):
-    cur.execute(action + " " + col + " FROM users WHERE id = %s;", (user_id,))
+    cur.execute(action + " " + col + " FROM users WHERE id = %s;", (str(user_id),))
     o = cur.fetchone()
     return o[0]
 
@@ -374,7 +374,7 @@ if __name__ == "__main__":
             print "move: " + move
 
             # attempts to grab current user from users table
-            cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (user_id,))
+            cur.execute("""SELECT 1 FROM users WHERE id = %s;""", (str(user_id),))
             user_exists = cur.fetchone()
             # if they're in the table, grab tweet id from table
             if user_exists != None:
@@ -384,7 +384,7 @@ if __name__ == "__main__":
                 # if tweetid isn't in users table, update tweetid
                 if tweet_exists == None:
                     print "new tweet"
-                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE id = %s;", (tweetid, user_id))
+                    cur.execute("UPDATE users SET last_tweet_id = %s WHERE id = %s;", (tweetid, str(user_id)))
                     reply = True
                     conn.commit()
                 # otherwise, do nothing - tweet has already been replied to
@@ -492,7 +492,7 @@ if __name__ == "__main__":
                     # add trigger to events (this adds or updates current value at key of trigger)
                     events[position].update(trigger)
                     print "Trigger added under the current location in events."
-                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), user_id,))
+                    cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id),))
                     conn.commit()
                     print "Updated db with updated events."
 
@@ -507,11 +507,11 @@ if __name__ == "__main__":
                     travel = tr[0]
                     print travel
                     print "Records indicate that you will be traveling,"
-                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), user_id,))
+                    cur.execute("UPDATE users SET position = %s WHERE id = %s;", (str(travel), str(user_id),))
                     conn.commit()
                     if travel not in events:
                         events[travel] = {}
-                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), user_id))
+                        cur.execute("UPDATE users SET events = %s WHERE id = %s;", (json.dumps(events), str(user_id)))
                         conn.commit()
                     print "so I've updated your position."
                 print "Travel has been handled."
