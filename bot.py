@@ -65,8 +65,7 @@ def getitem(item, inventory, user_id, response):
             return response
     else:
         print 'You already have 1 or more of that item.'
-        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-        item_max = cur.fetchone()
+        item_max = dbselect('max', 'items', 'name', item)
         print 'Got the quantity you\'re able to carry of that item.'
         if inventory[item]['quantity'] < item_max[0]:
             print 'You have less than the limit.'
@@ -292,8 +291,8 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def dbselect(col1, table, col2, user_id):
-    cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (user_id,))
+def dbselect(col1, table, col2, val2):
+    cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
     o = cur.fetchone()
     return o[0]
 
