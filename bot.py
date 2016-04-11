@@ -285,7 +285,7 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
-def dbselect(col1, table, col2, val2):
+def dbselect(col1, table, col2, val2, col3=None, val3=None, col4=None, val4=None):
     cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
     o = cur.fetchone()
     if o == None:
