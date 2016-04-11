@@ -275,8 +275,7 @@ def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message + ' ' + rstring
 
 def storeerror(move, position):
-    cur.execute("SELECT attempts FROM attempts WHERE move = %s AND position = %s;", (str(move),str(position)))
-    attempt = cur.fetchone()
+    attempt = dbselect('attempts', 'attempts', 'move', move, position)
     if attempt == None:
         cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
         conn.commit()
@@ -446,22 +445,17 @@ if __name__ == "__main__":
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
                 print "response: " + str(response)
-
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
                 print "item: " + str(item)
-
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
                 print "drop: " + str(drop)
-
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
-                print "trigger: " + str(trigger)
                 # if there is a trigger, add it
                 if trigger != None:
                     trigger = json.loads(trigger)
-                    print "Trigger exists, so I've loaded it into trigger."
                     print "trigger: " + str(trigger)
                     if position not in events:
                         # add position dict item to events if it's not there yet
