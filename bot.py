@@ -301,6 +301,17 @@ def storeerror(move, position):
         conn.commit()
     return "Stored the failed attempt for future reference."
 
+def db(action, get, user_id):
+    if action == 'select':
+        if get == 'inventory':
+            # get inventory
+            cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
+            inv = cur.fetchone()
+            if inv != None:
+                return inv[0]
+            else:
+                return inv
+
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
@@ -398,7 +409,7 @@ if __name__ == "__main__":
                 if move == 'start':
                     # if user is not in the users table, add user and tweetid
                     print 'new player: ' + screen_name
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start')))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory) VALUES (%s, %s, %s, %s)", (screen_name, user_id, tweetid, str('start'), json.dumps('{}')))
                     conn.commit()
                     reply = True
                 else:
@@ -420,10 +431,7 @@ if __name__ == "__main__":
                 cur.execute("SELECT inventory FROM users WHERE id = %s;", (str(user_id),))
                 inv = cur.fetchone()
                 # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
-                if (inv == None) or (inv[0] == None):
-                    inventory = {}
-                else:
-                    inventory = json.loads(inv[0])
+                inventory = json.loads(inv[0])
 
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
