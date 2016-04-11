@@ -160,8 +160,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                             return 'You gave ' + item + ' to @' + recipient + '.'
                     else:
                         #they've got the item already, so we have to make sure they can accept more
-                        cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-                        item_max = cur.fetchone()
+                        item_max = dbselect('max', 'items', 'name', item)
                         print 'I think the item max has been grabbed hopefully... we\'ll see.' #TESTING
                         if recipient_inventory[item]['quantity'] < item_max[0]:
                             print 'Should be room in their inventory for the item.' #TESTING
@@ -204,8 +203,7 @@ def replaceitem(item, drop, inventory, user_id, response):
                 # formulate reply message and print it to the console
                 return response
         else:
-            cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-            item_max = cur.fetchone()
+            item_max = dbselect('max', 'items', 'name', item)
             if inventory[item]['quantity'] < item_max[0]:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
@@ -241,8 +239,7 @@ def replaceitem(item, drop, inventory, user_id, response):
                 # formulate reply message and print it to the console
                 return response
         else:
-            cur.execute("SELECT max FROM items WHERE name = %s;", (str(item),))
-            item_max = cur.fetchone()
+            item_max = dbselect('max', 'items', 'name', item)
             print item
             print str(inventory)
             print str(inventory[item])
