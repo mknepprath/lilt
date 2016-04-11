@@ -118,8 +118,7 @@ def giveitem(item, inventory, user_id, position, recipient):
             return item.capitalize() + ' can\'t be given.'
         else:
             #check if recipient exists
-            cur.execute("SELECT id FROM users WHERE name = %s;", (str(recipient),))
-            recipient_id = cur.fetchone()
+            recipient_id = db('select', 'id', user_id)
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
@@ -435,6 +434,7 @@ if __name__ == "__main__":
                     events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
 
+                # get current event
                 condition_response = False
                 current_event = {}
                 # loop through move/event combos to see if a condition matches
@@ -452,7 +452,6 @@ if __name__ == "__main__":
                             break
                     except:
                         pass
-
                 print "current event: " + str(current_event)
 
                 # get response
