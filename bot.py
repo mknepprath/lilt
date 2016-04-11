@@ -542,7 +542,7 @@ if __name__ == "__main__":
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
                     # if there is a response...
-                    if (response != None) and (response[0] != None):
+                    if response != None:
                         print 'There is a response available for this move.'
                         # if there is an item...
                         if item != None:
@@ -550,14 +550,14 @@ if __name__ == "__main__":
                             # if there is an item that the new item is replacing...
                             if drop != None:
                                 print 'Also going to be dropping an item.'
-                                message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response[0]))
+                                message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
                             else:
                                 print 'Alright, I\'m going to get that item for you... if you can hold it.'
-                                message = mbuild(screen_name, getitem(item, inventory, user_id, response[0]))
+                                message = mbuild(screen_name, getitem(item, inventory, user_id, response))
                         # if there isn't an item...
                         else:
                             print 'Got one! Just a stock response.'
-                            message = mbuild(screen_name, response[0])
+                            message = mbuild(screen_name, response)
                     # if there is no valid response
                     else:
                         print "I guess that move didn't work."
