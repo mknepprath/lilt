@@ -67,7 +67,7 @@ def getitem(item, inventory, user_id, response):
         print 'You already have 1 or more of that item.'
         item_max = dbselect('max', 'items', 'name', item)
         print 'Got the quantity you\'re able to carry of that item.'
-        if inventory[item]['quantity'] < item_max[0]:
+        if inventory[item]['quantity'] < item_max:
             print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
             # check if there's room in the inventory
@@ -162,7 +162,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                         #they've got the item already, so we have to make sure they can accept more
                         item_max = dbselect('max', 'items', 'name', item)
                         print 'I think the item max has been grabbed hopefully... we\'ll see.' #TESTING
-                        if recipient_inventory[item]['quantity'] < item_max[0]:
+                        if recipient_inventory[item]['quantity'] < item_max:
                             print 'Should be room in their inventory for the item.' #TESTING
                             recipient_inventory[item]['quantity'] += 1
                             if inventory[item]['quantity'] <= 1:
@@ -204,7 +204,7 @@ def replaceitem(item, drop, inventory, user_id, response):
                 return response
         else:
             item_max = dbselect('max', 'items', 'name', item)
-            if inventory[item]['quantity'] < item_max[0]:
+            if inventory[item]['quantity'] < item_max:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
@@ -244,8 +244,8 @@ def replaceitem(item, drop, inventory, user_id, response):
             print str(inventory)
             print str(inventory[item])
             print inventory[item]['quantity']
-            print item_max[0]
-            if inventory[item]['quantity'] < item_max[0]:
+            print item_max
+            if inventory[item]['quantity'] < item_max:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
