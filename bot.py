@@ -412,19 +412,14 @@ if __name__ == "__main__":
 
                 # get current event
                 current_event = None
-                # loop through move/event combos to see if a condition matches
                 for key, value in events_and_items[position].iteritems():
-                    try:
-                        event = {}
-                        # assign current event to event
-                        event[key] = value
-                        # check if there is a response for this move when condition is met (this event)
-                        response = dbselect('response', 'moves', 'move', move, position, event)
-                        if response != None:
-                            current_event = event
-                            break
-                    except:
-                        pass
+                    event = {}
+                    event[key] = value
+                    # check if there is a response for this move when condition is met (this event)
+                    response = dbselect('response', 'moves', 'move', move, position, event)
+                    if response != None:
+                        current_event = event
+                        break
                 print "current event: " + str(current_event)
 
                 # get response
@@ -456,7 +451,6 @@ if __name__ == "__main__":
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
                 print "travel: " + str(travel)
                 if travel != None:
-                    print travel
                     print "Records indicate that you will be traveling,"
                     dbupdate(travel, user_id, 'position')
                     if travel not in events:
