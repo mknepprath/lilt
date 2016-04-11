@@ -432,8 +432,8 @@ if __name__ == "__main__":
                 # get events
                 cur.execute("SELECT events FROM users WHERE id = %s;", (str(user_id),))
                 ev = cur.fetchone()
-                events = json.loads(ev[0])
-                events_and_items = json.loads(ev[0])
+                events = ev[0]
+                events_and_items = ev[0]
 
                 print str(ev)
                 print str(ev[0])
