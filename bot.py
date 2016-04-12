@@ -263,13 +263,13 @@ def storeerror(move, position):
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
 
-def dbselect(col1, table, col2, val2, position=None, condition=None):
+def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val2,position,json.dumps(condition)))
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
     elif position != None:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val2,position))
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
     else:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val2,))
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
     o = cur.fetchone()
     if o == None:
         return o
@@ -366,14 +366,14 @@ if __name__ == "__main__":
                 # if first word is drop - a is the move, b is the item
                 if (a == 'drop'):
                     move = a
-                    item = ''.join(ch for ch in b if ch not in exclude).lower()
+                    item_to_drop = ''.join(ch for ch in b if ch not in exclude).lower()
                 # if first word is give - break apart b
                 elif (a == 'give'):
                     move = a
                     # c will be the item, and b should be the recipient
                     c, d = (b).split(' ',1)
                     recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                    item = ''.join(ch for ch in d if ch not in exclude).lower()
+                    item_to_give = ''.join(ch for ch in d if ch not in exclude).lower()
             print "move: " + move
 
             # attempts to grab current user from users table
@@ -473,13 +473,12 @@ if __name__ == "__main__":
                         events[travel] = {}
                         dbupdate(events, user_id, 'events')
                     print "so I've updated your position."
-                print "Travel has been handled."
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(screen_name, dropitem(item, inventory, user_id))
+                    message = mbuild(screen_name, dropitem(item_to_drop, inventory, user_id))
                 elif move == 'give':
-                    message = mbuild(screen_name, giveitem(item, inventory, user_id, position, recipient))
+                    message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
                 elif move == 'inventory':
                     if inventory == {}:
                         print 'Empty inventory check worked, I guess.'
