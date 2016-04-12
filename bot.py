@@ -45,9 +45,9 @@ class TwitterAPI:
         """Send a tweet"""
         self.api.update_status(status=message)
 
-    def reply(self, message, tweetid):
+    def reply(self, message, tweet_id):
         """Reply to a tweet"""
-        self.api.update_status(status=message, in_reply_to_status_id=tweetid)
+        self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
 def item():
     print "Item management function will go here."
@@ -287,7 +287,7 @@ if __name__ == "__main__":
             'screen_name': 'mknepprath',
             'user_id': 15332057,
             'tweet': debug_tweet, # update this with tweet to test
-            'tweetid': ''.join(random.choice(string.digits) for _ in range(18))
+            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
 
     # go through mentions from Twitter using Tweepy
@@ -317,7 +317,7 @@ if __name__ == "__main__":
                         'screen_name': mention.user.screen_name,
                         'user_id': mention.user.id,
                         'tweet': tweet,
-                        'tweetid': mention.id
+                        'tweet_id': mention.id
                     })
 
             except:
@@ -329,36 +329,43 @@ if __name__ == "__main__":
             screen_name = mention['screen_name']
             user_id = str(mention['user_id'])
             tweet = mention['tweet']
-            tweetid = str(mention['tweetid'])
+            tweet_id = str(mention['tweet_id'])
             reply = False
 
             # when debugging, always reply (even if tweet id is the same)
             if debug == True:
                 reply = True
 
+            # clean up tweet and break it apart
+            # removes punctuation, links, extra whitespace, and makes move lowercase
+            tweet_mod = re.sub(r'http\S+', '', tweet)
+            tweet_mod = re.sub(' +',' ', tweet_mod)
+            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
+            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
+
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
             # if they're in the table, grab tweet id from table
             if user_exists != None:
                 print "current player: " + screen_name
-                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweetid)
-                # if tweetid isn't in users table, update tweetid
+                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
+                # if tweet_id isn't in users table, update tweet_id
                 if tweet_exists == None:
                     print "new tweet"
-                    dbupdate(tweetid, user_id, 'last_tweet_id')
+                    dbupdate(tweet_id, user_id, 'last_tweet_id')
                     reply = True
                 # otherwise, do nothing - tweet has already been replied to
                 else:
                     print "old tweet"
             else:
                 if move == 'start':
-                    # if user is not in the users table, add user and tweetid
+                    # if user is not in the users table, add user and tweet_id
                     print 'new player: ' + screen_name
                     position = 'start'
                     inventory_init = {}
                     events_init = {}
                     events_init[position] = {}
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweetid, position, json.dumps(inventory_init), json.dumps(events_init)))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweet_id, position, json.dumps(inventory_init), json.dumps(events_init)))
                     conn.commit()
                     reply = True
                 else:
@@ -370,12 +377,6 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
 
-                # clean up tweet and break it apart
-                # removes punctuation, links, extra whitespace, and makes move lowercase
-                tweet_mod = re.sub(r'http\S+', '', tweet)
-                tweet_mod = re.sub(' +',' ', tweet_mod)
-                exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-                move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -498,7 +499,7 @@ if __name__ == "__main__":
                 print "reply: " + message
                 if debug == False:
                     print "#TweetingIt"
-                    twitter.reply(message, tweetid)
+                    twitter.reply(message, tweet_id)
         except:
             pass
 cur.close()
