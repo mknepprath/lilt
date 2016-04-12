@@ -335,7 +335,7 @@ if __name__ == "__main__":
                 # clarifying this for myself... if the tweet is only 1 word, it's just the name '@familiarlilt', so no command
                 tweet = ''
             else:
-                game_name, tweet = (mention.text).split(' ',1)
+                game_name, tweet = (text).split(' ',1)
 
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
