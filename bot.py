@@ -294,17 +294,10 @@ if __name__ == "__main__":
     if debug == False:
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
-
-                # init mentioned
                 mentioned = False
-                # runs through mentions and notes if current user has been mentioned
                 for m in mentions:
-                    try:
-                        if mention.user.id == m['user_id']:
-                            mentioned = True
-                    except:
-                        pass
-
+                    if mention.user.id == m['user_id']:
+                        mentioned = True
                 # if user hasn't been mentioned, append it to mentions
                 if mentioned == False:
                     mentions.append({
@@ -313,7 +306,6 @@ if __name__ == "__main__":
                         'text': mention.text,
                         'tweet_id': mention.id
                     })
-
             except:
                 pass
 
@@ -324,11 +316,7 @@ if __name__ == "__main__":
             user_id = str(mention['user_id'])
             text = mention['text']
             tweet_id = str(mention['tweet_id'])
-            reply = False
-
-            # when debugging, always reply (even if tweet id is the same)
-            if debug == True:
-                reply = True
+            reply = True if debug == True else False
 
             # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
             if len((text).split()) == 1:
