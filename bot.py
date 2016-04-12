@@ -49,6 +49,9 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweetid)
 
+def item():
+    print "Item management function will go here."
+
 def getitem(item, inventory, user_id, response):
     # update values here: items, triggers, etc
     if item not in inventory:
@@ -60,7 +63,6 @@ def getitem(item, inventory, user_id, response):
         else:
             # update database with updated values
             dbupdate(inventory, user_id)
-            # formulate reply message and print it to the console
             return response
     else:
         print 'You already have 1 or more of that item.'
@@ -75,13 +77,10 @@ def getitem(item, inventory, user_id, response):
                 return 'Your inventory is full.'
             else:
                 print 'You have room for it in your inventory, so I\'ll add it.'
-                # update database with updated values
                 dbupdate(inventory, user_id)
-                # formulate reply message and print it to the console
                 return response
         else:
             print 'You\'ve reached the limit for that item.'
-            # formulate reply message and print it to the console
             return 'You can\'t hold more ' + item + '!'
 
 def dropitem(item, inventory, user_id):
@@ -98,7 +97,6 @@ def dropitem(item, inventory, user_id):
 
 def giveitem(item, inventory, user_id, position, recipient):
     print 'So you want to give ' + item + ' to ' + recipient + '.'
-    # update values here: items, triggers, etc
     if item not in inventory:
         print item + ' wasn\'t in your inventory.' #TESTING
         return 'You don\'t have ' + item + '!'
@@ -142,11 +140,9 @@ def giveitem(item, inventory, user_id, position, recipient):
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return 'Their inventory is full.'
                         else:
-                            # update database with updated values
                             print 'Alright, so they should be able to hold this item.' #TESTING
                             dbupdate(recipient_inventory, recipient_id)
                             dbupdate(inventory, user_id)
-                            # formulate reply message and print it to the console
                             print 'Now they got it.' #TESTING
                             return 'You gave ' + item + ' to @' + recipient + '.'
                     else:
@@ -165,13 +161,10 @@ def giveitem(item, inventory, user_id, position, recipient):
                                 return 'Their inventory is full.'
                             else:
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
-                                # update database with updated values
                                 dbupdate(recipient_inventory, recipient_id)
                                 dbupdate(inventory, user_id)
-                                # formulate reply message and print it to the console
                                 return 'You gave ' + item + ' to @' + recipient + '.'
                         else:
-                            # formulate reply message and print it to the console
                             return 'They can\'t hold more ' + item + '!'
 
 def replaceitem(item, drop, inventory, user_id, response):
@@ -183,10 +176,8 @@ def replaceitem(item, drop, inventory, user_id, response):
             if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                 return 'Your inventory is full.'
             else:
-                # update database with new values
                 del inventory[drop]
                 dbupdate(inventory, user_id)
-                # formulate reply message and print it to the console
                 return response
         else:
             item_max = dbselect('max', 'items', 'name', item)
@@ -196,14 +187,11 @@ def replaceitem(item, drop, inventory, user_id, response):
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                     return 'Your inventory is full.'
                 else:
-                    # update database with updated values
                     del inventory[drop]
                     dbupdate(inventory, user_id)
                     print 'You drop one ' + drop + ' due to a move.'
-                    # formulate reply message and print it to the console
                     return response
             else:
-                # formulate reply message and print it to the console
                 return 'You can\'t hold more ' + item + '!'
     else:
         if item not in inventory:
@@ -213,10 +201,8 @@ def replaceitem(item, drop, inventory, user_id, response):
             if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                 return 'Your inventory is full.'
             else:
-                # update database with updated values
                 inventory[drop]['quantity'] -= 1
                 dbupdate(inventory, user_id)
-                # formulate reply message and print it to the console
                 return response
         else:
             item_max = dbselect('max', 'items', 'name', item)
@@ -231,14 +217,11 @@ def replaceitem(item, drop, inventory, user_id, response):
                 if len(mbuild('x'*15, invbuild(inventory))) >= 140:
                     return 'Your inventory is full.'
                 else:
-                    # update database with updated values
                     inventory[drop]['quantity'] -= 1
                     dbupdate(inventory, user_id)
                     print 'You drop one ' + drop + ' due to a move.'
-                    # formulate reply message and print it to the console
                     return response
             else:
-                # formulate reply message and print it to the console
                 return 'You can\'t hold more ' + item + '!'
 
 def invbuild(inventory):
@@ -304,7 +287,7 @@ if __name__ == "__main__":
             'screen_name': 'mknepprath',
             'user_id': 15332057,
             'tweet': debug_tweet, # update this with tweet to test
-            'tweetid': 703619369989853172
+            'tweetid': ''.join(random.choice(string.digits) for _ in range(18))
         })
 
     # go through mentions from Twitter using Tweepy
