@@ -282,11 +282,11 @@ if __name__ == "__main__":
 
     # mentions for testing purposes
     if debug == True:
-        debug_tweet = dbselect('tweet', 'debug', 'tweet_id', '1')
+        debug_text = dbselect('tweet', 'debug', 'tweet_id', '1')
         mentions.append({
             'screen_name': 'mknepprath',
             'user_id': 15332057,
-            'tweet': debug_tweet, # update this with tweet to test
+            'text': debug_text, # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
 
