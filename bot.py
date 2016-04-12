@@ -366,32 +366,32 @@ if __name__ == "__main__":
                     reply = False
                     print 'This person isn\'t playing Lilt.'
 
-            # clean up tweet and break it apart
-            # removes punctuation, links, extra whitespace, and makes move lowercase
-            tweet_mod = re.sub(r'http\S+', '', tweet)
-            tweet_mod = re.sub(' +',' ', tweet_mod)
-            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
-            # if tweet is two words or more, break off first word
-            if len((tweet).split()) >= 2:
-                a, b = (tweet).split(' ',1)
-                a = ''.join(ch for ch in a if ch not in exclude).lower()
-                # if first word is drop - a is the move, b is the item
-                if (a == 'drop'):
-                    move = a
-                    item_to_drop = ''.join(ch for ch in b if ch not in exclude).lower()
-                # if first word is give - break apart b
-                elif (a == 'give'):
-                    move = a
-                    # c will be the item, and b should be the recipient
-                    c, d = (b).split(' ',1)
-                    recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                    item_to_give = ''.join(ch for ch in d if ch not in exclude).lower()
-            print "move: " + move
-
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
+
+                # clean up tweet and break it apart
+                # removes punctuation, links, extra whitespace, and makes move lowercase
+                tweet_mod = re.sub(r'http\S+', '', tweet)
+                tweet_mod = re.sub(' +',' ', tweet_mod)
+                exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
+                move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
+                # if tweet is two words or more, break off first word
+                if len((tweet).split()) >= 2:
+                    a, b = (tweet).split(' ',1)
+                    a = ''.join(ch for ch in a if ch not in exclude).lower()
+                    # if first word is drop - a is the move, b is the item
+                    if (a == 'drop'):
+                        move = a
+                        item_to_drop = ''.join(ch for ch in b if ch not in exclude).lower()
+                    # if first word is give - break apart b
+                    elif (a == 'give'):
+                        move = a
+                        # c will be the item, and b should be the recipient
+                        c, d = (b).split(' ',1)
+                        recipient = ''.join(ch for ch in c if ch not in exclude).lower()
+                        item_to_give = ''.join(ch for ch in d if ch not in exclude).lower()
+                print "move: " + move
 
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
