@@ -353,11 +353,27 @@ if __name__ == "__main__":
             if debug == True:
                 reply = True
 
+            # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
             tweet_mod = re.sub(r'http\S+', '', tweet)
             tweet_mod = re.sub(' +',' ', tweet_mod)
             exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
             move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
+            # if tweet is two words or more, break off first word
+            if len((tweet).split()) >= 2:
+                a, b = (tweet).split(' ',1)
+                a = ''.join(ch for ch in a if ch not in exclude).lower()
+                # if first word is drop - a is the move, b is the item
+                if (a == 'drop'):
+                    move = a
+                    item = ''.join(ch for ch in b if ch not in exclude).lower()
+                # if first word is give - break apart b
+                elif (a == 'give'):
+                    move = a
+                    # c will be the item, and b should be the recipient
+                    c, d = (b).split(' ',1)
+                    recipient = ''.join(ch for ch in c if ch not in exclude).lower()
+                    item = ''.join(ch for ch in d if ch not in exclude).lower()
             print "move: " + move
 
             # attempts to grab current user from users table
@@ -459,23 +475,6 @@ if __name__ == "__main__":
                     print "so I've updated your position."
                 print "Travel has been handled."
 
-                # if tweet is two words or more, break off first word
-                if len((tweet).split()) >= 2:
-                    a, b = (tweet).split(' ',1)
-                    a = ''.join(ch for ch in a if ch not in exclude).lower()
-                    # if first word is drop - a is the move, b is the item
-                    # this has to be nested or inventory doesn't work... not sure why
-                    if (a == 'drop'):
-                        move = a
-                        item = ''.join(ch for ch in b if ch not in exclude).lower()
-                    # if first word is give - break apart b
-                    elif (a == 'give'):
-                        move = a
-                        # c will be the item, and b should be the recipient
-                        c, d = (b).split(' ',1)
-                        recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                        item = ''.join(ch for ch in d if ch not in exclude).lower()
-
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = mbuild(screen_name, dropitem(item, inventory, user_id))
@@ -489,10 +488,7 @@ if __name__ == "__main__":
                         message = mbuild(screen_name, invbuild(inventory))
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
-                    # if there is a response...
                     if response != None:
-                        print 'There is a response available for this move.'
-                        # if there is an item...
                         if item != None:
                             print 'We\'re going to be dealing with an item, as well.'
                             # if there is an item that the new item is replacing...
@@ -506,13 +502,11 @@ if __name__ == "__main__":
                         else:
                             print 'Got one! Just a stock response.'
                             message = mbuild(screen_name, response)
-                    # if there is no valid response
                     else:
                         print "I guess that move didn't work."
                         message = mbuild(screen_name, random.choice(error_message))
                         print storeerror(move, position)
 
-                # print reply and tweet it
                 print "reply: " + message
                 if debug == False:
                     print "#TweetingIt"
