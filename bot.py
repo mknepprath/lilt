@@ -294,20 +294,32 @@ if __name__ == "__main__":
     if debug == False:
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
+                # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
+                if len((mention.text).split()) == 1:
+                    # clarifying this for myself... if the tweet is only 1 word, it's just the name '@familiarlilt', so no command
+                    tweet = ''
+                else:
+                    game_name, tweet = (mention.text).split(' ',1)
+
                 # init mentioned
                 mentioned = False
                 # runs through mentions and notes if current user has been mentioned
                 for m in mentions:
-                    if mention.user.id == m['user_id']:
-                        mentioned = True
+                    try:
+                        if mention.user.id == m['user_id']:
+                            mentioned = True
+                    except:
+                        pass
+
                 # if user hasn't been mentioned, append it to mentions
                 if mentioned == False:
                     mentions.append({
                         'screen_name': mention.user.screen_name,
                         'user_id': mention.user.id,
-                        'text': mention.text,
+                        'tweet': tweet,
                         'tweet_id': mention.id
                     })
+
             except:
                 pass
 
@@ -316,7 +328,7 @@ if __name__ == "__main__":
         try:
             screen_name = mention['screen_name']
             user_id = str(mention['user_id'])
-            text = mention['text']
+            tweet = mention['tweet']
             tweet_id = str(mention['tweet_id'])
             reply = False
 
@@ -324,12 +336,6 @@ if __name__ == "__main__":
             if debug == True:
                 reply = True
 
-            # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
-            if len((text).split()) == 1:
-                # clarifying this for myself... if the tweet is only 1 word, it's just the name '@familiarlilt', so no command
-                tweet = ''
-            else:
-                game_name, tweet = (mention.text).split(' ',1)
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
             tweet_mod = re.sub(r'http\S+', '', tweet)
