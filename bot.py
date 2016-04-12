@@ -397,11 +397,9 @@ if __name__ == "__main__":
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
                 print "position: " + str(position)
-
                 # get inventory
                 inventory = json.loads(dbselect('inventory', 'users', 'id', user_id))
                 print "inventory: " + str(inventory)
-
                 # get events
                 events = json.loads(dbselect('events', 'users', 'id', user_id))
                 print "events: " + str(events)
@@ -428,41 +426,30 @@ if __name__ == "__main__":
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
                 print "response: " + str(response)
-
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
                 print "item: " + str(item)
-
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
                 print "drop: " + str(drop)
-
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
                 # if there is a trigger, add it
                 if trigger != None:
                     trigger = json.loads(trigger)
                     print "trigger: " + str(trigger)
-                    if position not in events:
-                        # add position dict item to events if it's not there yet
-                        events[position] = {}
-                        print "Position wasn't in events, so I added it."
-                    # add trigger to events (this adds or updates current value at key of trigger)
                     events[position].update(trigger)
                     print "Trigger added under the current location in events."
                     dbupdate(events, user_id, 'events')
                     print "Updated db with updated events."
-
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
                 print "travel: " + str(travel)
                 if travel != None:
-                    print "Records indicate that you will be traveling,"
                     dbupdate(travel, user_id, 'position')
                     if travel not in events:
                         events[travel] = {}
                         dbupdate(events, user_id, 'events')
-                    print "so I've updated your position."
 
                 # logic that generates response to player's move
                 if move == 'drop':
@@ -471,7 +458,6 @@ if __name__ == "__main__":
                     message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
                 elif move == 'inventory':
                     if inventory == {}:
-                        print 'Empty inventory check worked, I guess.'
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
