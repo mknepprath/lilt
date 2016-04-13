@@ -297,8 +297,7 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention.text).split(' ',1)[0].lower()
-                    if mention.user.id == m['user_id']: # if user matches user already in mentions
-                        if mention_name == '@familiarlilt': # if sent directly to Lilt
+                        if (mention.user.id == m['user_id']) and (mention_name == '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                             mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
