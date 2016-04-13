@@ -298,7 +298,7 @@ if __name__ == "__main__":
                 for m in mentions:
                     mention_name = (text).split(' ',1)[0].lower()
                     if mention.user.id == m['user_id']:
-                        if mention_name = '@familiarlilt':
+                        if mention_name == '@familiarlilt':
                             mentioned = True
                 # if user hasn't been mentioned, append it to mentions
                 if mentioned == False:
