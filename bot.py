@@ -289,24 +289,24 @@ if __name__ == "__main__":
         debug_mentions.append({
             'screen_name': 'mknepprath1',
             'user_id': 15332058,
-            'text': debug_text, # update this with tweet to test
+            'text': '@familiarlilt start', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
         print 'Appended one debug_mention.'
         debug_mentions.append({
             'screen_name': 'mknepprath2',
             'user_id': 15332059,
-            'text': '@familiarlilt look around', # update this with tweet to test
+            'text': '@familiarlilt start', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
         print 'Appended two debug_mention.'
         debug_mentions.append({
             'screen_name': 'mknepprath3',
             'user_id': 15332060,
-            'text': '@mknepprath1 @familiarlilt look around', # update this with tweet to test
+            'text': '@familiarlilt start', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
-        print 'Appended two debug_mention.'
+        print 'Appended three debug_mention.'
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
