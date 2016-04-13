@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -310,17 +310,12 @@ if __name__ == "__main__":
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
-                print 'Looping through debug_mentions.'
                 mentioned = False
                 for m in mentions:
-                    print "Got a mention."
                     mention_name = (mention['text']).split(' ',1)[0].lower()
-                    print 'Cut off the first part of the mention.'
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
-                        print 'Has been mentioned, or this wasn\'t sent directly to Lilt.'
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
-                    print 'Hasn\'t been added yet, so adding to mentions.'
                     mentions.append({
                         'screen_name': mention['screen_name'],
                         'user_id': mention['user_id'],
@@ -329,9 +324,6 @@ if __name__ == "__main__":
                     })
             except:
                 pass
-
-    print 'Made it out of the debug loop.'
-    print str(mentions)
 
     # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
