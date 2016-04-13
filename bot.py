@@ -290,14 +290,16 @@ if __name__ == "__main__":
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
 
-    # go through mentions from Twitter using Tweepy
+    # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
                 mentioned = False
                 for m in mentions:
+                    mention_name = (text).split(' ',1)[0].lower()
                     if mention.user.id == m['user_id']:
-                        mentioned = True
+                        if mention_name = '@familiarlilt':
+                            mentioned = True
                 # if user hasn't been mentioned, append it to mentions
                 if mentioned == False:
                     mentions.append({
@@ -309,7 +311,7 @@ if __name__ == "__main__":
             except:
                 pass
 
-    # go through all mentions that require a response from Lilt
+    # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
             screen_name = mention['screen_name']
@@ -319,11 +321,7 @@ if __name__ == "__main__":
             reply = True if debug == True else False
 
             # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
-            if len((text).split()) == 1:
-                # clarifying this for myself... if the tweet is only 1 word, it's just the name '@familiarlilt', so no command
-                tweet = ''
-            else:
-                game_name, tweet = (text).split(' ',1)
+            tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
 
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
