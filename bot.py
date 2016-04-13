@@ -321,6 +321,12 @@ if __name__ == "__main__":
             'text': dbselect('tweet', 'debug', 'tweet_id', '3'), # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
+        debug_mentions.append({
+            'screen_name': 'StuntMonkey967',
+            'user_id': 43980543,
+            'text': '@FamiliarLilt Walk towards door.', # update this with tweet to test
+            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
+        })
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
@@ -338,6 +344,7 @@ if __name__ == "__main__":
                     })
             except:
                 pass
+        print " "
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
