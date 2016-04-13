@@ -277,6 +277,9 @@ print 'String of random characters created.'
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
+    # init mentions
+    mentions = []
+
     # mentions for testing purposes
     if debug == True:
         print "Debugging..."
@@ -310,6 +313,7 @@ if __name__ == "__main__":
                         print "Has been mentioned, or this wasn't sent directly to Lilt."
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
+                    print "Hasn't been added yet, so adding to mentions."
                     mentions.append({
                         'screen_name': mention.screen_name,
                         'user_id': mention.user_id,
@@ -319,9 +323,6 @@ if __name__ == "__main__":
             except:
                 pass
 
-    # init mentions
-    mentions = []
-
     # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
@@ -329,7 +330,7 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention.text).split(' ',1)[0].lower()
-                    if (mention.user.id == m['user_id']) and (mention_name == '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
