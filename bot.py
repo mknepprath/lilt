@@ -288,15 +288,22 @@ if __name__ == "__main__":
         print 'Got the debug tweet.'
         debug_mentions.append({
             'screen_name': 'mknepprath1',
-            'user_id': 15332057,
+            'user_id': 15332058,
             'text': debug_text, # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
         print 'Appended one debug_mention.'
         debug_mentions.append({
             'screen_name': 'mknepprath2',
-            'user_id': 15332058,
+            'user_id': 15332059,
             'text': '@familiarlilt look around', # update this with tweet to test
+            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
+        })
+        print 'Appended two debug_mention.'
+        debug_mentions.append({
+            'screen_name': 'mknepprath3',
+            'user_id': 15332060,
+            'text': '@mknepprath1 @familiarlilt look around', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
         print 'Appended two debug_mention.'
@@ -307,18 +314,18 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     print "Got a mention."
-                    mention_name = (mention.text).split(' ',1)[0].lower()
+                    mention_name = (mention['text']).split(' ',1)[0].lower()
                     print 'Cut off the first part of the mention.'
-                    if (mention.user_id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                    if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         print 'Has been mentioned, or this wasn\'t sent directly to Lilt.'
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     print 'Hasn\'t been added yet, so adding to mentions.'
                     mentions.append({
-                        'screen_name': mention.screen_name,
-                        'user_id': mention.user_id,
-                        'text': mention.text,
-                        'tweet_id': mention.tweet_id
+                        'screen_name': mention['screen_name'],
+                        'user_id': mention['user_id'],
+                        'text': mention['text'],
+                        'tweet_id': mention['tweet_id']
                     })
             except:
                 pass
