@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -303,7 +303,7 @@ if __name__ == "__main__":
         debug_mentions.append({
             'screen_name': 'mknepprath3',
             'user_id': 15332060,
-            'text': '@mknepprath1 @familiarlilt start', # update this with tweet to test
+            'text': '@FamiliarLilt Walk towards door.', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
         print 'Appended three debug_mention.'
