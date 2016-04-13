@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -303,29 +303,24 @@ if __name__ == "__main__":
     if debug == True:
         print 'Debugging...'
         debug_mentions = []
-        debug_text = dbselect('tweet', 'debug', 'tweet_id', '1')
-        print 'Got the debug tweet.'
         debug_mentions.append({
             'screen_name': 'mknepprath1',
             'user_id': 15332058,
-            'text': debug_text, # update this with tweet to test
+            'text': dbselect('tweet', 'debug', 'tweet_id', '1'), # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
-        print 'Appended one debug_mention.'
         debug_mentions.append({
             'screen_name': 'mknepprath2',
             'user_id': 15332059,
-            'text': '@familiarlilt look at window', # update this with tweet to test
+            'text': dbselect('tweet', 'debug', 'tweet_id', '2'), # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
-        print 'Appended two debug_mention.'
         debug_mentions.append({
             'screen_name': 'mknepprath3',
             'user_id': 15332060,
-            'text': '@FamiliarLilt Walk towards door.', # update this with tweet to test
+            'text': dbselect('tweet', 'debug', 'tweet_id', '3'), # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
-        print 'Appended three debug_mention.'
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
@@ -423,14 +418,12 @@ if __name__ == "__main__":
                 # get events
                 events = json.loads(dbselect('events', 'users', 'id', user_id))
                 print "events: " + str(events)
-
                 # add items to events_and_items
                 events_and_items = events
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
                 print "events_and_items: " + str(events_and_items)
-
                 # get current event
                 current_event = None
                 for key, value in events_and_items[position].iteritems():
@@ -442,7 +435,6 @@ if __name__ == "__main__":
                         current_event = event
                         break
                 print "current event: " + str(current_event)
-
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
                 print "response: " + str(response)
