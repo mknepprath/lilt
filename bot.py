@@ -280,6 +280,25 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
+    if debug == False:
+        for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+            try:
+                mentioned = False
+                for m in mentions:
+                    mention_name = (mention.text).split(' ',1)[0].lower()
+                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                        mentioned = True
+                if mentioned == False: # if user hasn't been mentioned, append it to mentions
+                    mentions.append({
+                        'screen_name': mention.user.screen_name,
+                        'user_id': mention.user.id,
+                        'text': mention.text,
+                        'tweet_id': mention.id
+                    })
+            except:
+                pass
+
     # mentions for testing purposes
     if debug == True:
         print 'Debugging...'
@@ -321,25 +340,6 @@ if __name__ == "__main__":
                         'user_id': mention['user_id'],
                         'text': mention['text'],
                         'tweet_id': mention['tweet_id']
-                    })
-            except:
-                pass
-
-    # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
-    if debug == False:
-        for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
-            try:
-                mentioned = False
-                for m in mentions:
-                    mention_name = (mention.text).split(' ',1)[0].lower()
-                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
-                        mentioned = True
-                if mentioned == False: # if user hasn't been mentioned, append it to mentions
-                    mentions.append({
-                        'screen_name': mention.user.screen_name,
-                        'user_id': mention.user.id,
-                        'text': mention.text,
-                        'tweet_id': mention.id
                     })
             except:
                 pass
@@ -391,7 +391,7 @@ if __name__ == "__main__":
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
                     reply = False
-                    print 'This person isn\'t playing Lilt.'
+                    print screen_name + ' isn\'t playing Lilt.'
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
