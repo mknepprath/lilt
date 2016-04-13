@@ -496,6 +496,7 @@ if __name__ == "__main__":
                 if debug == False:
                     print "#TweetingIt"
                     twitter.reply(message, tweet_id)
+            print " "
         except:
             pass
 cur.close()
