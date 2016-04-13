@@ -277,18 +277,42 @@ print 'String of random characters created.'
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
-    # init mentions
-    mentions = []
-
     # mentions for testing purposes
     if debug == True:
+        debug_mentions = []
         debug_text = dbselect('tweet', 'debug', 'tweet_id', '1')
-        mentions.append({
-            'screen_name': 'mknepprath',
+        debug_mentions.append({
+            'screen_name': 'mknepprath1',
             'user_id': 15332057,
             'text': debug_text, # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
+        debug_mentions.append({
+            'screen_name': 'mknepprath2',
+            'user_id': 15332058,
+            'text': '@familiarlilt look around', # update this with tweet to test
+            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
+        })
+        # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
+        for mention in debug_mentions:
+            try:
+                mentioned = False
+                for m in mentions:
+                    mention_name = (mention.text).split(' ',1)[0].lower()
+                    if (mention.user_id == m['user_id']) and (mention_name == '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                        mentioned = True
+                if mentioned == False: # if user hasn't been mentioned, append it to mentions
+                    mentions.append({
+                        'screen_name': mention.screen_name,
+                        'user_id': mention.user_id,
+                        'text': mention.text,
+                        'tweet_id': mention.tweet_id
+                    })
+            except:
+                pass
+
+    # init mentions
+    mentions = []
 
     # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
