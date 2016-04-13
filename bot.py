@@ -279,27 +279,35 @@ if __name__ == "__main__":
 
     # mentions for testing purposes
     if debug == True:
+        print "Debugging..."
         debug_mentions = []
         debug_text = dbselect('tweet', 'debug', 'tweet_id', '1')
+        print "Got the debug tweet."
         debug_mentions.append({
             'screen_name': 'mknepprath1',
             'user_id': 15332057,
             'text': debug_text, # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
+        print "Appended one debug_mention."
         debug_mentions.append({
             'screen_name': 'mknepprath2',
             'user_id': 15332058,
             'text': '@familiarlilt look around', # update this with tweet to test
             'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
         })
+        print "Appended two debug_mention."
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
+                print "Looping through debug_mentions."
                 mentioned = False
                 for m in mentions:
+                    print "Got a mention."
                     mention_name = (mention.text).split(' ',1)[0].lower()
-                    if (mention.user_id == m['user_id']) and (mention_name == '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                    print "Cut off the first part of the mention."
+                    if (mention.user_id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                        print "Has been mentioned, or this wasn't sent directly to Lilt."
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
