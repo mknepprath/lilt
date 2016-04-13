@@ -345,6 +345,7 @@ if __name__ == "__main__":
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
+            print "Starting to loop through all those mentions."
             screen_name = mention['screen_name']
             user_id = str(mention['user_id'])
             text = mention['text']
