@@ -49,7 +49,10 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
-def item():
+def itemcheck(item, inventory, user_id):
+    print "Check if item is in inventory"
+
+def item(item, inventory, user_id, response=None):
     print "Item management function will go here."
 
 def getitem(item, inventory, user_id, response):
@@ -352,20 +355,8 @@ if __name__ == "__main__":
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
             # if they're in the table, grab tweet id from table
-            if user_exists != None:
-                print "current player: " + screen_name
-                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
-                # if tweet_id isn't in users table, update tweet_id
-                if tweet_exists == None:
-                    print "new tweet"
-                    dbupdate(tweet_id, user_id, 'last_tweet_id')
-                    reply = True
-                # otherwise, do nothing - tweet has already been replied to
-                else:
-                    print "old tweet"
-            else:
+            if user_exists == None:
                 if move == 'start':
-                    # if user is not in the users table, add user and tweet_id
                     print 'new player: ' + screen_name
                     position = 'start'
                     inventory_init = {}
@@ -376,8 +367,18 @@ if __name__ == "__main__":
                     reply = True
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
-                    reply = False
                     print screen_name + ' isn\'t playing Lilt.'
+                    reply = False
+            else:
+                print "current player: " + screen_name
+                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
+                # if tweet_id isn't in users table, update tweet_id
+                if tweet_exists == None:
+                    print "new tweet"
+                    dbupdate(tweet_id, user_id, 'last_tweet_id')
+                    reply = True
+                else:
+                    print "old tweet"
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
