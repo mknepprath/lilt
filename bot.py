@@ -458,7 +458,7 @@ if __name__ == "__main__":
                     message = mbuild(screen_name, dropitem(item_to_drop, inventory, user_id))
                 elif move == 'give':
                     message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
-                elif move == 'inventory':
+                elif (move == 'inventory') or (move == 'check inventory'):
                     if inventory == {}:
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
