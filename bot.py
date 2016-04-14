@@ -272,7 +272,6 @@ error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "O
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
 rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-print 'String of random characters created.'
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -287,7 +286,7 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention.text).split(' ',1)[0].lower()
-                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
+                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if mention is already in mentioned, or the first word in mention text isn't lilt
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
@@ -303,24 +302,13 @@ if __name__ == "__main__":
     if debug == True:
         print 'Debugging...'
         debug_mentions = []
-        debug_mentions.append({
-            'screen_name': 'mknepprath1',
-            'user_id': 15332058,
-            'text': dbselect('tweet', 'debug', 'tweet_id', '1'), # update this with tweet to test
-            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
-        })
-        debug_mentions.append({
-            'screen_name': 'mknepprath2',
-            'user_id': 15332059,
-            'text': dbselect('tweet', 'debug', 'tweet_id', '2'), # update this with tweet to test
-            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
-        })
-        debug_mentions.append({
-            'screen_name': 'mknepprath3',
-            'user_id': 15332060,
-            'text': dbselect('tweet', 'debug', 'tweet_id', '3'), # update this with tweet to test
-            'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
-        })
+        for d in range(1,3):
+            debug_mentions.append({
+                'screen_name': dbselect('screen_name', 'debug', 'tweet_id', str(d)),
+                'user_id': int(dbselect('user_id', 'debug', 'tweet_id', str(d))),
+                'text': dbselect('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
+                'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
+            })
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
