@@ -302,13 +302,15 @@ if __name__ == "__main__":
     if debug == True:
         print 'Debugging...'
         debug_mentions = []
-        for d in range(1,3):
+        d = 1
+        while dbselect('screen_name', 'debug', 'tweet_id', str(d)) != None:
             debug_mentions.append({
                 'screen_name': dbselect('screen_name', 'debug', 'tweet_id', str(d)),
                 'user_id': int(dbselect('user_id', 'debug', 'tweet_id', str(d))),
                 'text': dbselect('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
                 'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
             })
+            d += 1
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
