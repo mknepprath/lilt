@@ -336,7 +336,7 @@ if __name__ == "__main__":
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
-            screen_name = mention['screen_name']
+            screen_name = mention['screen_name'].lower()
             user_id = str(mention['user_id'])
             text = mention['text']
             tweet_id = str(mention['tweet_id'])
