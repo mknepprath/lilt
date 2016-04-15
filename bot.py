@@ -272,7 +272,7 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 
 def cleanstr(s):
-    s = re.sub(r'http\S+', '', string)
+    s = re.sub(r'http\S+', '', s)
     s = re.sub(' +',' ', s)
     exclude = set(string.punctuation)
     ns = ''.join(ch for ch in s if ch not in exclude).lower().rstrip()
