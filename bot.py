@@ -49,12 +49,8 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
-def itemcheck(item, inventory, user_id):
-    print "Check if item is in inventory"
-
 def item(item, inventory, user_id, response=None):
-    print "Item management function will go here."
-
+    print "item management"
 def getitem(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -75,19 +71,17 @@ def getitem(item, inventory, user_id, response):
                 return response
         else:
             return 'You can\'t hold more ' + item + '!'
-
-def dropitem(item, inventory, user_id):
-    if item not in inventory:
+def dropitem(drop, inventory, user_id, response=None):
+    if drop not in inventory:
         return 'You don\'t have anything like that.'
-    elif inventory[item]['quantity'] <= 1:
-        del inventory[item]
+    elif inventory[drop]['quantity'] <= 1:
+        del inventory[drop]
         dbupdate(inventory, user_id)
-        return 'You drop one ' + item + '.'
+        return 'You drop one ' + drop + '.'
     else:
-        inventory[item]['quantity'] -= 1
+        inventory[drop]['quantity'] -= 1
         dbupdate(inventory, user_id)
-        return 'You drop one ' + item + '.'
-
+        return 'You drop one ' + drop + '.'
 def giveitem(item, inventory, user_id, position, recipient):
     print 'So you want to give ' + item + ' to ' + recipient + '.'
     if item not in inventory:
@@ -159,7 +153,6 @@ def giveitem(item, inventory, user_id, position, recipient):
                                 return 'You gave ' + item + ' to @' + recipient + '.'
                         else:
                             return 'They can\'t hold more ' + item + '!'
-
 def replaceitem(item, drop, inventory, user_id, response):
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:
@@ -211,7 +204,6 @@ def replaceitem(item, drop, inventory, user_id, response):
                     return response
             else:
                 return 'You can\'t hold more ' + item + '!'
-
 def invbuild(inventory):
     items = list(inventory.keys())
     i = 0
@@ -221,10 +213,6 @@ def invbuild(inventory):
             items[i] += ' ' + u'\u2022'*iq
         i += 1
     return ', '.join(items)
-
-def mbuild(screen_name, message):
-    return '@' + screen_name + ' ' + message + ' ' + rstring
-
 def storeerror(move, position):
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
     if attempt == None:
@@ -233,7 +221,6 @@ def storeerror(move, position):
     else:
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
-
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
@@ -246,7 +233,6 @@ def dbselect(col1, table, col2, val, position=None, condition=None):
         return o
     else:
         return o[0]
-
 def dbupdate(val1, val2, col='inventory'):
     if (col != 'inventory') and (col != 'events'):
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
@@ -255,12 +241,13 @@ def dbupdate(val1, val2, col='inventory'):
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
-
 def cleanstr(s):
     s_mod = re.sub(r'http\S+', '', s) # removes links
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
     return ns
+def mbuild(screen_name, message):
+    return '@' + screen_name + ' ' + message + ' ' + rstring
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 
@@ -448,16 +435,15 @@ if __name__ == "__main__":
                 else:
                     print 'Looks like we\'re going to dive into the db for responses.'
                     if response != None:
-                        if item != None:
-                            print 'We\'re going to be dealing with an item, as well.'
-                            # if there is an item that the new item is replacing...
-                            if drop != None:
-                                print 'Also going to be dropping an item.'
-                                message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
-                            else:
-                                print 'Alright, I\'m going to get that item for you... if you can hold it.'
-                                message = mbuild(screen_name, getitem(item, inventory, user_id, response))
-                        # if there isn't an item...
+                        if (item != None) and (drop != None):
+                            print 'We\'re going to be dealing with an item and drop.'
+                            message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
+                        elif item !=None:
+                            print 'Alright, I\'m going to get that item for you... if you can hold it.'
+                            message = mbuild(screen_name, getitem(item, inventory, user_id, response))
+                        else:
+                            print 'So you\'re just dropping/burning an item.'
+                            message = mbuild(screen_name, dropitem(drop, inventory, user_id))
                         else:
                             print 'Got one! Just a stock response.'
                             message = mbuild(screen_name, response)
