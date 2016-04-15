@@ -272,10 +272,10 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 
 def cleanstr(s):
-    smod = re.sub(r'http\S+', '', s)
-    smod = re.sub(' +',' ', smod)
-    exclude = set(string.punctuation)
-    ns = ''.join(ch for ch in smod if ch not in exclude).lower().rstrip()
+    s_mod = re.sub(r'http\S+', '', s)
+    s_mod = re.sub(' +',' ', s_mod)
+    exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
+    ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip()
     return ns
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
@@ -354,10 +354,7 @@ if __name__ == "__main__":
 
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
-            tweet_mod = re.sub(r'http\S+', '', tweet)
-            tweet_mod = re.sub(' +',' ', tweet_mod)
-            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
+            move = cleanstr(tweet)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
