@@ -272,10 +272,10 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 
 def cleanstr(s):
-    s = re.sub(r'http\S+', '', s)
-    s = re.sub(' +',' ', s)
+    smod = re.sub(r'http\S+', '', s)
+    smod = re.sub(' +',' ', smod)
     exclude = set(string.punctuation)
-    ns = ''.join(ch for ch in s if ch not in exclude).lower().rstrip()
+    ns = ''.join(ch for ch in smod if ch not in exclude).lower().rstrip()
     return ns
 
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
