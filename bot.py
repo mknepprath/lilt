@@ -308,11 +308,8 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention['text']).split(' ',1)[0].lower()
-                    print 'mention_name: ' + mention_name
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
-                        if mentioned == True:
-                            print "Not counted."
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
                         'screen_name': mention['screen_name'],
