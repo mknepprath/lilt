@@ -365,9 +365,12 @@ if __name__ == "__main__":
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
+            print "7"
             # if they're in the table, grab tweet id from table
             if user_exists == None:
+                print "8"
                 if move == 'start':
+                    print "9"
                     print 'new player: ' + screen_name
                     position = 'start'
                     inventory_init = {}
@@ -381,32 +384,37 @@ if __name__ == "__main__":
                     print screen_name + ' isn\'t playing Lilt.'
                     reply = False
             else:
+                print "10"
                 print "current player: " + screen_name
                 tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
                 # if tweet_id isn't in users table, update tweet_id
                 if tweet_exists == None:
+                    print "11"
                     print "new tweet"
                     dbupdate(tweet_id, user_id, 'last_tweet_id')
                     reply = True
                 else:
                     print "old tweet"
-
+            print "12"
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
-
+            print "13"
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
+                    print "14"
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
+                        print "15"
                         move = a
                         item_to_drop_mod = re.sub(r'http\S+', '', b)
                         item_to_drop_mod = re.sub(' +',' ', item_to_drop_mod)
                         item_to_drop = ''.join(ch for ch in item_to_drop_mod if ch not in exclude).lower().rstrip()
                     # if first word is give - break apart b
                     elif (a == 'give'):
+                        print "16"
                         move = a
                         # c will be the item, and b should be the recipient
                         c, d = (b).split(' ',1)
@@ -414,6 +422,7 @@ if __name__ == "__main__":
                         item_to_give_mod = re.sub(r'http\S+', '', d)
                         item_to_give_mod = re.sub(' +',' ', item_to_give_mod)
                         item_to_give = ''.join(ch for ch in item_to_give_mod if ch not in exclude).lower().rstrip()
+                print "17"
                 print "move: " + move
 
                 # get position
