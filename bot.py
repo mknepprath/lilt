@@ -404,7 +404,9 @@ if __name__ == "__main__":
                 if len((tweet).split()) >= 2:
                     print "14"
                     a, b = (tweet).split(' ',1)
+                    print "14.1"
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
+                    print "14.2"
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         print "15"
