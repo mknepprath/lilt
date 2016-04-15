@@ -311,6 +311,8 @@ if __name__ == "__main__":
                     print 'mention_name: ' + mention_name
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
+                        if mentioned == True:
+                            print "Not counted."
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
                         'screen_name': mention['screen_name'],
@@ -446,7 +448,7 @@ if __name__ == "__main__":
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
                 else:
-                    print 'Looks like we\'re going to dive into the db for responses.'
+                    print 'Searching...'
                     if response != None:
                         if (item != None) and (drop != None):
                             print 'We\'re going to be dealing with an item and drop.'
@@ -458,7 +460,7 @@ if __name__ == "__main__":
                             print 'So you\'re just dropping/burning an item.'
                             message = mbuild(screen_name, dropitem(drop, inventory, user_id, response))
                         else:
-                            print 'Got one! Just a stock response.'
+                            print 'Got one!'
                             message = mbuild(screen_name, response)
                     else:
                         print "I guess that move didn't work."
