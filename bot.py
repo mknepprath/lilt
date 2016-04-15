@@ -354,8 +354,10 @@ if __name__ == "__main__":
 
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
-            move = cleanstr(tweet)
-            print move
+            tweet_mod = re.sub(r'http\S+', '', tweet)
+            tweet_mod = re.sub(' +',' ', tweet_mod)
+            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
+            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
@@ -396,14 +398,18 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         move = a
-                        item_to_drop = cleanstr(b)
+                        item_to_drop_mod = re.sub(r'http\S+', '', b)
+                        item_to_drop_mod = re.sub(' +',' ', item_to_drop_mod)
+                        item_to_drop = ''.join(ch for ch in item_to_drop_mod if ch not in exclude).lower().rstrip()
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                        item_to_give = cleanstr(d)
+                        item_to_give_mod = re.sub(r'http\S+', '', d)
+                        item_to_give_mod = re.sub(' +',' ', item_to_give_mod)
+                        item_to_give = ''.join(ch for ch in item_to_give_mod if ch not in exclude).lower().rstrip()
                 print "move: " + move
 
                 # get position
