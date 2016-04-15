@@ -399,7 +399,7 @@ if __name__ == "__main__":
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
-            print "13"
+                print "13"
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     print "14"
