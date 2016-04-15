@@ -73,15 +73,24 @@ def getitem(item, inventory, user_id, response):
             return 'You can\'t hold more ' + item + '!'
 def dropitem(drop, inventory, user_id, response=None):
     if drop not in inventory:
-        return 'You don\'t have anything like that.'
+        if response == None:
+            return 'You don\'t have anything like that.'
+        else:
+            return 'You don\'t have the required item, ' + drop + '.'
     elif inventory[drop]['quantity'] <= 1:
         del inventory[drop]
         dbupdate(inventory, user_id)
-        return 'You drop one ' + drop + '.'
+        if response == None:
+            return 'You drop one ' + drop + '.'
+        else:
+            return response
     else:
         inventory[drop]['quantity'] -= 1
         dbupdate(inventory, user_id)
-        return 'You drop one ' + drop + '.'
+        if response == None:
+            return 'You drop one ' + drop + '.'
+        else:
+            return response
 def giveitem(item, inventory, user_id, position, recipient):
     print 'So you want to give ' + item + ' to ' + recipient + '.'
     if item not in inventory:
