@@ -361,6 +361,7 @@ if __name__ == "__main__":
             # removes punctuation, links, extra whitespace, and makes move lowercase
             move = cleanstr(tweet)
             print "6"
+            print str(move)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
