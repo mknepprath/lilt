@@ -56,34 +56,24 @@ def item(item, inventory, user_id, response=None):
     print "Item management function will go here."
 
 def getitem(item, inventory, user_id, response):
-    # update values here: items, triggers, etc
     if item not in inventory:
         inventory[item] = {}
         inventory[item]['quantity'] = 1
-        # check if there's room in the inventory
         if len(mbuild('x'*15, invbuild(inventory))) >= 140:
             return 'Your inventory is full.'
         else:
-            # update database with updated values
             dbupdate(inventory, user_id)
             return response
     else:
-        print 'You already have 1 or more of that item.'
         item_max = dbselect('max', 'items', 'name', item)
-        print 'Got the quantity you\'re able to carry of that item.'
         if inventory[item]['quantity'] < item_max:
-            print 'You have less than the limit.'
             inventory[item]['quantity'] += 1
-            # check if there's room in the inventory
             if len(mbuild('x'*15, invbuild(inventory))) >= 140:
-                print 'You\'re inventory is full, though.'
                 return 'Your inventory is full.'
             else:
-                print 'You have room for it in your inventory, so I\'ll add it.'
                 dbupdate(inventory, user_id)
                 return response
         else:
-            print 'You\'ve reached the limit for that item.'
             return 'You can\'t hold more ' + item + '!'
 
 def dropitem(item, inventory, user_id):
@@ -209,11 +199,6 @@ def replaceitem(item, drop, inventory, user_id, response):
                 return response
         else:
             item_max = dbselect('max', 'items', 'name', item)
-            print item
-            print str(inventory)
-            print str(inventory[item])
-            print inventory[item]['quantity']
-            print item_max
             if inventory[item]['quantity'] < item_max:
                 inventory[item]['quantity'] += 1
                 # check if there's room in the inventory
@@ -272,16 +257,16 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 
 def cleanstr(s):
-    s_mod = re.sub(r'http\S+', '', s)
-    s_mod = re.sub(' +',' ', s_mod)
-    ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip()
+    s_mod = re.sub(r'http\S+', '', s) # removes links
+    s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
+    ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
     return ns
 
-error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
+error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
 rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-exclude = set(string.punctuation)
+exclude = set(string.punctuation) # use to parse out from tweets
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -338,7 +323,7 @@ if __name__ == "__main__":
                     })
             except:
                 pass
-        print " "
+        print ' '
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
@@ -351,14 +336,10 @@ if __name__ == "__main__":
 
             # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
             tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
-
-            # clean up tweet and break it apart
-            # removes punctuation, links, extra whitespace, and makes move lowercase
             move = cleanstr(tweet)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
-            # if they're in the table, grab tweet id from table
             if user_exists == None:
                 if move == 'start':
                     print 'new player: ' + screen_name
@@ -376,7 +357,6 @@ if __name__ == "__main__":
             else:
                 print "current player: " + screen_name
                 tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
-                # if tweet_id isn't in users table, update tweet_id
                 if tweet_exists == None:
                     print "new tweet"
                     dbupdate(tweet_id, user_id, 'last_tweet_id')
@@ -387,7 +367,7 @@ if __name__ == "__main__":
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
-
+                print 'tweet: ' + tweet
                 # if tweet is two words or more, break off first word
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -403,23 +383,21 @@ if __name__ == "__main__":
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                         item_to_give = cleanstr(d)
-                print "move: " + move
-
+                print 'move: ' + move
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
-                print "position: " + str(position)
+                print 'position: ' + str(position)
                 # get inventory
                 inventory = json.loads(dbselect('inventory', 'users', 'id', user_id))
-                print "inventory: " + str(inventory)
+                print 'inventory: ' + str(inventory)
                 # get events
                 events = json.loads(dbselect('events', 'users', 'id', user_id))
-                print "events: " + str(events)
                 # add items to events_and_items
                 events_and_items = events
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
-                print "events_and_items: " + str(events_and_items)
+                print 'events_and_items: ' + str(events_and_items)
                 # get current event
                 current_event = None
                 for key, value in events_and_items[position].iteritems():
@@ -430,19 +408,19 @@ if __name__ == "__main__":
                     if response != None:
                         current_event = event
                         break
-                print "current event: " + str(current_event)
+                print 'current event: ' + str(current_event)
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
-                print "response: " + str(response)
+                print 'response: ' + str(response)
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
-                print "item: " + str(item)
+                print 'item: ' + str(item)
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
-                print "drop: " + str(drop)
+                print 'drop: ' + str(drop)
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
-                print "trigger: " + str(trigger)
+                print 'trigger: ' + str(trigger)
                 if trigger != None:
                     trigger = json.loads(trigger)
                     events[position].update(trigger)
@@ -450,7 +428,7 @@ if __name__ == "__main__":
                     print "Updated db with updated events."
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
-                print "travel: " + str(travel)
+                print 'travel: ' + str(travel)
                 if travel != None:
                     dbupdate(travel, user_id, 'position')
                     if travel not in events:
