@@ -286,6 +286,7 @@ if __name__ == "__main__":
                         'text': mention.text,
                         'tweet_id': mention.id
                     })
+                print twitter.rate_limit_status()
             except:
                 pass
 
@@ -452,7 +453,7 @@ if __name__ == "__main__":
                             message = mbuild(screen_name, getitem(item, inventory, user_id, response))
                         elif drop != None:
                             print 'So you\'re just dropping/burning an item.'
-                            message = mbuild(screen_name, dropitem(drop, inventory, user_id))
+                            message = mbuild(screen_name, dropitem(drop, inventory, user_id, response))
                         else:
                             print 'Got one! Just a stock response.'
                             message = mbuild(screen_name, response)
