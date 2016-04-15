@@ -277,7 +277,6 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention.text).split(' ',1)[0].lower()
-                    print 'mention_name: ' + mention_name
                     if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if mention is already in mentioned, or the first word in mention text isn't lilt
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
@@ -309,6 +308,7 @@ if __name__ == "__main__":
                 mentioned = False
                 for m in mentions:
                     mention_name = (mention['text']).split(' ',1)[0].lower()
+                    print 'mention_name: ' + mention_name
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
@@ -413,7 +413,7 @@ if __name__ == "__main__":
                     print 'response: ' + str(response)
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
-                if item_to_give != None:
+                if item != None:
                     print 'item: ' + str(item)
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
