@@ -271,6 +271,13 @@ def dbupdate(val1, val2, col='inventory'):
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
 
+def cleanstr(str):
+    s = re.sub(r'http\S+', '', string)
+    s = re.sub(' +',' ', s)
+    exclude = set(string.punctuation)
+    newstr = ''.join(ch for ch in s if ch not in exclude).lower().rstrip()
+    return newstr
+
 error_message = ["You can't do that.", "That can't be done.", "Didn't work.", "Oops, can't do that.", "Sorry, you can't do that.", "That didn't work.", "Try something else.", "Sorry, you'll have to try something else.", "Oops, didn't work.", "Oops, try something else.", "Nice try, but you can't do that.", "Nice try, but that didn't work.", "Try something else, that didn't seem to work."]
 
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
@@ -347,10 +354,7 @@ if __name__ == "__main__":
 
             # clean up tweet and break it apart
             # removes punctuation, links, extra whitespace, and makes move lowercase
-            tweet_mod = re.sub(r'http\S+', '', tweet)
-            tweet_mod = re.sub(' +',' ', tweet_mod)
-            exclude = set(string.punctuation) # using this later, as well - maybe init at beginning?
-            move = ''.join(ch for ch in tweet_mod if ch not in exclude).lower().rstrip()
+            move = cleanstr(tweet)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
@@ -391,18 +395,14 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         move = a
-                        item_to_drop_mod = re.sub(r'http\S+', '', b)
-                        item_to_drop_mod = re.sub(' +',' ', item_to_drop_mod)
-                        item_to_drop = ''.join(ch for ch in item_to_drop_mod if ch not in exclude).lower()
+                        item_to_drop = cleanstr(b)
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                        item_to_give_mod = re.sub(r'http\S+', '', d)
-                        item_to_give_mod = re.sub(' +',' ', item_to_give_mod)
-                        item_to_give = ''.join(ch for ch in item_to_give_mod if ch not in exclude).lower()
+                        item_to_give = cleanstr(d)
                 print "move: " + move
 
                 # get position
