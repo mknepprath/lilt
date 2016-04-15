@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -391,14 +391,18 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         move = a
-                        item_to_drop = ''.join(ch for ch in b if ch not in exclude).lower()
+                        item_to_drop_mod = re.sub(r'http\S+', '', b)
+                        item_to_drop_mod = re.sub(' +',' ', item_to_drop_mod)
+                        item_to_drop = ''.join(ch for ch in item_to_drop_mod if ch not in exclude).lower()
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         move = a
                         # c will be the item, and b should be the recipient
                         c, d = (b).split(' ',1)
                         recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                        item_to_give = ''.join(ch for ch in d if ch not in exclude).lower()
+                        item_to_give_mod = re.sub(r'http\S+', '', d)
+                        item_to_give_mod = re.sub(' +',' ', item_to_give_mod)
+                        item_to_give = ''.join(ch for ch in item_to_give_mod if ch not in exclude).lower()
                 print "move: " + move
 
                 # get position
