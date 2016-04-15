@@ -286,7 +286,6 @@ if __name__ == "__main__":
                         'text': mention.text,
                         'tweet_id': mention.id
                     })
-                print twitter.rate_limit_status()
             except:
                 pass
 
@@ -405,28 +404,31 @@ if __name__ == "__main__":
                     if response != None:
                         current_event = event
                         break
-                print 'current event: ' + str(current_event)
+                if current_event != None:
+                    print 'current event: ' + str(current_event)
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
-                print 'response: ' + str(response)
+                if response != None:
+                    print 'response: ' + str(response)
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
-                print 'item: ' + str(item)
+                if item_to_give != None:
+                    print 'item: ' + str(item)
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
-                print 'drop: ' + str(drop)
+                if drop != None:
+                    print 'drop: ' + str(drop)
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
-                print 'trigger: ' + str(trigger)
                 if trigger != None:
+                    print 'trigger: ' + str(trigger)
                     trigger = json.loads(trigger)
                     events[position].update(trigger)
                     dbupdate(events, user_id, 'events')
-                    print "Updated db with updated events."
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
-                print 'travel: ' + str(travel)
                 if travel != None:
+                    print 'travel: ' + str(travel)
                     dbupdate(travel, user_id, 'position')
                     if travel not in events:
                         events[travel] = {}
