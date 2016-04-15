@@ -438,10 +438,10 @@ if __name__ == "__main__":
                         if (item != None) and (drop != None):
                             print 'We\'re going to be dealing with an item and drop.'
                             message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
-                        elif item !=None:
+                        elif item != None:
                             print 'Alright, I\'m going to get that item for you... if you can hold it.'
                             message = mbuild(screen_name, getitem(item, inventory, user_id, response))
-                        else:
+                        elif drop != None:
                             print 'So you\'re just dropping/burning an item.'
                             message = mbuild(screen_name, dropitem(drop, inventory, user_id))
                         else:
