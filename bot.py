@@ -244,7 +244,7 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 def cleanstr(s):
     s_mod = re.sub(r'http\S+', '', s) # removes links
-    s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the"
+    s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
     return ns
@@ -323,8 +323,12 @@ if __name__ == "__main__":
             reply = True if debug == True else False
 
             # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
-            tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
-            move = cleanstr(tweet)
+            tweet_raw = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
+            if (tweet_raw).split(' ',1)[0][0] == '@':
+                tweet_raw = (tweet_raw).split(' ',1)[1]
+                tweet = cleanstr(tweet_raw)
+            else
+                tweet = cleanstr(tweet_raw)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
