@@ -236,6 +236,7 @@ def storeerror(move, position):
         print "6"
         dbupdate(attempt+1, move, 'attempts')
         print "7"
+    print "8"
     return "Stored the failed attempt for future reference."
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
@@ -250,10 +251,15 @@ def dbselect(col1, table, col2, val, position=None, condition=None):
     else:
         return o[0]
 def dbupdate(val1, val2, col='inventory'):
+    print "8"
     if (col != 'inventory') and (col != 'events'):
+        print "9"
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
+        print "10"
     elif col == 'attempts':
+        print "11"
         cur.execute("UPDATE attempts SET " + col + " = %s WHERE move = %s", (val1, val2))
+        print "12"
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
