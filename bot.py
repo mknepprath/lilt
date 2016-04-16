@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -322,9 +322,8 @@ if __name__ == "__main__":
             tweet_id = str(mention['tweet_id'])
             reply = True if debug == True else False
 
-            # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
+            # gets tweet text sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
-            print (tweet).split(' ',1)[0][0]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
                 move = cleanstr(tweet)
