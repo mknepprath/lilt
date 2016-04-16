@@ -325,10 +325,10 @@ if __name__ == "__main__":
             # splits tweet at first space, game_name = @familiarlilt (this should probably happen in the next loop)
             tweet_raw = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
             if (tweet_raw).split(' ',1)[0][0] == '@':
-                tweet_raw = (tweet_raw).split(' ',1)[1]
-                tweet = cleanstr(tweet_raw)
+                tweet = (tweet_raw).split(' ',1)[1]
+                move = cleanstr(tweet)
             else:
-                tweet = cleanstr(tweet_raw)
+                move = cleanstr(tweet)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
