@@ -327,7 +327,7 @@ if __name__ == "__main__":
             if (tweet_raw).split(' ',1)[0][0] == '@':
                 tweet_raw = (tweet_raw).split(' ',1)[1]
                 tweet = cleanstr(tweet_raw)
-            else
+            else:
                 tweet = cleanstr(tweet_raw)
 
             # attempts to grab current user from users table
