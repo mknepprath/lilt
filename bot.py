@@ -223,12 +223,19 @@ def invbuild(inventory):
         i += 1
     return ', '.join(items)
 def storeerror(move, position):
+    print "1"
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
+    print "2"
     if attempt == None:
+        print "3"
         cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
+        print "4"
         conn.commit()
+        print "5"
     else:
+        print "6"
         dbupdate(attempt+1, move, 'attempts')
+        print "7"
     return "Stored the failed attempt for future reference."
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
@@ -461,8 +468,11 @@ if __name__ == "__main__":
                             message = mbuild(screen_name, response)
                     else:
                         print "I guess that move didn't work."
+                        print screen_name
+                        print random.choice(error_message)
                         message = mbuild(screen_name, random.choice(error_message))
                         print storeerror(move, position)
+                        print "stored..."
 
                 print "reply: " + message
                 if debug == False:
