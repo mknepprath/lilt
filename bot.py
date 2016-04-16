@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -98,31 +98,25 @@ def giveitem(item, inventory, user_id, position, recipient):
         return 'You don\'t have ' + item + '!'
     else:
         print 'Okay, so you do have the item.' #TESTING
-        #check if item can be given
         givable = dbselect('give', 'items', 'name', item)
         print 'Givableness of item should be above this...'
         if givable == False:
             print 'Can\'t give that away!'
             return item.capitalize() + ' can\'t be given.'
         else:
-            #check if recipient exists
             recipient_id = dbselect('id', 'users', 'name', recipient)
             if recipient_id == None:
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
             else:
-                # get recipient inventory
                 recipient_position = dbselect('position', 'users', 'id', recipient_id)
                 print 'Got the position for recipient, I think.' #TESTING
-                # might be better to have a default value in users, but this checks to see if empty and creates dict if it is
                 if recipient_position != position:
                     print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
                     return 'You aren\'t close enough to them to give them that!'
                 else:
-                    # get recipient inventory
                     recipient_inventory = json.loads(dbselect('inventory', 'users', 'id', recipient_id))
                     print 'Got the recipient\'s inventory.' #TESTING
-                    # modify recipient inventory, see if it fits
                     if item not in recipient_inventory:
                         print 'Oh yeah, they didn\'t have that item.'
                         recipient_inventory[item] = {}
@@ -131,7 +125,6 @@ def giveitem(item, inventory, user_id, position, recipient):
                             del inventory[item]
                         else:
                             inventory[item]['quantity'] -= 1
-                        # check if there's room in the inventory
                         if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return 'Their inventory is full.'
@@ -152,7 +145,6 @@ def giveitem(item, inventory, user_id, position, recipient):
                                 del inventory[item]
                             else:
                                 inventory[item]['quantity'] -= 1
-                            # check if there's room in the inventory
                             if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                                 return 'Their inventory is full.'
                             else:
@@ -259,7 +251,6 @@ def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message + ' ' + rstring
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
-
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
 rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 exclude = set(string.punctuation) # use to parse out from tweets
@@ -364,21 +355,25 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so
             if reply == True:
                 print 'tweet: ' + tweet
-                # if tweet is two words or more, break off first word
+                # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
                     a = ''.join(ch for ch in a if ch not in exclude).lower()
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
-                        move = a
-                        item_to_drop = cleanstr(b)
+                        # checks if item exists before changing move/item_to_drop based on it
+                        if dbselect('name', 'items', 'name', cleanstr(b)) != None:
+                            move = a
+                            item_to_drop = cleanstr(b)
                     # if first word is give - break apart b
                     elif (a == 'give'):
-                        move = a
-                        # c will be the item, and b should be the recipient
+                        # d will be the item, and c should be the recipient
                         c, d = (b).split(' ',1)
-                        recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                        item_to_give = cleanstr(d)
+                        # checks if item exists before changing move/item_to_give based on it
+                        if dbselect('name', 'items', 'name', cleanstr(d)) != None:
+                            move = a
+                            recipient = ''.join(ch for ch in c if ch not in exclude).lower()
+                            item_to_give = cleanstr(d)
                 print 'move: ' + move
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
