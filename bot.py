@@ -244,7 +244,7 @@ def dbupdate(val1, val2, col='inventory'):
     conn.commit()
 def cleanstr(s):
     s_mod = re.sub(r'http\S+', '', s) # removes links
-    s_mod = re.sub(r'the', '', s_mod) #remove the word "the"
+    s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the"
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
     return ns
