@@ -326,9 +326,7 @@ if __name__ == "__main__":
             tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
-                move = cleanstr(tweet)
-            else:
-                move = cleanstr(tweet)
+            move = cleanstr(tweet)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user_id)
