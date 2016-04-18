@@ -306,7 +306,8 @@ if __name__ == "__main__":
                     print '4 ' + str(mention_name)
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
-                    print '5 ' + str(mentioned)
+                        print '5 ' + str(mentioned)
+                    print '6 ' + str(mentioned)
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
                         'screen_name': mention['screen_name'],
@@ -314,7 +315,7 @@ if __name__ == "__main__":
                         'text': mention['text'],
                         'tweet_id': mention['tweet_id']
                     })
-                print '6 ' + str(mentioned)
+                print '7 ' + str(mentioned)
             except:
                 pass
         print ' '
