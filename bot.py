@@ -297,16 +297,16 @@ if __name__ == "__main__":
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
-                print mention
+                print '1 ' + str(mention)
                 mentioned = False
-                print mentioned
+                print '2 ' + str(mentioned)
                 for m in mentions:
-                    print m
+                    print '3 ' + str(m)
                     mention_name = (mention['text']).split(' ',1)[0].lower()
-                    print mention_name
+                    print '4 ' + str(mention_name)
                     if (mention['user_id'] == m['user_id']) or (mention_name != '@familiarlilt'): # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
-                    print mentioned
+                    print '5 ' + str(mentioned)
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
                         'screen_name': mention['screen_name'],
@@ -314,7 +314,7 @@ if __name__ == "__main__":
                         'text': mention['text'],
                         'tweet_id': mention['tweet_id']
                     })
-                print mentioned
+                print '6 ' + str(mentioned)
             except:
                 pass
         print ' '
