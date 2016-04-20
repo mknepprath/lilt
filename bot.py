@@ -301,7 +301,7 @@ if __name__ == "__main__":
                 mentioned = False
                 mention_name = (mention['text']).split(' ',1)[0].lower()
                 print '2 ' + str(mention_name)
-                if mention_name == '@familiarlilt':
+                if mention_name != '@familiarlilt':
                     mentioned = True
                     print '3 ' + str(mentioned)
                 print '4 ' + str(mentioned)
