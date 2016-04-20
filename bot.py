@@ -312,13 +312,14 @@ if __name__ == "__main__":
                         print '6 ' + str(mentioned)
                     print '7 ' + str(mentioned)
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
+                    print '8 ' + str(mentioned)
                     mentions.append({
                         'screen_name': mention['screen_name'],
                         'user_id': mention['user_id'],
                         'text': mention['text'],
                         'tweet_id': mention['tweet_id']
                     })
-                print '8 ' + str(mentioned)
+                print '9 ' + str(mentioned)
             except:
                 pass
         print ' '
