@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -267,9 +267,11 @@ if __name__ == "__main__":
         for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
             try:
                 mentioned = False
+                mention_name = (mention.text).split(' ',1)[0].lower()
+                if mention_name != '@familiarlilt':
+                    mentioned = True
                 for m in mentions:
-                    mention_name = (mention.text).split(' ',1)[0].lower()
-                    if (mention.user.id == m['user_id']) or (mention_name != '@familiarlilt'): # if mention is already in mentioned, or the first word in mention text isn't lilt
+                    if mention.user.id == m['user_id']: # if mention is already in mentioned, or the first word in mention text isn't lilt
                         mentioned = True
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
                     mentions.append({
@@ -297,29 +299,20 @@ if __name__ == "__main__":
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
-                print '1 ' + str(mention)
                 mentioned = False
                 mention_name = (mention['text']).split(' ',1)[0].lower()
-                print '2 ' + str(mention_name)
                 if mention_name != '@familiarlilt':
                     mentioned = True
-                    print '3 ' + str(mentioned)
-                print '4 ' + str(mentioned)
                 for m in mentions:
-                    print '5 ' + str(m)
                     if mention['user_id'] == m['user_id']: # if user matches user already in mentions and if sent directly to Lilt
                         mentioned = True
-                        print '6 ' + str(mentioned)
-                    print '7 ' + str(mentioned)
                 if mentioned == False: # if user hasn't been mentioned, append it to mentions
-                    print '8 ' + str(mentioned)
                     mentions.append({
                         'screen_name': mention['screen_name'],
                         'user_id': mention['user_id'],
                         'text': mention['text'],
                         'tweet_id': mention['tweet_id']
                     })
-                print '9 ' + str(mentioned)
             except:
                 pass
         print ' '
