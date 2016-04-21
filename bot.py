@@ -11,7 +11,7 @@ import re
 import emoji
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
