@@ -326,7 +326,7 @@ if __name__ == "__main__":
             tweet_id = str(mention['tweet_id'])
             reply = True if debug == True else False
 
-            decoded = text.decode("ascii")
+            decoded = text.decode("utf-8", "replace")
             print decoded
 
             # gets tweet text sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
