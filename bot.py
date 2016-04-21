@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -447,7 +447,7 @@ if __name__ == "__main__":
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
-                elif move == u'/U0001F480/U0001F480/U0001F480':
+                elif move == u'💀💀💀':
                     message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
                     conn.commit()
