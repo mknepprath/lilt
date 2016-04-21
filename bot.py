@@ -8,7 +8,6 @@ import psycopg2
 import urlparse
 import json
 import re
-import emoji
 
 # debugging options
 debug = True
@@ -323,7 +322,7 @@ if __name__ == "__main__":
         try:
             screen_name = mention['screen_name'].lower()
             user_id = str(mention['user_id'])
-            text = mention['text']
+            text = u'' + mention['text']
             tweet_id = str(mention['tweet_id'])
             reply = True if debug == True else False
 
