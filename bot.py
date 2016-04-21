@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = True
+debug = False
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
