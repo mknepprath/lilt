@@ -382,7 +382,7 @@ if __name__ == "__main__":
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
                 print 'move: ' + move
-                print unicode(move)
+                print (move).encode('ascii', 'ignore')
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
                 print 'position: ' + str(position)
