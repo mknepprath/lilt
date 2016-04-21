@@ -8,6 +8,7 @@ import psycopg2
 import urlparse
 import json
 import re
+import emoji
 
 # debugging options
 debug = False
