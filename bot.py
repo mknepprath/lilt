@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -322,7 +322,7 @@ if __name__ == "__main__":
         try:
             screen_name = mention['screen_name'].lower()
             user_id = str(mention['user_id'])
-            text = mention['text']
+            text = unicode(mention['text'])
             tweet_id = str(mention['tweet_id'])
             reply = True if debug == True else False
 
