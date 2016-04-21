@@ -322,7 +322,7 @@ if __name__ == "__main__":
         try:
             screen_name = mention['screen_name'].lower()
             user_id = str(mention['user_id'])
-            text = unicode(mention['text'])
+            text = mention['text']
             tweet_id = str(mention['tweet_id'])
             reply = True if debug == True else False
 
@@ -382,6 +382,7 @@ if __name__ == "__main__":
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
                 print 'move: ' + move
+                print 'unicode: ' + str(unicode(move))
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
                 print 'position: ' + str(position)
