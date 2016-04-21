@@ -447,12 +447,9 @@ if __name__ == "__main__":
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
                 elif move == '💀💀💀':
-                    print '1'
                     message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
-                    print message
                     cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
                     conn.commit()
-                    print '2'
                 else:
                     print 'Searching...'
                     if response != None:
