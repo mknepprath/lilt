@@ -92,32 +92,42 @@ def dropitem(drop, inventory, user_id, response=None):
         else:
             return response
 def giveitem(item, inventory, user_id, position, recipient):
+    logprint('So you want to give ' + item + ' to ' + recipient + '.')
     print 'So you want to give ' + item + ' to ' + recipient + '.'
     if item not in inventory:
+        logprint(item + ' wasn\'t in your inventory.')
         print item + ' wasn\'t in your inventory.' #TESTING
         return 'You don\'t have ' + item + '!'
     else:
+        logprint('Okay, so you do have the item.')
         print 'Okay, so you do have the item.' #TESTING
         givable = dbselect('give', 'items', 'name', item)
+        logprint('Givableness of item should be above this...')
         print 'Givableness of item should be above this...'
         if givable == False:
+            logprint('Can\'t give that away!')
             print 'Can\'t give that away!'
             return item.capitalize() + ' can\'t be given.'
         else:
             recipient_id = dbselect('id', 'users', 'name', recipient)
             if recipient_id == None:
+                logprint('Yeah, that person doesn\'t exist.')
                 print 'Yeah, that person doesn\'t exist.' #TESTING
                 return 'They aren\'t playing Lilt!'
             else:
                 recipient_position = dbselect('position', 'users', 'id', recipient_id)
+                logprint('Got the position for recipient, I think.')
                 print 'Got the position for recipient, I think.' #TESTING
                 if recipient_position != position:
+                    logprint('You aren\'t close enough to the recipient to give them anything.')
                     print 'You aren\'t close enough to the recipient to give them anything.' #TESTING
                     return 'You aren\'t close enough to them to give them that!'
                 else:
                     recipient_inventory = json.loads(dbselect('inventory', 'users', 'id', recipient_id))
+                    logprint('Got the recipient\'s inventory.')
                     print 'Got the recipient\'s inventory.' #TESTING
                     if item not in recipient_inventory:
+                        logprint('Oh yeah, they didn\'t have that item.')
                         print 'Oh yeah, they didn\'t have that item.'
                         recipient_inventory[item] = {}
                         recipient_inventory[item]['quantity'] = 1
@@ -126,19 +136,24 @@ def giveitem(item, inventory, user_id, position, recipient):
                         else:
                             inventory[item]['quantity'] -= 1
                         if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
+                            logprint('Hmm. Yup, they couldn\'t hold anything else.')
                             print 'Hmm. Yup, they couldn\'t hold anything else.' #TESTING
                             return 'Their inventory is full.'
                         else:
+                            logprint('Alright, so they should be able to hold this item.')
                             print 'Alright, so they should be able to hold this item.' #TESTING
                             dbupdate(recipient_inventory, recipient_id)
                             dbupdate(inventory, user_id)
+                            logprint('Now they got it.')
                             print 'Now they got it.' #TESTING
                             return 'You gave ' + item + ' to @' + recipient + '.'
                     else:
                         #they've got the item already, so we have to make sure they can accept more
                         item_max = dbselect('max', 'items', 'name', item)
+                        logprint('I think the item max has been grabbed hopefully... we\'ll see.')
                         print 'I think the item max has been grabbed hopefully... we\'ll see.' #TESTING
                         if recipient_inventory[item]['quantity'] < item_max:
+                            logprint('Should be room in their inventory for the item.')
                             print 'Should be room in their inventory for the item.' #TESTING
                             recipient_inventory[item]['quantity'] += 1
                             if inventory[item]['quantity'] <= 1:
@@ -148,6 +163,7 @@ def giveitem(item, inventory, user_id, position, recipient):
                             if len(mbuild('x'*15, invbuild(recipient_inventory))) >= 140:
                                 return 'Their inventory is full.'
                             else:
+                                logprint('Update the database with inventory stuff, because it\'s all good.')
                                 print 'Update the database with inventory stuff, because it\'s all good.' #TESTING
                                 dbupdate(recipient_inventory, recipient_id)
                                 dbupdate(inventory, user_id)
@@ -176,6 +192,7 @@ def replaceitem(item, drop, inventory, user_id, response):
                 else:
                     del inventory[drop]
                     dbupdate(inventory, user_id)
+                    logprint('You drop one ' + drop + ' due to a move.')
                     print 'You drop one ' + drop + ' due to a move.'
                     return response
             else:
@@ -201,6 +218,7 @@ def replaceitem(item, drop, inventory, user_id, response):
                 else:
                     inventory[drop]['quantity'] -= 1
                     dbupdate(inventory, user_id)
+                    logprint('You drop one ' + drop + ' due to a move.')
                     print 'You drop one ' + drop + ' due to a move.'
                     return response
             else:
@@ -222,6 +240,9 @@ def storeerror(move, position):
     else:
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
+def logprint(log):
+    cur.execute("INSERT INTO console (log, time) VALUES (%s, now)", (str(log),)
+    conn.commit()
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
@@ -267,7 +288,8 @@ if __name__ == "__main__":
         try:
             raw_mentions = twitter.api.mentions_timeline(count=200)
         except twitter.TweepError, e:
-            print 'failed because of %s' % e.reason
+            logprint('Failed because of %s' % e.reason)
+            print 'Failed because of %s' % e.reason
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -289,6 +311,7 @@ if __name__ == "__main__":
 
     # mentions for testing purposes
     if debug == True:
+        logprint('Debugging...')
         print 'Debugging...'
         debug_mentions = []
         d = 1
@@ -319,6 +342,7 @@ if __name__ == "__main__":
                     })
             except:
                 pass
+        logprint(' ')
         print ' '
 
     # go through all mentions to see which require a response from Lilt
@@ -340,6 +364,7 @@ if __name__ == "__main__":
             user_exists = dbselect('name', 'users', 'id', user_id)
             if user_exists == None:
                 if move == 'start':
+                    logprint('new player: ' + screen_name)
                     print 'new player: ' + screen_name
                     position = 'start'
                     inventory_init = {}
@@ -350,6 +375,7 @@ if __name__ == "__main__":
                     reply = True
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
+                    logprint(screen_name + ' isn\'t playing Lilt.')
                     print screen_name + ' isn\'t playing Lilt.'
                     reply = False
             else:
@@ -365,6 +391,7 @@ if __name__ == "__main__":
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
+                logprint('tweet: ' + tweet)
                 print 'tweet: ' + tweet
                 # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
@@ -385,13 +412,17 @@ if __name__ == "__main__":
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
+                logprint('move: ' + move)
                 print 'move: ' + move
+                logprint(type(move))
                 print type(move)
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
+                logprint('position: ' + str(position))
                 print 'position: ' + str(position)
                 # get inventory
                 inventory = json.loads(dbselect('inventory', 'users', 'id', user_id))
+                logprint('inventory: ' + str(inventory))
                 print 'inventory: ' + str(inventory)
                 # get events
                 events = json.loads(dbselect('events', 'users', 'id', user_id))
@@ -400,6 +431,7 @@ if __name__ == "__main__":
                 items = list(inventory.keys())
                 for item in items:
                     events_and_items[position][item] = 'inventory'
+                logprint('events_and_items: ' + str(events_and_items))
                 print 'events_and_items: ' + str(events_and_items)
                 # get current event
                 current_event = None
@@ -412,22 +444,27 @@ if __name__ == "__main__":
                         current_event = event
                         break
                 if current_event != None:
+                    logprint('current event: ' + str(current_event))
                     print 'current event: ' + str(current_event)
                 # get response
                 response = dbselect('response', 'moves', 'move', move, position, current_event)
                 if response != None:
+                    logprint('response: ' + str(response))
                     print 'response: ' + str(response)
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, position, current_event)
                 if item != None:
+                    logprint('item: ' + str(item))
                     print 'item: ' + str(item)
                 # get drop (if one exists)
                 drop = dbselect('drop', 'moves', 'move', move, position, current_event)
                 if drop != None:
+                    logprint('drop: ' + str(drop))
                     print 'drop: ' + str(drop)
                 # get trigger for move and add it to events
                 trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
                 if trigger != None:
+                    logprint('trigger: ' + str(trigger))
                     print 'trigger: ' + str(trigger)
                     trigger = json.loads(trigger)
                     events[position].update(trigger)
@@ -435,6 +472,7 @@ if __name__ == "__main__":
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
                 if travel != None:
+                    logprint('travel: ' + str(travel))
                     print 'travel: ' + str(travel)
                     dbupdate(travel, user_id, 'position')
                     if travel not in events:
@@ -456,33 +494,43 @@ if __name__ == "__main__":
                     cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
                     conn.commit()
                 else:
+                    logprint('Searching...')
                     print 'Searching...'
                     if response != None:
                         if (item != None) and (drop != None):
+                            logprint('We\'re going to be dealing with an item and drop.')
                             print 'We\'re going to be dealing with an item and drop.'
                             message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
                         elif item != None:
+                            logprint('Alright, I\'m going to get that item for you... if you can hold it.')
                             print 'Alright, I\'m going to get that item for you... if you can hold it.'
                             message = mbuild(screen_name, getitem(item, inventory, user_id, response))
                         elif drop != None:
+                            logprint('So you\'re just dropping/burning an item.')
                             print 'So you\'re just dropping/burning an item.'
                             message = mbuild(screen_name, dropitem(drop, inventory, user_id, response))
                         else:
+                            logprint('Got one!')
                             print 'Got one!'
                             message = mbuild(screen_name, response)
                     else:
-                        print "I guess that move didn't work."
+                        logprint('I guess that move didn\'t work.')
+                        print 'I guess that move didn\'t work.'
                         message = mbuild(screen_name, random.choice(error_message))
                         print storeerror(move, position)
 
-                print "reply: " + message
+                logprint('reply: ' + message)
+                print 'reply: ' + message
                 if debug == False:
-                    print "#TweetingIt"
+                    logprint('#TweetingIt')
+                    print '#TweetingIt'
                     try:
                         twitter.reply(message, tweet_id)
                     except twitter.TweepError, e:
+                        logprint('failed because of %s' % e.reason)
 	                    print 'failed because of %s' % e.reason
-            print " "
+            logprint(' ')
+            print ' '
         except:
             pass
 cur.close()
