@@ -369,6 +369,7 @@ if __name__ == "__main__":
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
             if reply == True:
+                print log('Getting ready to reply to this tweet.')
                 print log('tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
