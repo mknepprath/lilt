@@ -241,7 +241,7 @@ def storeerror(move, position):
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
 def logprint(log):
-    cur.execute("INSERT INTO console (log, time) VALUES (%s, now)", (str(log),)
+    cur.execute("INSERT INTO console (log, time) VALUES (%s, now)", (str(log),))
     conn.commit()
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
