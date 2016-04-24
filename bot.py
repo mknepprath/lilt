@@ -39,7 +39,7 @@ class TwitterAPI:
         access_token = os.environ.get('TWITTER_ACCESS_TOKEN')
         access_token_secret = os.environ.get('TWITTER_ACCESS_TOKEN_SECRET')
         auth.set_access_token(access_token, access_token_secret)
-        self.api = tweepy.API(auth)
+        self.api = tweepy.API(auth, wait_on_rate_limit=True)
 
     def tweet(self, message):
         """Send a tweet"""
@@ -264,7 +264,8 @@ if __name__ == "__main__":
 
     # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
-        for mention in tweepy.Cursor(twitter.api.mentions_timeline).items():
+        raw_mentions = twitter.api.mentions_timeline(count=200)
+        for mention in raw_mentions:
             try:
                 mentioned = False
                 mention_name = (mention.text).split(' ',1)[0].lower()
@@ -280,8 +281,7 @@ if __name__ == "__main__":
                         'text': mention.text,
                         'tweet_id': mention.id
                     })
-            except TweepError as e:
-                print e
+            except:
                 pass
 
     # mentions for testing purposes
