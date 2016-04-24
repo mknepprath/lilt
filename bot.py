@@ -50,7 +50,7 @@ class TwitterAPI:
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
 def item(item, inventory, user_id, response=None):
-    print "item management"
+    print log('item management')
 def getitem(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -271,7 +271,7 @@ if __name__ == "__main__":
         try:
             raw_mentions = twitter.api.mentions_timeline(count=200)
         except twitter.TweepError, e:
-            print 'Failed because of %s' % e.reason
+            print log('Failed because of %s' % e.reason)
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -357,14 +357,14 @@ if __name__ == "__main__":
                     print log(screen_name + ' isn\'t playing Lilt.')
                     reply = False
             else:
-                print "current player: " + screen_name
+                print log('current player: ' + screen_name)
                 tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
                 if tweet_exists == None:
-                    print "new tweet"
+                    print log('new tweet')
                     dbupdate(tweet_id, user_id, 'last_tweet_id')
                     reply = True
                 else:
-                    print "old tweet"
+                    print log('old tweet')
 
             # might want to add double check to make sure tweet sent
             # if this mention should be replied to, do so
@@ -485,7 +485,7 @@ if __name__ == "__main__":
                     try:
                         twitter.reply(message, tweet_id)
                     except twitter.TweepError, e:
-                        print 'Failed because of %s' % e.reason
+                        print log('Failed because of %s' % e.reason)
             print log(' ')
         except:
             pass
