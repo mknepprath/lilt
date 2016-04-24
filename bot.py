@@ -264,7 +264,10 @@ if __name__ == "__main__":
 
     # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
     if debug == False:
-        raw_mentions = twitter.api.mentions_timeline(count=200)
+        try:
+            raw_mentions = twitter.api.mentions_timeline(count=200)
+        except twitter.TweepError, e:
+            print 'failed because of %s' % e.reason
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -448,7 +451,7 @@ if __name__ == "__main__":
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
-                elif move == u'💀💀💀':
+                elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
                     conn.commit()
@@ -475,10 +478,12 @@ if __name__ == "__main__":
                 print "reply: " + message
                 if debug == False:
                     print "#TweetingIt"
-                    twitter.reply(message, tweet_id)
+                    try:
+                        twitter.reply(message, tweet_id)
+                    except twitter.TweepError, e:
+	                    print 'failed because of %s' % e.reason
             print " "
-        except TweepError as e:
-            print e
+        except:
             pass
 cur.close()
 conn.close()
