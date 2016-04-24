@@ -289,7 +289,6 @@ if __name__ == "__main__":
             raw_mentions = twitter.api.mentions_timeline(count=200)
         except twitter.TweepError, e:
             logprint('Failed because of %s' % e.reason)
-            print 'Failed because of %s' % e.reason
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -528,7 +527,6 @@ if __name__ == "__main__":
                         twitter.reply(message, tweet_id)
                     except twitter.TweepError, e:
                         logprint('failed because of %s' % e.reason)
-	                    print 'failed because of %s' % e.reason
             logprint(' ')
             print ' '
         except:
