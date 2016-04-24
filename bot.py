@@ -205,27 +205,6 @@ def replaceitem(item, drop, inventory, user_id, response):
                     return response
             else:
                 return 'You can\'t hold more ' + item + '!'
-def invbuild(inventory):
-    items = list(inventory.keys())
-    i = 0
-    while i < len(items):
-        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
-        if iq > 1: # only append quantity info if more than one
-            items[i] += ' ' + u'\u2022'*iq
-        i += 1
-    return ', '.join(items)
-def storeerror(move, position):
-    attempt = dbselect('attempts', 'attempts', 'move', move, position)
-    if attempt == None:
-        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
-        conn.commit()
-    else:
-        dbupdate(attempt+1, move, 'attempts')
-    return "Stored the failed attempt for future reference."
-def log(log):
-    cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(log),))
-    conn.commit()
-    return log
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
@@ -246,14 +225,35 @@ def dbupdate(val1, val2, col='inventory'):
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
+def invbuild(inventory):
+    items = list(inventory.keys())
+    i = 0
+    while i < len(items):
+        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
+        if iq > 1: # only append quantity info if more than one
+            items[i] += ' ' + u'\u2022'*iq
+        i += 1
+    return ', '.join(items)
+def mbuild(screen_name, message):
+    return '@' + screen_name + ' ' + message
 def cleanstr(s):
     s_mod = re.sub(r'http\S+', '', s) # removes links
     s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
     return ns
-def mbuild(screen_name, message):
-    return '@' + screen_name + ' ' + message
+def storeerror(move, position):
+    attempt = dbselect('attempts', 'attempts', 'move', move, position)
+    if attempt == None:
+        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
+        conn.commit()
+    else:
+        dbupdate(attempt+1, move, 'attempts')
+    return "Stored the failed attempt for future reference."
+def log(s):
+    cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
+    conn.commit()
+    return str(s)
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
