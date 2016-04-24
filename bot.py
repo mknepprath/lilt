@@ -10,7 +10,7 @@ import json
 import re
 
 # debugging options
-debug = False
+debug = True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -280,7 +280,8 @@ if __name__ == "__main__":
                         'text': mention.text,
                         'tweet_id': mention.id
                     })
-            except:
+            except TweepError as e:
+                print e
                 pass
 
     # mentions for testing purposes
@@ -447,10 +448,10 @@ if __name__ == "__main__":
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
                     else:
                         message = mbuild(screen_name, invbuild(inventory))
-                # elif move == u'💀💀💀':
-                #    message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
-                #    cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
-                #    conn.commit()
+                elif move == u'💀💀💀':
+                    message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
+                    cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
+                    conn.commit()
                 else:
                     print 'Searching...'
                     if response != None:
@@ -476,7 +477,8 @@ if __name__ == "__main__":
                     print "#TweetingIt"
                     twitter.reply(message, tweet_id)
             print " "
-        except:
+        except TweepError as e:
+            print e
             pass
 cur.close()
 conn.close()
