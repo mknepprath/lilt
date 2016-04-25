@@ -253,7 +253,8 @@ def storeerror(move, position):
 def log(s):
     # cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
     # conn.commit()
-    print ''
+    # return str(s)
+    pass
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
