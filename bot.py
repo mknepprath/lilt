@@ -11,7 +11,7 @@ import re
 
 # debugging options
 debug = False
-logbugs = True # breaks emoji when True
+logbugs = False # breaks emoji when True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -396,7 +396,7 @@ if __name__ == "__main__":
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
-                    elif (a == 'liltadd') and (user_id == 15332057):
+                    elif (a == 'liltadd') and (user_id == '15332057'):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)
                         move = a
