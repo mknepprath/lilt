@@ -11,6 +11,7 @@ import re
 
 # debugging options
 debug = False
+logbugs = False # breaks emoji when True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -49,8 +50,6 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
-def item(item, inventory, user_id, response=None):
-    log('item management')
 def getitem(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -251,14 +250,16 @@ def storeerror(move, position):
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
 def log(s):
-    # cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
-    # conn.commit()
-    # return str(s)
-    pass
+    if logbugs == True:
+        cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
+        conn.commit()
+        return str(s)
+    else:
+        pass
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 # rstring to avoid Twitter getting mad about duplicate tweets // should think up a better solution for this
-rstring = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 exclude = set(string.punctuation) # use to parse out from tweets
 
 if __name__ == "__main__":
@@ -395,6 +396,13 @@ if __name__ == "__main__":
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
+                    elif (a == 'liltadd') and (user_id == 15332057):
+                        # @familiarlilt liltadd look at sign~Wow, that's a big sign.
+                        e, f = (b).split('~',1)
+                        move = a
+                        addmove = str(e)
+                        addresponse = str(f)
+
                 log('move: ' + move)
                 log(type(move))
                 # get position
@@ -456,6 +464,9 @@ if __name__ == "__main__":
                     message = mbuild(screen_name, dropitem(item_to_drop, inventory, user_id))
                 elif move == 'give':
                     message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
+                elif move = 'liltadd':
+                    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,position))
+                    conn.commit()
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if inventory == {}:
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
