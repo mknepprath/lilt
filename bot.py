@@ -372,10 +372,8 @@ if __name__ == "__main__":
                 else:
                     log('old tweet')
 
-            # might want to add double check to make sure tweet sent
-            # if this mention should be replied to, do so
+            # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
-                log('Getting ready to reply to this tweet.')
                 log('tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
@@ -396,15 +394,13 @@ if __name__ == "__main__":
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
-                    elif (a == 'liltadd') and (user_id == '15332057'):
+                    elif (a == 'liltadd') and ((user_id == '15332057') or (user_id == '724754312757272576')):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)
                         move = a
                         addmove = str(e)
                         addresponse = str(f)
-
                 log('move: ' + move)
-                log(type(move))
                 # get position
                 position = dbselect('position', 'users', 'id', user_id)
                 log('position: ' + str(position))
