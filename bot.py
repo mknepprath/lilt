@@ -11,7 +11,7 @@ import re
 
 # debugging options
 debug = False
-logbugs = False # breaks emoji when True
+logbugs = True # breaks emoji when True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -467,6 +467,7 @@ if __name__ == "__main__":
                 elif move = 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,position))
                     conn.commit()
+                    message = mbuild(screen_name, '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if inventory == {}:
                         message = mbuild(screen_name, 'Your inventory is empty at the moment.')
