@@ -464,7 +464,7 @@ if __name__ == "__main__":
                     message = mbuild(screen_name, dropitem(item_to_drop, inventory, user_id))
                 elif move == 'give':
                     message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
-                elif move = 'liltadd':
+                elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,position))
                     conn.commit()
                     message = mbuild(screen_name, '\'' + addmove + '\' was added to Lilt.')
