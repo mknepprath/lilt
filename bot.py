@@ -10,8 +10,8 @@ import json
 import re
 
 # debugging options
-debug = False
-logbugs = False # breaks emoji when True
+debug = True
+logbugs = True # breaks emoji when True
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
