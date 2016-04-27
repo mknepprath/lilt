@@ -354,11 +354,11 @@ if __name__ == "__main__":
             if user_exists == None:
                 if move == 'start':
                     log('new player: ' + user['screen_name'])
-                    position = 'start'
+                    position_init = 'start'
                     inventory_init = {}
                     events_init = {}
-                    events_init[position] = {}
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (user['screen_name'], user['id'], user['tweet_id'], position, json.dumps(inventory_init), json.dumps(events_init)))
+                    events_init[position_init] = {}
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (user['screen_name'], user['id'], user['tweet_id'], position_init, json.dumps(inventory_init), json.dumps(events_init)))
                     conn.commit()
                     reply = True
                 else:
@@ -405,52 +405,52 @@ if __name__ == "__main__":
                         addresponse = str(f)
                 log('move: ' + move)
                 # get position
-                position = dbselect('position', 'users', 'id', user['id'])
-                log('position: ' + str(position))
+                user['position'] = dbselect('position', 'users', 'id', user['id'])
+                log('position: ' + str(user['position']))
                 # get inventory
-                inventory = json.loads(dbselect('inventory', 'users', 'id', user['id']))
-                log('inventory: ' + str(inventory))
+                user['inventory'] = json.loads(dbselect('inventory', 'users', 'id', user['id']))
+                log('inventory: ' + str(user['inventory']))
                 # get events
                 events = json.loads(dbselect('events', 'users', 'id', user['id']))
                 # add items to events_and_items
                 events_and_items = events
-                items = list(inventory.keys())
+                items = list(user['inventory'].keys())
                 for item in items:
-                    events_and_items[position][item] = 'inventory'
+                    events_and_items[user['position']][item] = 'inventory'
                 log('events_and_items: ' + str(events_and_items))
                 # get current event
                 current_event = None
-                for key, value in events_and_items[position].iteritems():
+                for key, value in events_and_items[user['position']].iteritems():
                     event = {}
                     event[key] = value
                     # check if there is a response for this move when condition is met (this event)
-                    response = dbselect('response', 'moves', 'move', move, position, event)
+                    response = dbselect('response', 'moves', 'move', move, user['position'], event)
                     if response != None:
                         current_event = event
                         break
                 if current_event != None:
                     log('current event: ' + str(current_event))
                 # get response
-                response = dbselect('response', 'moves', 'move', move, position, current_event)
+                response = dbselect('response', 'moves', 'move', move, user['position'], current_event)
                 if response != None:
                     log('response: ' + str(response))
                 # get item (if one exists)
-                item = dbselect('item', 'moves', 'move', move, position, current_event)
+                item = dbselect('item', 'moves', 'move', move, user['position'], current_event)
                 if item != None:
                     log('item: ' + str(item))
                 # get drop (if one exists)
-                drop = dbselect('drop', 'moves', 'move', move, position, current_event)
+                drop = dbselect('drop', 'moves', 'move', move, user['position'], current_event)
                 if drop != None:
                     log('drop: ' + str(drop))
                 # get trigger for move and add it to events
-                trigger = dbselect('trigger', 'moves', 'move', move, position, current_event)
+                trigger = dbselect('trigger', 'moves', 'move', move, user['position'], current_event)
                 if trigger != None:
                     log('trigger: ' + str(trigger))
                     trigger = json.loads(trigger)
-                    events[position].update(trigger)
+                    events[user['position']].update(trigger)
                     dbupdate(events, user['id'], 'events')
                 # get travel
-                travel = dbselect('travel', 'moves', 'move', move, position, current_event)
+                travel = dbselect('travel', 'moves', 'move', move, user['position'], current_event)
                 if travel != None:
                     log('travel: ' + str(travel))
                     dbupdate(travel, user['id'], 'position')
@@ -460,18 +460,18 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(user['screen_name'], dropitem(item_to_drop, inventory, user['id']))
+                    message = mbuild(user['screen_name'], dropitem(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
-                    message = mbuild(user['screen_name'], giveitem(item_to_give, inventory, user['id'], position, recipient))
+                    message = mbuild(user['screen_name'], giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
-                    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,position))
+                    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit()
                     message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
-                    if inventory == {}:
+                    if user['inventory'] == {}:
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
-                        message = mbuild(user['screen_name'], invbuild(inventory))
+                        message = mbuild(user['screen_name'], invbuild(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
@@ -481,20 +481,20 @@ if __name__ == "__main__":
                     if response != None:
                         if (item != None) and (drop != None):
                             log('We\'re going to be dealing with an item and drop.')
-                            message = mbuild(user['screen_name'], replaceitem(item, drop, inventory, user['id'], response))
+                            message = mbuild(user['screen_name'], replaceitem(item, drop, user['inventory'], user['id'], response))
                         elif item != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.')
-                            message = mbuild(user['screen_name'], getitem(item, inventory, user['id'], response))
+                            message = mbuild(user['screen_name'], getitem(item, user['inventory'], user['id'], response))
                         elif drop != None:
                             log('So you\'re just dropping/burning an item.')
-                            message = mbuild(user['screen_name'], dropitem(drop, inventory, user['id'], response))
+                            message = mbuild(user['screen_name'], dropitem(drop, user['inventory'], user['id'], response))
                         else:
                             log('Got one!')
                             message = mbuild(user['screen_name'], response)
                     else:
                         log('I guess that move didn\'t work.')
                         message = mbuild(user['screen_name'], random.choice(error_message))
-                        log(storeerror(move, position))
+                        log(storeerror(move, user['position']))
 
                 log('reply: ' + message)
                 if debug == False:
