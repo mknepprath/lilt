@@ -307,11 +307,11 @@ if __name__ == "__main__":
             debug_mentions.append({
                 'screen_name': dbselect('screen_name', 'debug', 'tweet_id', str(d)),
                 'user_id': int(dbselect('user_id', 'debug', 'tweet_id', str(d))),
-                'text': unicode(dbselect('tweet', 'debug', 'tweet_id', str(d))), # update this with tweet to test
+                'text': dbselect('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
                 'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
             })
             d += 1
-        print '1'
+
         # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
         for mention in debug_mentions:
             try:
@@ -331,20 +331,16 @@ if __name__ == "__main__":
                     })
             except:
                 pass
-            print '2'
         log(' ')
-        print '3'
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
-            print '4'
             user = {}
             user['screen_name'] = mention['screen_name'].lower()
             user['id'] = str(mention['user_id'])
             user['text'] = mention['text']
             user['tweet_id'] = str(mention['tweet_id'])
-            print '5'
 
             reply = True if debug == True else False
             print '6'
