@@ -411,9 +411,9 @@ if __name__ == "__main__":
                 user['inventory'] = json.loads(dbselect('inventory', 'users', 'id', user['id']))
                 log('inventory: ' + str(user['inventory']))
                 # get events
-                events = json.loads(dbselect('events', 'users', 'id', user['id']))
+                user['events'] = json.loads(dbselect('events', 'users', 'id', user['id']))
                 # add items to events_and_items
-                events_and_items = events
+                events_and_items = user['events']
                 items = list(user['inventory'].keys())
                 for item in items:
                     events_and_items[user['position']][item] = 'inventory'
@@ -447,16 +447,16 @@ if __name__ == "__main__":
                 if trigger != None:
                     log('trigger: ' + str(trigger))
                     trigger = json.loads(trigger)
-                    events[user['position']].update(trigger)
-                    dbupdate(events, user['id'], 'events')
+                    user['events'][user['position']].update(trigger)
+                    dbupdate(user['events'], user['id'], 'events')
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, user['position'], current_event)
                 if travel != None:
                     log('travel: ' + str(travel))
                     dbupdate(travel, user['id'], 'position')
-                    if travel not in events:
-                        events[travel] = {}
-                        dbupdate(events, user['id'], 'events')
+                    if travel not in user['events']:
+                        user['events'][travel] = {}
+                        dbupdate(user['events'], user['id'], 'events')
 
                 # logic that generates response to player's move
                 if move == 'drop':
