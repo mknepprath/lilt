@@ -253,7 +253,7 @@ def log(s):
     if logbugs == True:
         cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
         conn.commit()
-        return str(s)
+        print str(s)
     else:
         pass
 
