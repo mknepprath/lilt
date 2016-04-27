@@ -254,7 +254,7 @@ def log(s):
         cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
         conn.commit()
         print str(s)
-        pass
+        return
     else:
         pass
 
