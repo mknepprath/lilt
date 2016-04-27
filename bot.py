@@ -348,7 +348,7 @@ if __name__ == "__main__":
 
             reply = True if debug == True else False
             print '6'
-            print str(user.text)
+            print str(user)
 
             # gets tweet user.text sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user.text).split()) == 1 else (user.text).split(' ',1)[1]
