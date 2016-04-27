@@ -334,40 +334,42 @@ if __name__ == "__main__":
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
-            screen_name = mention['screen_name'].lower()
-            user_id = str(mention['user_id'])
-            text = mention['text']
-            tweet_id = str(mention['tweet_id'])
+            user = {}
+            user.screen_name = mention['screen_name'].lower()
+            user.id = str(mention['user_id'])
+            user.text = mention['text']
+            user.tweet_id = str(mention['tweet_id'])
+
             reply = True if debug == True else False
 
-            # gets tweet text sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
-            tweet = '' if len((text).split()) == 1 else (text).split(' ',1)[1]
+            # gets tweet user.text sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
+            tweet = '' if len((user.text).split()) == 1 else (user.text).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
             move = cleanstr(tweet)
 
             # attempts to grab current user from users table
-            user_exists = dbselect('name', 'users', 'id', user_id)
+            user_exists = dbselect('name', 'users', 'id', user.id)
             if user_exists == None:
                 if move == 'start':
-                    log('new player: ' + screen_name)
+                    log('new player: ' + user.screen_name)
                     position = 'start'
                     inventory_init = {}
                     events_init = {}
                     events_init[position] = {}
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (screen_name, user_id, tweet_id, position, json.dumps(inventory_init), json.dumps(events_init)))
+                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (user.screen_name, user.id, user.tweet_id, position, json.dumps(inventory_init), json.dumps(events_init)))
                     conn.commit()
                     reply = True
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
-                    log(screen_name + ' isn\'t playing Lilt.')
+                    log(user.screen_name + ' isn\'t playing Lilt.')
                     reply = False
             else:
-                log('current player: ' + screen_name)
-                tweet_exists = dbselect('name', 'users', 'last_tweet_id', tweet_id)
+                log('current player: ' + user.screen_name)
+                tweet_exists = dbselect('name', 'users', 'last_tweet_id', user.tweet_id)
                 if tweet_exists == None:
                     log('new tweet')
-                    dbupdate(tweet_id, user_id, 'last_tweet_id')
+                    dbupdate(user.tweet_id, user.id, 'last_tweet_id')
                     reply = True
                 else:
                     log('old tweet')
@@ -394,7 +396,7 @@ if __name__ == "__main__":
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in exclude).lower()
                             item_to_give = cleanstr(d)
-                    elif (a == 'liltadd') and ((user_id == '15332057') or (user_id == '724754312757272576')):
+                    elif (a == 'liltadd') and ((user.id == '15332057') or (user.id == '724754312757272576')):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)
                         move = a
@@ -402,13 +404,13 @@ if __name__ == "__main__":
                         addresponse = str(f)
                 log('move: ' + move)
                 # get position
-                position = dbselect('position', 'users', 'id', user_id)
+                position = dbselect('position', 'users', 'id', user.id)
                 log('position: ' + str(position))
                 # get inventory
-                inventory = json.loads(dbselect('inventory', 'users', 'id', user_id))
+                inventory = json.loads(dbselect('inventory', 'users', 'id', user.id))
                 log('inventory: ' + str(inventory))
                 # get events
-                events = json.loads(dbselect('events', 'users', 'id', user_id))
+                events = json.loads(dbselect('events', 'users', 'id', user.id))
                 # add items to events_and_items
                 events_and_items = events
                 items = list(inventory.keys())
@@ -445,59 +447,59 @@ if __name__ == "__main__":
                     log('trigger: ' + str(trigger))
                     trigger = json.loads(trigger)
                     events[position].update(trigger)
-                    dbupdate(events, user_id, 'events')
+                    dbupdate(events, user.id, 'events')
                 # get travel
                 travel = dbselect('travel', 'moves', 'move', move, position, current_event)
                 if travel != None:
                     log('travel: ' + str(travel))
-                    dbupdate(travel, user_id, 'position')
+                    dbupdate(travel, user.id, 'position')
                     if travel not in events:
                         events[travel] = {}
-                        dbupdate(events, user_id, 'events')
+                        dbupdate(events, user.id, 'events')
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(screen_name, dropitem(item_to_drop, inventory, user_id))
+                    message = mbuild(user.screen_name, dropitem(item_to_drop, inventory, user.id))
                 elif move == 'give':
-                    message = mbuild(screen_name, giveitem(item_to_give, inventory, user_id, position, recipient))
+                    message = mbuild(user.screen_name, giveitem(item_to_give, inventory, user.id, position, recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,position))
                     conn.commit()
-                    message = mbuild(screen_name, '\'' + addmove + '\' was added to Lilt.')
+                    message = mbuild(user.screen_name, '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if inventory == {}:
-                        message = mbuild(screen_name, 'Your inventory is empty at the moment.')
+                        message = mbuild(user.screen_name, 'Your inventory is empty at the moment.')
                     else:
-                        message = mbuild(screen_name, invbuild(inventory))
+                        message = mbuild(user.screen_name, invbuild(inventory))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
-                    message = mbuild(screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
-                    cur.execute("DELETE FROM users WHERE id = %s;", (user_id,))
+                    message = mbuild(user.screen_name, 'You\'ve been removed from Lilt. Thanks for playing!')
+                    cur.execute("DELETE FROM users WHERE id = %s;", (user.id,))
                     conn.commit()
                 else:
                     log('Searching...')
                     if response != None:
                         if (item != None) and (drop != None):
                             log('We\'re going to be dealing with an item and drop.')
-                            message = mbuild(screen_name, replaceitem(item, drop, inventory, user_id, response))
+                            message = mbuild(user.screen_name, replaceitem(item, drop, inventory, user.id, response))
                         elif item != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.')
-                            message = mbuild(screen_name, getitem(item, inventory, user_id, response))
+                            message = mbuild(user.screen_name, getitem(item, inventory, user.id, response))
                         elif drop != None:
                             log('So you\'re just dropping/burning an item.')
-                            message = mbuild(screen_name, dropitem(drop, inventory, user_id, response))
+                            message = mbuild(user.screen_name, dropitem(drop, inventory, user.id, response))
                         else:
                             log('Got one!')
-                            message = mbuild(screen_name, response)
+                            message = mbuild(user.screen_name, response)
                     else:
                         log('I guess that move didn\'t work.')
-                        message = mbuild(screen_name, random.choice(error_message))
+                        message = mbuild(user.screen_name, random.choice(error_message))
                         log(storeerror(move, position))
 
                 log('reply: ' + message)
                 if debug == False:
                     log('#TweetingIt')
                     try:
-                        twitter.reply(message, tweet_id)
+                        twitter.reply(message, user.tweet_id)
                     except twitter.TweepError, e:
                         log('Failed because of %s' % e.reason)
             log(' ')
