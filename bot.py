@@ -254,7 +254,7 @@ def log(s):
         cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
         conn.commit()
         print str(s)
-        return None
+        return
     else:
         pass
 
@@ -336,10 +336,10 @@ if __name__ == "__main__":
     for mention in mentions:
         try:
             user = {}
-            user.screen_name = mention['screen_name'].lower()
-            user.id = str(mention['user_id'])
-            user.text = mention['text']
-            user.tweet_id = str(mention['tweet_id'])
+            user['screen_name'] = mention['screen_name'].lower()
+            user['id'] = str(mention['user_id'])
+            user['text'] = mention['text']
+            user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
 
