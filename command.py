@@ -15,4 +15,4 @@ def give(a, b):
         pass
 def liltadd(a, b):
     c, d = (b).split('~',1)
-    return (a, return str(c), return str(d))
+    return (a, str(c), str(d))
