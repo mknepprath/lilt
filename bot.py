@@ -8,7 +8,8 @@ import psycopg2
 import urlparse
 import json
 import re
-from func import cleanstr, mbuild, getitem, dropitem, giveitem, replaceitem, invbuild
+import item
+from func import cleanstr, mbuild, invbuild
 
 # debugging options
 debug = True
@@ -277,9 +278,9 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(user['screen_name'], dropitem(item_to_drop, user['inventory'], user['id']))
+                    message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
-                    message = mbuild(user['screen_name'], giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
+                    message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit()
@@ -298,13 +299,13 @@ if __name__ == "__main__":
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):
                             log(rec, 'We\'re going to be dealing with an item and drop.')
-                            message = mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], item.replace(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
                         elif user['item'] != None:
                             log(rec, 'Alright, I\'m going to get that item for you... if you can hold it.')
-                            message = mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], item.get(user['item'], user['inventory'], user['id'], user['response']))
                         elif user['drop'] != None:
                             log(rec, 'So you\'re just dropping/burning an item.')
-                            message = mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], item.drop(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
                             log(rec, 'Got one!')
                             message = mbuild(user['screen_name'], user['response'])
