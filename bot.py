@@ -193,6 +193,7 @@ if __name__ == "__main__":
                 user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
                     log(rec, 'current event: ' + str(user['current_event']))
+                print 'is a current_event got? we shall see'
                 # loop through requests to moves table (requires current_event)
                 move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
                 for r in move_requests:
