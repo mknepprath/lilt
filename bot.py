@@ -176,8 +176,11 @@ if __name__ == "__main__":
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
+            log('2.1', rec)
             if (tweet).split(' ',1)[0][0] == '@':
+                log('2.2', rec)
                 tweet = (tweet).split(' ',1)[1]
+            log('2.3', rec)
             move = cleanstr(tweet)
             log('3', rec)
 
