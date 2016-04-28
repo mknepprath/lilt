@@ -4,8 +4,6 @@ import time
 import string
 import random
 import tweepy
-import psycopg2
-import urlparse
 import json
 import re
 import item
