@@ -3,7 +3,9 @@ from db import dbselect
 from utils import cleanstr
 
 def drop(a, b):
+    print 'in drop function'
     if dbselect('name', 'items', 'name', cleanstr(b)) != None:
+        print 'returning...'
         return a
         return cleanstr(b)
     else:
