@@ -409,11 +409,17 @@ if __name__ == "__main__":
                     user[r] = dbselect(r, 'users', 'id', user['id'])
                     log(r + ': ' + str(user[r]))
                 # add items to events_inv
+                print '1'
                 events_inv = user['events']
+                print '2'
                 items = list(user['inventory'].keys())
+                print '3'
                 for item in items:
+                    print '4'
                     events_inv[user['position']][item] = 'inventory'
+                    print '5'
                 log('events and inventory: ' + str(events_inv))
+                print '6'
                 # get current event
                 current_event = None
                 for key, value in events_inv[user['position']].iteritems():
