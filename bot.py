@@ -51,11 +51,44 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
-dbselect = func.dbselect
-dbupdate = func.dbupdate
+def dbselect(col1, table, col2, val, position=None, condition=None):
+    if condition != None:
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
+    elif position != None:
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
+    else:
+        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
+    o = cur.fetchone()
+    if o == None:
+        return o
+    else:
+        return o[0]
+def dbupdate(val1, val2, col='inventory'):
+    if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
+        cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
+    elif col == 'attempts':
+        cur.execute("UPDATE attempts SET " + col + " = %s WHERE move = %s", (val1, val2))
+    else:
+        cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
+    conn.commit()
+def storeerror(move, position):
+    attempt = dbselect('attempts', 'attempts', 'move', move, position)
+    if attempt == None:
+        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
+        conn.commit()
+    else:
+        dbupdate(attempt+1, move, 'attempts')
+    return "Stored the failed attempt for future reference."
+def log(s, l):
+    if l:
+        cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
+        conn.commit()
+        print str(s)
+        return
+    else:
+        pass
 mbuild = func.mbuild
 cleanstr = func.cleanstr
-log = func.log
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
 # rstring to avoid Twitter getting mad about duplicate tweets - unnecessary at the moment ### rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
@@ -265,7 +298,7 @@ if __name__ == "__main__":
                     else:
                         log('I guess that move didn\'t work.', rec)
                         message = mbuild(user['screen_name'], random.choice(error_message))
-                        log(func.storeerror(move, user['position']), rec)
+                        log(storeerror(move, user['position']), rec)
 
                 log('reply: ' + message, rec)
                 if debug == False:

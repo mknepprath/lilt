@@ -167,26 +167,6 @@ def getcurrentevent(move, position, inventory, events):
             current_event = event
             break
     return current_event
-def dbselect(col1, table, col2, val, position=None, condition=None):
-    if condition != None:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
-    elif position != None:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
-    else:
-        cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
-    o = cur.fetchone()
-    if o == None:
-        return o
-    else:
-        return o[0]
-def dbupdate(val1, val2, col='inventory'):
-    if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
-        cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
-    elif col == 'attempts':
-        cur.execute("UPDATE attempts SET " + col + " = %s WHERE move = %s", (val1, val2))
-    else:
-        cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
-    conn.commit()
 def invbuild(inventory):
     items = list(inventory.keys())
     i = 0
@@ -204,19 +184,3 @@ def cleanstr(s):
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in set(string.punctuation)).lower().rstrip() # removes punctuation
     return ns
-def storeerror(move, position):
-    attempt = dbselect('attempts', 'attempts', 'move', move, position)
-    if attempt == None:
-        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(move),str(position),1))
-        conn.commit()
-    else:
-        dbupdate(attempt+1, move, 'attempts')
-    return "Stored the failed attempt for future reference."
-def log(s, l):
-    if l:
-        cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
-        conn.commit()
-        print str(s)
-        return
-    else:
-        pass
