@@ -10,6 +10,9 @@ def getcurrentevent(move, position, inventory, events):
         event = {}
         event[key] = value
         # check if there is a response for this move when condition is met (this event)
+        print move
+        print position
+        print event
         response = dbselect('response', 'moves', 'move', move, position, event)
         if response != None:
             current_event = event
