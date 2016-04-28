@@ -7,7 +7,6 @@ import tweepy
 import psycopg2
 import urlparse
 import json
-import re
 import item
 import event
 from utils import cleanstr, mbuild, invbuild
@@ -17,7 +16,7 @@ from db import dbselect, dbupdate, log, storeerror
 debug = True
 rec = True # pushs logs to console table // breaks emoji when True
 
-# init postgresql database
+# init postgresql database // cur.executes in bot.py to db.py so this can be removed
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
 conn = psycopg2.connect(
