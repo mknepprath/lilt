@@ -1,6 +1,6 @@
-from db import dbselect, dbupdate, log
+from db import dbselect
 
-def getcurrentevent(move, position, inventory, events):
+def getcurrent(move, position, inventory, events):
     events_inv = events
     items = list(inventory.keys())
     for item in items:

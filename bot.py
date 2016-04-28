@@ -9,7 +9,7 @@ import urlparse
 import json
 import re
 import item
-from event import getcurrentevent
+import event
 from utils import cleanstr, mbuild, invbuild
 from db import dbselect, dbupdate, log, storeerror
 
@@ -205,7 +205,7 @@ if __name__ == "__main__":
                     user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id'])) # can json.loads get moved into dbselect function?
                     log(rec, r + ': ' + str(user[r]))
                 # get current event (requires prev three items)
-                user['current_event'] = getcurrentevent(move, user['position'], user['inventory'], user['events'])
+                user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
                     log(rec, 'current event: ' + str(user['current_event']))
                 # loop through requests to moves table (requires current_event)
