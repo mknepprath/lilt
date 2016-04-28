@@ -404,52 +404,41 @@ if __name__ == "__main__":
                         addmove = str(e)
                         addresponse = str(f)
                 log('move: ' + move)
+                # loop through requests to users table
                 user_requests = ['position', 'inventory', 'events']
                 for r in user_requests:
-                    user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id']))
+                    user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id'])) # can json.loads get moved into dbselect function?
                     log(r + ': ' + str(user[r]))
-                # add items to events_inv
+                # add items to events_inv and get current event
                 events_inv = user['events']
                 items = list(user['inventory'].keys())
                 for item in items:
                     events_inv[user['position']][item] = 'inventory'
                 log('events and inventory: ' + str(events_inv))
-                # get current event
-                current_event = None
+                user['current_event'] = None
                 for key, value in events_inv[user['position']].iteritems():
                     event = {}
                     event[key] = value
                     # check if there is a response for this move when condition is met (this event)
                     user['response'] = dbselect('response', 'moves', 'move', move, user['position'], event)
                     if user['response'] != None:
-                        current_event = event
+                        user['current_event'] = event
                         break
-                if current_event != None:
-                    log('current event: ' + str(current_event))
+                if user['current_event'] != None:
+                    log('current event: ' + str(user['current_event']))
+                # loop through requests to moves table
                 move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
-                # get response
-                user['response'] = dbselect('response', 'moves', 'move', move, user['position'], current_event)
-                if user['response'] != None:
-                    log('response: ' + str(user['response'])) # is this redundant if I can just get it in current_event loop?
-                # get item (if one exists)
-                user['item'] = dbselect('item', 'moves', 'move', move, user['position'], current_event)
-                if user['item'] != None:
-                    log('item: ' + str(user['item']))
-                # get drop (if one exists)
-                user['drop'] = dbselect('drop', 'moves', 'move', move, user['position'], current_event)
-                if user['drop'] != None:
-                    log('drop: ' + str(user['drop']))
-                # get trigger for move and add it to events
-                user['trigger'] = dbselect('trigger', 'moves', 'move', move, user['position'], current_event)
+                for r in move_requests:
+                    user[r] = dbselect(r, 'moves', 'move', move, user['position'], user['current_event'])
+                    if user[r] != None:
+                        log(r + ': ' + str(user[r]))
+                # add trigger to events if it exists for this move
                 if user['trigger'] != None:
-                    log('trigger: ' + str(user['trigger']))
-                    user['trigger'] = json.loads(user['trigger']) #redundant? merge this and previous line?
+                    user['trigger'] = json.loads(user['trigger'])
                     user['events'][user['position']].update(user['trigger'])
                     dbupdate(user['events'], user['id'], 'events')
-                # get travel
-                user['travel'] = dbselect('travel', 'moves', 'move', move, user['position'], current_event)
+                # move user if travel exists and add new position to events
                 if user['travel'] != None:
-                    log('travel: ' + str(user['travel']))
                     dbupdate(user['travel'], user['id'], 'position')
                     if user['travel'] not in user['events']:
                         user['events'][user['travel']] = {}
