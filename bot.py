@@ -181,7 +181,7 @@ if __name__ == "__main__":
                 log('2.2', rec)
                 tweet = (tweet).split(' ',1)[1]
             log('2.3', rec)
-            move = cleanstr(tweet)
+            move = cleanstr(tweet, string)
             log('3', rec)
 
             # attempts to grab current user from users table
@@ -221,18 +221,18 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         # checks if item exists before changing move/item_to_drop based on it
-                        if dbselect('name', 'items', 'name', cleanstr(b)) != None:
+                        if dbselect('name', 'items', 'name', cleanstr(b, string)) != None:
                             move = a
-                            item_to_drop = cleanstr(b)
+                            item_to_drop = cleanstr(b, string)
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         # d will be the item, and c should be the recipient
                         c, d = (b).split(' ',1)
                         # checks if item exists before changing move/item_to_give based on it
-                        if dbselect('name', 'items', 'name', cleanstr(d)) != None:
+                        if dbselect('name', 'items', 'name', cleanstr(d, string)) != None:
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in set(string.punctuation)).lower()
-                            item_to_give = cleanstr(d)
+                            item_to_give = cleanstr(d, string)
                     elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)

@@ -1,5 +1,3 @@
-import string
-
 def getitem(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -180,7 +178,7 @@ def invbuild(inventory):
     return ', '.join(items)
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message
-def cleanstr(s):
+def cleanstr(s, string):
     s_mod = re.sub(r'http\S+', '', s) # removes links
     s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
