@@ -204,6 +204,22 @@ def replaceitem(item, drop, inventory, user_id, response):
                     return response
             else:
                 return 'You can\'t hold more ' + item + '!'
+def getcurrentevent(move, position, inventory, events):
+    events_inv = events
+    items = list(inventory.keys())
+    for item in items:
+        events_inv[position][item] = 'inventory'
+    log('events and inventory: ' + str(events_inv))
+    current_event = None
+    for key, value in events_inv[position].iteritems():
+        event = {}
+        event[key] = value
+        # check if there is a response for this move when condition is met (this event)
+        response = dbselect('response', 'moves', 'move', move, position, event)
+        if response != None:
+            current_event = event
+            break
+    return current_event
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
@@ -409,24 +425,11 @@ if __name__ == "__main__":
                 for r in user_requests:
                     user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id'])) # can json.loads get moved into dbselect function?
                     log(r + ': ' + str(user[r]))
-                # add items to events_inv and get current event
-                events_inv = user['events']
-                items = list(user['inventory'].keys())
-                for item in items:
-                    events_inv[user['position']][item] = 'inventory'
-                log('events and inventory: ' + str(events_inv))
-                user['current_event'] = None
-                for key, value in events_inv[user['position']].iteritems():
-                    event = {}
-                    event[key] = value
-                    # check if there is a response for this move when condition is met (this event)
-                    user['response'] = dbselect('response', 'moves', 'move', move, user['position'], event)
-                    if user['response'] != None:
-                        user['current_event'] = event
-                        break
+                # get current event (requires prev three items)
+                user['current_event'] = getcurrentevent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
                     log('current event: ' + str(user['current_event']))
-                # loop through requests to moves table
+                # loop through requests to moves table (requires current_event)
                 move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
                 for r in move_requests:
                     user[r] = dbselect(r, 'moves', 'move', move, user['position'], user['current_event'])
