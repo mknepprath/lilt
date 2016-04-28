@@ -8,7 +8,7 @@ import psycopg2
 import urlparse
 import json
 import re
-from func import *
+import func
 
 # debugging options
 debug = True
@@ -178,7 +178,7 @@ if __name__ == "__main__":
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
-            move = cleanstr(tweet)
+            move = func.cleanstr(tweet)
             log('3', rec)
 
             # attempts to grab current user from users table
@@ -218,18 +218,18 @@ if __name__ == "__main__":
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         # checks if item exists before changing move/item_to_drop based on it
-                        if dbselect('name', 'items', 'name', cleanstr(b)) != None:
+                        if dbselect('name', 'items', 'name', func.cleanstr(b)) != None:
                             move = a
-                            item_to_drop = cleanstr(b)
+                            item_to_drop = func.cleanstr(b)
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         # d will be the item, and c should be the recipient
                         c, d = (b).split(' ',1)
                         # checks if item exists before changing move/item_to_give based on it
-                        if dbselect('name', 'items', 'name', cleanstr(d)) != None:
+                        if dbselect('name', 'items', 'name', func.cleanstr(d)) != None:
                             move = a
                             recipient = ''.join(ch for ch in c if ch not in set(string.punctuation)).lower()
-                            item_to_give = cleanstr(d)
+                            item_to_give = func.cleanstr(d)
                     elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)
@@ -266,20 +266,20 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(user['screen_name'], dropitem(item_to_drop, user['inventory'], user['id']))
+                    message = func.mbuild(user['screen_name'], dropitem(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
-                    message = mbuild(user['screen_name'], giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
+                    message = func.mbuild(user['screen_name'], giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit()
-                    message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
+                    message = func.mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if user['inventory'] == {}:
-                        message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
+                        message = func.mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
-                        message = mbuild(user['screen_name'], invbuild(user['inventory']))
+                        message = func.mbuild(user['screen_name'], invbuild(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
-                    message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
+                    message = func.mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
                     conn.commit()
                 else:
@@ -287,19 +287,19 @@ if __name__ == "__main__":
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):
                             log('We\'re going to be dealing with an item and drop.', rec)
-                            message = mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
+                            message = func.mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
                         elif user['item'] != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.', rec)
-                            message = mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
+                            message = func.mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
                         elif user['drop'] != None:
                             log('So you\'re just dropping/burning an item.', rec)
-                            message = mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
+                            message = func.mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
                             log('Got one!', rec)
-                            message = mbuild(user['screen_name'], user['response'])
+                            message = func.mbuild(user['screen_name'], user['response'])
                     else:
                         log('I guess that move didn\'t work.', rec)
-                        message = mbuild(user['screen_name'], random.choice(error_message))
+                        message = func.mbuild(user['screen_name'], random.choice(error_message))
                         log(storeerror(move, user['position']), rec)
 
                 log('reply: ' + message, rec)
