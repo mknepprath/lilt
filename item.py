@@ -102,6 +102,7 @@ def give(item, inventory, user_id, position, recipient):
                         else:
                             return 'They can\'t hold more ' + item + '!'
 def replace(item, drop, inventory, user_id, response):
+    print 'replace'
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:
             inventory[item] = {}

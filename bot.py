@@ -9,7 +9,7 @@ import urlparse
 import json
 import re
 import item
-from func import cleanstr, mbuild, invbuild
+from utils import cleanstr, mbuild, invbuild
 
 # debugging options
 debug = True
