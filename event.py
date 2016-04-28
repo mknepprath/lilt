@@ -15,4 +15,5 @@ def getcurrentevent(move, position, inventory, events):
         if response != None:
             current_event = event
             break
+    print current_event
     return current_event
