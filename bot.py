@@ -193,30 +193,34 @@ if __name__ == "__main__":
                 user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
                     log(rec, 'current event: ' + str(user['current_event']))
-                print 'is a current_event got? we shall see'
                 # loop through requests to moves table (requires current_event)
                 move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
                 for r in move_requests:
                     user[r] = dbselect(r, 'moves', 'move', move, user['position'], user['current_event'])
                     if user[r] != None:
                         log(rec, r + ': ' + str(user[r]))
+                print 'got past move_requests'
                 # add trigger to events if it exists for this move
                 if user['trigger'] != None:
                     user['trigger'] = json.loads(user['trigger'])
                     user['events'][user['position']].update(user['trigger'])
                     dbupdate(user['events'], user['id'], 'events')
+                print 'got past trigger'
                 # move user if travel exists and add new position to events
                 if user['travel'] != None:
                     dbupdate(user['travel'], user['id'], 'position')
                     if user['travel'] not in user['events']:
                         user['events'][user['travel']] = {}
                         dbupdate(user['events'], user['id'], 'events')
+                print 'got past travel'
 
                 # logic that generates response to player's move
                 if move == 'drop':
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
+                    print 'giving...'
                     message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
+                    print 'was a message generated?'
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit() # move this stuff up into commands
