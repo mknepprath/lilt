@@ -503,9 +503,9 @@ if __name__ == "__main__":
                         twitter.reply(message, user['tweet_id'])
                     except twitter.TweepError, e:
                         log('Failed because of %s' % e.reason)
+            print str(user)
             log(' ')
         except:
             pass
-        print str(users)
 cur.close()
 conn.close()
