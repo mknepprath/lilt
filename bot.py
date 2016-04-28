@@ -243,7 +243,7 @@ if __name__ == "__main__":
                     user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id'])) # can json.loads get moved into dbselect function?
                     log(r + ': ' + str(user[r]), rec)
                 # get current event (requires prev three items)
-                user['current_event'] = func.getcurrentevent(move, user['position'], user['inventory'], user['events'])
+                user['current_event'] = getcurrentevent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
                     log('current event: ' + str(user['current_event']), rec)
                 # loop through requests to moves table (requires current_event)
@@ -266,9 +266,9 @@ if __name__ == "__main__":
 
                 # logic that generates response to player's move
                 if move == 'drop':
-                    message = mbuild(user['screen_name'], func.dropitem(item_to_drop, user['inventory'], user['id']))
+                    message = mbuild(user['screen_name'], dropitem(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
-                    message = mbuild(user['screen_name'], func.giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
+                    message = mbuild(user['screen_name'], giveitem(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit()
@@ -277,7 +277,7 @@ if __name__ == "__main__":
                     if user['inventory'] == {}:
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
-                        message = mbuild(user['screen_name'], func.invbuild(user['inventory']))
+                        message = mbuild(user['screen_name'], invbuild(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
@@ -287,13 +287,13 @@ if __name__ == "__main__":
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):
                             log('We\'re going to be dealing with an item and drop.', rec)
-                            message = mbuild(user['screen_name'], func.replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
                         elif user['item'] != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.', rec)
-                            message = mbuild(user['screen_name'], func.getitem(user['item'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
                         elif user['drop'] != None:
                             log('So you\'re just dropping/burning an item.', rec)
-                            message = mbuild(user['screen_name'], func.dropitem(user['drop'], user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
                             log('Got one!', rec)
                             message = mbuild(user['screen_name'], user['response'])
