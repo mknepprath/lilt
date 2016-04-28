@@ -1,6 +1,7 @@
 from db import dbselect, dbupdate, log
 
 def getcurrentevent(move, position, inventory, events):
+    print '1'
     events_inv = events
     items = list(inventory.keys())
     for item in items:
