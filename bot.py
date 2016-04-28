@@ -404,14 +404,10 @@ if __name__ == "__main__":
                         addmove = str(e)
                         addresponse = str(f)
                 log('move: ' + move)
-                # get position
-                user['position'] = dbselect('position', 'users', 'id', user['id'])
-                log('position: ' + str(user['position']))
-                # get inventory
-                user['inventory'] = json.loads(dbselect('inventory', 'users', 'id', user['id']))
-                log('inventory: ' + str(user['inventory']))
-                # get events
-                user['events'] = json.loads(dbselect('events', 'users', 'id', user['id']))
+                user_requests = ['position', 'inventory', 'events']
+                for r in user_requests:
+                    user[r] = dbselect(r, 'users', 'id', user['id'])
+                    log(r + ': ' + str(user[r]))
                 # add items to events_inv
                 events_inv = user['events']
                 items = list(user['inventory'].keys())
@@ -431,6 +427,7 @@ if __name__ == "__main__":
                 if current_event != None:
                     log('current event: ' + str(current_event))
                 # get response
+                move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
                 user['response'] = dbselect('response', 'moves', 'move', move, user['position'], current_event)
                 if user['response'] != None:
                     log('response: ' + str(user['response'])) # is this redundant if I can just get it in current_event loop?
