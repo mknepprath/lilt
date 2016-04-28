@@ -67,7 +67,7 @@ if __name__ == "__main__":
     mentions = []
 
     # delete console table before entering new logs
-    if logbugs == True
+    if logbugs == True:
         cur.execute("DELETE FROM console WHERE log != '*';")
         conn.commit()
 
