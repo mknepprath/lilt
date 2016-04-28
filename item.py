@@ -1,3 +1,6 @@
+from utils import mbuild, invbuild
+from db import dbselect, dbupdate, log
+
 def get(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -102,7 +105,6 @@ def give(item, inventory, user_id, position, recipient):
                         else:
                             return 'They can\'t hold more ' + item + '!'
 def replace(item, drop, inventory, user_id, response):
-    print 'replace'
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:
             inventory[item] = {}
