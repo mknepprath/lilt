@@ -1,7 +1,6 @@
 from db import dbselect, dbupdate, log
 
 def getcurrentevent(move, position, inventory, events):
-    print '1'
     events_inv = events
     items = list(inventory.keys())
     for item in items:
@@ -15,5 +14,4 @@ def getcurrentevent(move, position, inventory, events):
         if response != None:
             current_event = event
             break
-    print current_event
     return current_event
