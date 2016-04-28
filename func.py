@@ -212,8 +212,8 @@ def storeerror(move, position):
     else:
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
-def log(s):
-    if logbugs == True:
+def log(s, l):
+    if l:
         cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
         conn.commit()
         print str(s)
