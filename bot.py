@@ -179,8 +179,6 @@ if __name__ == "__main__":
                     a = ''.join(ch for ch in a if ch not in set(string.punctuation)).lower()
                     if (a == 'drop'):
                         move, item_to_drop = command.drop(a, b)
-                        print move
-                        print item_to_drop
                     elif (a == 'give'):
                         move, recipient, item_to_give = command.give(a, b)
                     elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
