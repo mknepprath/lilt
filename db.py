@@ -22,6 +22,7 @@ def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         print 'should run this..'
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
+        print 'this will print if cur isn\'t broken'
     elif position != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
     else:
