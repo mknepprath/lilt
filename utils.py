@@ -10,10 +10,8 @@ def invbuild(inventory):
             items[i] += ' ' + u'\u2022'*iq
         i += 1
     return ', '.join(items)
-
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message
-    
 def cleanstr(s):
     s_mod = re.sub(r'http\S+', '', s) # removes links
     s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...

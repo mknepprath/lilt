@@ -1,6 +1,6 @@
 import json
-from utils import mbuild, invbuild
 from db import dbselect, dbupdate, log
+from utils import mbuild, invbuild
 
 def get(item, inventory, user_id, response):
     if item not in inventory:
@@ -22,7 +22,6 @@ def get(item, inventory, user_id, response):
                 return response
         else:
             return 'You can\'t hold more ' + item + '!'
-
 def drop(drop, inventory, user_id, response=None):
     if drop not in inventory:
         if response == None:
@@ -43,7 +42,6 @@ def drop(drop, inventory, user_id, response=None):
             return 'You drop one ' + drop + '.'
         else:
             return response
-
 def give(item, inventory, user_id, position, recipient):
     log(rec, 'So you want to give ' + item + ' to ' + recipient + '.')
     if item not in inventory:
@@ -107,7 +105,6 @@ def give(item, inventory, user_id, position, recipient):
                                 return 'You gave ' + item + ' to @' + recipient + '.'
                         else:
                             return 'They can\'t hold more ' + item + '!'
-
 def replace(item, drop, inventory, user_id, response):
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:
