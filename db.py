@@ -15,6 +15,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 def dbselect(col1, table, col2, val, position=None, condition=None):
+    print '2'
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
     elif position != None:
