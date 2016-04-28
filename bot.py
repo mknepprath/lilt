@@ -94,8 +94,8 @@ def storeerror(move, position):
     else:
         dbupdate(attempt+1, move, 'attempts')
     return "Stored the failed attempt for future reference."
-def log(s, l):
-    if l:
+def log(rec, s):
+    if rec:
         cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
         conn.commit()
         print str(s)
@@ -122,7 +122,7 @@ if __name__ == "__main__":
         try:
             raw_mentions = twitter.api.mentions_timeline(count=200)
         except twitter.TweepError, e:
-            log('Failed because of %s' % e.reason, rec)
+            log(rec, 'Failed because of %s' % e.reason)
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
     # get debug tweets
     if debug == True:
-        log('Debugging...', rec)
+        log(rec, 'Debugging...')
         debug_mentions = []
         d = 1
         while dbselect('screen_name', 'debug', 'tweet_id', str(d)) != None:
@@ -174,7 +174,7 @@ if __name__ == "__main__":
                     })
             except:
                 pass
-        log(' ', rec)
+        log(rec, ' ')
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
@@ -197,7 +197,7 @@ if __name__ == "__main__":
             user_exists = dbselect('name', 'users', 'id', user['id'])
             if user_exists == None:
                 if move == 'start':
-                    log('new player: ' + user['screen_name'], rec)
+                    log(rec, 'new player: ' + user['screen_name'])
                     position_init = 'start'
                     inventory_init = {}
                     events_init = {}
@@ -207,21 +207,21 @@ if __name__ == "__main__":
                     reply = True
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
-                    log(user['screen_name'] + ' isn\'t playing Lilt.', rec)
+                    log(rec, user['screen_name'] + ' isn\'t playing Lilt.')
                     reply = False
             else:
-                log('current player: ' + user['screen_name'], rec)
+                log(rec, 'current player: ' + user['screen_name'])
                 tweet_exists = dbselect('name', 'users', 'last_tweet_id', user['tweet_id'])
                 if tweet_exists == None:
-                    log('new tweet', rec)
+                    log(rec, 'new tweet')
                     dbupdate(user['tweet_id'], user['id'], 'last_tweet_id')
                     reply = True
                 else:
-                    log('old tweet', rec)
+                    log(rec, 'old tweet')
 
             # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
-                log('tweet: ' + tweet, rec)
+                log(rec, 'tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
@@ -247,22 +247,22 @@ if __name__ == "__main__":
                         move = a
                         addmove = str(e)
                         addresponse = str(f)
-                log('move: ' + move, rec)
+                log(rec, 'move: ' + move)
                 # loop through requests to users table
                 user_requests = ['position', 'inventory', 'events']
                 for r in user_requests:
                     user[r] = dbselect(r, 'users', 'id', user['id']) if r == 'position' else json.loads(dbselect(r, 'users', 'id', user['id'])) # can json.loads get moved into dbselect function?
-                    log(r + ': ' + str(user[r]), rec)
+                    log(rec, r + ': ' + str(user[r]))
                 # get current event (requires prev three items)
                 user['current_event'] = getcurrentevent(move, user['position'], user['inventory'], user['events'])
                 if user['current_event'] != None:
-                    log('current event: ' + str(user['current_event']), rec)
+                    log(rec, 'current event: ' + str(user['current_event']))
                 # loop through requests to moves table (requires current_event)
                 move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
                 for r in move_requests:
                     user[r] = dbselect(r, 'moves', 'move', move, user['position'], user['current_event'])
                     if user[r] != None:
-                        log(r + ': ' + str(user[r]), rec)
+                        log(rec, r + ': ' + str(user[r]))
                 # add trigger to events if it exists for this move
                 if user['trigger'] != None:
                     user['trigger'] = json.loads(user['trigger'])
@@ -294,35 +294,35 @@ if __name__ == "__main__":
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
                     conn.commit()
                 else:
-                    log('Searching...')
+                    log(rec, 'Searching...')
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):
-                            log('We\'re going to be dealing with an item and drop.', rec)
+                            log(rec, 'We\'re going to be dealing with an item and drop.')
                             message = mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
                         elif user['item'] != None:
-                            log('Alright, I\'m going to get that item for you... if you can hold it.', rec)
+                            log(rec, 'Alright, I\'m going to get that item for you... if you can hold it.')
                             message = mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
                         elif user['drop'] != None:
-                            log('So you\'re just dropping/burning an item.', rec)
+                            log(rec, 'So you\'re just dropping/burning an item.')
                             message = mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
-                            log('Got one!', rec)
+                            log(rec, 'Got one!')
                             message = mbuild(user['screen_name'], user['response'])
                     else:
-                        log('I guess that move didn\'t work.', rec)
+                        log(rec, 'I guess that move didn\'t work.')
                         message = mbuild(user['screen_name'], random.choice(error_message))
-                        log(storeerror(move, user['position']), rec)
+                        log(rec, storeerror(move, user['position']))
 
-                log('reply: ' + message, rec)
+                log(rec, 'reply: ' + message)
                 if debug == False:
-                    log('#TweetingIt', rec)
+                    log(rec, '#TweetingIt')
                     try:
                         twitter.reply(message, user['tweet_id'])
                     except twitter.TweepError, e:
-                        log('Failed because of %s' % e.reason, rec)
-            log(' ', rec) # prints user data separate from other logs
-            log(user['screen_name'] + '\'s data: ' + str(user), rec)
-            log(' ', rec)
+                        log(rec, 'Failed because of %s' % e.reason)
+            log(rec, ' ') # prints user data separate from other logs
+            log(rec, user['screen_name'] + '\'s data: ' + str(user))
+            log(rec, ' ')
         except:
             pass
 cur.close()
