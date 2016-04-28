@@ -435,27 +435,27 @@ if __name__ == "__main__":
                 if user['response'] != None:
                     log('response: ' + str(user['response'])) # is this redundant if I can just get it in current_event loop?
                 # get item (if one exists)
-                item = dbselect('item', 'moves', 'move', move, user['position'], current_event)
-                if item != None:
-                    log('item: ' + str(item))
+                user['item'] = dbselect('item', 'moves', 'move', move, user['position'], current_event)
+                if user['item'] != None:
+                    log('item: ' + str(user['item']))
                 # get drop (if one exists)
-                drop = dbselect('drop', 'moves', 'move', move, user['position'], current_event)
-                if drop != None:
-                    log('drop: ' + str(drop))
+                user['drop'] = dbselect('drop', 'moves', 'move', move, user['position'], current_event)
+                if user['drop'] != None:
+                    log('drop: ' + str(user['drop']))
                 # get trigger for move and add it to events
-                trigger = dbselect('trigger', 'moves', 'move', move, user['position'], current_event)
-                if trigger != None:
-                    log('trigger: ' + str(trigger))
-                    trigger = json.loads(trigger)
-                    user['events'][user['position']].update(trigger)
+                user['trigger'] = dbselect('trigger', 'moves', 'move', move, user['position'], current_event)
+                if user['trigger'] != None:
+                    log('trigger: ' + str(user['trigger']))
+                    user['trigger'] = json.loads(user['trigger']) #redundant? merge this and previous line?
+                    user['events'][user['position']].update(user['trigger'])
                     dbupdate(user['events'], user['id'], 'events')
                 # get travel
-                travel = dbselect('travel', 'moves', 'move', move, user['position'], current_event)
-                if travel != None:
-                    log('travel: ' + str(travel))
-                    dbupdate(travel, user['id'], 'position')
-                    if travel not in user['events']:
-                        user['events'][travel] = {}
+                user['travel'] = dbselect('travel', 'moves', 'move', move, user['position'], current_event)
+                if user['travel'] != None:
+                    log('travel: ' + str(user['travel']))
+                    dbupdate(user['travel'], user['id'], 'position')
+                    if user['travel'] not in user['events']:
+                        user['events'][user['travel']] = {}
                         dbupdate(user['events'], user['id'], 'events')
 
                 # logic that generates response to player's move
@@ -479,15 +479,15 @@ if __name__ == "__main__":
                 else:
                     log('Searching...')
                     if user['response'] != None:
-                        if (item != None) and (drop != None):
+                        if (user['item'] != None) and (user['drop'] != None):
                             log('We\'re going to be dealing with an item and drop.')
-                            message = mbuild(user['screen_name'], replaceitem(item, drop, user['inventory'], user['id'], user['response']))
-                        elif item != None:
+                            message = mbuild(user['screen_name'], replaceitem(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
+                        elif user['item'] != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.')
-                            message = mbuild(user['screen_name'], getitem(item, user['inventory'], user['id'], user['response']))
-                        elif drop != None:
+                            message = mbuild(user['screen_name'], getitem(user['item'], user['inventory'], user['id'], user['response']))
+                        elif user['drop'] != None:
                             log('So you\'re just dropping/burning an item.')
-                            message = mbuild(user['screen_name'], dropitem(drop, user['inventory'], user['id'], user['response']))
+                            message = mbuild(user['screen_name'], dropitem(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
                             log('Got one!')
                             message = mbuild(user['screen_name'], user['response'])
