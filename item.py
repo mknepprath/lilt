@@ -1,3 +1,5 @@
+from db import dbselect, dbupdate, log
+
 def get(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
