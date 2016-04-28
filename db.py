@@ -1,6 +1,7 @@
 import os
 import psycopg2
 import urlparse
+import json
 
 # init postgresql database
 urlparse.uses_netloc.append("postgres")
@@ -15,20 +16,13 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 def dbselect(col1, table, col2, val, position=None, condition=None):
-    print 'dbselect'
-    print val
-    print position
-    print condition
     if condition != None:
-        print 'should run this..'
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
-        print 'this will print if cur isn\'t broken'
     elif position != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
     else:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
     o = cur.fetchone()
-    print o
     if o == None:
         return o
     else:
