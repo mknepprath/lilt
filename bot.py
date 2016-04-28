@@ -412,28 +412,28 @@ if __name__ == "__main__":
                 log('inventory: ' + str(user['inventory']))
                 # get events
                 user['events'] = json.loads(dbselect('events', 'users', 'id', user['id']))
-                # add items to events_and_items
-                events_and_items = user['events']
+                # add items to events_inv
+                events_inv = user['events']
                 items = list(user['inventory'].keys())
                 for item in items:
-                    events_and_items[user['position']][item] = 'inventory'
-                log('events_and_items: ' + str(events_and_items))
+                    events_inv[user['position']][item] = 'inventory'
+                log('events and inventory: ' + str(events_inv))
                 # get current event
                 current_event = None
-                for key, value in events_and_items[user['position']].iteritems():
+                for key, value in events_inv[user['position']].iteritems():
                     event = {}
                     event[key] = value
                     # check if there is a response for this move when condition is met (this event)
-                    response = dbselect('response', 'moves', 'move', move, user['position'], event)
-                    if response != None:
+                    user['response'] = dbselect('response', 'moves', 'move', move, user['position'], event)
+                    if user['response'] != None:
                         current_event = event
                         break
                 if current_event != None:
                     log('current event: ' + str(current_event))
                 # get response
-                response = dbselect('response', 'moves', 'move', move, user['position'], current_event)
-                if response != None:
-                    log('response: ' + str(response))
+                user['response'] = dbselect('response', 'moves', 'move', move, user['position'], current_event)
+                if user['response'] != None:
+                    log('response: ' + str(user['response'])) # is this redundant if I can just get it in current_event loop?
                 # get item (if one exists)
                 item = dbselect('item', 'moves', 'move', move, user['position'], current_event)
                 if item != None:
@@ -478,19 +478,19 @@ if __name__ == "__main__":
                     conn.commit()
                 else:
                     log('Searching...')
-                    if response != None:
+                    if user['response'] != None:
                         if (item != None) and (drop != None):
                             log('We\'re going to be dealing with an item and drop.')
-                            message = mbuild(user['screen_name'], replaceitem(item, drop, user['inventory'], user['id'], response))
+                            message = mbuild(user['screen_name'], replaceitem(item, drop, user['inventory'], user['id'], user['response']))
                         elif item != None:
                             log('Alright, I\'m going to get that item for you... if you can hold it.')
-                            message = mbuild(user['screen_name'], getitem(item, user['inventory'], user['id'], response))
+                            message = mbuild(user['screen_name'], getitem(item, user['inventory'], user['id'], user['response']))
                         elif drop != None:
                             log('So you\'re just dropping/burning an item.')
-                            message = mbuild(user['screen_name'], dropitem(drop, user['inventory'], user['id'], response))
+                            message = mbuild(user['screen_name'], dropitem(drop, user['inventory'], user['id'], user['response']))
                         else:
                             log('Got one!')
-                            message = mbuild(user['screen_name'], response)
+                            message = mbuild(user['screen_name'], user['response'])
                     else:
                         log('I guess that move didn\'t work.')
                         message = mbuild(user['screen_name'], random.choice(error_message))
@@ -506,5 +506,6 @@ if __name__ == "__main__":
             log(' ')
         except:
             pass
+        print str(users)
 cur.close()
 conn.close()
