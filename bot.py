@@ -89,7 +89,6 @@ def log(s, l):
         pass
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
-exclude = set(string.punctuation)
 # rstring to avoid Twitter getting mad about duplicate tweets - unnecessary at the moment ### rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 
 if __name__ == "__main__":
@@ -177,12 +176,9 @@ if __name__ == "__main__":
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
-            log('2.1', rec)
             if (tweet).split(' ',1)[0][0] == '@':
-                log('2.2', rec)
                 tweet = (tweet).split(' ',1)[1]
-            log('2.3', rec)
-            move = cleanstr(tweet, exclude)
+            move = cleanstr(tweet)
             log('3', rec)
 
             # attempts to grab current user from users table
@@ -218,22 +214,22 @@ if __name__ == "__main__":
                 # splits apart tweet to search for commands (drop/give)
                 if len((tweet).split()) >= 2:
                     a, b = (tweet).split(' ',1)
-                    a = ''.join(ch for ch in a if ch not in exclude).lower()
+                    a = ''.join(ch for ch in a if ch not in set(string.punctuation)).lower()
                     # if first word is drop - a is the move, b is the item
                     if (a == 'drop'):
                         # checks if item exists before changing move/item_to_drop based on it
-                        if dbselect('name', 'items', 'name', cleanstr(b, exclude)) != None:
+                        if dbselect('name', 'items', 'name', cleanstr(b)) != None:
                             move = a
-                            item_to_drop = cleanstr(b, exclude)
+                            item_to_drop = cleanstr(b)
                     # if first word is give - break apart b
                     elif (a == 'give'):
                         # d will be the item, and c should be the recipient
                         c, d = (b).split(' ',1)
                         # checks if item exists before changing move/item_to_give based on it
-                        if dbselect('name', 'items', 'name', cleanstr(d, exclude)) != None:
+                        if dbselect('name', 'items', 'name', cleanstr(d)) != None:
                             move = a
-                            recipient = ''.join(ch for ch in c if ch not in exclude).lower()
-                            item_to_give = cleanstr(d, exclude)
+                            recipient = ''.join(ch for ch in c if ch not in set(string.punctuation)).lower()
+                            item_to_give = cleanstr(d)
                     elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
                         # @familiarlilt liltadd look at sign~Wow, that's a big sign.
                         e, f = (b).split('~',1)
