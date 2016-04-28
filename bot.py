@@ -202,7 +202,7 @@ if __name__ == "__main__":
                 log('current player: ' + user['screen_name'], rec)
                 tweet_exists = dbselect('name', 'users', 'last_tweet_id', user['tweet_id'])
                 if tweet_exists == None:
-                    log('new tweet')
+                    log('new tweet', rec)
                     dbupdate(user['tweet_id'], user['id'], 'last_tweet_id')
                     reply = True
                 else:
