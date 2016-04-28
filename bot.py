@@ -8,7 +8,7 @@ import psycopg2
 import urlparse
 import json
 import re
-from func import cleanstr, mbuild, getitem, dropitem, giveitem, replaceitem, getcurrentevent, invbuild
+from func import cleanstr, mbuild, getitem, dropitem, giveitem, replaceitem, invbuild
 
 # debugging options
 debug = True
