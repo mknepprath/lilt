@@ -1,3 +1,5 @@
+import re
+
 def getitem(item, inventory, user_id, response):
     if item not in inventory:
         inventory[item] = {}
@@ -179,13 +181,8 @@ def invbuild(inventory):
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message
 def cleanstr(s, exclude):
-    print '3'
     s_mod = re.sub(r'http\S+', '', s) # removes links
-    print '3.1'
     s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...
-    print '3.2'
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
-    print '3.3'
     ns = ''.join(ch for ch in s_mod if ch not in exclude).lower().rstrip() # removes punctuation
-    print '3.4'
     return ns
