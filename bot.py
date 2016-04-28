@@ -51,6 +51,21 @@ class TwitterAPI:
         """Reply to a tweet"""
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
+def getcurrentevent(move, position, inventory, events):
+    events_inv = events
+    items = list(inventory.keys())
+    for item in items:
+        events_inv[position][item] = 'inventory'
+    current_event = None
+    for key, value in events_inv[position].iteritems():
+        event = {}
+        event[key] = value
+        # check if there is a response for this move when condition is met (this event)
+        response = dbselect('response', 'moves', 'move', move, position, event)
+        if response != None:
+            current_event = event
+            break
+    return current_event
 def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
@@ -169,21 +184,17 @@ if __name__ == "__main__":
             user['id'] = str(mention['user_id'])
             user['text'] = mention['text']
             user['tweet_id'] = str(mention['tweet_id'])
-            log('1', rec)
 
             reply = True if debug == True else False
-            log('2', rec)
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
             move = cleanstr(tweet)
-            log('3', rec)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user['id'])
-            log('4', rec)
             if user_exists == None:
                 if move == 'start':
                     log('new player: ' + user['screen_name'], rec)
