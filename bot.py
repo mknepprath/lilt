@@ -171,17 +171,21 @@ if __name__ == "__main__":
             user['id'] = str(mention['user_id'])
             user['text'] = mention['text']
             user['tweet_id'] = str(mention['tweet_id'])
-
+            log('1', rec)
+            
             reply = True if debug == True else False
+            log('2', rec)
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
             move = cleanstr(tweet)
+            log('3', rec)
 
             # attempts to grab current user from users table
             user_exists = dbselect('name', 'users', 'id', user['id'])
+            log('4', rec)
             if user_exists == None:
                 if move == 'start':
                     log('new player: ' + user['screen_name'], rec)
