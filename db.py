@@ -19,15 +19,16 @@ def dbselect(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
     elif position != None:
+        print 'position available'
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
     else:
+        print 'no position or condition'
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
     o = cur.fetchone()
+    print o
     if o == None:
-        print o
         return o
     else:
-        print o[0]
         return o[0]
 def dbupdate(val1, val2, col='inventory'):
     if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
