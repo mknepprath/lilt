@@ -11,7 +11,7 @@ import item
 import event
 import command
 from utils import cleanstr, mbuild, invbuild
-from db import dbselect, dbupdate, newuser, log, storeerror # consider import db, db.select, etc
+from db import dbselect, dbupdate, dbdelete, newmove, newuser, log, storeerror # consider import db, db.select, etc
 
 # debugging options
 debug = True
