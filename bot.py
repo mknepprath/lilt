@@ -204,6 +204,7 @@ if __name__ == "__main__":
                         dbupdate(user['events'], user['id'], 'events')
 
                 # logic that generates response to player's move
+                log(rec, 'Generating reply...')
                 if move == 'drop':
                     item_to_drop = command.drop(tweet)
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
