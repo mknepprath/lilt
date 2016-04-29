@@ -42,11 +42,12 @@ def drop(drop, inventory, user_id, response=None):
             return 'You drop one ' + drop + '.'
         else:
             return response
-def give(item, inventory, user_id, position):
-    print position
+def give(item, inventory, user_id, position, recipient):
+    print item
     print inventory
     print user_id
-    return position
+    print position
+    return recipient
 def replace(item, drop, inventory, user_id, response):
     if inventory[drop]['quantity'] <= 1:
         if item not in inventory:

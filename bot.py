@@ -215,7 +215,7 @@ if __name__ == "__main__":
                 if move == 'drop':
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
-                    message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position']))
+                    message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit() # move this stuff up into commands
