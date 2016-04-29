@@ -174,15 +174,7 @@ if __name__ == "__main__":
             if reply == True:
                 log(rec, 'tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
-                if len((tweet).split()) >= 2:
-                    a, b = (tweet).split(' ',1)
-                    a = ''.join(ch for ch in a if ch not in set(string.punctuation)).lower()
-                    if (a == 'drop'):
-                        move, item_to_drop = command.drop(a, b)
-                    elif (a == 'give'):
-                        move, recipient, item_to_give = command.give(a, b)
-                    elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
-                        move, addmove, addresponse = command.liltadd(a, b)
+                move = command.get(tweet) if command.get(tweet) != None else move
                 log(rec, 'move: ' + move)
                 # loop through requests to users table
                 user_requests = ['position', 'inventory', 'events']
@@ -210,14 +202,16 @@ if __name__ == "__main__":
                     if user['travel'] not in user['events']:
                         user['events'][user['travel']] = {}
                         dbupdate(user['events'], user['id'], 'events')
-                log(rec, 'nonvalid moves not working... does this print')
 
                 # logic that generates response to player's move
                 if move == 'drop':
+                    item_to_drop = command.drop(tweet)
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
+                    recipient, item_to_give = command.give(tweet)
                     message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
+                    addmove, addresponse = command.liltadd(tweet)
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
                     conn.commit() # move this stuff up into commands
                     message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
