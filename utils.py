@@ -7,9 +7,6 @@ import tweepy
 import psycopg2
 import urlparse
 import json
-import item
-import event
-import command
 import re
 from db import dbselect, dbupdate, log, storeerror
 
