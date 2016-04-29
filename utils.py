@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import string
+import json
 import re
 
 def invbuild(inventory):
