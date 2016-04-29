@@ -64,3 +64,6 @@ def log(rec, s):
         return
     else:
         pass
+
+cur.close()
+conn.close()
