@@ -34,9 +34,9 @@ def inventory(inventory):
         return invbuild(inventory)
 def deleteme(id):
     dbdelete('users', 'id', id)
-    return 'You\'ve been removed from Lilt. Thanks for playing!')
+    return 'You\'ve been removed from Lilt. Thanks for playing!'
 def liltadd(tweet, position):
     b = (tweet).split(' ',1)[1]
     addmove, addresponse = (b).split('~',1)
     newmove(addmove, addresponse, position)
-    return '\'' + addmove + '\' was added to Lilt.')
+    return '\'' + addmove + '\' was added to Lilt.'
