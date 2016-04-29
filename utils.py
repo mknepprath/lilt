@@ -8,7 +8,6 @@ import psycopg2
 import urlparse
 import json
 import re
-from db import dbselect, dbupdate, log, storeerror
 
 def invbuild(inventory):
     items = list(inventory.keys())
