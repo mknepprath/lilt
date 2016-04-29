@@ -223,6 +223,7 @@ if __name__ == "__main__":
                     else:
                         print 'stuff in inv'
                         message = mbuild(user['screen_name'], invbuild(user['inventory']))
+                        print message
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
