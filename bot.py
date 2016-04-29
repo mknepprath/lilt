@@ -209,7 +209,7 @@ if __name__ == "__main__":
                     message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                 elif move == 'liltadd':
                     addmove, addresponse = command.liltadd(tweet)
-                    newmove(addmove, addresponse, user['position']))
+                    newmove(addmove, addresponse, user['position'])
                     message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if user['inventory'] == {}:
