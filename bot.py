@@ -216,7 +216,12 @@ if __name__ == "__main__":
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
                     print '1'
-                    print item.cgive(item_to_give, user['inventory'], user['id'], user['position'], recipient)
+                    print item_to_give
+                    print user['inventory']
+                    print user['id']
+                    print user['position']
+                    print recipient
+                    print item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient)
                     print '2'
                     # message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
