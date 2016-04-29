@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import string
 from db import dbselect
 from utils import cleanstr
