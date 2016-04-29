@@ -175,6 +175,7 @@ if __name__ == "__main__":
                     if cmd == 'drop':
                         message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
                     elif cmd == 'give':
+                        print 'cmd'
                         message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                     elif cmd == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
                         message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
@@ -185,7 +186,6 @@ if __name__ == "__main__":
                     else:
                         message = mbuild(user['screen_name'], random.choice(error_message))
                 else:
-                    print 'not command'
                     # get data for db response
                     db.log(rec, 'move: ' + move)
                     # loop through requests to users table
