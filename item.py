@@ -42,7 +42,7 @@ def drop(drop, inventory, user_id, response=None):
             return 'You drop one ' + drop + '.'
         else:
             return response
-def give(item, inventory, user_id, position, recipient):
+def cgive(item, inventory, user_id, position, recipient):
     log(rec, 'So you want to give ' + item + ' to ' + recipient + '.')
     if item not in inventory:
         log(rec, item + ' wasn\'t in your inventory.')
