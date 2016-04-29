@@ -224,7 +224,8 @@ if __name__ == "__main__":
                     else:
                         db.log(rec, 'I guess that move didn\'t work.')
                         message = mbuild(user['screen_name'], random.choice(error_message))
-                        # db.log(rec, db.storeerror(move, user['position']))
+                        if debug == False:
+                            db.log(rec, db.storeerror(move, user['position']))
 
                 db.log(rec, 'reply: ' + message)
                 if debug == False:

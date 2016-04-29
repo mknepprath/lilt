@@ -12,7 +12,12 @@ def get(tweet):
                 return a
         elif (a == 'give'):
             c, d = (b).split(' ',1)
-            if select('name', 'items', 'name', cleanstr(d)) != None:
+            e, f = (d).split(' ',1)
+            if (e = 'the') or (e = 'a') or (e = 'an'):
+                d = cleanstr(f)
+            else:
+                d = cleanstr(d)
+            if select('name', 'items', 'name', d) != None:
                 return a
         elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
             return a
@@ -26,7 +31,12 @@ def drop(tweet, inventory, id):
 def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
-    return item.give(cleanstr(d), inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
+    e, f = (d).split(' ',1)
+    if (e = 'the') or (e = 'a') or (e = 'an'):
+        item_to_give = cleanstr(f)
+    else:
+        item_to_give = cleanstr(d)
+    return item.give(item_to_give, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 def inventory(inventory):
     if inventory == {}:
         return 'Your inventory is empty at the moment.'
