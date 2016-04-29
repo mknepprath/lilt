@@ -17,6 +17,18 @@ from utils import cleanstr, mbuild, invbuild
 debug = True
 rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
+# init postgresql database // cur.executes in bot.py to db.py so this can be removed
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+cur = conn.cursor()
+
 class TwitterAPI:
     """
     Class for accessing the Twitter API.
@@ -57,10 +69,7 @@ if __name__ == "__main__":
 
     # get latest tweets
     if debug == False:
-        try:
-            raw_mentions = twitter.api.mentions_timeline(count=200)
-        except twitter.TweepError, e:
-            db.log(rec, 'Failed because of %s' % e.reason)
+        raw_mentions = twitter.api.mentions_timeline(count=200)
         for mention in raw_mentions:
             try:
                 mentioned = False
@@ -195,7 +204,7 @@ if __name__ == "__main__":
                     message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
                 elif move == 'give':
                     message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
-                elif move == 'liltadd':
+                elif move == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
                     message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
                 elif (move == 'inventory') or (move == 'check inventory'):
                     message = mbuild(user['screen_name'], command.inventory(user['inventory']))
@@ -220,13 +229,11 @@ if __name__ == "__main__":
                 db.log(rec, 'reply: ' + message)
                 if debug == False:
                     db.log(rec, '#TweetingIt')
-                    try:
-                        twitter.reply(message, user['tweet_id'])
-                    except twitter.TweepError, e:
-                        db.log(rec, 'Failed because of %s' % e.reason)
+                    twitter.reply(message, user['tweet_id'])
             db.log(rec, ' ') # prints user data separate from other logs
             db.log(rec, user['screen_name'] + '\'s data: ' + str(user))
             db.log(rec, ' ')
         except:
             pass
-db.close()
+cur.close()
+conn.close()
