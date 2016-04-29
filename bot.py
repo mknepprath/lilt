@@ -218,8 +218,10 @@ if __name__ == "__main__":
                 elif (move == 'inventory') or (move == 'check inventory'):
                     print 'reached inventory'
                     if user['inventory'] == {}:
+                        print 'inv empty'
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
+                        print 'stuff in inv'
                         message = mbuild(user['screen_name'], invbuild(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
