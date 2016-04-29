@@ -1,7 +1,7 @@
 import string
 import item
-from db import dbselect
-from utils import cleanstr
+from db import dbselect, dbdelete, newmove
+from utils import cleanstr, invbuild
 
 def get(tweet):
     if len((tweet).split()) >= 2:
@@ -27,7 +27,16 @@ def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
     return item.give(cleanstr(d), inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
-def liltadd(tweet):
+def inventory(inventory):
+    if inventory == {}:
+        return 'Your inventory is empty at the moment.')
+    else:
+        return invbuild(inventory))
+def deleteme(id):
+    dbdelete('users', 'id', id)
+    return 'You\'ve been removed from Lilt. Thanks for playing!')
+def liltadd(tweet, position):
     b = (tweet).split(' ',1)[1]
-    c, d = (b).split('~',1)
-    return (str(c), str(d))
+    addmove, addresponse = (b).split('~',1)
+    newmove(addmove, addresponse, position)
+    return '\'' + addmove + '\' was added to Lilt.')

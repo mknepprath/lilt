@@ -208,31 +208,21 @@ if __name__ == "__main__":
                 elif move == 'give':
                     message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                 elif move == 'liltadd':
-                    addmove, addresponse = command.liltadd(tweet)
-                    newmove(addmove, addresponse, user['position'])
-                    message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
+                    message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
                 elif (move == 'inventory') or (move == 'check inventory'):
-                    if user['inventory'] == {}:
-                        message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
-                    else:
-                        message = mbuild(user['screen_name'], invbuild(user['inventory']))
+                    message = mbuild(user['screen_name'], command.inventory(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
-                    message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
-                    dbdelete('users', 'id', user['id'])
+                    message = mbuild(user['screen_name'], command.deleteme(user['id'])
                 else:
                     log(rec, 'Searching...')
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):
-                            log(rec, 'We\'re going to be dealing with an item and drop.')
                             message = mbuild(user['screen_name'], item.replace(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
                         elif user['item'] != None:
-                            log(rec, 'Alright, I\'m going to get that item for you... if you can hold it.')
                             message = mbuild(user['screen_name'], item.get(user['item'], user['inventory'], user['id'], user['response']))
                         elif user['drop'] != None:
-                            log(rec, 'So you\'re just dropping/burning an item.')
                             message = mbuild(user['screen_name'], item.drop(user['drop'], user['inventory'], user['id'], user['response']))
                         else:
-                            log(rec, 'Got one!')
                             message = mbuild(user['screen_name'], user['response'])
                     else:
                         log(rec, 'I guess that move didn\'t work.')
