@@ -22,7 +22,7 @@ def get(tweet):
         return None
 def drop(tweet, inventory, id):
     item_to_drop = (tweet).split(' ',1)[1]
-    return item.drop(cleanstr(item_to_drop), inventory, id))
+    return item.drop(cleanstr(item_to_drop), inventory, id)
 def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
