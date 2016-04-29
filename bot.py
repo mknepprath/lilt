@@ -142,7 +142,6 @@ if __name__ == "__main__":
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
             if (tweet).split(' ',1)[0][0] == '@':
                 tweet = (tweet).split(' ',1)[1]
-            log(rec, type(tweet))
             move = cleanstr(tweet)
 
             # attempts to grab current user from users table
@@ -174,6 +173,7 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
                 log(rec, 'tweet: ' + tweet)
+                log(rec, type(tweet))
                 # splits apart tweet to search for commands (drop/give)
                 if command.get(tweet) != None:
                     move = command.get(tweet)
