@@ -220,6 +220,7 @@ if __name__ == "__main__":
                     if user['inventory'] == {}:
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
+                        log(rec, user['inventory'])
                         message = mbuild(user['screen_name'], invbuild(user['inventory']))
                         log(rec, message)
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
