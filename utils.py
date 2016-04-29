@@ -9,7 +9,6 @@ def invbuild(inventory):
         iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
-            print '.'
         i += 1
     return ', '.join(items)
 def mbuild(screen_name, message):
