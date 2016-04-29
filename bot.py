@@ -14,8 +14,8 @@ from utils import cleanstr, mbuild, invbuild
 from db import dbselect, dbupdate, dbdelete, newmove, newuser, log, storeerror # consider import db, db.select, etc
 
 # debugging options
-debug = True
-rec = True # pushs logs to console table // breaks emoji when True
+debug = False
+rec = False # pushs logs to console table // breaks emoji when True
 
 # init postgresql database // cur.executes in bot.py to db.py so this can be removed
 urlparse.uses_netloc.append("postgres")
