@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import string
 import re
 from db import log
@@ -11,7 +12,7 @@ def invbuild(rec, inventory):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    log(rec, ', '.join(items))
+    log(rec, str(', '.join(items)))
     return ', '.join(items)
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message
