@@ -102,7 +102,7 @@ if __name__ == "__main__":
             debug_mentions.append({
                 'screen_name': dbselect('screen_name', 'debug', 'tweet_id', str(d)),
                 'user_id': int(dbselect('user_id', 'debug', 'tweet_id', str(d))),
-                'text': dbselect('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
+                'text': unicode(dbselect('tweet', 'debug', 'tweet_id', str(d)), 'utf-8'), # update this with tweet to test
                 'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
             })
             d += 1
