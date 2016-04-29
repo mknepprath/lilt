@@ -220,9 +220,7 @@ if __name__ == "__main__":
                     if user['inventory'] == {}:
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
-                        log(rec, user['inventory'])
-                        message = mbuild(user['screen_name'], invbuild(user['inventory']))
-                        log(rec, message)
+                        message = mbuild(user['screen_name'], invbuild(rec, user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
                     cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
