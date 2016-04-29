@@ -29,9 +29,9 @@ def give(tweet, inventory, id, position):
     return item.give(cleanstr(d), inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 def inventory(inventory):
     if inventory == {}:
-        return 'Your inventory is empty at the moment.')
+        return 'Your inventory is empty at the moment.'
     else:
-        return invbuild(inventory))
+        return invbuild(inventory)
 def deleteme(id):
     dbdelete('users', 'id', id)
     return 'You\'ve been removed from Lilt. Thanks for playing!')
