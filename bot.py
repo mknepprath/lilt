@@ -244,7 +244,6 @@ if __name__ == "__main__":
                         message = mbuild(user['screen_name'], random.choice(error_message))
                         log(rec, storeerror(move, user['position']))
 
-                print message
                 log(rec, 'reply: ' + message)
                 if debug == False:
                     log(rec, '#TweetingIt')
