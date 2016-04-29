@@ -170,6 +170,7 @@ if __name__ == "__main__":
                 db.log(rec, 'tweet: ' + tweet)
                 # handles commands (drop/give/inventory)
                 if command.get(tweet) != None:
+                    print 'command'
                     cmd = command.get(tweet)
                     if cmd == 'drop':
                         message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
@@ -184,6 +185,7 @@ if __name__ == "__main__":
                     else:
                         message = mbuild(user['screen_name'], random.choice(error_message))
                 else:
+                    print 'not command'
                     # get data for db response
                     db.log(rec, 'move: ' + move)
                     # loop through requests to users table
