@@ -133,7 +133,7 @@ if __name__ == "__main__":
             user = {}
             user['screen_name'] = mention['screen_name'].lower()
             user['id'] = str(mention['user_id'])
-            user['text'] = mention['text']
+            user['text'] = unicode(mention['text'], 'utf-8')
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
