@@ -13,7 +13,7 @@ def get(tweet):
         elif (a == 'give'):
             c, d = (b).split(' ',1)
             e, f = (d).split(' ',1)
-            if (e = 'the') or (e = 'a') or (e = 'an'):
+            if (e == 'the') or (e == 'a') or (e == 'an'):
                 d = cleanstr(f)
             else:
                 d = cleanstr(d)
@@ -32,7 +32,7 @@ def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
     e, f = (d).split(' ',1)
-    if (e = 'the') or (e = 'a') or (e = 'an'):
+    if (e == 'the') or (e == 'a') or (e == 'an'):
         item_to_give = cleanstr(f)
     else:
         item_to_give = cleanstr(d)
