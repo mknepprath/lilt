@@ -14,8 +14,8 @@ from utils import cleanstr, mbuild, invbuild
 from db import dbselect, dbupdate, log, storeerror
 
 # debugging options
-debug = True
-rec = True # pushs logs to console table // breaks emoji when True
+debug = False
+rec = False # pushs logs to console table // breaks emoji when True
 
 # init postgresql database // cur.executes in bot.py to db.py so this can be removed
 urlparse.uses_netloc.append("postgres")
@@ -133,7 +133,7 @@ if __name__ == "__main__":
             user = {}
             user['screen_name'] = mention['screen_name'].lower()
             user['id'] = str(mention['user_id'])
-            user['text'] = unicode(mention['text'], 'utf-8')
+            user['text'] = mention['text']
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
@@ -173,12 +173,10 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
                 log(rec, 'tweet: ' + tweet)
-                log(rec, type(tweet))
                 # splits apart tweet to search for commands (drop/give)
                 if command.get(tweet) != None:
                     move = command.get(tweet)
                 log(rec, 'move: ' + move)
-                log(rec, type(move))
                 # loop through requests to users table
                 user_requests = ['position', 'inventory', 'events']
                 for r in user_requests:
