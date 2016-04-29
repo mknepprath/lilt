@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from db import dbselect, dbupdate, log
 from utils import mbuild, invbuild
