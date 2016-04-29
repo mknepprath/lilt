@@ -168,14 +168,17 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
                 db.log(rec, 'tweet: ' + tweet)
+                # loop through requests to users table
+                user_data = ['position', 'inventory', 'events']
+                for r in user_data:
+                    user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
+                    db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
                 if command.get(tweet) != None:
-                    print 'command'
                     cmd = command.get(tweet)
                     if cmd == 'drop':
                         message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
                     elif cmd == 'give':
-                        print 'cmd'
                         message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                     elif cmd == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
                         message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
@@ -188,18 +191,13 @@ if __name__ == "__main__":
                 else:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
-                    # loop through requests to users table
-                    user_requests = ['position', 'inventory', 'events']
-                    for r in user_requests:
-                        user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
-                        db.log(rec, r + ': ' + str(user[r]))
-                    # get current event (requires prev three items)
+                    # get current event (requires items from user_data)
                     user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
                     if user['current_event'] != None:
                         db.log(rec, 'current event: ' + str(user['current_event']))
                     # loop through requests to moves table (requires current_event)
-                    move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
-                    for r in move_requests:
+                    move_data = ['response', 'item', 'drop', 'trigger', 'travel']
+                    for r in move_data:
                         user[r] = db.select(r, 'moves', 'move', move, user['position'], user['current_event'])
                         if user[r] != None:
                             db.log(rec, r + ': ' + str(user[r]))
