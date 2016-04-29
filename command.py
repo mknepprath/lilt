@@ -26,12 +26,7 @@ def drop(tweet, inventory, id):
 def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
-    e, f = (d).split(' ',1)
-    if (e == 'the') or (e == 'a') or (e == 'an'):
-        item_to_give = cleanstr(f)
-    else:
-        item_to_give = cleanstr(d)
-    return item.give(item_to_give, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
+    return item.give(cleanstr(d), inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 def inventory(inventory):
     if inventory == {}:
         return 'Your inventory is empty at the moment.'
