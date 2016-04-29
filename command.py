@@ -1,6 +1,6 @@
 import string
 import item
-from db import dbselect, dbdelete, newmove
+from db import select, delete, newmove
 from utils import cleanstr, invbuild
 
 def get(tweet):
@@ -8,11 +8,11 @@ def get(tweet):
         a, b = (tweet).split(' ',1)
         a = ''.join(ch for ch in a if ch not in set(string.punctuation)).lower()
         if (a == 'drop'):
-            if dbselect('name', 'items', 'name', cleanstr(b)) != None:
+            if select('name', 'items', 'name', cleanstr(b)) != None:
                 return a
         elif (a == 'give'):
             c, d = (b).split(' ',1)
-            if dbselect('name', 'items', 'name', cleanstr(d)) != None:
+            if select('name', 'items', 'name', cleanstr(d)) != None:
                 return a
         elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
             return a
@@ -33,7 +33,7 @@ def inventory(inventory):
     else:
         return invbuild(inventory)
 def deleteme(id):
-    dbdelete('users', 'id', id)
+    delete('users', 'id', id)
     return 'You\'ve been removed from Lilt. Thanks for playing!'
 def liltadd(tweet, position):
     b = (tweet).split(' ',1)[1]

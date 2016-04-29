@@ -15,7 +15,7 @@ conn = psycopg2.connect(
 )
 cur = conn.cursor()
 
-def dbselect(col1, table, col2, val, position=None, condition=None):
+def select(col1, table, col2, val, position=None, condition=None):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
     elif position != None:
@@ -27,7 +27,7 @@ def dbselect(col1, table, col2, val, position=None, condition=None):
         return o
     else:
         return o[0]
-def dbupdate(val1, val2, col='inventory'):
+def update(val1, val2, col='inventory'):
     if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
     elif col == 'attempts':
@@ -35,7 +35,7 @@ def dbupdate(val1, val2, col='inventory'):
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
-def dbdelete(table, col, val):
+def delete(table, col, val):
     if table == 'console':
         cur.execute("DELETE FROM " + table + " WHERE " + col + " != %s;", (val,))
         conn.commit()
