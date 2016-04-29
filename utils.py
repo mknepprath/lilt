@@ -2,7 +2,6 @@ import string
 import re
 
 def invbuild(inventory):
-    print 'invbuild reached'
     items = list(inventory.keys())
     i = 0
     while i < len(items):
@@ -10,7 +9,6 @@ def invbuild(inventory):
         if iq > 1: # only append quantity info if more than one
             items[i] += ' ' + u'\u2022'*iq
         i += 1
-    print 'invbuild returning...'
     return ', '.join(items)
 def mbuild(screen_name, message):
     return '@' + screen_name + ' ' + message
