@@ -174,7 +174,8 @@ if __name__ == "__main__":
             if reply == True:
                 log(rec, 'tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
-                move = command.get(tweet) if command.get(tweet) != None else move
+                if command.get(tweet) != None:
+                    move = command.get(tweet)
                 log(rec, 'move: ' + move)
                 log(rec, type(move))
                 # loop through requests to users table
