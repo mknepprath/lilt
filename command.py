@@ -26,7 +26,7 @@ def drop(tweet, inventory, id):
 def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
-    return item.give(''.join(ch for ch in c if ch not in set(string.punctuation)).lower(), inventory, id, position, cleanstr(d))
+    return item.give(cleanstr(d), inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 def liltadd(tweet):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split('~',1)
