@@ -181,9 +181,6 @@ if __name__ == "__main__":
                         move, item_to_drop = command.drop(a, b)
                     elif (a == 'give'):
                         move, recipient, item_to_give = command.give(a, b)
-                        print move
-                        print recipient
-                        print item_to_give
                     elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
                         move, addmove, addresponse = command.liltadd(a, b)
                 log(rec, 'move: ' + move)
@@ -218,6 +215,11 @@ if __name__ == "__main__":
                 if move == 'drop':
                     message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
                 elif move == 'give':
+                    print item_to_give
+                    print user['inventory']
+                    print user['id']
+                    print user['position']
+                    print recipient
                     message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
                 elif move == 'liltadd':
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
