@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from db import select
 
 def getcurrent(move, position, inventory, events):
