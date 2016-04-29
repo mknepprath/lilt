@@ -65,8 +65,7 @@ if __name__ == "__main__":
 
     # delete console table before entering new logs
     if rec == True:
-        cur.execute("DELETE FROM console WHERE log != '*';")
-        conn.commit()
+        dbdelete('console', 'log', '*')
 
     # get latest tweets
     if debug == False:
@@ -210,8 +209,7 @@ if __name__ == "__main__":
                     message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                 elif move == 'liltadd':
                     addmove, addresponse = command.liltadd(tweet)
-                    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
-                    conn.commit() # move this stuff up into commands
+                    newmove(addmove, addresponse, user['position']))
                     message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
                     if user['inventory'] == {}:
@@ -220,8 +218,7 @@ if __name__ == "__main__":
                         message = mbuild(user['screen_name'], invbuild(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
                     message = mbuild(user['screen_name'], 'You\'ve been removed from Lilt. Thanks for playing!')
-                    cur.execute("DELETE FROM users WHERE id = %s;", (user['id'],))
-                    conn.commit()
+                    dbdelete('users', 'id', user['id'])
                 else:
                     log(rec, 'Searching...')
                     if user['response'] != None:

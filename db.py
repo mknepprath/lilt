@@ -35,8 +35,18 @@ def dbupdate(val1, val2, col='inventory'):
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
+def dbdelete(table, col, val):
+    if table == 'console':
+        cur.execute("DELETE FROM " + table + " WHERE " + col + " != %s;", (val,))
+        conn.commit()
+    else:
+        cur.execute("DELETE FROM " + table + " WHERE " + col + " = %s;", (val,))
+        conn.commit()
 def newuser(name, id, tweet_id, position, inventory, events):
     cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (name, id, tweet_id, position, json.dumps(inventory), json.dumps(events)))
+    conn.commit()
+def newmove(move, response, position):
+    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (move, response, position))
     conn.commit()
 def storeerror(move, position):
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
