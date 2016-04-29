@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
 import re
+from db import log
 
 def invbuild(rec, inventory):
     log(rec, 'invbuild is happening')
