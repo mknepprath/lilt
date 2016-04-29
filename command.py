@@ -1,4 +1,5 @@
 import string
+import item
 from db import dbselect
 from utils import cleanstr
 
@@ -19,13 +20,13 @@ def get(tweet):
             return None
     else:
         return None
-def drop(tweet):
-    b = (tweet).split(' ',1)[1]
-    return (cleanstr(b))
-def give(tweet):
+def drop(tweet, inventory, id):
+    item_to_drop = (tweet).split(' ',1)[1]
+    return item.drop(cleanstr(item_to_drop), inventory, id))
+def give(tweet, inventory, id, position):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split(' ',1)
-    return (''.join(ch for ch in c if ch not in set(string.punctuation)).lower(), cleanstr(d))
+    return item.give(''.join(ch for ch in c if ch not in set(string.punctuation)).lower(), inventory, id, position, cleanstr(d))
 def liltadd(tweet):
     b = (tweet).split(' ',1)[1]
     c, d = (b).split('~',1)

@@ -35,6 +35,9 @@ def dbupdate(val1, val2, col='inventory'):
     else:
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (json.dumps(val1), val2))
     conn.commit()
+def newuser(name, id, tweet_id, position, inventory, events):
+    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (name, id, tweet_id, position, json.dumps(inventory), json.dumps(events)))
+    conn.commit()
 def storeerror(move, position):
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
     if attempt == None:

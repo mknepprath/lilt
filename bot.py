@@ -11,7 +11,7 @@ import item
 import event
 import command
 from utils import cleanstr, mbuild, invbuild
-from db import dbselect, dbupdate, log, storeerror
+from db import dbselect, dbupdate, newuser, log, storeerror # consider import db, db.select, etc
 
 # debugging options
 debug = True
@@ -102,7 +102,7 @@ if __name__ == "__main__":
             debug_mentions.append({
                 'screen_name': dbselect('screen_name', 'debug', 'tweet_id', str(d)),
                 'user_id': int(dbselect('user_id', 'debug', 'tweet_id', str(d))),
-                'text': unicode(dbselect('tweet', 'debug', 'tweet_id', str(d)), 'utf-8'), # update this with tweet to test
+                'text': dbselect('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
                 'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
             })
             d += 1
@@ -153,8 +153,7 @@ if __name__ == "__main__":
                     inventory_init = {}
                     events_init = {}
                     events_init[position_init] = {}
-                    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (user['screen_name'], user['id'], user['tweet_id'], position_init, json.dumps(inventory_init), json.dumps(events_init)))
-                    conn.commit()
+                    newuser(user['screen_name'], user['id'], user['tweet_id'], position_init, inventory_init, events_init)
                     reply = True
                 else:
                     # this reply is purely for debugging - since reply defaults to True, this would be redundant
@@ -175,7 +174,7 @@ if __name__ == "__main__":
                 log(rec, 'tweet: ' + tweet)
                 # splits apart tweet to search for commands (drop/give)
                 if command.get(tweet) != None:
-                    move = command.get(tweet)
+                    move = command.get(tweet) # maybe this should go to a different var to kick off a loop below... if move == command, pass command to command.py to gen reply message
                 log(rec, 'move: ' + move)
                 # loop through requests to users table
                 user_requests = ['position', 'inventory', 'events']
@@ -205,13 +204,10 @@ if __name__ == "__main__":
                         dbupdate(user['events'], user['id'], 'events')
 
                 # logic that generates response to player's move
-                log(rec, 'Generating reply...')
                 if move == 'drop':
-                    item_to_drop = command.drop(tweet)
-                    message = mbuild(user['screen_name'], item.drop(item_to_drop, user['inventory'], user['id']))
+                    message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
                 elif move == 'give':
-                    recipient, item_to_give = command.give(tweet)
-                    message = mbuild(user['screen_name'], item.give(item_to_give, user['inventory'], user['id'], user['position'], recipient))
+                    message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
                 elif move == 'liltadd':
                     addmove, addresponse = command.liltadd(tweet)
                     cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (addmove,addresponse,user['position']))
