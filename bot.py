@@ -216,6 +216,7 @@ if __name__ == "__main__":
                     conn.commit() # move this stuff up into commands
                     message = mbuild(user['screen_name'], '\'' + addmove + '\' was added to Lilt.')
                 elif (move == 'inventory') or (move == 'check inventory'):
+                    print 'reached inventory'
                     if user['inventory'] == {}:
                         message = mbuild(user['screen_name'], 'Your inventory is empty at the moment.')
                     else:
