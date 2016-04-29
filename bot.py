@@ -168,49 +168,51 @@ if __name__ == "__main__":
             # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
             if reply == True:
                 db.log(rec, 'tweet: ' + tweet)
-                # splits apart tweet to search for commands (drop/give)
+                # handles commands (drop/give/inventory)
                 if command.get(tweet) != None:
-                    move = command.get(tweet) # maybe this should go to a different var to kick off a loop below... if move == command, pass command to command.py to gen reply message
-                db.log(rec, 'move: ' + move)
-                # loop through requests to users table
-                user_requests = ['position', 'inventory', 'events']
-                for r in user_requests:
-                    user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
-                    db.log(rec, r + ': ' + str(user[r]))
-                # get current event (requires prev three items)
-                user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
-                if user['current_event'] != None:
-                    db.log(rec, 'current event: ' + str(user['current_event']))
-                # loop through requests to moves table (requires current_event)
-                move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
-                for r in move_requests:
-                    user[r] = db.select(r, 'moves', 'move', move, user['position'], user['current_event'])
-                    if user[r] != None:
-                        db.log(rec, r + ': ' + str(user[r]))
-                # add trigger to events if it exists for this move
-                if user['trigger'] != None:
-                    user['trigger'] = json.loads(user['trigger'])
-                    user['events'][user['position']].update(user['trigger'])
-                    db.update(user['events'], user['id'], 'events')
-                # move user if travel exists and add new position to events
-                if user['travel'] != None:
-                    db.update(user['travel'], user['id'], 'position')
-                    if user['travel'] not in user['events']:
-                        user['events'][user['travel']] = {}
-                        db.update(user['events'], user['id'], 'events')
-
-                # logic that generates response to player's move
-                if move == 'drop':
-                    message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
-                elif move == 'give':
-                    message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
-                elif move == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
-                    message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
-                elif (move == 'inventory') or (move == 'check inventory'):
-                    message = mbuild(user['screen_name'], command.inventory(user['inventory']))
-                elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
-                    message = mbuild(user['screen_name'], command.deleteme(user['id']))
+                    cmd = command.get(tweet)
+                    if cmd == 'drop':
+                        message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
+                    elif cmd == 'give':
+                        message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
+                    elif cmd == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
+                        message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
+                    elif cmd == 'inventory':
+                        message = mbuild(user['screen_name'], command.inventory(user['inventory']))
+                    elif cmd == 'delete me':
+                        message = mbuild(user['screen_name'], command.deleteme(user['id']))
+                    else:
+                        message = mbuild(user['screen_name'], random.choice(error_message))
                 else:
+                    # get data for db response
+                    db.log(rec, 'move: ' + move)
+                    # loop through requests to users table
+                    user_requests = ['position', 'inventory', 'events']
+                    for r in user_requests:
+                        user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
+                        db.log(rec, r + ': ' + str(user[r]))
+                    # get current event (requires prev three items)
+                    user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
+                    if user['current_event'] != None:
+                        db.log(rec, 'current event: ' + str(user['current_event']))
+                    # loop through requests to moves table (requires current_event)
+                    move_requests = ['response', 'item', 'drop', 'trigger', 'travel']
+                    for r in move_requests:
+                        user[r] = db.select(r, 'moves', 'move', move, user['position'], user['current_event'])
+                        if user[r] != None:
+                            db.log(rec, r + ': ' + str(user[r]))
+                    # add trigger to events if it exists for this move
+                    if user['trigger'] != None:
+                        user['trigger'] = json.loads(user['trigger'])
+                        user['events'][user['position']].update(user['trigger'])
+                        db.update(user['events'], user['id'], 'events')
+                    # move user if travel exists and add new position to events
+                    if user['travel'] != None:
+                        db.update(user['travel'], user['id'], 'position')
+                        if user['travel'] not in user['events']:
+                            user['events'][user['travel']] = {}
+                            db.update(user['events'], user['id'], 'events')
+                    # get a response
                     db.log(rec, 'Searching...')
                     if user['response'] != None:
                         if (user['item'] != None) and (user['drop'] != None):

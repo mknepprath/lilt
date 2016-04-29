@@ -19,6 +19,10 @@ def get(tweet):
                 d = cleanstr(d)
             if select('name', 'items', 'name', d) != None:
                 return a
+        elif (a == 'inventory') or (a == 'check inventory')
+            return 'inventory'
+        elif (a == 'delete me from lilt') or (a == u'💀💀💀')
+            return 'delete me'
         elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
             return a
         else:
