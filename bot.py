@@ -210,6 +210,7 @@ if __name__ == "__main__":
                     if user['travel'] not in user['events']:
                         user['events'][user['travel']] = {}
                         dbupdate(user['events'], user['id'], 'events')
+                log(rec, 'nonvalid moves not working... does this print')
 
                 # logic that generates response to player's move
                 if move == 'drop':
