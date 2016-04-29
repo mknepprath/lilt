@@ -212,7 +212,7 @@ if __name__ == "__main__":
                 elif (move == 'inventory') or (move == 'check inventory'):
                     message = mbuild(user['screen_name'], command.inventory(user['inventory']))
                 elif (move == 'delete me from lilt') or (move == u'💀💀💀'):
-                    message = mbuild(user['screen_name'], command.deleteme(user['id'])
+                    message = mbuild(user['screen_name'], command.deleteme(user['id']))
                 else:
                     log(rec, 'Searching...')
                     if user['response'] != None:
