@@ -13,14 +13,18 @@ def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 572
             e, f = (d).split(' ',1)
         a = cleanstr(a)
         if (a == 'drop'):
-            if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')): #removes article
+            print '1'
+            if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):
                 b = cleanstr(d)
             else:
+                print '2'
                 b = cleanstr(b)
+            print '3'
             if db.select('name', 'items', 'name', b) != None:
+                print '4'
                 return item.drop(b, inventory, id)
         elif (a == 'give') and c: # c must exist for give to work
-            if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')): #removes article
+            if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')):
                 d = cleanstr(f)
             else:
                 d = cleanstr(d)
