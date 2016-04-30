@@ -52,13 +52,14 @@ def newmove(move, response, position, traits=None):
     else:
         tq = 0
         dbcallstart = "INSERT INTO moves (move, response, position"
+        dbdata = (move, response, position)
         for trait in traits:
             tq += 1
             dbcallstart = dbcallstart + ', ' + str(trait)
+            dbdata = dbdata + (trait,)
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
-        print dbcallstart + dbcallend
-        # cur.execute(dbcallstart + dbcallend, (move, response, position))
-        # conn.commit()
+        cur.execute(dbcallstart + dbcallend, dbdata)
+        conn.commit()
 def newitem():
     pass
 def storeerror(move, position):
