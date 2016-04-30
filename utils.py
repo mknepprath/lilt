@@ -22,3 +22,5 @@ def cleanstr(s):
 def cansplit(s):
     if len((s).split()) >= 2:
         return True
+    else:
+        return False

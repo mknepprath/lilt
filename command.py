@@ -5,30 +5,19 @@ import db
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
-    print '0'
     if cansplit(tweet):
-        print '0.1'
         a, b = (tweet).split(' ',1)
-        print '0.2'
         if cansplit(b):
-            print '0.3'
             c, d = (b).split(' ',1)
-            print '0.4'
         if cansplit(d):
             e, f = (d).split(' ',1)
-        print '0.5'
         a = cleanstr(a)
-        print a
         if (a == 'drop'):
-            print '1'
             if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):
                 b = cleanstr(d)
             else:
-                print '2'
                 b = cleanstr(b)
-            print '3'
             if db.select('name', 'items', 'name', b) != None:
-                print '4'
                 return item.drop(b, inventory, id)
         elif (a == 'give') and c: # c must exist for give to work
             if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')):
