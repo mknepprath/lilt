@@ -56,7 +56,10 @@ def newmove(move, response, position, traits=None):
         for trait in traits:
             tq += 1
             dbcallstart = dbcallstart + ', ' + str(trait)
-            dbdata = dbdata + (traits[trait],)
+            if type(traits[trait]) is dict:
+                dbdata = dbdata + (json.dumps(traits[trait]),)
+            else:
+                dbdata = dbdata + (traits[trait],) # must factor if inputting json (json.dumps)
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
         cur.execute(dbcallstart + dbcallend, dbdata)
         conn.commit()
