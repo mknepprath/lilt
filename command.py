@@ -40,9 +40,12 @@ def get(tweet, inventory, id, position):
             if len((addresponse).split('~')) >= 2:
                 addresponse, t = (addresponse).split('~',1)
                 traits = dict(trait.split('|') for trait in (t).split('~'))
-                for trait in traits:
-                    if len((traits).split('^')) >= 2:
-                        print 'trig//cond'
+                for trait in traits: # trigger
+                    print trait # trigger
+                    print traits[trait] # door^smashed
+                    if len((traits[trait]).split('^')) >= 2:
+                        traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
+                    print traits[trait]
                 print traits
             else:
                 pass
