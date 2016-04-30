@@ -63,8 +63,9 @@ def newmove(move, response, position, traits=None):
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
         cur.execute(dbcallstart + dbcallend, dbdata)
         conn.commit()
-def newitem():
-    pass
+def newitem(traits):
+    cur.execute("INSERT INTO items (name, max) VALUES (%s, %s)", (traits['name'], traits['max']))
+    conn.commit()
 def storeerror(move, position):
     attempt = dbselect('attempts', 'attempts', 'move', move, position)
     if attempt == None:
