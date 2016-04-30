@@ -40,8 +40,7 @@ def get(tweet, inventory, id, position):
             if len((addresponse).split('~')) >= 2:
                 addresponse, t = (addresponse).split('~',1)
                 traits = dict(trait.split('|') for trait in (t).split('~'))
-                for trait in traits: # trigger
-                    print trait
+                for trait in traits:
                     if trait == 'i':
                         traits['item'] = traits['i']
                         del traits['i']
@@ -52,12 +51,12 @@ def get(tweet, inventory, id, position):
                         traits['condition'] = traits['c']
                         del traits['c']
                     if trait == 't':
-                        print 'if t reached'
                         traits['trigger'] = traits['t']
                         del traits['t']
                     if trait == 'tr':
                         traits['travel'] = traits['tr']
                         del traits['tr']
+                for trait in traits: # trigger
                     if len((traits[trait]).split('^')) >= 2:
                         traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
             else:
