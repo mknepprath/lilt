@@ -7,22 +7,26 @@ from utils import cleanstr, invbuild, cansplit
 def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
-        if cansplit(b):
-            c, d = (b).split(' ',1)
-        if cansplit(d):
-            e, f = (d).split(' ',1)
         a = cleanstr(a)
         if (a == 'drop'):
-            if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')): #removes article
-                item = cleanstr(d)
+            if cansplit(b): #removes article
+                c, d = (b).split(' ',1)
+                if (c == 'the') or (c == 'a') or (c == 'an') or (c == 'some'):
+                    item = cleanstr(d)
+                else:
+                    item = cleanstr(b)
             else:
                 item = cleanstr(b)
             if db.select('name', 'items', 'name', item) != None:
                 return item.drop(item, inventory, id)
-        elif (a == 'give'): # c must exist for give to work
+        elif (a == 'give'):
             if cansplit(b):
-                if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')): #removes article
-                    item = cleanstr(f)
+                c, d = (b).split(' ',1)
+                if cansplit(d):
+                    if (e == 'the') or (e == 'a') or (e == 'an') or (e == 'some'):
+                        item = cleanstr(f)
+                    else:
+                        item = cleanstr(d)
                 else:
                     item = cleanstr(d)
                 if db.select('name', 'items', 'name', item) != None:
