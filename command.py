@@ -52,6 +52,7 @@ def get(tweet, inventory, id, position):
                         traits['condition'] = traits['c']
                         del traits['c']
                     if trait == 't':
+                        print 'if t reached'
                         traits['trigger'] = traits['t']
                         del traits['t']
                     if trait == 'tr':
