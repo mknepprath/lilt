@@ -3,7 +3,7 @@ import os
 import psycopg2
 import urlparse
 import json
-from bot import cur
+from bot import conn, cur
 
 def select(col1, table, col2, val, position=None, condition=None):
     if condition != None:
