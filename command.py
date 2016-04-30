@@ -34,7 +34,7 @@ def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 572
         elif (a == 'delete me from lilt') or (a == u'💀💀💀'):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
-        elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
+        elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576')):
             addmove, addresponse = (b).split('~',1)
             db.newmove(addmove, addresponse, position)
             return '\'' + addmove + '\' was added to Lilt.'
