@@ -17,4 +17,6 @@ def getcurrent(move, position, inventory, events):
         if response != None:
             current_event = e
             break
+    for item in items:
+        del ev_inv[position][item]
     return current_event
