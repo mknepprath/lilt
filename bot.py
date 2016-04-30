@@ -162,8 +162,8 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
-                message = mbuild(user['screen_name'], command.get(tweet, user['inventory'], user['id'], user['position']))
-                if not message:
+                command = command.get(tweet, user['inventory'], user['id'], user['position'])
+                if not command:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
                     # get current event (requires items from user_data)
@@ -203,6 +203,8 @@ if __name__ == "__main__":
                         message = mbuild(user['screen_name'], random.choice(error_message))
                         if debug == False:
                             db.log(rec, db.storeerror(move, user['position']))
+                else:
+                    message = mbuild(user['screen_name'], command)
 
                 db.log(rec, 'reply: ' + message)
                 if debug == False:
