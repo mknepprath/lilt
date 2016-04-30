@@ -42,11 +42,21 @@ def get(tweet, inventory, id, position):
                 traits = dict(trait.split('|') for trait in (t).split('~'))
                 for trait in traits: # trigger
                     print trait
-                    trait = 'item' if trait == 'i' else trait
-                    trait = 'drop' if trait == 'd' else trait
-                    trait = 'condition' if trait == 'c' else trait
-                    trait = 'trigger' if trait == 't' else trait
-                    trait = 'travel' if trait == 'tr' else trait
+                    if trait == 'i':
+                        traits['item'] = traits['i']
+                        del traits['i']
+                    if trait == 'd':
+                        traits['drop'] = traits['d']
+                        del traits['d']
+                    if trait == 'c':
+                        traits['condition'] = traits['c']
+                        del traits['c']
+                    if trait == 't':
+                        traits['trigger'] = traits['t']
+                        del traits['t']
+                    if trait == 'tr':
+                        traits['travel'] = traits['tr']
+                        del traits['tr']
                     if len((traits[trait]).split('^')) >= 2:
                         traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
             else:
