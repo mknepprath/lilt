@@ -2,32 +2,30 @@
 import string
 import item
 import db
-from utils import cleanstr, invbuild
+from utils import cleanstr, invbuild, cansplit, cleanitem
 
-def get(tweet, inventory, id, position):
-    if len((tweet).split()) >= 2:
+def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
+    if cansplit(tweet):
         a, b = (tweet).split(' ',1)
+        if cansplit(b):
+            c, d = (b).split(' ',1)
+        if cansplit(d):
+            e, f = (d).split(' ',1)
         a = cleanstr(a)
         if (a == 'drop'):
-            if len((b).split()) >= 2:
-                c, d = (b).split(' ',1)
-                if (c == 'the') or (c == 'a') or (c == 'an'):
-                    b = cleanstr(d)
+            if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')): #removes article
+                item = cleanstr(d)
             else:
-                b = cleanstr(b)
-            if db.select('name', 'items', 'name', b) != None:
-                return item.drop(cleanstr(b), inventory, id)
-        elif (a == 'give'):
-            if len((b).split()) >= 2:
-                c, d = (b).split(' ',1)
-                if len((d).split()) >= 2:
-                    e, f = (d).split(' ',1)
-                    if (e == 'the') or (e == 'a') or (e == 'an'):
-                        d = cleanstr(f)
-                else:
-                    d = cleanstr(d)
-                if db.select('name', 'items', 'name', d) != None:
-                    return item.give(d, inventory, id, position, cleanstr(c))
+                item = cleanstr(b)
+            if db.select('name', 'items', 'name', item) != None:
+                return item.drop(item, inventory, id)
+        elif (a == 'give') and c: # c must exist for give to work
+            if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')): #removes article
+                item = cleanstr(f)
+            else:
+                item = cleanstr(d)
+            if db.select('name', 'items', 'name', item) != None:
+                return item.give(item, inventory, id, position, cleanstr(c))
         elif (a == 'inventory') or (a == 'check inventory') or (a == 'what am i holding'):
             if inventory == {}:
                 return 'Your inventory is empty at the moment.'
@@ -40,5 +38,4 @@ def get(tweet, inventory, id, position):
             addmove, addresponse = (b).split('~',1)
             db.newmove(addmove, addresponse, position)
             return '\'' + addmove + '\' was added to Lilt.'
-    else:
-        return False
+    return False

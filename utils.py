@@ -19,3 +19,6 @@ def cleanstr(s):
     s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
     ns = ''.join(ch for ch in s_mod if ch not in set(string.punctuation)).lower().rstrip() # removes punctuation
     return ns
+def cansplit(s):
+    if len((s).split()) >= 2:
+        return True
