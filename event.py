@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import db
+from copy import copy
 
 def getcurrent(move, position, inventory, events):
-    events_inv = dict(events)
+    events_inv = copy(events)
     items = list(inventory.keys())
     for item in items:
         events_inv[position][item] = 'inventory'
