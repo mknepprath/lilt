@@ -43,7 +43,7 @@ def get(tweet, inventory, id, position):
                     print dict(item.split('|') for item in s.split('~'))
                 else:
                     print traits
-            else
+            else:
                 pass
             # db.newmove(addmove, addresponse, position)
             return '\'' + addmove + '\' was added to Lilt.'
