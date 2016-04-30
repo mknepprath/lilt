@@ -162,7 +162,6 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
-                print '165: ' + str(user['events'])
                 message = command.get(tweet, user['inventory'], user['id'], user['position'])
                 if not message:
                     # get data for db response
@@ -172,20 +171,15 @@ if __name__ == "__main__":
                     if user['current_event'] != None:
                         db.log(rec, 'current event: ' + str(user['current_event']))
                     # loop through requests to moves table (requires current_event)
-                    print '175: ' + str(user['events'])
                     move_data = ['response', 'item', 'drop', 'trigger', 'travel']
                     for r in move_data:
                         user[r] = db.select(r, 'moves', 'move', move, user['position'], user['current_event'])
                         if user[r] != None:
                             db.log(rec, r + ': ' + str(user[r]))
-                    print '181: ' + str(user['events'])
                     # add trigger to events if it exists for this move
                     if user['trigger'] != None:
-                        print '184: ' + str(user['events'])
                         user['trigger'] = json.loads(user['trigger'])
-                        print '186: ' + str(user['events'])
                         user['events'][user['position']].update(user['trigger'])
-                        print '188: ' + str(user['events'])
                         db.update(user['events'], user['id'], 'events')
                     # move user if travel exists and add new position to events
                     if user['travel'] != None:
