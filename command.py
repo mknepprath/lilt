@@ -2,7 +2,6 @@
 import string
 import item
 import db
-from titlecase import titlecase
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
@@ -49,7 +48,7 @@ def get(tweet, inventory, id, position):
                             traits['max'] = traits['m']
                             del traits['m']
                     db.newitem(traits)
-                    return titlecase(traits['name']) + ' was added to Lilt.'
+                    return traits['name'].capitalize() + ' was added to Lilt.'
                 else:
                     # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
                     if len((addresponse).split('~')) >= 2:
