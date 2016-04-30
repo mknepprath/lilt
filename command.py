@@ -7,6 +7,7 @@ from utils import cleanstr, invbuild, cansplit
 def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
+        c = None
         if cansplit(b):
             c, d = (b).split(' ',1)
         if cansplit(d):
@@ -19,7 +20,7 @@ def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 572
                 item = cleanstr(b)
             if db.select('name', 'items', 'name', item) != None:
                 return item.drop(item, inventory, id)
-        elif (a == 'give') and c: # c must exist for give to work
+        elif (a == 'give') and (c != None): # c must exist for give to work
             if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')): #removes article
                 item = cleanstr(f)
             else:
