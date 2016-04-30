@@ -2,7 +2,7 @@
 import string
 import item
 import db
-from utils import cleanstr, invbuild, cansplit, cleanitem
+from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
     if cansplit(tweet):
