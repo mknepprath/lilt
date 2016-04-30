@@ -213,5 +213,5 @@ if __name__ == "__main__":
             db.log(rec, ' ')
         except:
             pass
-cur.close()
-conn.close()
+db.cur.close()
+db.conn.close()
