@@ -7,36 +7,25 @@ from utils import cleanstr, invbuild, cansplit
 def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
+        if cansplit(b):
+            c, d = (b).split(' ',1)
+        if cansplit(d):
+            e, f = (d).split(' ',1)
         a = cleanstr(a)
         if (a == 'drop'):
-            if cansplit(b): #removes article
-                c, d = (b).split(' ',1)
-                if (c == 'the') or (c == 'a') or (c == 'an') or (c == 'some'):
-                    item = cleanstr(d)
-                else:
-                    item = cleanstr(b)
+            if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')): #removes article
+                b = cleanstr(d)
             else:
-                item = cleanstr(b)
-            if db.select('name', 'items', 'name', item) != None:
-                return item.drop(item, inventory, id)
-        elif (a == 'give'):
-            print '1'
-            if cansplit(b):
-                print '2'
-                c, d = (b).split(' ',1)
-                if cansplit(d):
-                    print '3'
-                    if (e == 'the') or (e == 'a') or (e == 'an') or (e == 'some'):
-                        print '4'
-                        item = cleanstr(f)
-                    else:
-                        item = cleanstr(d)
-                else:
-                    item = cleanstr(d)
-                print '5'
-                if db.select('name', 'items', 'name', item) != None:
-                    print '6'
-                    return item.give(item, inventory, id, position, cleanstr(c))
+                b = cleanstr(b)
+            if db.select('name', 'items', 'name', b) != None:
+                return item.drop(b, inventory, id)
+        elif (a == 'give') and c: # c must exist for give to work
+            if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')): #removes article
+                d = cleanstr(f)
+            else:
+                d = cleanstr(d)
+            if db.select('name', 'items', 'name', d) != None:
+                return item.give(d, inventory, id, position, cleanstr(c))
         elif (a == 'inventory') or (a == 'check inventory') or (a == 'what am i holding'):
             if inventory == {}:
                 return 'Your inventory is empty at the moment.'
