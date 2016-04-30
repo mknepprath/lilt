@@ -39,4 +39,4 @@ def get(tweet, inventory, id, position):
             db.newmove(addmove, addresponse, position)
             return '\'' + addmove + '\' was added to Lilt.'
     else:
-        return None
+        return False
