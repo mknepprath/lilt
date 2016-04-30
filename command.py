@@ -40,10 +40,7 @@ def get(tweet, inventory, id, position):
             if len((addresponse).split('~')) >= 2:
                 addresponse, traits = (addresponse).split('~',1)
                 print traits
-                if len((traits).split('~')) >= 2:
-                    print dict(trait.split('|') for trait in (traits).split('~'))
-                else:
-                    print dict(traits.split('|'))
+                print dict(trait.split('|') for trait in (traits).split('~'))
             else:
                 pass
             # db.newmove(addmove, addresponse, position)
