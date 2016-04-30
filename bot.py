@@ -17,18 +17,6 @@ from utils import cleanstr, mbuild, invbuild
 debug = True
 rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
-# init postgresql database // cur.executes in bot.py to db.py so this can be removed
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
-cur = conn.cursor()
-
 class TwitterAPI:
     """
     Class for accessing the Twitter API.
