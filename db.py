@@ -54,7 +54,7 @@ def newmove(move, response, position, traits=None):
         dbcallstart = "INSERT INTO moves (move, response, position"
         for trait in traits:
             tq += 1
-            dbcallstart = dbcallstart + ', ' + str(traits[trait])
+            dbcallstart = dbcallstart + ', ' + str(trait)
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
         print dbcallstart + dbcallend
         # cur.execute(dbcallstart + dbcallend, (move, response, position))
