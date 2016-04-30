@@ -14,7 +14,6 @@ def get(tweet, inventory, id, position):
                 return item.drop(cleanstr(b), inventory, id)
 
         elif (a == 'give'):
-            print 'giving'
             c, d = (b).split(' ',1)
             e, f = (d).split(' ',1)
             if (e == 'the') or (e == 'a') or (e == 'an'):
@@ -22,6 +21,7 @@ def get(tweet, inventory, id, position):
             else:
                 d = cleanstr(d)
             if select('name', 'items', 'name', d) != None:
+                print 'going to return...'
                 return item.give(d, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 
         elif (a == 'inventory') or (a == 'check inventory'):
