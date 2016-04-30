@@ -21,9 +21,7 @@ def get(tweet, inventory, id, position):
                     d = cleanstr(f)
             else:
                 d = cleanstr(d)
-            print 'before db.select'
             if db.select('name', 'items', 'name', d) != None:
-                print 'after'
                 return item.give(d, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
 
         elif (a == 'inventory') or (a == 'check inventory'):

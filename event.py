@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from db import select
+import db
 
 def getcurrent(move, position, inventory, events):
     events_inv = events
@@ -11,7 +11,7 @@ def getcurrent(move, position, inventory, events):
         event = {}
         event[key] = value
         # check if there is a response for this move when condition is met (this event)
-        response = select('response', 'moves', 'move', move, position, event)
+        response = db.select('response', 'moves', 'move', move, position, event)
         if response != None:
             current_event = event
             break
