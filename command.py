@@ -16,6 +16,7 @@ def get(tweet, inventory, id, position):
         elif (a == 'give'):
             print 'giving'
             c, d = (b).split(' ',1)
+            print 'first split done'
             e, f = (d).split(' ',1)
             print 'after splits'
             if (e == 'the') or (e == 'a') or (e == 'an'):
