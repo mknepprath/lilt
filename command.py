@@ -41,6 +41,7 @@ def get(tweet, inventory, id, position):
                 addresponse, t = (addresponse).split('~',1)
                 traits = dict(trait.split('|') for trait in (t).split('~'))
                 for trait in traits: # trigger
+                    print trait
                     trait = 'item' if trait == 'i' else trait
                     trait = 'drop' if trait == 'd' else trait
                     trait = 'condition' if trait == 'c' else trait
