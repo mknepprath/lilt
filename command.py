@@ -20,16 +20,22 @@ def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 572
             if db.select('name', 'items', 'name', item) != None:
                 return item.drop(item, inventory, id)
         elif (a == 'give'):
+            print '1'
             if cansplit(b):
+                print '2'
                 c, d = (b).split(' ',1)
                 if cansplit(d):
+                    print '3'
                     if (e == 'the') or (e == 'a') or (e == 'an') or (e == 'some'):
+                        print '4'
                         item = cleanstr(f)
                     else:
                         item = cleanstr(d)
                 else:
                     item = cleanstr(d)
+                print '5'
                 if db.select('name', 'items', 'name', item) != None:
+                    print '6'
                     return item.give(item, inventory, id, position, cleanstr(c))
         elif (a == 'inventory') or (a == 'check inventory') or (a == 'what am i holding'):
             if inventory == {}:
