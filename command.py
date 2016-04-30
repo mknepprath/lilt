@@ -14,6 +14,7 @@ def get(tweet, inventory, id, position):
                 return item.drop(cleanstr(b), inventory, id)
 
         elif (a == 'give'):
+            print 'giving'
             c, d = (b).split(' ',1)
             e, f = (d).split(' ',1)
             if (e == 'the') or (e == 'a') or (e == 'an'):
