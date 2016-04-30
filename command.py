@@ -42,8 +42,8 @@ def get(tweet, inventory, id, position):
                 traits = dict(trait.split('|') for trait in (t).split('~'))
                 for t in traits:
                     print t
-                    t = dict(t.split('^'))
-                    print t
+                    traits[t] = dict(t.split('^') for t in (traits[t]).split('~'))
+                    print traits[t]
                 print traits
             else:
                 pass
