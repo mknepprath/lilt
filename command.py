@@ -41,11 +41,11 @@ def get(tweet, inventory, id, position):
                 addresponse, t = (addresponse).split('~',1)
                 traits = dict(trait.split('|') for trait in (t).split('~'))
                 for trait in traits: # trigger
-                    trait = 'item' if trait == 'i'
-                    trait = 'drop' if trait == 'd'
-                    trait = 'condition' if trait == 'c'
-                    trait = 'trigger' if trait == 't'
-                    trait = 'travel' if trait == 'tr'
+                    trait = 'item' if trait == 'i' else trait
+                    trait = 'drop' if trait == 'd' else trait
+                    trait = 'condition' if trait == 'c' else trait
+                    trait = 'trigger' if trait == 't' else trait
+                    trait = 'travel' if trait == 'tr' else trait
                     if len((traits[trait]).split('^')) >= 2:
                         traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
             else:
