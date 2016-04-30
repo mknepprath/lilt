@@ -12,8 +12,7 @@ conn = psycopg2.connect(
     user=url.username,
     password=url.password,
     host=url.hostname,
-    port=url.port
-)
+    port=url.port)
 cur = conn.cursor()
 
 def select(col1, table, col2, val, position=None, condition=None):
