@@ -14,13 +14,11 @@ def get(tweet, inventory, id, position):
                 return item.drop(cleanstr(b), inventory, id)
 
         elif (a == 'give'):
-            print 'giving'
             c, d = (b).split(' ',1)
-            print 'first split done'
-            e, f = (d).split(' ',1)
-            print 'after splits'
-            if (e == 'the') or (e == 'a') or (e == 'an'):
-                d = cleanstr(f)
+            if len((d).split()) >= 2:
+                e, f = (d).split(' ',1)
+                if (e == 'the') or (e == 'a') or (e == 'an'):
+                    d = cleanstr(f)
             else:
                 d = cleanstr(d)
             print 'before db.select'
