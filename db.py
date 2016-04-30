@@ -56,7 +56,7 @@ def newmove(move, response, position, traits=None):
         for trait in traits:
             tq += 1
             dbcallstart = dbcallstart + ', ' + str(trait)
-            dbdata = dbdata + (trait,)
+            dbdata = dbdata + (traits[trait],)
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
         cur.execute(dbcallstart + dbcallend, dbdata)
         conn.commit()
