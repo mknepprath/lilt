@@ -43,7 +43,7 @@ class TwitterAPI:
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
 error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
-# rstring to avoid Twitter getting mad about duplicate tweets - unnecessary at the moment ### rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
+# rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
@@ -180,7 +180,7 @@ if __name__ == "__main__":
                     if user['trigger'] != None:
                         user['trigger'] = json.loads(user['trigger'])
                         user['events'][user['position']].update(user['trigger'])
-                        db.update(user['events'], user['id'], 'events')
+                        # db.update(user['events'], user['id'], 'events')
                     # move user if travel exists and add new position to events
                     if user['travel'] != None:
                         db.update(user['travel'], user['id'], 'position')
