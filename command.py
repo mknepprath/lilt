@@ -35,32 +35,32 @@ def get(tweet, inventory, id, position):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
         elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
-            # example: @familiarlilt use sword on door~You smash it open.~item|wood~trigger|door^smashed~
-            addmove, addresponse = (b).split('~',1)
-            if len((addresponse).split('~')) >= 2:
-                addresponse, t = (addresponse).split('~',1)
-                traits = dict(trait.split('|') for trait in (t).split('~'))
-                for trait in traits:
-                    if trait == 'i':
-                        traits['item'] = traits['i']
-                        del traits['i']
-                    if trait == 'd':
-                        traits['drop'] = traits['d']
-                        del traits['d']
-                    if trait == 'c':
-                        traits['condition'] = traits['c']
-                        del traits['c']
-                    if trait == 't':
-                        traits['trigger'] = traits['t']
-                        del traits['t']
-                    if trait == 'tr':
-                        traits['travel'] = traits['tr']
-                        del traits['tr']
-                for trait in traits: # trigger
-                    if len((traits[trait]).split('^')) >= 2:
-                        traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
-            else:
-                traits = None
-            db.newmove(addmove, addresponse, position, traits)
-            return '\'' + addmove + '\' was added to Lilt.'
+            if len((b).split('~')) >= 2:
+                addmove, addresponse = (b).split('~',1)
+                if len((addresponse).split('~')) >= 2:
+                    addresponse, t = (addresponse).split('~',1)
+                    traits = dict(trait.split('|') for trait in (t).split('~'))
+                    for trait in traits: # update shorthand keys
+                        if trait == 'i':
+                            traits['item'] = traits['i']
+                            del traits['i']
+                        if trait == 'd':
+                            traits['drop'] = traits['d']
+                            del traits['d']
+                        if trait == 'c':
+                            traits['condition'] = traits['c']
+                            del traits['c']
+                        if trait == 't':
+                            traits['trigger'] = traits['t']
+                            del traits['t']
+                        if trait == 'tr':
+                            traits['travel'] = traits['tr']
+                            del traits['tr']
+                    for trait in traits: # convert condition/trigger to dicts
+                        if len((traits[trait]).split('^')) >= 2:
+                            traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
+                else:
+                    traits = None
+                db.newmove(addmove, addresponse, position, traits)
+                return '\'' + addmove + '\' was added to Lilt.'
     return False
