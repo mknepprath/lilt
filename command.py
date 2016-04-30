@@ -4,14 +4,21 @@ import item
 import db
 from utils import cleanstr, invbuild, cansplit
 
-def get(tweet, inventory, id, position): # drop banana # drop bologna # drop 5720 ghao
+def get(tweet, inventory, id, position):
+    print '0'
     if cansplit(tweet):
+        print '0.1'
         a, b = (tweet).split(' ',1)
+        print '0.2'
         if cansplit(b):
+            print '0.3'
             c, d = (b).split(' ',1)
+            print '0.4'
         if cansplit(d):
             e, f = (d).split(' ',1)
+        print '0.5'
         a = cleanstr(a)
+        print a
         if (a == 'drop'):
             print '1'
             if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):
