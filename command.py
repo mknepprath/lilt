@@ -38,9 +38,13 @@ def get(tweet, inventory, id, position):
             # example: @familiarlilt use sword on door~You smash it open.~item|wood~trigger|door^smashed~
             addmove, addresponse = (b).split('~',1)
             if len((addresponse).split('~')) >= 2:
-                addresponse, traits = (addresponse).split('~',1)
+                addresponse, t = (addresponse).split('~',1)
+                traits = dict(trait.split('|') for trait in (t).split('~'))
+                for t in traits:
+                    print t
+                    t = dict(t.split('^'))
+                    print t
                 print traits
-                print dict(trait.split('|') for trait in (traits).split('~'))
             else:
                 pass
             # db.newmove(addmove, addresponse, position)
