@@ -34,8 +34,17 @@ def get(tweet, inventory, id, position):
         elif (a == 'delete me from lilt') or (a == u'💀💀💀'):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
-        elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576')):
+        elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
+            # example: @familiarlilt use sword on door~You smash it open.~item|wood~trigger|door^smashed~
             addmove, addresponse = (b).split('~',1)
-            db.newmove(addmove, addresponse, position)
+            if len((addresponse).split('~')) >= 2:
+                addresponse, traits = (addresponse).split('~',1)
+                if len((traits).split('~')) >= 2:
+                    print dict(item.split('|') for item in s.split('~'))
+                else:
+                    print traits
+            else
+                pass
+            # db.newmove(addmove, addresponse, position)
             return '\'' + addmove + '\' was added to Lilt.'
     return False
