@@ -20,7 +20,4 @@ def cleanstr(s):
     ns = ''.join(ch for ch in s_mod if ch not in set(string.punctuation)).lower().rstrip() # removes punctuation
     return ns
 def cansplit(s):
-    if len((s).split()) >= 2:
-        return True
-    else:
-        return False
+    return True if len((s).split()) >= 2 else False

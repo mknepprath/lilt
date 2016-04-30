@@ -9,8 +9,8 @@ def get(tweet, inventory, id, position):
         a, b = (tweet).split(' ',1)
         if cansplit(b):
             c, d = (b).split(' ',1)
-        if cansplit(d):
-            e, f = (d).split(' ',1)
+            if cansplit(d):
+                e, f = (d).split(' ',1)
         a = cleanstr(a)
         if (a == 'drop'):
             if cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):
