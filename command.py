@@ -4,13 +4,15 @@ import item
 from db import select, delete, newmove
 from utils import cleanstr, invbuild
 
-def get(tweet):
+def get(tweet, inventory, id, position):
     if len((tweet).split()) >= 2:
         a, b = (tweet).split(' ',1)
         a = ''.join(ch for ch in a if ch not in set(string.punctuation)).lower()
+
         if (a == 'drop'):
             if select('name', 'items', 'name', cleanstr(b)) != None:
-                return a
+                return item.drop(cleanstr(b), inventory, id)
+
         elif (a == 'give'):
             c, d = (b).split(' ',1)
             e, f = (d).split(' ',1)
@@ -19,41 +21,21 @@ def get(tweet):
             else:
                 d = cleanstr(d)
             if select('name', 'items', 'name', d) != None:
-                return a
+                return item.give(d, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
+
         elif (a == 'inventory') or (a == 'check inventory'):
-            return 'inventory'
+            if inventory == {}:
+                return 'Your inventory is empty at the moment.'
+            else:
+                return invbuild(inventory)
+
         elif (a == 'delete me from lilt') or (a == u'💀💀💀'):
-            return 'delete me'
+            delete('users', 'id', id)
+            return 'You\'ve been removed from Lilt. Thanks for playing!'
+
         elif (a == 'liltadd') and ((user['id'] == '15332057') or (user['id'] == '724754312757272576')):
-            return a
-        else:
-            return None
+            addmove, addresponse = (b).split('~',1)
+            newmove(addmove, addresponse, position)
+            return '\'' + addmove + '\' was added to Lilt.'
     else:
         return None
-def drop(tweet, inventory, id):
-    item_to_drop = (tweet).split(' ',1)[1]
-    return item.drop(cleanstr(item_to_drop), inventory, id)
-def give(tweet, inventory, id, position):
-    print 'giving'
-    b = (tweet).split(' ',1)[1]
-    c, d = (b).split(' ',1)
-    e, f = (d).split(' ',1)
-    if (e == 'the') or (e == 'a') or (e == 'an'):
-        item_to_give = cleanstr(f)
-    else:
-        item_to_give = cleanstr(d)
-    print 'got the item_to_give'
-    return item.give(item_to_give, inventory, id, position, ''.join(ch for ch in c if ch not in set(string.punctuation)).lower())
-def inventory(inventory):
-    if inventory == {}:
-        return 'Your inventory is empty at the moment.'
-    else:
-        return invbuild(inventory)
-def deleteme(id):
-    delete('users', 'id', id)
-    return 'You\'ve been removed from Lilt. Thanks for playing!'
-def liltadd(tweet, position):
-    b = (tweet).split(' ',1)[1]
-    addmove, addresponse = (b).split('~',1)
-    newmove(addmove, addresponse, position)
-    return '\'' + addmove + '\' was added to Lilt.'

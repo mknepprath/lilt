@@ -174,20 +174,8 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
-                if command.get(tweet) != None:
-                    cmd = command.get(tweet)
-                    if cmd == 'drop':
-                        message = mbuild(user['screen_name'], command.drop(tweet, user['inventory'], user['id']))
-                    elif cmd == 'give':
-                        message = mbuild(user['screen_name'], command.give(tweet, user['inventory'], user['id'], user['position']))
-                    elif cmd == 'liltadd': # this will trigger if their move is liltadd, but won't do anything...
-                        message = mbuild(user['screen_name'], command.liltadd(tweet, user['position']))
-                    elif cmd == 'inventory':
-                        message = mbuild(user['screen_name'], command.inventory(user['inventory']))
-                    elif cmd == 'delete me':
-                        message = mbuild(user['screen_name'], command.deleteme(user['id']))
-                    else:
-                        message = mbuild(user['screen_name'], random.choice(error_message))
+                if command.get(tweet, user['inventory'], user['id'], user['position']) != None:
+                    message = command.get(tweet, user['inventory'], user['id'], user['position'])
                 else:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
