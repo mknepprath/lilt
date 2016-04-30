@@ -2,12 +2,14 @@
 import db
 
 def getcurrent(move, position, inventory, events):
-    events_inv = events.copy()
+    ev_inv = events.copy()
     items = list(inventory.keys())
+    print events
     for item in items:
-        events_inv[position][item] = 'inventory'
+        ev_inv[position][item] = 'inventory'
+    print events
     current_event = None
-    for key, value in events_inv[position].iteritems():
+    for key, value in ev_inv[position].iteritems():
         e = {}
         e[key] = value
         # check if there is a response for this move when condition is met (this event)
