@@ -46,8 +46,19 @@ def newuser(name, id, tweet_id, position, inventory, events):
     cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)", (name, id, tweet_id, position, json.dumps(inventory), json.dumps(events)))
     conn.commit()
 def newmove(move, response, position, traits=None):
-    cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (move, response, position))
-    conn.commit()
+    if traits == None:
+        cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)", (move, response, position))
+        conn.commit()
+    else:
+        tq = 0
+        dbcallstart = "INSERT INTO moves (move, response, position"
+        for trait in traits:
+            tq += 1
+            dbcallstart = dbcallstart + ', ' + str(traits[trait])
+        dbcallend ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
+        print dbcallstart + dbcallend
+        # cur.execute(dbcallstart + dbcallend, (move, response, position))
+        # conn.commit()
 def newitem():
     pass
 def storeerror(move, position):

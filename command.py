@@ -41,14 +41,10 @@ def get(tweet, inventory, id, position):
                 addresponse, t = (addresponse).split('~',1)
                 traits = dict(trait.split('|') for trait in (t).split('~'))
                 for trait in traits: # trigger
-                    print trait # trigger
-                    print traits[trait] # door^smashed
                     if len((traits[trait]).split('^')) >= 2:
                         traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
-                    print traits[trait]
-                print traits
             else:
-                pass
-            # db.newmove(addmove, addresponse, position)
+                traits = None
+            db.newmove(addmove, addresponse, position, traits)
             return '\'' + addmove + '\' was added to Lilt.'
     return False
