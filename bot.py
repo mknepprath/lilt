@@ -60,9 +60,7 @@ if __name__ == "__main__":
         raw_mentions = twitter.api.mentions_timeline(count=200)
         # get builder mentions
         builder = False
-        print '1'
         for mention in raw_mentions: # do these get processed first...
-            print '2'
             if mention.user.id == 724754312757272576:
                 if mention.id == int(db.select('last_tweet_id', 'users', 'id', '724754312757272576')):
                     builder = True
@@ -75,9 +73,7 @@ if __name__ == "__main__":
                 })
             else:
                 break
-        print '3'
         for mention in raw_mentions:
-            print '4'
             mentioned = False
             mention_name = (mention.text).split(' ',1)[0].lower()
             if mention_name != '@familiarlilt':
