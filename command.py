@@ -48,7 +48,7 @@ def get(tweet, inventory, id, position):
                             traits['max'] = traits['m']
                             del traits['m']
                     db.newitem(traits)
-                    return traits['name'].capitalize() + ' was added to Lilt.'
+                    return (True, traits['name'].capitalize() + ' was added to Lilt.')
                 else:
                     # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
                     if len((addresponse).split('~')) >= 2:
@@ -76,5 +76,5 @@ def get(tweet, inventory, id, position):
                     else:
                         traits = None
                     db.newmove(addmove, addresponse, position, traits)
-                    return '\'' + addmove + '\' was added to Lilt.'
-    return None
+                    return (True, '\'' + addmove + '\' was added to Lilt.')
+    return (False, '')
