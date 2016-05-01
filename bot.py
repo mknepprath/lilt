@@ -127,13 +127,14 @@ if __name__ == "__main__":
     for mention in mentions:
         try:
             user = {}
-            db.log(rec, str(user))
             user['screen_name'] = mention['screen_name'].lower()
             user['id'] = str(mention['user_id'])
             user['text'] = mention['text']
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
+            cmd = False
+            command = ''
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
@@ -175,7 +176,12 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
-                cmd = False
+                db.log(rec, str(cmd))
+                db.log(rec, str(command))
+                db.log(rec, str(tweet))
+                db.log(rec, str(user['inventory']))
+                db.log(rec, str(user['id']))
+                db.log(rec, str(user['position']))
                 cmd, command = command.get(tweet, user['inventory'], user['id'], user['position'])
                 db.log(rec, 'command: ' + str(command))
                 if not cmd:
