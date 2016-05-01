@@ -60,40 +60,38 @@ if __name__ == "__main__":
         raw_mentions = twitter.api.mentions_timeline(count=200)
         # get builder mentions
         builder = False
+        print '1'
         for mention in raw_mentions: # do these get processed first...
-            try:
-                if mention.user.id == 724754312757272576:
-                    if mention.id == int(db.select('last_tweet_id', 'users', 'id', mention.user.id)):
-                        builder = True
-                if builder == False:
-                    mentions.append({
-                        'screen_name': mention.user.screen_name,
-                        'user_id': mention.user.id,
-                        'text': mention.text,
-                        'tweet_id': mention.id
-                    })
-                else:
-                    break
-            except:
-                pass
+            print '2'
+            if mention.user.id == 724754312757272576:
+                if mention.id == int(db.select('last_tweet_id', 'users', 'id', mention.user.id)):
+                    builder = True
+            if builder == False:
+                mentions.append({
+                    'screen_name': mention.user.screen_name,
+                    'user_id': mention.user.id,
+                    'text': mention.text,
+                    'tweet_id': mention.id
+                })
+            else:
+                break
+        print '3'
         for mention in raw_mentions:
-            try:
-                mentioned = False
-                mention_name = (mention.text).split(' ',1)[0].lower()
-                if mention_name != '@familiarlilt':
+            print '4'
+            mentioned = False
+            mention_name = (mention.text).split(' ',1)[0].lower()
+            if mention_name != '@familiarlilt':
+                mentioned = True
+            for m in mentions:
+                if mention.user.id == m['user_id']: # if mention is already in mentioned, or the first word in mention text isn't lilt
                     mentioned = True
-                for m in mentions:
-                    if mention.user.id == m['user_id']: # if mention is already in mentioned, or the first word in mention text isn't lilt
-                        mentioned = True
-                if mentioned == False: # if user hasn't been mentioned, append it to mentions
-                    mentions.append({
-                        'screen_name': mention.user.screen_name,
-                        'user_id': mention.user.id,
-                        'text': mention.text,
-                        'tweet_id': mention.id
-                    })
-            except:
-                pass
+            if mentioned == False: # if user hasn't been mentioned, append it to mentions
+                mentions.append({
+                    'screen_name': mention.user.screen_name,
+                    'user_id': mention.user.id,
+                    'text': mention.text,
+                    'tweet_id': mention.id
+                })
 
     # get debug tweets
     if debug == True:
