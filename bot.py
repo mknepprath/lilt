@@ -127,6 +127,7 @@ if __name__ == "__main__":
     for mention in mentions:
         try:
             user = {}
+            db.select(rec, str(user))
             user['screen_name'] = mention['screen_name'].lower()
             user['id'] = str(mention['user_id'])
             user['text'] = mention['text']
