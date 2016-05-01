@@ -15,7 +15,7 @@ from utils import cleanstr, mbuild, invbuild
 
 # debugging options
 debug = False
-rec = True # pushs logs to console table // unicode doesn't work when debugging...
+rec = False # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -73,6 +73,7 @@ if __name__ == "__main__":
                 })
             else:
                 break
+        # gets the rest of the mentions
         for mention in raw_mentions:
             mentioned = False
             mention_name = (mention.text).split(' ',1)[0].lower()
@@ -176,14 +177,7 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
-                db.log(rec, str(cmdreply))
-                db.log(rec, str(cmd))
-                db.log(rec, str(tweet))
-                db.log(rec, str(user['inventory']))
-                db.log(rec, str(user['id']))
-                db.log(rec, str(user['position']))
                 cmdreply, cmd = command.get(tweet, user['inventory'], user['id'], user['position'])
-                db.log(rec, 'command: ' + str(cmd))
                 if not cmdreply:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
@@ -225,7 +219,7 @@ if __name__ == "__main__":
                         if debug == False:
                             db.log(rec, db.storeerror(move, user['position']))
                 else:
-                    db.log(rec, 'Creating message with command...')
+                    db.log(rec, 'command response: ' + str(cmd))
                     message = mbuild(user['screen_name'], cmd)
 
                 db.log(rec, 'reply: ' + message)
