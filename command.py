@@ -2,7 +2,7 @@
 import string
 import item
 import db
-from utils import cleanstr, invbuild, cansplit
+from utils import cleanstr, invbuild, cansplit, log
 
 def get(tweet, inventory, id, position):
     if cansplit(tweet):
@@ -35,6 +35,7 @@ def get(tweet, inventory, id, position):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
         elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
+            log(True, 'Running liltadd...')
             if len((b).split('~')) >= 2:
                 addmove, addresponse = (b).split('~',1)
                 if addmove == 'item':
@@ -48,6 +49,7 @@ def get(tweet, inventory, id, position):
                             traits['max'] = traits['m']
                             del traits['m']
                     db.newitem(traits)
+                    log(True, 'Liltadd complete.')
                     return traits['name'].capitalize() + ' was added to Lilt.'
                 else:
                     # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
@@ -76,5 +78,7 @@ def get(tweet, inventory, id, position):
                     else:
                         traits = None
                     db.newmove(addmove, addresponse, position, traits)
+                    log(True, 'Liltadd complete.')
                     return '\'' + addmove + '\' was added to Lilt.'
+    log(True, 'Liltadd failed.')
     return False
