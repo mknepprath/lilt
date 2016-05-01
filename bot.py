@@ -64,7 +64,7 @@ if __name__ == "__main__":
         for mention in raw_mentions: # do these get processed first...
             print '2'
             if mention.user.id == 724754312757272576:
-                if mention.id == int(db.select('last_tweet_id', 'users', 'id', mention.user.id)):
+                if mention.id == int(db.select('last_tweet_id', 'users', 'id', '724754312757272576')):
                     builder = True
             if builder == False:
                 mentions.append({
