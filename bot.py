@@ -14,8 +14,8 @@ import db
 from utils import cleanstr, mbuild, invbuild
 
 # debugging options
-debug = False
-rec = False # pushs logs to console table // unicode doesn't work when debugging...
+debug = True
+rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -59,18 +59,21 @@ if __name__ == "__main__":
     if debug == False:
         raw_mentions = twitter.api.mentions_timeline(count=200)
         # get builder mentions
+        builder = False
         for mention in raw_mentions: # do these get processed first...
             try:
                 if mention.user.id == 724754312757272576:
-                    if mention.id == int(db.select('name', 'users', 'last_tweet_id', user['tweet_id'])):
-                        break
-                    else:
-                        mentions.append({
-                            'screen_name': mention.user.screen_name,
-                            'user_id': mention.user.id,
-                            'text': mention.text,
-                            'tweet_id': mention.id
-                        })
+                    if mention.id == int(db.select('last_tweet_id', 'users', 'id', mention.user.id)):
+                        builder = True
+                if builder == False:
+                    mentions.append({
+                        'screen_name': mention.user.screen_name,
+                        'user_id': mention.user.id,
+                        'text': mention.text,
+                        'tweet_id': mention.id
+                    })
+                else:
+                    break
             except:
                 pass
         for mention in raw_mentions:
