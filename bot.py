@@ -133,8 +133,8 @@ if __name__ == "__main__":
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
-            cmd = False
-            command = ''
+            cmdreplyreply = False
+            cmd = ''
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
             tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
@@ -176,15 +176,15 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
+                db.log(rec, str(cmdreply))
                 db.log(rec, str(cmd))
-                db.log(rec, str(command))
                 db.log(rec, str(tweet))
                 db.log(rec, str(user['inventory']))
                 db.log(rec, str(user['id']))
                 db.log(rec, str(user['position']))
-                cmd, command = command.get(tweet, user['inventory'], user['id'], user['position'])
-                db.log(rec, 'command: ' + str(command))
-                if not cmd:
+                cmdreply, cmd = command.get(tweet, user['inventory'], user['id'], user['position'])
+                db.log(rec, 'command: ' + str(cmd))
+                if not cmdreply:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
                     # get current event (requires items from user_data)
@@ -226,7 +226,7 @@ if __name__ == "__main__":
                             db.log(rec, db.storeerror(move, user['position']))
                 else:
                     db.log(rec, 'Creating message with command...')
-                    message = mbuild(user['screen_name'], command)
+                    message = mbuild(user['screen_name'], cmd)
 
                 db.log(rec, 'reply: ' + message)
                 if debug == False:
