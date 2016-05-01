@@ -35,7 +35,6 @@ def get(tweet, inventory, id, position):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
         elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
-            db.log(True, 'Running liltadd...')
             if len((b).split('~')) >= 2:
                 addmove, addresponse = (b).split('~',1)
                 if addmove == 'item':
@@ -49,7 +48,6 @@ def get(tweet, inventory, id, position):
                             traits['max'] = traits['m']
                             del traits['m']
                     db.newitem(traits)
-                    db.log(True, 'Liltadd complete.')
                     return traits['name'].capitalize() + ' was added to Lilt.'
                 else:
                     # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
@@ -78,7 +76,5 @@ def get(tweet, inventory, id, position):
                     else:
                         traits = None
                     db.newmove(addmove, addresponse, position, traits)
-                    db.log(True, 'Liltadd complete.')
                     return '\'' + addmove + '\' was added to Lilt.'
-    db.log(True, 'Liltadd failed.')
     return False

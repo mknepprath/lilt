@@ -216,6 +216,7 @@ if __name__ == "__main__":
                         if debug == False:
                             db.log(rec, db.storeerror(move, user['position']))
                 else:
+                    db.log(rec, 'Creating message with command...')
                     message = mbuild(user['screen_name'], command)
 
                 db.log(rec, 'reply: ' + message)
