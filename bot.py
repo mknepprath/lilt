@@ -62,7 +62,7 @@ if __name__ == "__main__":
         for mention in raw_mentions: # do these get processed first...
             try:
                 if mention.user.id == 724754312757272576:
-                    if mention.id == int(db.select('name', 'users', 'last_tweet_id', user['tweet_id']))
+                    if mention.id == int(db.select('name', 'users', 'last_tweet_id', user['tweet_id'])):
                         break
                     else:
                         mentions.append({
