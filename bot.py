@@ -133,7 +133,7 @@ if __name__ == "__main__":
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
-            cmdreplyreply = False
+            cmdreply = False
             cmd = ''
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
