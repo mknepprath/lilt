@@ -174,9 +174,10 @@ if __name__ == "__main__":
                     user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
+                command = ''
                 command = command.get(tweet, user['inventory'], user['id'], user['position'])
                 db.log(rec, 'command: ' + str(command))
-                if not command:
+                if command == '':
                     # get data for db response
                     db.log(rec, 'move: ' + move)
                     # get current event (requires items from user_data)

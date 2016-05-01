@@ -77,4 +77,4 @@ def get(tweet, inventory, id, position):
                         traits = None
                     db.newmove(addmove, addresponse, position, traits)
                     return '\'' + addmove + '\' was added to Lilt.'
-    return False
+    return ''
