@@ -5,6 +5,7 @@ import db
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
+    db.log(True, 'Running command.get...')
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
         if cansplit(b):
@@ -35,6 +36,7 @@ def get(tweet, inventory, id, position):
             db.delete('users', 'id', id)
             return 'You\'ve been removed from Lilt. Thanks for playing!'
         elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
+            db.log(True, 'Running liltadd...')
             if len((b).split('~')) >= 2:
                 addmove, addresponse = (b).split('~',1)
                 if addmove == 'item':
