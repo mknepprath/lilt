@@ -175,6 +175,7 @@ if __name__ == "__main__":
                     db.log(rec, r + ': ' + str(user[r]))
                 # handles commands (drop/give/inventory)
                 command = command.get(tweet, user['inventory'], user['id'], user['position'])
+                db.log(rec, 'command: ' + str(command))
                 if not command:
                     # get data for db response
                     db.log(rec, 'move: ' + move)
