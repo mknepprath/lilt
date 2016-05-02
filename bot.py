@@ -64,13 +64,13 @@ if __name__ == "__main__":
             if mention.user.id == 724754312757272576:
                 if mention.id == int(db.select('last_tweet_id', 'users', 'id', '724754312757272576')):
                     builder = True
-            if builder == False:
-                mentions.append({
-                    'screen_name': mention.user.screen_name,
-                    'user_id': mention.user.id,
-                    'text': mention.text,
-                    'tweet_id': mention.id
-                })
+                if builder == False:
+                    mentions.append({
+                        'screen_name': mention.user.screen_name,
+                        'user_id': mention.user.id,
+                        'text': mention.text,
+                        'tweet_id': mention.id
+                    })
         # gets the rest of the mentions
         for mention in raw_mentions:
             mentioned = False
