@@ -22,7 +22,7 @@ def get(tweet, inventory, id, position):
             else:
                 b = cleanstr(b)
             if db.select('name', 'items', 'name', b, quantity) != None:
-                return (True, item.drop(b, inventory, id))
+                return (True, item.drop(b, inventory, id, quantity))
         elif (a == 'give') and c: # c must exist for give to work
             if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')):
                 d = cleanstr(f)
