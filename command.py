@@ -15,6 +15,7 @@ def get(tweet, inventory, id, position):
         cmdtweet = cleanstr(tweet)
     else:
         a = cleanstr(tweet)
+        cmdtweet = cleanstr(tweet)
     if (a == 'drop'):
         quantity = None
         if cansplit(b) and (c == 'all'): # or check if it can be converted to a valid int
