@@ -38,7 +38,7 @@ def get(tweet, inventory, id, position):
             return (True, 'Your inventory is empty at the moment.')
         else:
             return (True, invbuild(inventory))
-    elif (cmdtweet == 'delete me from lilt') or (a == u'💀💀💀'):
+    elif (cmdtweet == 'delete me from lilt') or (a == u'💀💀💀') or (cmdtweet == u'💀💀💀') or (tweet == u'💀💀💀'):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
