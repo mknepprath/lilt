@@ -12,6 +12,7 @@ def get(tweet, inventory, id, position):
             if cansplit(d):
                 e, f = (d).split(' ',1)
         a = cleanstr(a)
+        z = cleanstr(tweet)
         if (a == 'drop'):
             quantity = None
             if cansplit(b) and (c == 'all'): # or check if it can be converted to a valid int
@@ -30,12 +31,13 @@ def get(tweet, inventory, id, position):
                 d = cleanstr(d)
             if db.select('name', 'items', 'name', d) != None:
                 return (True, item.give(d, inventory, id, position, cleanstr(c)))
-        elif (a == 'inventory') or (a == 'check inventory') or (a == 'what am i holding'):
+        elif (z == 'inventory') or (z == 'check inventory') or (z == 'what am i holding'): # multi-word commands won''t work right now... a is only one word
             if inventory == {}:
                 return (True, 'Your inventory is empty at the moment.')
             else:
+                db.log(True, 'Building inventory.')
                 return (True, invbuild(inventory))
-        elif (a == 'delete me from lilt') or (a == u'💀💀💀'):
+        elif (z == 'delete me from lilt') or (z == u'💀💀💀'):
             db.delete('users', 'id', id)
             return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
         elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
