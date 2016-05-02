@@ -14,8 +14,8 @@ import db
 from utils import cleanstr, mbuild, invbuild
 
 # debugging options
-debug = False
-rec = False # pushs logs to console table // unicode doesn't work when debugging...
+debug = True
+rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -226,9 +226,10 @@ if __name__ == "__main__":
                 if debug == False:
                     db.log(rec, '#TweetingIt')
                     twitter.reply(message, user['tweet_id'])
-            db.log(rec, ' ') # prints user data separate from other logs
-            db.log(rec, user['screen_name'] + '\'s data: ' + str(user))
-            db.log(rec, ' ')
+
+                db.log(rec, ' ') # prints user data separate from other logs
+                db.log(rec, user['screen_name'] + '\'s data: ' + str(user))
+                db.log(rec, ' ')
         except:
             pass
 db.cur.close()
