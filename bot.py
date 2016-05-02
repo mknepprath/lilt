@@ -221,8 +221,6 @@ if __name__ == "__main__":
                             db.log(rec, db.storeerror(move, user['position']))
                 else:
                     db.log(rec, 'Command acquired, printing reply...')
-                    print cmd
-                    db.log(rec, 'command response: ' + str(cmd))
                     message = mbuild(user['screen_name'], cmd)
 
                 db.log(rec, 'reply: ' + message)
