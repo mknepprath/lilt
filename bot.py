@@ -15,7 +15,7 @@ from utils import cleanstr, mbuild, invbuild
 
 # debugging options
 debug = False
-rec = False # pushs logs to console table // unicode doesn't work when debugging...
+rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -220,6 +220,7 @@ if __name__ == "__main__":
                         if debug == False:
                             db.log(rec, db.storeerror(move, user['position']))
                 else:
+                    db.log(rec, 'Command acquired, printing reply...')
                     db.log(rec, 'command response: ' + str(cmd))
                     message = mbuild(user['screen_name'], cmd)
 
