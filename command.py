@@ -14,14 +14,14 @@ def get(tweet, inventory, id, position):
         a = cleanstr(a)
         if (a == 'drop'):
             quantity = None
-            if c == 'all': # or check if it can be converted to a valid int
+            if cansplit(b) and (c == 'all'): # or check if it can be converted to a valid int
                 quantity = 'all'
                 b = cleanstr(d)
             elif cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):
                 b = cleanstr(d)
             else:
                 b = cleanstr(b)
-            if db.select('name', 'items', 'name', b, quantity) != None:
+            if db.select('name', 'items', 'name', b) != None:
                 return (True, item.drop(b, inventory, id, quantity))
         elif (a == 'give') and c: # c must exist for give to work
             if cansplit(d) and ((e == 'the') or (e == 'a') or (e == 'an') or (e == 'some')):
