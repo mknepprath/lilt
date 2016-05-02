@@ -14,7 +14,7 @@ def get(tweet, inventory, id, position):
         a = cleanstr(a)
         if (a == 'drop'):
             quantity = None
-            if cansplit(b) == 'all': # or check if it can be converted to a valid int
+            if c == 'all': # or check if it can be converted to a valid int
                 quantity = 'all'
                 b = cleanstr(d)
             elif cansplit(b) and ((c == 'the') or (c == 'a') or (c == 'an') or (c == 'some')):

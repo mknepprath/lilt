@@ -39,7 +39,7 @@ def drop(drop, inventory, user_id, response=None, quantity=None):
     elif quantity == 'all':
         del inventory[drop]
         db.update(inventory, user_id)
-        return 'You drop all ' + drop + 's.'
+        return 'You drop all of your ' + drop + 's.'
     else:
         inventory[drop]['quantity'] -= 1
         db.update(inventory, user_id)
