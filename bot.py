@@ -124,6 +124,8 @@ if __name__ == "__main__":
                 pass
         db.log(rec, ' ')
 
+    print mentions
+    
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
