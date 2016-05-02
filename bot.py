@@ -71,8 +71,6 @@ if __name__ == "__main__":
                     'text': mention.text,
                     'tweet_id': mention.id
                 })
-            else:
-                break
         # gets the rest of the mentions
         for mention in raw_mentions:
             mentioned = False
@@ -125,7 +123,7 @@ if __name__ == "__main__":
         db.log(rec, ' ')
 
     print mentions
-    
+
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
         try:
