@@ -23,7 +23,7 @@ def get(item, inventory, user_id, response):
                 return response
         else:
             return 'You can\'t hold more ' + item + '!'
-def drop(drop, inventory, user_id, response=None):
+def drop(drop, inventory, user_id, response=None, quantity=None):
     if drop not in inventory:
         if response == None:
             return 'You don\'t have anything like that.'
@@ -36,6 +36,10 @@ def drop(drop, inventory, user_id, response=None):
             return 'You drop one ' + drop + '.'
         else:
             return response
+    elif quantity == 'all':
+        del inventory[drop]
+        db.update(inventory, user_id)
+        return 'You drop all ' + drop + 's.'
     else:
         inventory[drop]['quantity'] -= 1
         db.update(inventory, user_id)

@@ -14,8 +14,8 @@ import db
 from utils import cleanstr, mbuild, invbuild
 
 # debugging options
-debug = False
-rec = False # pushs logs to console table // unicode doesn't work when debugging...
+debug = True
+rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -134,7 +134,7 @@ if __name__ == "__main__":
             user['tweet_id'] = str(mention['tweet_id'])
 
             reply = True if debug == True else False
-            cmdreply = False
+            cmdreply = False # these may be unnecessary
             cmd = ''
 
             # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
