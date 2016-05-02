@@ -37,7 +37,6 @@ def get(tweet, inventory, id, position):
         if inventory == {}:
             return (True, 'Your inventory is empty at the moment.')
         else:
-            db.log(True, 'Building inventory.')
             return (True, invbuild(inventory))
     elif (cmdtweet == 'delete me from lilt') or (a == u'💀💀💀'):
         db.delete('users', 'id', id)
