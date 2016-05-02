@@ -14,7 +14,7 @@ import db
 from utils import cleanstr, mbuild, invbuild
 
 # debugging options
-debug = True
+debug = False
 rec = True # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
