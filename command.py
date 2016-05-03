@@ -39,7 +39,7 @@ def get(tweet, inventory, id, position):
             return (True, 'Your inventory is empty at the moment.')
         else:
             return (True, invbuild(inventory))
-    elif (cmdtweet == 'delete me from lilt') or (a == u'💀💀💀') or (cmdtweet == u'💀💀💀') or (tweet == u'💀💀💀'):
+    elif (cmdtweet == 'delete me from lilt') or (a == u'💀💀💀') or (cmdtweet == u'💀💀💀'):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif (a == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
@@ -48,7 +48,7 @@ def get(tweet, inventory, id, position):
             if addmove == 'item':
                 # liltadd item~n|paste~m|10
                 traits = dict(trait.split('|') for trait in (addresponse).split('~'))
-                for trait in traits: # update shorthand keys
+                for trait in traits:
                     if trait == 'n':
                         traits['name'] = traits['n']
                         del traits['n']
@@ -57,6 +57,10 @@ def get(tweet, inventory, id, position):
                         del traits['m']
                 db.newitem(traits)
                 return (True, traits['name'].capitalize() + ' was added to Lilt.')
+            elif addmove == 'copy':
+                if len((addresponse).split('~')) >= 2:
+                    ogmove, newmove = (addresponse).split('~',1)
+                    db.copymove(ogmove, newmove)
             else:
                 # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
                 if len((addresponse).split('~')) >= 2:

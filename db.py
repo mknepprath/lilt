@@ -63,6 +63,9 @@ def newmove(move, response, position, traits=None):
         dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
         cur.execute(dbcallstart + dbcallend, dbdata)
         conn.commit()
+def copymove(ogmove, newmove):
+    cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s;", (ogmove, newmove))
+    conn.commit()
 def newitem(traits):
     cur.execute("INSERT INTO items (name, max) VALUES (%s, %s)", (traits['name'], traits['max']))
     conn.commit()
