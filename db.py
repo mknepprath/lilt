@@ -24,12 +24,13 @@ def select(col1, table, col2, val, position=None, condition=None, quantity='one'
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
     if quantity == 'one':
         o = cur.fetchone()
+        if o == None:
+            return o
+        else:
+            return o[0]
     else:
         o = cur.fetchall()
-    if o == None:
         return o
-    else:
-        return o[0]
 def update(val1, val2, col='inventory'):
     if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
         cur.execute("UPDATE users SET " + col + " = %s WHERE id = %s;", (val1, val2))
