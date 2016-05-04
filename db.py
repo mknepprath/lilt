@@ -67,13 +67,16 @@ def copymove(ogmove, newmove, position):
     cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (ogmove, newmove, position))
     conn.commit()
 def newitem(traits):
-    tq = -1
+    tq = 0
     dbcallstart = "INSERT INTO items ("
-    dbcallend = ") VALUES (%s" + ', %s'*tq + ")"
+    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
     dbdata = ()
     for trait in traits:
         tq += 1
-        dbcallstart = dbcallstart + ', ' + str(trait)
+        if tq == 1:
+            dbcallstart = dbcallstart + str(trait)
+        else:
+            dbcallstart = dbcallstart + ', ' + str(trait)
         dbdata = dbdata + (traits[trait],) # must factor if inputting json (json.dumps)
     print dbcallstart + dbcallend
     print dbdata
