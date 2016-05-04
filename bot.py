@@ -53,7 +53,10 @@ if __name__ == "__main__":
 
     # delete all moves with 'the'
     allmoves = db.select('move', 'moves', 'position', 'room', quantity='all')
-    print allmoves
+    themoves = []
+    for move in allmoves:
+        if ' the ' in move[0]:
+            print move[0]
 
     # delete console table before entering new logs
     if rec == True:
