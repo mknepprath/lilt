@@ -69,7 +69,6 @@ def copymove(ogmove, newmove, position):
 def newitem(traits):
     tq = 0
     dbcallstart = "INSERT INTO items ("
-    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
     dbdata = ()
     for trait in traits:
         tq += 1
@@ -78,6 +77,7 @@ def newitem(traits):
         else:
             dbcallstart = dbcallstart + ', ' + str(trait)
         dbdata = dbdata + (traits[trait],) # must factor if inputting json (json.dumps)
+    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
     print dbcallstart + dbcallend
     print dbdata
     cur.execute(dbcallstart + dbcallend, dbdata)
