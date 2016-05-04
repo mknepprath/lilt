@@ -78,8 +78,6 @@ def newitem(traits):
             dbcallstart = dbcallstart + ', ' + str(trait)
         dbdata = dbdata + (traits[trait],) # must factor if inputting json (json.dumps)
     dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
-    print dbcallstart + dbcallend
-    print dbdata
     cur.execute(dbcallstart + dbcallend, dbdata)
     conn.commit()
 def storeerror(move, position):
