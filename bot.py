@@ -51,6 +51,10 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
+    # delete all moves with 'the'
+    allmoves = db.select('move', 'moves', 'position', 'room')
+    print allmoves
+
     # delete console table before entering new logs
     if rec == True:
         db.delete('console', 'log', '*')
