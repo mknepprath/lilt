@@ -15,14 +15,17 @@ conn = psycopg2.connect(
     port=url.port)
 cur = conn.cursor()
 
-def select(col1, table, col2, val, position=None, condition=None):
+def select(col1, table, col2, val, position=None, condition=None, quantity='one'):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
     elif position != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition IS NULL;", (val,position))
     else:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE " + col2 + " = %s;", (val,))
-    o = cur.fetchone()
+    if quantity == 'one':
+        o = cur.fetchone()
+    else:
+        o = cur.fetchall()
     if o == None:
         return o
     else:

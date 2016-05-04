@@ -52,7 +52,7 @@ if __name__ == "__main__":
     mentions = []
 
     # delete all moves with 'the'
-    allmoves = db.select('move', 'moves', 'position', 'room')
+    allmoves = db.select('move', 'moves', 'position', 'room', quantity='all')
     print allmoves
 
     # delete console table before entering new logs
