@@ -60,7 +60,7 @@ def get(tweet, inventory, id, position):
             elif addmove == 'copy':
                 if len((addresponse).split('~')) >= 2:
                     ogmove, newmove = (addresponse).split('~',1)
-                    db.copymove(ogmove, newmove)
+                    db.copymove(ogmove, newmove, position)
                     return (True, '\'' + ogmove + '\' was added to Lilt as a copy of \'' + newmove + '\'.')
             else:
                 # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
