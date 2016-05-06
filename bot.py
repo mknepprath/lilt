@@ -51,14 +51,6 @@ if __name__ == "__main__":
     # init mentions
     mentions = []
 
-    # delete all moves with 'the'
-    allmoves = db.select('move', 'moves', 'position', 'room', quantity='all')
-    themoves = []
-    for move in allmoves:
-        if ' the ' in move[0]:
-            print move[0]
-            db.delete('moves', 'move', move[0])
-
     # delete console table before entering new logs
     if rec == True:
         db.delete('console', 'log', '*')
