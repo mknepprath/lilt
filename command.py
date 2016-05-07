@@ -35,7 +35,7 @@ def get(tweet, inventory, id, position):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif ((rend[0] == 'liltadd') or (rend[0] == 'la')) and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
-        dbrend = str(rend[1]).split('~')
+        dbrend = str(' '.join(rend[1:len(rend)])).split('~') # puts rend after [0] back together, splits with ~
         print dbrend
         if len(dbrend) >= 2:
             if dbrend[0] == 'item':
