@@ -7,7 +7,7 @@ from utils import cleanstr, invbuild, cansplit
 def get(tweet, inventory, id, position):
     rendtweet = tweet.split()
     print rendtweet
-    print renttweet[0]
+    print rendtweet[0]
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
         if cansplit(b):
