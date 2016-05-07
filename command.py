@@ -34,11 +34,11 @@ def get(tweet, inventory, id, position):
             return (True, 'Your inventory is empty at the moment.')
         else:
             return (True, invbuild(inventory))
-    elif (cmd == 'delete me from lilt') or (a == u'💀💀💀'):
+    elif (cmd == 'delete me from lilt') or (rend[0] == u'💀💀💀'):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif (rend[0] == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
-        dbrend = rend[1].split('~')
+        dbrend = str(rend[1]).split('~')
         print dbrend
         if len(rend[1].split('~')) >= 2:
             addmove, addresponse = rend[1].split('~',1)
