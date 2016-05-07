@@ -6,11 +6,8 @@ import db
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
-    # a = 0, b = 1, c = 1, d = 2, e = 2, f = 3
     cmd = cleanstr(tweet)
-    print cmd
-    rend = re.sub(r'http\S+', '', tweet).lower().split() # test regex by including a link in tweet
-    print rend
+    rend = re.sub(r'http\S+', '', tweet).lower().split() # test regex by including a link in tweet # remove articles?
     if (rend[0] == 'drop') and (len(rend) >= 2): # drop(0) banana(1) # drop(0) the(1) dawn(2) porter(3)
         quantity = None
         if (len(rend) >= 3) and (rend[1] == 'all'): # or check if it can be converted to a valid int
@@ -37,14 +34,13 @@ def get(tweet, inventory, id, position):
     elif (cmd == 'delete me from lilt') or (rend[0] == u'💀💀💀'):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
-    elif (rend[0] == 'liltadd') and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
+    elif ((rend[0] == 'liltadd') or (rend[0] == 'la')) and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
         dbrend = str(rend[1]).split('~')
         print dbrend
-        if len(rend[1].split('~')) >= 2:
-            addmove, addresponse = rend[1].split('~',1)
-            if addmove == 'item':
+        if len(dbrend) >= 2:
+            if dbrend[0] == 'item':
                 # liltadd item~n|paste~m|10
-                traits = dict(trait.split('|') for trait in (addresponse).split('~'))
+                traits = dict(trait.split('|') for trait in dbrend[1:len(dbrend)])
                 for trait in traits:
                     if trait == 'n':
                         traits['name'] = traits['n']
@@ -54,16 +50,14 @@ def get(tweet, inventory, id, position):
                         del traits['m']
                 db.newitem(traits)
                 return (True, traits['name'].capitalize() + ' was added to Lilt.')
-            elif addmove == 'copy':
-                if len((addresponse).split('~')) >= 2:
-                    ogmove, newmove = (addresponse).split('~',1)
-                    db.copymove(ogmove, newmove, position)
-                    return (True, '\'' + ogmove + '\' was added to Lilt as a copy of \'' + newmove + '\'.')
+            elif dbrend[0] == 'copy':
+                if len(dbrend) == 3:
+                    db.copymove(dbrend[1], dbrend[2], position)
+                    return (True, '\'' + dbrend[1] + '\' was added to Lilt as a copy of \'' + dbrend[2] + '\'.')
             else:
                 # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
-                if len((addresponse).split('~')) >= 2:
-                    addresponse, t = (addresponse).split('~',1)
-                    traits = dict(trait.split('|') for trait in (t).split('~'))
+                if len(dbrend) >= 3:
+                    traits = dict(trait.split('|') for trait in dbrend[1:len(dbrend)]) # this right?
                     for trait in traits: # update shorthand keys
                         if trait == 'i':
                             traits['item'] = traits['i']
@@ -82,9 +76,9 @@ def get(tweet, inventory, id, position):
                             del traits['tr']
                     for trait in traits: # convert condition/trigger to dicts
                         if len((traits[trait]).split('^')) >= 2:
-                            traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
+                            traits[trait] = dict(t.split('^') for t in dbrend[1:len(dbrend)])
                 else:
                     traits = None
-                db.newmove(addmove, addresponse, position, traits)
-                return (True, '\'' + addmove + '\' was added to Lilt.')
+                db.newmove(dbrend[0], dbrend[1], position, traits)
+                return (True, '\'' + dbrend[0] + '\' was added to Lilt.')
     return (False, '')
