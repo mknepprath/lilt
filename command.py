@@ -7,7 +7,9 @@ from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
     cmd = cleanstr(tweet)
+    print cmd
     rend = re.sub(r'http\S+', '', tweet).lower().split() # test regex by including a link in tweet # remove articles?
+    print rend
     if (rend[0] == 'drop') and (len(rend) >= 2): # drop(0) banana(1) # drop(0) the(1) dawn(2) porter(3)
         quantity = None
         if (len(rend) >= 3) and (rend[1] == 'all'): # or check if it can be converted to a valid int
@@ -35,7 +37,7 @@ def get(tweet, inventory, id, position):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif ((rend[0] == 'liltadd') or (rend[0] == 'la')) and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
-        dbrend = str(' '.join(rend[1:len(rend)])).split('~') # puts rend after [0] back together, splits with ~
+        dbrend = str(' '.join(rend[1:len(rend)])).split('~')
         print dbrend
         if len(dbrend) >= 2:
             if dbrend[0] == 'item':
