@@ -5,8 +5,9 @@ import db
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
-    tweetslice = tweet.split()
-    print tweetslice
+    rendtweet = tweet.split()
+    print rendtweet
+    print renttweet[0]
     if cansplit(tweet):
         a, b = (tweet).split(' ',1)
         if cansplit(b):
