@@ -20,7 +20,7 @@ def get(tweet, inventory, id, position):
         else:
             item = cleanstr(' '.join(rend[1:len(rend)]))
         if db.select('name', 'items', 'name', item) != None:
-            return (True, item.drop(item, inventory, id, quantity=quantity))
+            return (True, item.drop(str(item), inventory, id, quantity=quantity))
     elif (rend[0] == 'give') and (len(rend) >= 3): # give(0) @benlundsten(1) the(2) dawn(3) porter()
         if (len(rend) >= 4) and ((rend[2] == 'the') or (rend[2] == 'a') or (rend[2] == 'an') or (rend[2] == 'some')):
             item = cleanstr(' '.join(rend[3:len(rend)]))
