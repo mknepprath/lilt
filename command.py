@@ -14,17 +14,13 @@ def get(tweet, inventory, id, position):
         quantity = None
         if (len(rend) >= 3) and (rend[1] == 'all'): # or check if it can be converted to a valid int
             quantity = 'all'
-            item = cleanstr(' '.join(rend[2:len(rend)]))
+            drop_item = cleanstr(' '.join(rend[2:len(rend)]))
         elif (len(rend) >= 3) and ((rend[1] == 'the') or (rend[1] == 'a') or (rend[1] == 'an') or (rend[1] == 'some')):
-            item = cleanstr(' '.join(rend[2:len(rend)]))
+            drop_item = cleanstr(' '.join(rend[2:len(rend)]))
         else:
-            item = cleanstr(' '.join(rend[1:len(rend)]))
-        if db.select('name', 'items', 'name', item) != None:
-            print item
-            print inventory
-            print id
-            print quantity
-            return (True, item.drop(item, inventory, id, quantity=quantity))
+            drop_item = cleanstr(' '.join(rend[1:len(rend)]))
+        if db.select('name', 'items', 'name', drop_item) != None:
+            return (True, item.drop(drop_item, inventory, id, quantity=quantity))
     elif (rend[0] == 'give') and (len(rend) >= 3): # give(0) @benlundsten(1) the(2) dawn(3) porter()
         if (len(rend) >= 4) and ((rend[2] == 'the') or (rend[2] == 'a') or (rend[2] == 'an') or (rend[2] == 'some')):
             item = cleanstr(' '.join(rend[3:len(rend)]))
