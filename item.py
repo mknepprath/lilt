@@ -24,6 +24,7 @@ def get(item, inventory, user_id, response):
         else:
             return 'You can\'t hold more ' + item + '!'
 def drop(drop, inventory, user_id, response=None, quantity=None):
+    print 'called'
     if drop not in inventory:
         if response == None:
             return 'You don\'t have anything like that.'

@@ -20,14 +20,15 @@ def get(tweet, inventory, id, position):
         else:
             drop_item = cleanstr(' '.join(rend[1:len(rend)]))
         if db.select('name', 'items', 'name', drop_item) != None:
+            print 'call'
             return (True, item.drop(drop_item, inventory, id, quantity=quantity))
     elif (rend[0] == 'give') and (len(rend) >= 3): # give(0) @benlundsten(1) the(2) dawn(3) porter()
         if (len(rend) >= 4) and ((rend[2] == 'the') or (rend[2] == 'a') or (rend[2] == 'an') or (rend[2] == 'some')):
-            item = cleanstr(' '.join(rend[3:len(rend)]))
+            give_item = cleanstr(' '.join(rend[3:len(rend)]))
         else:
-            item = cleanstr(' '.join(rend[2:len(rend)]))
-        if db.select('name', 'items', 'name', item) != None:
-            return (True, item.give(item, inventory, id, position, cleanstr(rend[1])))
+            give_item = cleanstr(' '.join(rend[2:len(rend)]))
+        if db.select('name', 'items', 'name', give_item) != None:
+            return (True, item.give(give_item, inventory, id, position, cleanstr(rend[1])))
     elif (rend[0] == 'inventory') or (cmd == 'check inventory') or (cmd == 'what am i holding'):
         if inventory == {}:
             return (True, 'Your inventory is empty at the moment.')
