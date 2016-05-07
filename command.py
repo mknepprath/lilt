@@ -19,7 +19,6 @@ def get(tweet, inventory, id, position):
             item = cleanstr(' '.join(rend[2:len(rend)]))
         else:
             item = cleanstr(' '.join(rend[1:len(rend)]))
-        print db.select('name', 'items', 'name', item)
         if db.select('name', 'items', 'name', item) != None:
             return (True, item.drop(item, inventory, id, quantity=quantity))
     elif (rend[0] == 'give') and (len(rend) >= 3): # give(0) @benlundsten(1) the(2) dawn(3) porter()
