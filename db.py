@@ -5,8 +5,8 @@ import urlparse
 import json
 
 # init postgresql database
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+urlparse.uses_netloc.append('postgres')
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
 conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
@@ -15,6 +15,94 @@ conn = psycopg2.connect(
     port=url.port)
 cur = conn.cursor()
 
+def do(action, table, data, val=None):
+    if action == 'insert':
+        # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
+        dbstate = 'INSERT INTO ' + table + ' ('
+        # 'INSERT INTO table ('
+        tq = 0
+        dbdata = ()
+        for key in data:
+            tq += 1
+            if tq == 1:
+                dbstate = dbstate + str(key)
+                # 'INSERT INTO table (x'
+            else:
+                dbstate = dbstate + ', ' + str(key)
+                # 'INSERT INTO table (x, y, z'
+            if type(data[key]) is dict:
+                dbdata = dbdata + (json.dumps(data[key]),)
+            else:
+                dbdata = dbdata + (data[key],)
+            # ('1','2','3',)
+        dbstate = dbstate + ') VALUES (%s' + ', %s'*(tq-1) + ');'
+        # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
+    elif action == 'select':
+        # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('1','2','3',)
+        dbstate = 'SELECT ' + val + ' FROM ' + table + ' WHERE '
+        # 'SELECT a FROM table WHERE '
+        tq = 0
+        dbdata = ()
+        for key in data:
+            tq += 1
+            if tq == 1:
+                dbstate = dbstate + str(key) + ' = %s'
+                # 'SELECT a FROM table WHERE x = %s'
+            else:
+                dbstate = dbstate + ' AND ' + str(key) + ' = %s'
+                # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s'
+            if type(data[key]) is dict:
+                dbdata = dbdata + (json.dumps(data[key]),)
+            else:
+                dbdata = dbdata + (data[key],)
+            # ('1','2','3',)
+        dbstate = dbstate + ';'
+        # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('1','2','3',)
+    elif action == 'delete':
+        # 'DELETE FROM table WHERE x = %s AND y = %s AND z = %s;',('1','2','3',)
+        dbstate = 'DELETE FROM ' + table + ' WHERE '
+        # 'DELETE FROM table WHERE '
+        tq = 0
+        dbdata = ()
+        for key in data:
+            tq += 1
+            if tq == 1:
+                dbstate = dbstate + str(key) + ' = %s'
+                # 'DELETE FROM table WHERE x = %s'
+            else:
+                dbstate = dbstate + ' AND ' + str(key) + ' = %s'
+                # 'DELETE FROM table WHERE x = %s AND y = %s AND z = %s'
+            if type(data[key]) is dict:
+                dbdata = dbdata + (json.dumps(data[key]),)
+            else:
+                dbdata = dbdata + (data[key],)
+            # ('1','2','3',)
+        dbstate = dbstate + ';'
+        # 'DELETE FROM table WHERE x = %s AND y = %s AND z = %s;',('1','2','3',)
+    elif action == 'update':
+        # 'UPDATE table SET a = %s WHERE x = %s AND y = %s AND z = %s;'('0','1','2','3',)
+        dbstate = 'UPDATE ' + table + ' SET ' + list(val.keys())[0] + ' = %s WHERE '
+        # 'UPDATE table SET a = %s WHERE '
+        tq = 0
+        dbdata = (list(val.values())[0],)
+        # ('0',)
+        for key in data:
+            tq += 1
+            if tq == 1:
+                dbstate = dbstate + str(key) + ' = %s'
+                # 'SELECT a FROM table WHERE x = %s'
+            else:
+                dbstate = dbstate + ' AND ' + str(key) + ' = %s'
+                # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s'
+            if type(data[key]) is dict:
+                dbdata = dbdata + (json.dumps(data[key]),)
+            else:
+                dbdata = dbdata + (data[key],)
+            # ('0','1','2','3',)
+        dbstate = dbstate + ';'
+        # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('0','1','2','3',)
+    cur.execute(dbstate, dbdata)
+    conn.commit()
 def select(col1, table, col2, val, position=None, condition=None, quantity='one'):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))
