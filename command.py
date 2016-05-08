@@ -55,9 +55,9 @@ def get(tweet, inventory, id, position):
                     db.copymove(dbrend[1], dbrend[2], position)
                     return (True, '\'' + dbrend[1] + '\' was added to Lilt as a copy of \'' + dbrend[2] + '\'.')
             else:
-                # la(rend[0]) eat meat cake~It looks pretty nasty! But you eat it...~c|meat cake^inventory~d|meat cake
+                # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
-                    traits = dict(trait.split('|') for trait in dbrend[1:len(dbrend)]) # this right?
+                    traits = dict(trait.split('|') for trait in dbrend[2:len(dbrend)]) # this right?
                     print traits
                     for trait in traits: # update shorthand keys
                         if trait == 'i':
