@@ -16,6 +16,9 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 def do(action, table, data, val=None): # all of these need to return something
+    print action
+    print table
+    print data
     if action == 'insert':
         # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
         dbstate = 'INSERT INTO ' + table + ' ('
