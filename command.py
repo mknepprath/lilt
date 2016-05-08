@@ -69,8 +69,8 @@ def get(tweet, inventory, id, position):
                     if len((data[key]).split('^')) >= 2:
                         data[key] = dict(k.split('^') for k in (data[key]).split('~'))
                 print data
-                dbval = data['set'] # check if it's a dict to json.dumps
-                print dbval
+                # dbval = data['set'] # check if it's a dict to json.dumps
+                # print dbval
                 db.do(dbrend[1], dbrend[2], data, dbval=None)
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
