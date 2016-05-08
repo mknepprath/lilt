@@ -6,9 +6,7 @@ import db
 from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
-    cmd = cleanstr(tweet)
-    print cmd
-    rend = re.sub(r'http\S+', '', tweet).lower().split() # test regex by including a link in tweet # remove articles?
+    rend = re.sub(r'http\S+', '', tweet).lower().split() # remove articles here?
     print rend
     if (rend[0] == 'drop') and (len(rend) >= 2): # drop(0) banana(1) # drop(0) the(1) dawn(2) porter(3)
         quantity = None
@@ -28,12 +26,12 @@ def get(tweet, inventory, id, position):
             give_item = cleanstr(' '.join(rend[2:len(rend)]))
         if db.select('name', 'items', 'name', give_item) != None:
             return (True, item.give(give_item, inventory, id, position, cleanstr(rend[1])))
-    elif (rend[0] == 'inventory') or (cmd == 'check inventory') or (cmd == 'what am i holding'):
+    elif (rend[0] == 'inventory') or (' '.join(rend)) == 'check inventory') or (' '.join(rend) == 'what am i holding'):
         if inventory == {}:
             return (True, 'Your inventory is empty at the moment.')
         else:
             return (True, invbuild(inventory))
-    elif (cmd == 'delete me from lilt') or (rend[0] == u'💀💀💀'):
+    elif (' '.join(rend) == 'delete me from lilt') or (rend[0] == u'💀💀💀'):
         db.delete('users', 'id', id)
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif ((rend[0] == 'liltadd') or (rend[0] == 'la')) and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
@@ -57,9 +55,10 @@ def get(tweet, inventory, id, position):
                     db.copymove(dbrend[1], dbrend[2], position)
                     return (True, '\'' + dbrend[1] + '\' was added to Lilt as a copy of \'' + dbrend[2] + '\'.')
             else:
-                # liltadd throw paste at liltbird~It splatters across the window.~c|paste^inventory~d|paste
+                # la(rend[0]) eat meat cake~It looks pretty nasty! But you eat it...~c|meat cake^inventory~d|meat cake
                 if len(dbrend) >= 3:
                     traits = dict(trait.split('|') for trait in dbrend[1:len(dbrend)]) # this right?
+                    print traits
                     for trait in traits: # update shorthand keys
                         if trait == 'i':
                             traits['item'] = traits['i']
@@ -76,9 +75,10 @@ def get(tweet, inventory, id, position):
                         if trait == 'tr':
                             traits['travel'] = traits['tr']
                             del traits['tr']
+                    print traits
                     for trait in traits: # convert condition/trigger to dicts
                         if len((traits[trait]).split('^')) >= 2:
-                            traits[trait] = dict(t.split('^') for t in dbrend[1:len(dbrend)])
+                            traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
                 else:
                     traits = None
                 db.newmove(dbrend[0], dbrend[1], position, traits)
