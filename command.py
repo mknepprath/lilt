@@ -73,7 +73,7 @@ def get(tweet, inventory, id, position):
                 # print dbval
                 print dbrend[1]
                 print dbrend[2]
-                db.do(dbrend[1], dbrend[2], data, dbval=None)
+                db.do(dbrend[1], dbrend[2], data, val=None)
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
