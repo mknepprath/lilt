@@ -15,7 +15,7 @@ conn = psycopg2.connect(
     port=url.port)
 cur = conn.cursor()
 
-def do(action, table, data, val=None):
+def do(action, table, data, val=None): # all of these need to return something
     if action == 'insert':
         # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
         dbstate = 'INSERT INTO ' + table + ' ('

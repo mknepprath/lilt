@@ -54,6 +54,24 @@ def get(tweet, inventory, id, position):
                 if len(dbrend) == 3:
                     db.copymove(dbrend[1], dbrend[2], position)
                     return (True, '\'' + dbrend[2] + '\' was added to Lilt as a copy of \'' + dbrend[1] + '\'.')
+            elif dbrend[0] == 'do':
+                # la do~insert~moves~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
+                # la do~update~moves~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted~set|cat^spotted
+                data = dict(key.split('|') for key in dbrend[3:len(dbrend)])
+                for key in data:
+                    if key == 'n':
+                        data['name'] = data['n']
+                        del data['n']
+                    if key == 'm':
+                        data['max'] = data['m']
+                        del data['m']
+                for key in data: # convert condition/trigger to dicts
+                    if len((data[key]).split('^')) >= 2:
+                        data[key] = dict(k.split('^') for k in (data[key]).split('~'))
+                print data
+                dbval = data['set'] # check if it's a dict to json.dumps
+                print dbval
+                db.do(dbrend[1], dbrend[2], data, dbval=None)
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
