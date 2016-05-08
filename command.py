@@ -53,7 +53,7 @@ def get(tweet, inventory, id, position):
             elif dbrend[0] == 'copy':
                 if len(dbrend) == 3:
                     db.copymove(dbrend[1], dbrend[2], position)
-                    return (True, '\'' + dbrend[1] + '\' was added to Lilt as a copy of \'' + dbrend[2] + '\'.')
+                    return (True, '\'' + dbrend[2] + '\' was added to Lilt as a copy of \'' + dbrend[1] + '\'.')
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
