@@ -156,7 +156,7 @@ def newmove(move, response, position, traits=None):
         cur.execute(dbcallstart + dbcallend, dbdata)
         conn.commit()
 def copymove(ogmove, newmove, position):
-    cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (ogmove, newmove, position))
+    cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (newmove, ogmove, position))
     conn.commit()
 def newitem(traits):
     tq = 0
