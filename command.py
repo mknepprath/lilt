@@ -71,6 +71,8 @@ def get(tweet, inventory, id, position):
                 print data
                 # dbval = data['set'] # check if it's a dict to json.dumps
                 # print dbval
+                print dbrend[1]
+                print dbrend[2]
                 db.do(dbrend[1], dbrend[2], data, dbval=None)
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
