@@ -104,9 +104,13 @@ def do(action, table, data, val=None): # all of these need to return something
             # ('0','1','2','3',)
         dbstate = dbstate + ';'
         # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('0','1','2','3',)
+    print dbstate
+    print dbdata
     cur.execute(dbstate, dbdata)
     if action == 'select':
-        return cur.fetchall()
+        s = cur.fetchall()
+        print s
+        return s
     else:
         conn.commit()
         return
