@@ -57,14 +57,17 @@ def get(tweet, inventory, id, position):
             elif dbrend[0] == 'do':
                 # la do~insert~moves~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
                 # la do~update~moves~c|cat^spotted~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
-                dbval = {}
-                if (dbrend[1] == 'update') or (dbrend[1] == 'select'):
-                    data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
+                if dbrend[1] == 'update':
                     dbval = dict(key.split('|') for key in dbrend[3:4])
+                    data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
                     for key in dbval:
                         if len((dbval[key]).split('^')) >= 2:
                             dbval[key] = dict(k.split('^') for k in (dbval[key]).split('~'))
+                elif dbrend[1] == 'select':
+                    dbval = dbrend[3]
+                    data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
                 else:
+                    dbval = None
                     data = dict(key.split('|') for key in dbrend[3:len(dbrend)])
                 for key in data:
                     if key == 'n':
