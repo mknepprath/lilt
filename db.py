@@ -16,9 +16,6 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 def do(action, table, data, val=None): # all of these need to return something
-    print action
-    print table
-    print data
     if action == 'insert':
         # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
         dbstate = 'INSERT INTO ' + table + ' ('
@@ -105,6 +102,7 @@ def do(action, table, data, val=None): # all of these need to return something
         dbstate = dbstate + ';'
         # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('0','1','2','3',)
     print dbstate
+    print dbdata
     cur.execute(dbstate, dbdata)
     conn.commit()
 def select(col1, table, col2, val, position=None, condition=None, quantity='one'):

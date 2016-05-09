@@ -58,23 +58,14 @@ def get(tweet, inventory, id, position):
                 # la do~insert~moves~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
                 # la do~update~moves~c|cat^spotted~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
                 dbval = {}
-                print '1'
                 if (dbrend[1] == 'update') or (dbrend[1] == 'select'):
-                    print '2'
                     data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
-                    print '3'
                     dbval = dict(key.split('|') for key in dbrend[3:4])
-                    print dbval
-                    print '4'
                     for key in dbval:
-                        print '5'
                         if len((dbval[key]).split('^')) >= 2:
-                            print '10'
                             dbval[key] = dict(k.split('^') for k in (dbval[key]).split('~'))
                 else:
-                    print '6'
                     data = dict(key.split('|') for key in dbrend[3:len(dbrend)])
-                print '7'
                 for key in data:
                     if key == 'n':
                         data['name'] = data['n']
@@ -82,16 +73,9 @@ def get(tweet, inventory, id, position):
                     if key == 'm':
                         data['max'] = data['m']
                         del data['m']
-                print '8'
                 for key in data: # convert condition/trigger to dicts
-                    print '9'
                     if len((data[key]).split('^')) >= 2:
-                        print '10'
                         data[key] = dict(k.split('^') for k in (data[key]).split('~'))
-                print dbrend[1]
-                print dbrend[2]
-                print data
-                print dbval
                 db.do(dbrend[1], dbrend[2], data, val=dbval)
             else:
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
