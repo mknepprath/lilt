@@ -62,6 +62,7 @@ def get(tweet, inventory, id, position):
                 if (dbrend[1] == 'update') or (dbrend[1] == 'select'):
                     print '2'
                     data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
+                    print data
                     print '3'
                     dbval = dict(dbrend[3].split('|'))
                     print dbval
