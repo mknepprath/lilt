@@ -104,10 +104,12 @@ def do(action, table, data, val=None): # all of these need to return something
             # ('0','1','2','3',)
         dbstate = dbstate + ';'
         # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('0','1','2','3',)
-    print dbstate
-    print dbdata
     cur.execute(dbstate, dbdata)
-    conn.commit()
+    if action == 'select':
+        return cur.fetchall()
+    else:
+        conn.commit()
+        return
 def select(col1, table, col2, val, position=None, condition=None, quantity='one'):
     if condition != None:
         cur.execute("SELECT " + col1 + " FROM " + table + " WHERE move = %s AND position = %s AND condition = %s;", (val,position,json.dumps(condition)))

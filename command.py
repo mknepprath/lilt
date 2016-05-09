@@ -7,7 +7,6 @@ from utils import cleanstr, invbuild, cansplit
 
 def get(tweet, inventory, id, position):
     rend = re.sub(r'http\S+', '', tweet).lower().split() # remove articles here?
-    print rend
     if (rend[0] == 'drop') and (len(rend) >= 2): # drop(0) banana(1) # drop(0) the(1) dawn(2) porter(3)
         quantity = None
         if (len(rend) >= 3) and (rend[1] == 'all'): # or check if it can be converted to a valid int
@@ -36,7 +35,6 @@ def get(tweet, inventory, id, position):
         return (True, 'You\'ve been removed from Lilt. Thanks for playing!')
     elif ((rend[0] == 'liltadd') or (rend[0] == 'la')) and ((id == '15332057') or (id == '724754312757272576') or (id == '15332062')):
         dbrend = str(' '.join(rend[1:len(rend)])).split('~')
-        print dbrend
         if len(dbrend) >= 2:
             if dbrend[0] == 'item':
                 # liltadd item~n|paste~m|10
@@ -57,19 +55,19 @@ def get(tweet, inventory, id, position):
             elif dbrend[0] == 'do':
                 # la do~insert~moves~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
                 # la do~update~moves~c|cat^spotted~move|look at cat~response|It's sassy.~c|box^open~t|cat^sighted
-                if dbrend[1] == 'update':
+                if dbrend[1] == 'select':
+                    dbval = dbrend[3]
+                    data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
+                elif dbrend[1] == 'update':
                     dbval = dict(key.split('|') for key in dbrend[3:4])
                     data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
                     for key in dbval:
                         if len((dbval[key]).split('^')) >= 2:
                             dbval[key] = dict(k.split('^') for k in (dbval[key]).split('~'))
-                elif dbrend[1] == 'select':
-                    dbval = dbrend[3]
-                    data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
-                else:
+                else: # insert/delete
                     dbval = None
                     data = dict(key.split('|') for key in dbrend[3:len(dbrend)])
-                for key in data:
+                for key in data: #shorthands
                     if key == 'n':
                         data['name'] = data['n']
                         del data['n']
@@ -79,12 +77,19 @@ def get(tweet, inventory, id, position):
                 for key in data: # convert condition/trigger to dicts
                     if len((data[key]).split('^')) >= 2:
                         data[key] = dict(k.split('^') for k in (data[key]).split('~'))
-                db.do(dbrend[1], dbrend[2], data, val=dbval)
-            else:
+                dbfetch = db.do(dbrend[1], dbrend[2], data, val=dbval)
+                if dbrend[1] == 'insert':
+                    return (True, data + ' was added to ' + dbrend[2])
+                elif dbrend[1] == 'select':
+                    return (True, dbfetch + ' was fetched from ' + dbrend[2])
+                elif dbrend[1] == 'update':
+                    return (True, dbrend[2].capitalize() + ' was updated with ' + dbrend[3])
+                elif dbrend[1] == 'delete':
+                    return (True, data + ' was deleted from ' + dbrend[2])
+            else: # newmove
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
                     traits = dict(trait.split('|') for trait in dbrend[2:len(dbrend)]) # this right?
-                    print traits
                     for trait in traits: # update shorthand keys
                         if trait == 'i':
                             traits['item'] = traits['i']
@@ -101,7 +106,6 @@ def get(tweet, inventory, id, position):
                         if trait == 'tr':
                             traits['travel'] = traits['tr']
                             del traits['tr']
-                    print traits
                     for trait in traits: # convert condition/trigger to dicts
                         if len((traits[trait]).split('^')) >= 2:
                             traits[trait] = dict(t.split('^') for t in (traits[trait]).split('~'))
