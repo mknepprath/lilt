@@ -79,13 +79,18 @@ def get(tweet, inventory, id, position):
                         data[key] = dict(k.split('^') for k in (data[key]).split('~'))
                 dbfetch = db.do(dbrend[1], dbrend[2], data, val=dbval)
                 if dbrend[1] == 'insert':
-                    return (True, str(data) + ' was added to ' + dbrend[2])
+                    return (True, str(data) + ' was added to ' + dbrend[2].capitalize() + '.')
                 elif dbrend[1] == 'select':
-                    return (True, str(dbfetch) + ' was fetched from ' + dbrend[2])
+                    if len(dbfetch) < 1:
+                        return (True, 'Nothing was selected.')
+                    elif len(dbfetch) == 1:
+                        return (True, str(dbfetch) + ' was fetched from ' + dbrend[2].capitalize())
+                    elif len(dbfetch) > 1:
+                        return (True, str(dbfetch) + ' was fetched from ' + dbrend[2].capitalize() + ', along with ' + str(len(dbfetch) - 1) + ' others.')
                 elif dbrend[1] == 'update':
-                    return (True, dbrend[2].capitalize() + ' was updated with ' + dbrend[3])
+                    return (True, dbrend[2].capitalize() + ' was updated with ' + str(dbval) + '.')
                 elif dbrend[1] == 'delete':
-                    return (True, str(data) + ' was deleted from ' + dbrend[2])
+                    return (True, str(data) + ' was deleted from ' + dbrend[2].capitalize() + '.')
             else: # newmove
                 # la(rend[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(dbrend) >= 3:
