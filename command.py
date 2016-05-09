@@ -63,8 +63,9 @@ def get(tweet, inventory, id, position):
                     print '2'
                     data = dict(key.split('|') for key in dbrend[4:len(dbrend)])
                     print '3'
-                    dbval = dict(dbrend[3].split('|'))
+                    dbval, dbval2 = dbrend[3].split('|')
                     print dbval
+                    print dbval2
                     print '4'
                     for key in dbval:
                         print '5'
