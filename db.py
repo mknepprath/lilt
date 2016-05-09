@@ -84,7 +84,10 @@ def do(action, table, data, val=None): # all of these need to return something
         dbstate = 'UPDATE ' + table + ' SET ' + list(val.keys())[0] + ' = %s WHERE '
         # 'UPDATE table SET a = %s WHERE '
         tq = 0
-        dbdata = (list(val.values())[0],)
+        if type(val.values())[0]) is dict:
+            dbdata = (list(json.dumps(val.values()[0])),)
+        else:
+            dbdata = (list(val.values())[0],)
         # ('0',)
         for key in data:
             tq += 1
