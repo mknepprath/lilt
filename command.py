@@ -84,11 +84,11 @@ def get(tweet, inventory, id, position):
                     if len(dbfetch) < 1:
                         return (True, 'Nothing was selected.')
                     elif len(dbfetch) == 1:
-                        return (True, str(dbfetch[0][0]) + ' was fetched from ' + dbrend[2].capitalize() + '.')
+                        return (True, '\'' + str(dbfetch[0][0]) + '\' was fetched from ' + dbrend[2].capitalize() + '.')
                     elif len(dbfetch) == 2:
-                        return (True, str(dbfetch[0][0]) + ' was fetched from ' + dbrend[2].capitalize() + ', along with ' + str(len(dbfetch) - 1) + ' other.')
+                        return (True, '\'' + str(dbfetch[0][0]) + '\' was fetched from ' + dbrend[2].capitalize() + ', along with ' + str(len(dbfetch) - 1) + ' other.')
                     else:
-                        return (True, str(dbfetch[0][0]) + ' was fetched from ' + dbrend[2].capitalize() + ', along with ' + str(len(dbfetch) - 1) + ' others.')
+                        return (True, '\'' + str(dbfetch[0][0]) + '\' was fetched from ' + dbrend[2].capitalize() + ', along with ' + str(len(dbfetch) - 1) + ' others.')
                 elif dbrend[1] == 'update':
                     return (True, dbrend[2].capitalize() + ' was updated with ' + str(dbval) + '.')
                 elif dbrend[1] == 'delete':
