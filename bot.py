@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
     db.log(rec, mentions)
 
-    builder = False
+    builderid = False
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
@@ -167,8 +167,8 @@ if __name__ == "__main__":
                     db.log(rec, 'new tweet')
                     if user['id'] != '724754312757272576':
                         db.update(user['tweet_id'], user['id'], 'last_tweet_id')
-                    elif (user['id'] == '724754312757272576') and (builder == False):
-                        builder = True
+                    elif (user['id'] == '724754312757272576') and (builderid == False):
+                        builderid = True
                         db.update(user['tweet_id'], user['id'], 'last_tweet_id')
                     reply = True
                 else:
