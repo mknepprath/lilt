@@ -60,7 +60,7 @@ if __name__ == "__main__":
         raw_mentions = twitter.api.mentions_timeline(count=200)
         # get builder mentions
         builder = False
-        for mention in raw_mentions: # do these get processed first...
+        for mention in raw_mentions:
             if mention.user.id == 724754312757272576:
                 if mention.id == int(db.select('last_tweet_id', 'users', 'id', '724754312757272576')):
                     builder = True
@@ -97,7 +97,7 @@ if __name__ == "__main__":
             debug_mentions.append({
                 'screen_name': db.select('screen_name', 'debug', 'tweet_id', str(d)),
                 'user_id': int(db.select('user_id', 'debug', 'tweet_id', str(d))),
-                'text': db.select('tweet', 'debug', 'tweet_id', str(d)), # update this with tweet to test
+                'text': db.select('tweet', 'debug', 'tweet_id', str(d)),
                 'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
             })
             d += 1
@@ -123,6 +123,8 @@ if __name__ == "__main__":
         db.log(rec, ' ')
 
     db.log(rec, mentions)
+
+    builder = False
 
     # go through all mentions to see which require a response from Lilt
     for mention in mentions:
@@ -163,7 +165,11 @@ if __name__ == "__main__":
                 tweet_exists = db.select('name', 'users', 'last_tweet_id', user['tweet_id'])
                 if tweet_exists == None:
                     db.log(rec, 'new tweet')
-                    db.update(user['tweet_id'], user['id'], 'last_tweet_id')
+                    if user['id'] != '724754312757272576':
+                        db.update(user['tweet_id'], user['id'], 'last_tweet_id')
+                    elif (user['id'] == '724754312757272576') and (builder == False):
+                        builder = True
+                        db.update(user['tweet_id'], user['id'], 'last_tweet_id')
                     reply = True
                 else:
                     db.log(rec, 'old tweet')

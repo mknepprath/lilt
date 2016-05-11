@@ -26,3 +26,8 @@ Example ```select``` tweet: ```@familiarlilt la do~select~item~max~name|banana``
 Example ```delete``` tweet: ```@familiarlilt la do~delete~moves~move|look at cat~response|What cat?```
 
 * ```move|look at cat~response|What cat?```: Deletes rows that match these conditions in the table specified.
+
+#### Other Options
+
+Example ```copy``` tweet: ```@familiarlilt la copy~look around~scan the room~room```
+Creates new move with all the same data as move being copied, so ```scan the room``` would have the same response, condition, etc.
