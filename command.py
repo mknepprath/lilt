@@ -74,6 +74,21 @@ def get(tweet, inventory, id, position):
                     if key == 'm':
                         data['max'] = data['m']
                         del data['m']
+                    if key == 'i':
+                        data['item'] = data['i']
+                        del data['i']
+                    if key == 'd':
+                        data['drop'] = data['d']
+                        del data['d']
+                    if key == 'c':
+                        data['condition'] = data['c']
+                        del data['c']
+                    if key == 't':
+                        data['trigger'] = data['t']
+                        del data['t']
+                    if key == 'tr':
+                        data['travel'] = data['tr']
+                        del data['tr']
                 for key in data: # convert condition/trigger to dicts
                     if len((data[key]).split('^')) >= 2:
                         data[key] = dict(k.split('^') for k in (data[key]).split('~'))

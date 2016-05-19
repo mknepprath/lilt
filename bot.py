@@ -145,6 +145,13 @@ if __name__ == "__main__":
                 tweet = (tweet).split(' ',1)[1]
             move = cleanstr(tweet)
 
+            if move.startswith(('inspect', 'examine', 'check')):
+                move = 'look at ' + move.split(' ', 1)[1]
+            elif move.startswith(('grab')):
+                move = 'take ' + move.split(' ', 1)[1]
+            elif move.startswith(('pick up')):
+                move = 'take ' + move.split(' ', 2)[2]
+
             # attempts to grab current user from users table
             user_exists = db.select('name', 'users', 'id', user['id'])
             if user_exists == None:
