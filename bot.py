@@ -148,6 +148,8 @@ if __name__ == "__main__":
             # converts synonyms to common word
             if move.startswith(('inspect', 'examine', 'check')):
                 move = 'look at ' + move.split(' ', 1)[1]
+            elif move.startswith(('check out')):
+                move = 'look at ' + move.split(' ', 2)[2]
             elif move.startswith(('grab')):
                 move = 'take ' + move.split(' ', 1)[1]
             elif move.startswith(('pick up')):
