@@ -14,8 +14,8 @@ import db
 from utils import cleanstr, mbuild, invbuild
 
 # debugging options
-debug = True
-rec = True # pushs logs to console table // unicode doesn't work when debugging...
+debug = False
+rec = False # pushs logs to console table // unicode doesn't work when debugging...
 
 class TwitterAPI:
     """
@@ -145,12 +145,15 @@ if __name__ == "__main__":
                 tweet = (tweet).split(' ',1)[1]
             move = cleanstr(tweet)
 
+            # converts synonyms to common word
             if move.startswith(('inspect', 'examine', 'check')):
                 move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('grab')):
                 move = 'take ' + move.split(' ', 1)[1]
             elif move.startswith(('pick up')):
                 move = 'take ' + move.split(' ', 2)[2]
+            elif move.startswith(('shut')):
+                move = 'close ' + move.split(' ', 1)[1]
 
             # attempts to grab current user from users table
             user_exists = db.select('name', 'users', 'id', user['id'])
