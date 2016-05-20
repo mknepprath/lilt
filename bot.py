@@ -159,6 +159,8 @@ if __name__ == "__main__":
 
             move = move.replace('liltbird', 'bird')
             move = move.replace('blue bird', 'bird')
+            move = move.replace(' an ', ' ')
+            move = move.replace(' a ', ' ')
 
             # attempts to grab current user from users table
             user_exists = db.select('name', 'users', 'id', user['id'])
