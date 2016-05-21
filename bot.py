@@ -159,6 +159,8 @@ if __name__ == "__main__":
 
             move = move.replace('liltbluebird', 'bird')
             move = move.replace('blue bird', 'bird')
+            move = move.replace('liltmerchant', 'merchant')
+            move = move.replace('shopkeeper', 'merchant')
             move = move.replace('apple paste', 'paste')
             move = move.replace(' an ', ' ')
             move = move.replace(' a ', ' ')
