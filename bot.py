@@ -146,7 +146,7 @@ if __name__ == "__main__":
             move = cleanstr(tweet)
 
             # converts synonyms to common word
-            if move.startswith(('inspect', 'examine', 'check')):
+            if move.startswith(('inspect', 'examine', 'check', 'scan')):
                 move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('check out')):
                 move = 'look at ' + move.split(' ', 2)[2]

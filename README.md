@@ -29,5 +29,5 @@ Example ```delete``` tweet: ```@familiarlilt la do~delete~moves~move|look at cat
 
 #### Other Options
 
-Example ```copy``` tweet: ```@familiarlilt la copy~look around~scan the room~room```
-Creates new move with all the same data as move being copied, so ```scan the room``` would have the same response, condition, etc.
+Example ```copy``` tweet: ```@familiarlilt la copy~look around~scan room~room```
+Creates new move with all the same data as move being copied, so ```scan room``` would have the same response, condition, etc.
