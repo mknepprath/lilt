@@ -157,7 +157,7 @@ if __name__ == "__main__":
             elif move.startswith(('shut')):
                 move = 'close ' + move.split(' ', 1)[1]
 
-            move = move.replace('liltbird', 'bird')
+            move = move.replace('liltbluebird', 'bird')
             move = move.replace('blue bird', 'bird')
             move = move.replace('apple paste', 'paste')
             move = move.replace(' an ', ' ')
