@@ -150,7 +150,7 @@ if __name__ == "__main__":
                 move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('check out')):
                 move = 'look at ' + move.split(' ', 2)[2]
-            elif move.startswith(('grab')):
+            elif move.startswith(('grab', 'get')):
                 move = 'take ' + move.split(' ', 1)[1]
             elif move.startswith(('pick up')):
                 move = 'take ' + move.split(' ', 2)[2]
