@@ -71,9 +71,15 @@ def get(tweet, inventory, id, position):
                     if key == 'n':
                         data['name'] = data['n']
                         del data['n']
+                    if key == 'mx':
+                        data['max'] = data['mx']
+                        del data['mx']
                     if key == 'm':
-                        data['max'] = data['m']
+                        data['move'] = data['m']
                         del data['m']
+                    if key == 'p':
+                        data['position'] = data['p']
+                        del data['p']
                     if key == 'i':
                         data['item'] = data['i']
                         del data['i']
