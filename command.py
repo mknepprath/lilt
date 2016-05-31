@@ -24,7 +24,7 @@ def get(tweet, inventory, id, position):
         else:
             give_item = cleanstr(' '.join(rend[2:len(rend)]))
         if db.select('name', 'items', 'name', give_item) != None:
-            return (True, item.give(give_item, inventory, id, position, cleanstr(rend[1])))
+            return (True, item.give(give_item, inventory, id, position, rend[1][1:].lower()))
     elif (rend[0] == 'inventory') or (' '.join(rend) == 'check inventory') or (' '.join(rend) == 'what am i holding'):
         if inventory == {}:
             return (True, 'Your inventory is empty at the moment.')
