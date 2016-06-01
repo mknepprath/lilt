@@ -1,5 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
+import logging
 
+logging.basicConfig()
 sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=3)
