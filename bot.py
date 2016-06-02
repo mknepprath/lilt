@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # debugging options
 debug = False
 rec = False # pushs logs to console table // unicode doesn't work when debugging...
@@ -31,7 +33,6 @@ error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.',
 # rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 
 if __name__ == "__main__":
-    # -*- coding: utf-8 -*-
     import os
     import time
     import string
