@@ -1,6 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 import os
+import tweepy
 
 logging.basicConfig()
 
