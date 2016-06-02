@@ -259,5 +259,6 @@ if __name__ == "__main__":
                 db.log(rec, ' ')
         except:
             pass
+
 db.cur.close()
 db.conn.close()
