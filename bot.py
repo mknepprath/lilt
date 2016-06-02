@@ -260,5 +260,5 @@ if __name__ == "__main__":
         except:
             pass
 
-db.cur.close()
-db.conn.close()
+# db.cur.close()
+# db.conn.close()
