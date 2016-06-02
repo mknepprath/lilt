@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 # debugging options
 debug = False
@@ -33,7 +34,6 @@ error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.',
 # rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 
 if __name__ == "__main__":
-    import os
     import time
     import string
     import random
