@@ -25,14 +25,14 @@ def get(item, inventory, user_id, response):
             return 'You can\'t hold more ' + item + '!'
 def drop(drop, inventory, user_id, response=None, quantity=None):
     if drop not in inventory:
-        if response == None:
+        if response is None:
             return 'You don\'t have anything like that.'
         else:
             return 'You don\'t have the required item, ' + drop + '.'
     elif inventory[drop]['quantity'] <= 1:
         del inventory[drop]
         db.update(inventory, user_id)
-        if response == None:
+        if response is None:
             return 'You drop one ' + drop + '.'
         else:
             return response
@@ -43,7 +43,7 @@ def drop(drop, inventory, user_id, response=None, quantity=None):
     else:
         inventory[drop]['quantity'] -= 1
         db.update(inventory, user_id)
-        if response == None:
+        if response is None:
             return 'You drop one ' + drop + '.'
         else:
             return response
@@ -52,11 +52,11 @@ def give(item, inventory, user_id, position, recipient):
         return 'You don\'t have ' + item + '!'
     else:
         givable = db.select('give', 'items', 'name', item)
-        if givable == False:
+        if not givable:
             return item.capitalize() + ' can\'t be given.'
         else:
             recipient_id = db.select('id', 'users', 'name', recipient)
-            if recipient_id == None:
+            if recipient_id is None:
                 return 'They aren\'t playing Lilt!'
             else:
                 recipient_position = db.select('position', 'users', 'id', recipient_id)

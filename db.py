@@ -189,8 +189,7 @@ def storeerror(move, position):
     return "Stored the failed attempt for future reference."
 def log(rec, s):
     if rec:
-        cur.execute("INSERT INTO console (log, time) VALUES (%s, 'now')", (str(s),))
-        conn.commit()
+        # sonn.commit()
         print str(s)
         return
     else:

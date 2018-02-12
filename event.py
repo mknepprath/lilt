@@ -1,7 +1,9 @@
+"""This module contains event functions."""
 # -*- coding: utf-8 -*-
 import db
 
 def getcurrent(move, position, inventory, events):
+    """Handles events."""
     events_inv = events
     items = list(inventory.keys())
     for item in items:

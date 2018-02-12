@@ -1,0 +1,6 @@
+look at bed|Small bed, not sure how you fit on it.|room|||||
+UPDATE 1
+look at bed|Small bed. It looks very uncomfortable.|room|||||
+look at bed|Small bed. It looks very uncomfortable.|room|||||
+open door|It doesn't budge.|room|||||
+open door|You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent|room||{"key": "inventory"}|{"door": "open"}||crescent

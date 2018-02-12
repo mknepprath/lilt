@@ -1,0 +1,1741 @@
+[
+  {
+    "move":"give coin to merchant for apple",
+    "response":"You've got a deal! You receive an apple for your coin.",
+    "position":"crescent",
+    "item":"apple",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"give merchant coin for apple",
+    "response":"You've got a deal! You receive an apple for your coin.",
+    "position":"crescent",
+    "item":"apple",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"take flower",
+    "response":"You're already holding it very carefully.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    }
+  },
+  {
+    "move":"start",
+    "response":"You wake up in an unfamiliar room. #liltroom",
+    "position":"start",
+    "travel":"room"
+  },
+  {
+    "move":"look right",
+    "response":"There's a window with a flower on the sill.",
+    "position":"room"
+  },
+  {
+    "move":"look left",
+    "response":"You see a chest and bucket.",
+    "position":"room"
+  },
+  {
+    "move":"look up",
+    "response":"There are some unusual markings, but it appears to be impenetrable.",
+    "position":"room"
+  },
+  {
+    "move":"look down",
+    "response":"Wood floor. It appears to be bent out of shape in some areas.",
+    "position":"room"
+  },
+  {
+    "move":"read sign",
+    "response":"Per the topmost sign, you're in Crescent Plaza. The other signs read 'Umbra Road', 'T-i--n-', and 'E-b ---'.",
+    "position":"crescent"
+  },
+  {
+    "move":"look at banana",
+    "response":"You don't have a banana!",
+    "position":"room"
+  },
+  {
+    "move":"view room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"throw banana",
+    "response":"You throw it at the wall and it splatters everywhere. What a mess.",
+    "position":"room",
+    "condition":{
+      "banana":"inventory"
+    },
+    "drop":"banana"
+  },
+  {
+    "move":"give merchant coin for banana",
+    "response":"You've got a deal! You receive a banana for your coin.",
+    "position":"crescent",
+    "item":"banana",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"give coin to merchant for banana",
+    "response":"You've got a deal! You receive a banana for your coin.",
+    "position":"crescent",
+    "item":"banana",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"kill bird",
+    "response":"You try to destroy it with your thoughts, but this fails. Of course.",
+    "position":"room"
+  },
+  {
+    "move":"close chest",
+    "response":"You close the chest.",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    },
+    "trigger":{
+      "chest":"closed"
+    }
+  },
+  {
+    "move":"open chest",
+    "response":"It's already open.",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"use blanket",
+    "response":"You wrap yourself in the blanket for a minute.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"smash window with bed",
+    "response":"The bed isn't heavy, but it's too big and unwieldy for you to lift.",
+    "position":"room"
+  },
+  {
+    "move":"really what am i doing there",
+    "response":"Fair question. Perhaps you should look around.",
+    "position":"room"
+  },
+  {
+    "move":"open door",
+    "response":"It doesn't budge.",
+    "position":"room"
+  },
+  {
+    "move":"touch bars",
+    "response":"They seem to be slightly askew, but they hold firm.",
+    "position":"room"
+  },
+  {
+    "move":"take bird",
+    "response":"They're pretty far away.",
+    "position":"crescent"
+  },
+  {
+    "move":"smash",
+    "response":"Okay, Hulk. Smash what?",
+    "position":"room"
+  },
+  {
+    "move":"purchase banana give me banana",
+    "response":"You look for someone selling bananas, but there's no one here.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"take flower with blanket",
+    "response":"You wrap your hand with the blanket and gently lift the flower off of the sill.",
+    "position":"room",
+    "item":"flower",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"take key",
+    "response":"You're already holding it.",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    }
+  },
+  {
+    "move":"fly",
+    "response":"Even if you could, the ceiling looks solid.",
+    "position":"room"
+  },
+  {
+    "move":"spit paste",
+    "response":"You spit it across the room. The ants grab it and carry it down the drain.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"look under bed",
+    "response":"You use the coin to reflect some light from the window under the bed... Pretty dusty.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"go to back wall",
+    "response":"Your comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"look at key",
+    "response":"It's a very small, plain looking key. It appears to be well-used.",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    }
+  },
+  {
+    "move":"look at back wall",
+    "response":"Your comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"take door",
+    "response":"You can open the door, but it's still attached to the wall.",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    }
+  },
+  {
+    "move":"look at flower",
+    "response":"It's drooping a bit.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    }
+  },
+  {
+    "move":"look right",
+    "response":"There's a window.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    }
+  },
+  {
+    "move":"look at door",
+    "response":"You can open it.",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    }
+  },
+  {
+    "move":"use key",
+    "response":"You use the key to etch your name into the wall.",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    }
+  },
+  {
+    "move":"use key",
+    "response":"You can't use it until you pick it up.",
+    "position":"room",
+    "condition":{
+      "key":"pasted"
+    }
+  },
+  {
+    "move":"what is on right wall",
+    "response":"There's a window. It is ajar.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    }
+  },
+  {
+    "move":"look at right wall",
+    "response":"There's a window.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    }
+  },
+  {
+    "move":"look at key",
+    "response":"It's all goopy",
+    "position":"room",
+    "condition":{
+      "key":"pasted"
+    }
+  },
+  {
+    "move":"give coin to big ants",
+    "response":"They really don't want it.",
+    "position":"room",
+    "condition":{
+      "bent coin":"inventory"
+    }
+  },
+  {
+    "move":"give coin to ants",
+    "response":"They really don't want it.",
+    "position":"room",
+    "condition":{
+      "bent coin":"inventory"
+    }
+  },
+  {
+    "move":"give coin to bird",
+    "response":"You try to bribe the bird to fly over with the coin... It's not interested.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"open door",
+    "response":"You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    },
+    "trigger":{
+      "door":"open"
+    },
+    "travel":"crescent"
+  },
+  {
+    "move":"use door",
+    "response":"You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    },
+    "trigger":{
+      "door":"open"
+    },
+    "travel":"crescent"
+  },
+  {
+    "move":"what is around me",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"use coin with door",
+    "response":"The coin is now bent.",
+    "position":"room",
+    "item":"bent coin",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"use coin on door",
+    "response":"The coin is now bent.",
+    "position":"room",
+    "item":"bent coin",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"use chest",
+    "response":"You don't have anything to store in it.",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"look at sign",
+    "response":"Per the topmost sign, you're in Crescent Plaza. The other signs read 'Umbra Road', 'T-i--n-', and 'E-b ---'.",
+    "position":"crescent"
+  },
+  {
+    "move":"take chest",
+    "response":"You don't need a chest. Not right now, at least.",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"look around liltcrescent",
+    "response":"You see a large signpost, a small shop across the way, and an old well.",
+    "position":"crescent"
+  },
+  {
+    "move":"go out door",
+    "response":"The door remains shut and locked.",
+    "position":"room"
+  },
+  {
+    "move":"reach arm out of bars",
+    "response":"You can't reach anything from here, except for some of the ants. You pick one up. It bites you and falls to the ground.",
+    "position":"room"
+  },
+  {
+    "move":"what is on right wall",
+    "response":"There's a window with a flower on the sill. The window is ajar.",
+    "position":"room"
+  },
+  {
+    "move":"where are ants going",
+    "response":"They're carrying food to a drain in the middle of the room.",
+    "position":"room"
+  },
+  {
+    "move":"its early so i go back to sleep",
+    "response":"You tuck yourself in and shut your eyes for a while.",
+    "position":"room"
+  },
+  {
+    "move":"look at back wall",
+    "response":"Your comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"take blanket",
+    "response":"You're holding it. It's surprisingly soft.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"look at chest",
+    "response":"I wonder if anything else was stored in here?",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"take in bed",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"give coin to bird",
+    "response":"You don't have a coin...",
+    "position":"room"
+  },
+  {
+    "move":"look at coin",
+    "response":"Looks valuable!",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"give me banana",
+    "response":"You acquire a banana.",
+    "position":"room",
+    "item":"banana"
+  },
+  {
+    "move":"take coin",
+    "response":"Nice.",
+    "position":"room",
+    "item":"coin",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"put paste on bars",
+    "response":"You smear your paste across the bars. The ants grab it as it drips down to them and carry it down the drain.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"punch wall",
+    "response":"That did more damage to you than the wall.",
+    "position":"room"
+  },
+  {
+    "move":"bend bars",
+    "response":"You try to bend the bars with your bare hands, but they don't move.",
+    "position":"room"
+  },
+  {
+    "move":"step on ant",
+    "response":"You step on an ant, but there are so many. It doesn't appear to make a difference.",
+    "position":"room"
+  },
+  {
+    "move":"kill ants",
+    "response":"You step on an ant, but there are so many. It doesn't appear to make a difference.",
+    "position":"room"
+  },
+  {
+    "move":"use key",
+    "response":"You can't use what you don't have.",
+    "position":"room"
+  },
+  {
+    "move":"what can i see in room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"talk to merchant",
+    "response":"She mumbles something before looking up. 'Hi, welcome to Crescent! Looking to trade?'",
+    "position":"crescent"
+  },
+  {
+    "move":"put coin down drain",
+    "response":"You toss the useless coin down the drain.",
+    "position":"room",
+    "condition":{
+      "bent coin":"inventory"
+    },
+    "drop":"bent coin"
+  },
+  {
+    "move":"put coin down drain",
+    "response":"You toss it down the drain.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    },
+    "drop":"coin"
+  },
+  {
+    "move":"put coin down drain",
+    "response":"You don't have a coin!",
+    "position":"room"
+  },
+  {
+    "move":"jump on bed",
+    "response":"It's not very bouncy, but you get a few jumps in.",
+    "position":"room"
+  },
+  {
+    "move":"open chest",
+    "response":"It's empty.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    },
+    "trigger":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"look under bed",
+    "response":"Empty. Better look elsewhere.",
+    "position":"room"
+  },
+  {
+    "move":"use lune porter",
+    "response":"You are transported to Crescent Plaza. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "lune porter":"inventory"
+    },
+    "drop":"lune porter",
+    "travel":"crescent"
+  },
+  {
+    "move":"open chest",
+    "response":"There's a coin in it.",
+    "position":"room",
+    "trigger":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"throw paste at bird",
+    "response":"It splatters across the window.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"look at well",
+    "response":"It appears to be falling apart. You see water, but the bucket looks too old to be useful.",
+    "position":"room"
+  },
+  {
+    "move":"take coin",
+    "response":"You already took it!",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"walk to shop",
+    "response":"There isn't much to it, but you see the shopkeeper (@liltmerchant) tending to her shop.",
+    "position":"crescent"
+  },
+  {
+    "move":"rub coin",
+    "response":"Perhaps this will bring you luck.",
+    "position":"room"
+  },
+  {
+    "move":"take key",
+    "response":"It's just out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"go to shop",
+    "response":"There isn't much to it, but you see the shopkeeper (@liltmerchant) tending to her shop.",
+    "position":"crescent"
+  },
+  {
+    "move":"close chest",
+    "response":"It's currently closed.",
+    "position":"room"
+  },
+  {
+    "move":"push bucket",
+    "response":"The bucket tips a bit, but you catch it and set it back upright.",
+    "position":"room"
+  },
+  {
+    "move":"push bowl",
+    "response":"You give the bowl a push, but the paste remains inside.",
+    "position":"room"
+  },
+  {
+    "move":"follow ant trail",
+    "response":"They're carrying food to a drain in the middle of the room.",
+    "position":"room"
+  },
+  {
+    "move":"go to front",
+    "response":"The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"look on floor",
+    "response":"Wood floor. It appears to be bent out of shape in some areas.",
+    "position":"room"
+  },
+  {
+    "move":"stamp on bent floor",
+    "response":"It looks very beat up. No amount of stamping will change that, although you do try.",
+    "position":"room"
+  },
+  {
+    "move":"do i have wifi",
+    "response":"You check your phone, but it has no signal. You realize it's a rock. You drop it.",
+    "position":"room"
+  },
+  {
+    "move":"what is around me",
+    "response":"You see a large signpost, a small shop across the way, and an old well.",
+    "position":"crescent"
+  },
+  {
+    "move":"look at ants",
+    "response":"They're carrying food to a drain in the middle of the room.",
+    "position":"room"
+  },
+  {
+    "move":"punch through left wall",
+    "response":"You punch it with all your might. You feel the room shift a bit...",
+    "position":"room",
+    "trigger":{
+      "tilt":"left"
+    }
+  },
+  {
+    "move":"punch left wall",
+    "response":"You punch it with all your might. You feel the room shift a bit...",
+    "position":"room",
+    "trigger":{
+      "tilt":"left"
+    }
+  },
+  {
+    "move":"what is in room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"whats in room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"kick right wall",
+    "response":"You kick it HARD. You feel the room shift a bit...",
+    "position":"room",
+    "trigger":{
+      "tilt":"right"
+    }
+  },
+  {
+    "move":"kick left wall",
+    "response":"You run across the room and give it a flying kick. The room seems to shift a bit.",
+    "position":"room",
+    "trigger":{
+      "tilt":"left"
+    }
+  },
+  {
+    "move":"look at shop",
+    "response":"You're surprised to see someone else out here. A shopkeeper (@liltmerchant) tends to her store.",
+    "position":"crescent"
+  },
+  {
+    "move":"push bed",
+    "response":"There's some space between the bed and the wall, so you push it against the wall.",
+    "position":"room"
+  },
+  {
+    "move":"use right wall",
+    "response":"You give the wall a good kick. The room rocks a bit...",
+    "position":"room"
+  },
+  {
+    "move":"open window",
+    "response":"The window is ajar, but you fail to pry it open any further.",
+    "position":"room"
+  },
+  {
+    "move":"push bars",
+    "response":"The bars don't move an inch.",
+    "position":"room"
+  },
+  {
+    "move":"open right wall",
+    "response":"The window is ajar, but you fail to pry it open any further.",
+    "position":"room"
+  },
+  {
+    "move":"push back wall",
+    "response":"You give the back wall a good push, but nothing happens.",
+    "position":"room"
+  },
+  {
+    "move":"talk to window",
+    "response":"You call out through the window, but nobody seems to be around.",
+    "position":"room"
+  },
+  {
+    "move":"use paste",
+    "response":"You spread some on the pillow.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"talk to flower",
+    "response":"You hum a classical tune. The flower seems to perk up a bit.",
+    "position":"room"
+  },
+  {
+    "move":"punch right wall",
+    "response":"Huh? The room seems to shift slightly!",
+    "position":"room",
+    "trigger":{
+      "tilt":"right"
+    }
+  },
+  {
+    "move":"talk to bird",
+    "response":"You call out to the bird. It appears to be a bit nervous now.",
+    "position":"room"
+  },
+  {
+    "move":"punch through right wall",
+    "response":"You fail to punch through it, but the room seems to shift a bit.",
+    "position":"room",
+    "trigger":{
+      "tilt":"right"
+    }
+  },
+  {
+    "move":"use blanket to take flower",
+    "response":"You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position":"room",
+    "item":"flower",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"use blanket to grab flower",
+    "response":"You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position":"room",
+    "item":"flower",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"use blanket to pick up flower",
+    "response":"You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position":"room",
+    "item":"flower",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"block drain",
+    "response":"You cover the drain with your foot, but the ants start biting it. You remove it before your foot is useless.",
+    "position":"room"
+  },
+  {
+    "move":"close drain",
+    "response":"You cover the drain with your foot, but the ants start biting it. You remove it before your foot is useless.",
+    "position":"room"
+  },
+  {
+    "move":"use window",
+    "response":"There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position":"room"
+  },
+  {
+    "move":"look behind me",
+    "response":"Your comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"look behind me",
+    "response":"Your comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room",
+    "condition":{
+      "blanket":"inventory"
+    }
+  },
+  {
+    "move":"open pillow",
+    "response":"There doesn't appear to be anything hidden inside.",
+    "position":"room"
+  },
+  {
+    "move":"look behind me",
+    "response":"Your comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room"
+  },
+  {
+    "move":"open front wall",
+    "response":"You try to bend the bars with your bare hands, but they don't move.",
+    "position":"room"
+  },
+  {
+    "move":"train ants with flower",
+    "response":"You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    },
+    "trigger":{
+      "ants":"training"
+    }
+  },
+  {
+    "move":"open floor",
+    "response":"You try to chip away at the floor with little success.",
+    "position":"room"
+  },
+  {
+    "move":"open drain",
+    "response":"It's already open, and the ants continue to crawl down into it.",
+    "position":"room"
+  },
+  {
+    "move":"train ants",
+    "response":"They become more and more receptive to receiving your orders. You reward them with more paste.",
+    "position":"room",
+    "condition":{
+      "ants":"training"
+    },
+    "trigger":{
+      "ants":"trained"
+    }
+  },
+  {
+    "move":"open ceiling",
+    "response":"If only you could...",
+    "position":"room"
+  },
+  {
+    "move":"train ants",
+    "response":"You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    },
+    "trigger":{
+      "ants":"training"
+    }
+  },
+  {
+    "move":"open bars",
+    "response":"You try to bend the bars with your bare hands, but they don't move.",
+    "position":"room"
+  },
+  {
+    "move":"open back wall",
+    "response":"How do you plan on doing that?",
+    "position":"room"
+  },
+  {
+    "move":"use flower with ants",
+    "response":"You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position":"room",
+    "condition":{
+      "flower":"inventory"
+    },
+    "trigger":{
+      "ants":"training"
+    }
+  },
+  {
+    "move":"direct ants",
+    "response":"They become more and more receptive to receiving your orders. You reward them with more paste.",
+    "position":"room",
+    "condition":{
+      "ants":"training"
+    },
+    "trigger":{
+      "ants":"trained"
+    }
+  },
+  {
+    "move":"use pillow",
+    "response":"You place your head upon it for a few minutes.",
+    "position":"room"
+  },
+  {
+    "move":"use left wall",
+    "response":"You knock on the left wall to deduce its thickness. It would take quite a hit to knock this down.",
+    "position":"room"
+  },
+  {
+    "move":"use front wall",
+    "response":"You take a running leap at the bars. You land on the floor.",
+    "position":"room"
+  },
+  {
+    "move":"use flower",
+    "response":"Could be useful for something, but you're not sure what.",
+    "position":"room"
+  },
+  {
+    "move":"use floor",
+    "response":"You're already standing on it.",
+    "position":"room"
+  },
+  {
+    "move":"use drain",
+    "response":"You think about what you might put down the drain...",
+    "position":"room"
+  },
+  {
+    "move":"use door",
+    "response":"The door remains shut and locked.",
+    "position":"room"
+  },
+  {
+    "move":"use chest",
+    "response":"You stand on the chest to get a better view of your room, but there's not much to see.",
+    "position":"room"
+  },
+  {
+    "move":"use bucket",
+    "response":"You don't need to use it right now. Better to focus on getting out of here.",
+    "position":"room"
+  },
+  {
+    "move":"use bowl",
+    "response":"It's already full of paste.",
+    "position":"room"
+  },
+  {
+    "move":"use bird",
+    "response":"You sing a little tune to the blue bird, which seems to get its attention. It gives you a wary look.",
+    "position":"room"
+  },
+  {
+    "move":"take key with ants",
+    "response":"The ants, expecting a reward, pick up the key and bring it over to you.",
+    "position":"room",
+    "item":"key",
+    "condition":{
+      "ants":"trained"
+    },
+    "trigger":{
+      "key":"acquired"
+    }
+  },
+  {
+    "move":"use blanket",
+    "response":"You wrap yourself in the blanket for a minute before resting it back on the bed.",
+    "position":"room"
+  },
+  {
+    "move":"unlock door",
+    "response":"You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    },
+    "trigger":{
+      "door":"open"
+    },
+    "travel":"crescent"
+  },
+  {
+    "move":"go to back wall",
+    "response":"Your comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room"
+  },
+  {
+    "move":"use bars",
+    "response":"You rest your head on the bars for a minute and think about how you might escape.",
+    "position":"room"
+  },
+  {
+    "move":"take coin out of chest",
+    "response":"You pick up the coin.",
+    "position":"room",
+    "item":"coin",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"put coin in pocket",
+    "response":"You pick up the coin.",
+    "position":"room",
+    "item":"coin",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"lay in bed",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"feed paste to ants",
+    "response":"Wow, they really like it!",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"look in bucket",
+    "response":"You're afraid to look inside.",
+    "position":"room"
+  },
+  {
+    "move":"take key",
+    "response":"You grab the key right before it gets carried down the drain.",
+    "position":"room",
+    "item":"key",
+    "condition":{
+      "key":"pasted"
+    },
+    "trigger":{
+      "key":"acquired"
+    }
+  },
+  {
+    "move":"walk towards door",
+    "response":"It's locked. Maybe there's another way out.",
+    "position":"room"
+  },
+  {
+    "move":"throw paste at key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"use paste on drain",
+    "response":"Don't be wasteful.",
+    "position":"room"
+  },
+  {
+    "move":"use paste with key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"put paste on key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"use paste on key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"stand up",
+    "response":"You are standing, although this room isn't very spacious.",
+    "position":"room"
+  },
+  {
+    "move":"throw paste on key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"look through bars",
+    "response":"You see a trail of ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"dump paste on key",
+    "response":"The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "trigger":{
+      "key":"pasted"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"use key with door",
+    "response":"You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    },
+    "trigger":{
+      "door":"open"
+    },
+    "travel":"crescent"
+  },
+  {
+    "move":"throw paste at key",
+    "response":"It's already covered in paste, but you add more anyway.",
+    "position":"room",
+    "item":"paste",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"use paste with key",
+    "response":"It's already covered in paste, but you add more anyway.",
+    "position":"room",
+    "item":"paste",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"use paste on key",
+    "response":"It's already covered in paste, but you add more anyway.",
+    "position":"room",
+    "item":"paste",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"where am i",
+    "response":"You're in a room. There's a front wall with bars, back, left, and right wall.",
+    "position":"room"
+  },
+  {
+    "move":"💀",
+    "response":"Is that a threat?",
+    "position":"room"
+  },
+  {
+    "move":"start",
+    "response":"You're already playing! You should look around.",
+    "position":"room"
+  },
+  {
+    "move":"go to front wall",
+    "response":"The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"look in chest",
+    "response":"It's a small chest. It's closed, but it doesn't appear to be locked.",
+    "position":"room"
+  },
+  {
+    "move":"look in chest",
+    "response":"I wonder if anything else was stored in here?",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"go through drain",
+    "response":"It's far too small.",
+    "position":"room"
+  },
+  {
+    "move":"squeeze through bars",
+    "response":"You try to bend the bars, but they don't move.",
+    "position":"room"
+  },
+  {
+    "move":"look outside",
+    "response":"There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position":"room"
+  },
+  {
+    "move":"throw paste on key",
+    "response":"It's already covered in paste, but you add more anyway.",
+    "position":"room",
+    "item":"paste",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"look around",
+    "response":"You see a large signpost, a small shop across the way, and an old well.",
+    "position":"crescent"
+  },
+  {
+    "move":"take coin",
+    "response":"You're already holding the coin.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"take coin",
+    "response":"That was the only coin, and now it's ruined.",
+    "position":"room",
+    "condition":{
+      "bent coin":"inventory"
+    }
+  },
+  {
+    "move":"look at sky",
+    "response":"Your eyes adjust to the sun. There are a few clouds, and birds fly overhead.",
+    "position":"crescent"
+  },
+  {
+    "move":"jump out window",
+    "response":"It's closed, and I doubt you'd fit through it anyway.",
+    "position":"room"
+  },
+  {
+    "move":"whistle",
+    "response":"You whistle a tune. You hear someone in the distance repeat it.",
+    "position":"room"
+  },
+  {
+    "move":"look at well",
+    "response":"It appears to be falling apart. You see water, but the bucket looks too old to be useful.",
+    "position":"crescent"
+  },
+  {
+    "move":"look down well",
+    "response":"You see glittering below. Perhaps you should make a wish, as well. (Donate: https://t.co/2IARFLAjfX)",
+    "position":"crescent"
+  },
+  {
+    "move":"use dawn porter",
+    "response":"You've been transported back to the room! #liltroom",
+    "position":"crescent",
+    "drop":"dawn porter",
+    "travel":"room"
+  },
+  {
+    "move":"where am i",
+    "response":"You look around and see a large signpost, a small shop across the way, and an old well.",
+    "position":"crescent"
+  },
+  {
+    "move":"give paste to ants",
+    "response":"Wow, they really like it!",
+    "position":"room",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"dump paste on key",
+    "response":"It's already covered in paste, but you add more anyway.",
+    "position":"room",
+    "item":"paste",
+    "condition":{
+      "paste":"inventory"
+    },
+    "drop":"paste"
+  },
+  {
+    "move":"pet bird",
+    "response":"You can't reach it.",
+    "position":"room"
+  },
+  {
+    "move":"🍌",
+    "response":"You get a banana.",
+    "position":"room",
+    "item":"banana"
+  },
+  {
+    "move":"walk to front wall",
+    "response":"The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"look inside chest",
+    "response":"It's a small chest. It's closed, but it doesn't appear to be locked.",
+    "position":"room"
+  },
+  {
+    "move":"look inside chest",
+    "response":"I wonder if anything else was stored in here?",
+    "position":"room",
+    "condition":{
+      "chest":"open"
+    }
+  },
+  {
+    "move":"go to bed",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"take paste",
+    "response":"You get some paste. What are you going to do with it?",
+    "position":"room",
+    "item":"paste"
+  },
+  {
+    "move":"use key on door",
+    "response":"You open the door and make your way out of the room... You walk until you find yourself in an open area. #liltcrescent",
+    "position":"room",
+    "condition":{
+      "key":"inventory"
+    },
+    "trigger":{
+      "door":"open"
+    },
+    "travel":"crescent"
+  },
+  {
+    "move":"look at birds",
+    "response":"They're singing as they fly by. You see one that looks distinctly blue...",
+    "position":"crescent"
+  },
+  {
+    "move":"look in well",
+    "response":"You see glittering below. Perhaps you should make a wish, as well. (Donate: https://t.co/ZOSn5O2p7Z)",
+    "position":"crescent"
+  },
+  {
+    "move":"help",
+    "response":"Tweet at me to do things.",
+    "position":"room"
+  },
+  {
+    "move":"take bars",
+    "response":"You try to take them, but they hold firm.",
+    "position":"room"
+  },
+  {
+    "move":"use paste on right wall",
+    "response":"That was definitely an improvement to the wall.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"sleep in bed",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"go through window",
+    "response":"You are much larger than the window.",
+    "position":"room"
+  },
+  {
+    "move":"use paste on wall",
+    "response":"That was definitely an improvement to the wall.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"look at floor",
+    "response":"Wood floor. It appears to be bent out of shape in some areas.",
+    "position":"room"
+  },
+  {
+    "move":"look out window",
+    "response":"There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position":"room"
+  },
+  {
+    "move":"sleep",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"take ants",
+    "response":"They bite you. You drop it.",
+    "position":"room"
+  },
+  {
+    "move":"look at paste",
+    "response":"It's definitely old.",
+    "position":"room"
+  },
+  {
+    "move":"take flower",
+    "response":"It's pretty, but prickly. You decide against it.",
+    "position":"room"
+  },
+  {
+    "move":"take bed",
+    "response":"It would be nice to have your own bed, but it doesn't seem useful right now.",
+    "position":"room"
+  },
+  {
+    "move":"look at key",
+    "response":"It's small and simple.",
+    "position":"room"
+  },
+  {
+    "move":"look around room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"look at drain",
+    "response":"The ant colony must be that way. You hear gurgling sounds from below.",
+    "position":"room"
+  },
+  {
+    "move":"look at bars",
+    "response":"Too tight to squeeze through.",
+    "position":"room"
+  },
+  {
+    "move":"take pillow",
+    "response":"You pick it up and give it a hug, then put it back down.",
+    "position":"room"
+  },
+  {
+    "move":"put coin in pocket",
+    "response":"You place the coin in your pocket.",
+    "position":"room",
+    "condition":{
+      "coin":"inventory"
+    }
+  },
+  {
+    "move":"look around",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"take bucket",
+    "response":"The stench is overwhelming, you drop it.",
+    "position":"room"
+  },
+  {
+    "move":"use paste with ants",
+    "response":"They like it. They carry it down the drain. They're basically having an ant party.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"talk to ants",
+    "response":"...You are lonely.",
+    "position":"room"
+  },
+  {
+    "move":"take chest",
+    "response":"You don't need a chest, but maybe there's something useful inside it.",
+    "position":"room"
+  },
+  {
+    "move":"look at bowl",
+    "response":"A small, white ceramic bowl. Good for holding paste.",
+    "position":"room"
+  },
+  {
+    "move":"use ants",
+    "response":"What are you going to use them for?",
+    "position":"room"
+  },
+  {
+    "move":"look at back wall",
+    "response":"Your comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position":"room"
+  },
+  {
+    "move":"put paste in drain",
+    "response":"Don't be wasteful.",
+    "position":"room"
+  },
+  {
+    "move":"take ant",
+    "response":"They bite you. You drop it.",
+    "position":"room"
+  },
+  {
+    "move":"look at pillow",
+    "response":"Nothing fancy, it's just a pillow.",
+    "position":"room"
+  },
+  {
+    "move":"use ant",
+    "response":"What are you going to use them for?",
+    "position":"room"
+  },
+  {
+    "move":"look at left wall",
+    "response":"You see a chest and bucket.",
+    "position":"room"
+  },
+  {
+    "move":"look at flower",
+    "response":"A nice touch.",
+    "position":"room"
+  },
+  {
+    "move":"look at ceiling",
+    "response":"There are some unusual markings, but appears to be impenetrable.",
+    "position":"room"
+  },
+  {
+    "move":"look at bucket",
+    "response":"You're afraid to look inside.",
+    "position":"room"
+  },
+  {
+    "move":"eat some paste",
+    "response":"You eat it, but it's so bad you spit it out. A few ants are attracted to the smell.",
+    "position":"room"
+  },
+  {
+    "move":"look at bird",
+    "response":"Its song gives you hope.",
+    "position":"room"
+  },
+  {
+    "move":"run",
+    "response":"Not a lot of space to move around in here. I better look around.",
+    "position":"room"
+  },
+  {
+    "move":"take bowl",
+    "response":"You take a closer look at the bowl. It's colored with the stains of many past meals.",
+    "position":"room"
+  },
+  {
+    "move":"look at wall",
+    "response":"The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"use paste on back wall",
+    "response":"That was definitely an improvement to the wall.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"throw paste",
+    "response":"That was definitely an improvement to the wall.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"look at window",
+    "response":"There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position":"room"
+  },
+  {
+    "move":"look through window",
+    "response":"There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position":"room"
+  },
+  {
+    "move":"take ceiling",
+    "response":"You really can't do that.",
+    "position":"room"
+  },
+  {
+    "move":"look at bed",
+    "response":"Small bed, not sure how you fit on it.",
+    "position":"room"
+  },
+  {
+    "move":"look at door",
+    "response":"It's locked. Maybe there's another way out.",
+    "position":"room"
+  },
+  {
+    "move":"take bird",
+    "response":"You can't reach it from here. It's outside.",
+    "position":"room"
+  },
+  {
+    "move":"look at room",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"look at forest",
+    "response":"It looks oddly magical. You can make out a clearing in the distance.",
+    "position":"room"
+  },
+  {
+    "move":"look at blanket",
+    "response":"Soft and warm. What else could it be used for?",
+    "position":"room"
+  },
+  {
+    "move":"look at walls",
+    "response":"There's a front wall with bars, back, left, and right wall. That front wall looks pretty interesting.",
+    "position":"room"
+  },
+  {
+    "move":"eat paste",
+    "response":"You eat it, but it's so bad you spit it out. A few ants are attracted to the smell.",
+    "position":"room"
+  },
+  {
+    "move":"take door",
+    "response":"It doesn't budge.",
+    "position":"room"
+  },
+  {
+    "move":"look at chest",
+    "response":"It's a small chest. It doesn't appear to be locked.",
+    "position":"room"
+  },
+  {
+    "move":"use paste on left wall",
+    "response":"That was definitely an improvement to the wall.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"take blanket",
+    "response":"You pick it up to see how soft it is. Very soft.",
+    "position":"room",
+    "item":"blanket"
+  },
+  {
+    "move":"use paste on ants",
+    "response":"They like it. They carry it down the drain. They're basically having an ant party.",
+    "position":"room",
+    "drop":"paste"
+  },
+  {
+    "move":"use bed",
+    "response":"You don't feel tired. You just woke up.",
+    "position":"room"
+  },
+  {
+    "move":"look at front wall",
+    "response":"The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position":"room"
+  },
+  {
+    "move":"look at right wall",
+    "response":"There's a window with a flower on the sill.",
+    "position":"room"
+  }
+]
