@@ -7,3 +7,6 @@ bin/
 include/
 lib/
 distribute-*
+
+*.pyc
+*.pyo

@@ -1,23 +1,51 @@
 # -*- coding: utf-8 -*-
+
+"""
+Utility/helper functions.
+"""
+
 import string
 import re
 
-def invbuild(inventory):
+
+def build_inventory_tweet(inventory):
+    # Only used when a player requests their inventory. This creates the
+    # inventory string, with quantity indicated by bullet points.
+
+    # Get a list of items in the player's inventory. We will modify this with
+    # the quantity.
     items = list(inventory.keys())
-    i = 0
-    while i < len(items):
-        iq = inventory[items[i]]['quantity'] # item quantity (items[i] would resolve to item's name)
-        if iq > 1: # only append quantity info if more than one
-            items[i] += ' ' + u'\u2022'*iq
-        i += 1
+
+    # Loop through each item.
+    item_index = 0
+    while item_index < len(items):
+        # Item quantity (items[item_index] would resolve to item's name).
+        item_quantity = inventory[items[item_index]]['quantity']
+
+        # If the quantity is greater than 1, add bullet points (1 per).
+        if item_quantity > 1:
+            items[item_index] += ' ' + (u'\u2022' * item_quantity)
+
+        # Next item.
+        item_index += 1
+
+    # Return a string that contains the list of items.
     return ', '.join(items)
-def mbuild(screen_name, message):
+
+
+def build_tweet(screen_name, message):
     return '@' + screen_name + ' ' + message
-def cleanstr(s):
-    s_mod = re.sub(r'http\S+', '', s).lower() # removes links
-    s_mod = re.sub(r' the ', ' ', s_mod) #remove the word "the" // probably a better solution for this...
-    s_mod = re.sub(' +',' ', s_mod) # removes extra spaces
-    ns = ''.join(ch for ch in s_mod if ch not in set(string.punctuation)).rstrip() # removes punctuation
-    return ns
-def cansplit(s):
-    return True if len((s).split()) >= 2 else False
+
+
+def filter_tweet(tweet):
+    # Removes links and lowercases the text.
+    modified_tweet = re.sub(r'http\S+', '', tweet).lower()
+    # Remove the word "the". Probably a better solution for this...
+    modified_tweet = re.sub(r' the ', ' ', modified_tweet)
+    # Removes extra spaces.
+    modified_tweet = re.sub(' +', ' ', modified_tweet)
+    # Removes punctuation.
+    modified_tweet = ''.join(ch for ch in modified_tweet if ch not in set(
+        string.punctuation)).rstrip()
+
+    return modified_tweet

@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
-import os
-import time
-import string
-import random
-import tweepy
-import psycopg2
-import urlparse
-import json
-import item
-import event
-import command
-import db
-from utils import cleanstr, mbuild, invbuild
 
-# debugging options
-debug = False
-rec = False # pushs logs to console table // unicode doesn't work when debugging...
+"""
+Main bot code.
+"""
+
+# External
+import json
+import os
+import random
+import string
+import tweepy
+
+# Internal
+import command
+from constants import COLOR, DEBUG, ERROR_MESSAGES, FAMILIARLILT, LILTBUILDER, MKNEPPRATH
+import db
+import event
+import item
+from utils import filter_tweet, build_tweet, build_inventory_tweet
+
 
 class TwitterAPI:
     """
     Class for accessing the Twitter API.
-
-    Requires API credentials to be available in environment
-    variables. These will be set appropriately if the bot was created
-    with init.sh included with the heroku-twitterbot-starter
     """
+
     def __init__(self):
         consumer_key = os.environ.get('TWITTER_CONSUMER_KEY')
         consumer_secret = os.environ.get('TWITTER_CONSUMER_SECRET')
@@ -35,117 +35,96 @@ class TwitterAPI:
         self.api = tweepy.API(auth, wait_on_rate_limit=True)
 
     def tweet(self, message):
-        """Send a tweet"""
+        # Send a tweet.
         self.api.update_status(status=message)
 
     def reply(self, message, tweet_id):
-        """Reply to a tweet"""
+        # Reply to a tweet.
         self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
 
-error_message = ['You can\'t do that.', 'That can\'t be done.', 'Didn\'t work.', 'Oops, can\'t do that.', 'Sorry, you can\'t do that.', 'That didn\'t work.', 'Try something else.', 'Sorry, you\'ll have to try something else.', 'Oops, didn\'t work.', 'Oops, try something else.', 'Nice try, but you can\'t do that.', 'Nice try, but that didn\'t work.', 'Try something else, that didn\'t seem to work.']
-# rstring = ''.join(random.choice(string.ascii_uppercase + string.digits + u'\u2669' + u'\u266A' + u'\u266B' + u'\u266C' + u'\u266D' + u'\u266E' + u'\u266F') for _ in range(5))
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
 
-    # init mentions
+    # Initialize mentions.
     mentions = []
 
-    # delete console table before entering new logs
-    if rec == True:
-        db.delete('console', 'log', '*')
+    # Get the latest 200 mentions.
+    raw_mentions = twitter.api.mentions_timeline(count=200)
 
-    # get latest tweets
-    if debug == False:
-        raw_mentions = twitter.api.mentions_timeline(count=200)
-        # get builder mentions
-        builder = False
-        for mention in raw_mentions:
-            if mention.user.id == 724754312757272576:
-                if mention.id == int(db.select('last_tweet_id', 'users', 'id', '724754312757272576')):
-                    builder = True
-                if builder == False:
-                    mentions.append({
-                        'screen_name': mention.user.screen_name,
-                        'user_id': mention.user.id,
-                        'text': mention.text,
-                        'tweet_id': mention.id
-                    })
-        # gets the rest of the mentions
-        for mention in raw_mentions:
-            mentioned = False
-            mention_name = (mention.text).split(' ',1)[0].lower()
-            if mention_name != '@familiarlilt':
-                mentioned = True
-            for m in mentions:
-                if mention.user.id == m['user_id']: # if mention is already in mentioned, or the first word in mention text isn't lilt
-                    mentioned = True
-            if mentioned == False: # if user hasn't been mentioned, append it to mentions
+    # Get LiltBuilder mentions.
+    stop_collecting_builder_tweets = False
+    for mention in raw_mentions:
+        if mention.user.id_str == LILTBUILDER:
+            # Checks the last recorded tweet ID by LiltBuilder. If the
+            # current mention ID matches the last recorded, stop collecting
+            # LiltBuilder tweets.
+            if mention.id_str == int(db.select('last_tweet_id', 'users', 'id', LILTBUILDER)):
+                stop_collecting_builder_tweets = True
+            # If we're still collectin builder tweets, add it to the
+            # mentions list.
+            # TODO: We're adding this to the same list as other mentions,
+            # which seems odd. Consider handling separately.
+            if stop_collecting_builder_tweets == False:
                 mentions.append({
                     'screen_name': mention.user.screen_name,
-                    'user_id': mention.user.id,
+                    'user_id': mention.user.id_str,
                     'text': mention.text,
-                    'tweet_id': mention.id
+                    'tweet_id': mention.id_str
                 })
 
-    # get debug tweets
-    if debug == True:
-        db.log(rec, 'Debugging...')
-        debug_mentions = []
-        d = 1
-        while db.select('screen_name', 'debug', 'tweet_id', str(d)) != None:
-            debug_mentions.append({
-                'screen_name': db.select('screen_name', 'debug', 'tweet_id', str(d)),
-                'user_id': int(db.select('user_id', 'debug', 'tweet_id', str(d))),
-                'text': db.select('tweet', 'debug', 'tweet_id', str(d)),
-                'tweet_id': ''.join(random.choice(string.digits) for _ in range(18))
-            })
-            d += 1
-        # go through mentions from Twitter using Tweepy, gets the latest tweet from all players
-        for mention in debug_mentions:
-            try:
-                mentioned = False
-                mention_name = (mention['text']).split(' ',1)[0].lower()
-                if mention_name != '@familiarlilt':
+        # Gets the rest of the mentions.
+        for mention in raw_mentions:
+            mentioned = False
+
+            # TODO: I could be smarter here? mention.entities['user_mentions'])
+            # TODO: Allow replies to self.
+            if mention.in_reply_to_user_id_str != FAMILIARLILT:  # @familiarlilt's ID
+                mentioned = True
+            for m in mentions:
+                # If mention is already in mentioned.
+                if mention.user.id_str == m['user_id']:
                     mentioned = True
-                for m in mentions:
-                    if mention['user_id'] == m['user_id']: # if user matches user already in mentions and if sent directly to Lilt
-                        mentioned = True
-                if mentioned == False: # if user hasn't been mentioned, append it to mentions
-                    mentions.append({
-                        'screen_name': mention['screen_name'],
-                        'user_id': mention['user_id'],
-                        'text': mention['text'],
-                        'tweet_id': mention['tweet_id']
-                    })
-            except:
-                pass
-        db.log(rec, ' ')
 
-    db.log(rec, mentions)
+            # if mention.user.id_str != MKNEPPRATH:  # TODO: REMOVE THIS MKNEPPRATH ID FILTER/TESTING ONLY
+            #     mentioned = True
 
-    builderid = False
+            # if user hasn't been mentioned, append it to mentions
+            if mentioned == False:
+                mentions.append({
+                    'screen_name': mention.user.screen_name,
+                    'user_id': mention.user.id_str,
+                    'text': mention.text,
+                    'tweet_id': mention.id_str
+                })
 
-    # go through all mentions to see which require a response from Lilt
+    # Go through all mentions to see which require a response from Lilt.
     for mention in mentions:
         try:
-            user = {}
-            user['screen_name'] = mention['screen_name'].lower()
-            user['id'] = str(mention['user_id'])
-            user['text'] = mention['text']
-            user['tweet_id'] = str(mention['tweet_id'])
+            # user_UNSAFE serves no purpose beyond being a data dumping ground.
+            # Can be smarter about this.
+            user_UNSAFE = {}
+            user_UNSAFE['screen_name'] = mention['screen_name'].lower()
+            user_UNSAFE['id'] = mention['user_id']
+            user_UNSAFE['text'] = mention['text']
+            user_UNSAFE['tweet_id'] = mention['tweet_id']
 
-            reply = True if debug == True else False
-            cmdreply = False # these may be unnecessary
-            cmd = ''
+            reply = False
 
-            # gets tweet user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
-            tweet = '' if len((user['text']).split()) == 1 else (user['text']).split(' ',1)[1]
-            if (tweet).split(' ',1)[0][0] == '@':
-                tweet = (tweet).split(' ',1)[1]
-            move = cleanstr(tweet)
+            command_message = ''
 
-            # converts synonyms to common word
+            # gets tweet user_UNSAFE['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in tweet
+            tweet = '' if len((user_UNSAFE['text']).split()) == 1 else (
+                user_UNSAFE['text']).split(' ', 1)[1]
+
+            # If the tweet begins with a screen_name, remove it.
+            if tweet[0][0] == '@':
+                tweet = (tweet).split(' ', 1)[1]
+
+            move = filter_tweet(tweet)
+
+            # Converts synonyms to common word.
+            # TODO: Move to filter_tweet? This is doing similar things.
             if move.startswith(('inspect', 'examine', 'check', 'scan')):
                 move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('check out')):
@@ -166,97 +145,226 @@ if __name__ == "__main__":
             move = move.replace(' an ', ' ')
             move = move.replace(' a ', ' ')
 
-            # attempts to grab current user from users table
-            user_exists = db.select('name', 'users', 'id', user['id'])
+            # Attempts to fetch the player data from users table.
+            user_exists = db.select('name', 'users', 'id', user_UNSAFE['id'])
+
+            # If none is found, check intent.
             if user_exists == None:
+                # If the tweet says "start," a new player is added.
                 if move == 'start':
-                    db.log(rec, 'new player: ' + user['screen_name'])
-                    position_init = 'start'
-                    inventory_init = {}
-                    events_init = {}
-                    events_init[position_init] = {}
-                    db.newuser(user['screen_name'], user['id'], user['tweet_id'], position_init, inventory_init, events_init)
+                    print('New player: ' + user_UNSAFE['screen_name'] + '.')
+
+                    # Should reply to new players.
                     reply = True
+
+                    INITIAL_POSITION = 'start'
+                    INITIAL_STATE = {}
+                    INITIAL_STATE[INITIAL_POSITION] = {}
+
+                    db.newuser(
+                        user_UNSAFE['screen_name'],
+                        user_UNSAFE['id'],
+                        user_UNSAFE['tweet_id'],
+                        INITIAL_POSITION,
+                        {},  # Inventory.
+                        INITIAL_STATE
+                    )
                 else:
-                    # this reply is purely for debugging - since reply defaults to True, this would be redundant
-                    db.log(rec, user['screen_name'] + ' isn\'t playing Lilt.')
-                    reply = False
+                    # Otherwise, they mentioned Lilt and aren't playing.
+                    print(user_UNSAFE['screen_name'] + ' isn\'t playing Lilt.')
+                    print(' ')
             else:
-                db.log(rec, 'current player: ' + user['screen_name'])
-                tweet_exists = db.select('name', 'users', 'last_tweet_id', user['tweet_id'])
+                print('Current player: ' + user_UNSAFE['screen_name'] + '.')
+
+                # This is a current player, check if the bot has already
+                # replied to this tweet.
+                tweet_exists = db.select(
+                    'name', 'users', 'last_tweet_id', user_UNSAFE['tweet_id'])
+
                 if tweet_exists == None:
-                    db.log(rec, 'new tweet')
-                    if user['id'] != '724754312757272576':
-                        db.update(user['tweet_id'], user['id'], 'last_tweet_id')
-                    elif (user['id'] == '724754312757272576') and (builderid == False):
-                        builderid = True
-                        db.update(user['tweet_id'], user['id'], 'last_tweet_id')
+                    print('New tweet. I will reply.')
+
+                    # If the tweet ID doesn't match the last one saved, the bot
+                    # should reply.
                     reply = True
-                else:
-                    db.log(rec, 'old tweet')
 
-            # if this mention should be replied to, do so # might want to add double check to make sure tweet sent
-            if reply == True:
-                db.log(rec, 'tweet: ' + tweet)
-                # loop through requests to users table
-                user_data = ['position', 'inventory', 'events']
-                for r in user_data:
-                    user[r] = db.select(r, 'users', 'id', user['id']) if r == 'position' else json.loads(db.select(r, 'users', 'id', user['id'])) # can json.loads get moved into db.select function?
-                    db.log(rec, r + ': ' + str(user[r]))
-                # handles commands (drop/give/inventory)
-                db.log(rec, 'Checking for command...')
-                cmdreply, cmd = command.get(tweet, user['inventory'], user['id'], user['position'])
-                if not cmdreply:
-                    # get data for db response
-                    db.log(rec, 'move: ' + move)
-                    # get current event (requires items from user_data)
-                    user['current_event'] = event.getcurrent(move, user['position'], user['inventory'], user['events'])
-                    if user['current_event'] != None:
-                        db.log(rec, 'current event: ' + str(user['current_event']))
-                    # loop through requests to moves table (requires current_event)
-                    move_data = ['response', 'item', 'drop', 'trigger', 'travel']
-                    for r in move_data:
-                        user[r] = db.select(r, 'moves', 'move', move, user['position'], user['current_event'])
-                        if user[r] != None:
-                            db.log(rec, r + ': ' + str(user[r]))
-                    # add trigger to events if it exists for this move
-                    if user['trigger'] != None:
-                        user['trigger'] = json.loads(user['trigger'])
-                        user['events'][user['position']].update(user['trigger'])
-                        db.update(user['events'], user['id'], 'events')
-                    # move user if travel exists and add new position to events
-                    if user['travel'] != None:
-                        db.update(user['travel'], user['id'], 'position')
-                        if user['travel'] not in user['events']:
-                            user['events'][user['travel']] = {}
-                            db.update(user['events'], user['id'], 'events')
-                    # get a response
-                    db.log(rec, 'Searching...')
-                    if user['response'] != None:
-                        if (user['item'] != None) and (user['drop'] != None):
-                            message = mbuild(user['screen_name'], item.replace(user['item'], user['drop'], user['inventory'], user['id'], user['response']))
-                        elif user['item'] != None:
-                            message = mbuild(user['screen_name'], item.get(user['item'], user['inventory'], user['id'], user['response']))
-                        elif user['drop'] != None:
-                            message = mbuild(user['screen_name'], item.drop(user['drop'], user['inventory'], user['id'], user['response']))
-                        else:
-                            message = mbuild(user['screen_name'], user['response'])
+                    # Save this tweet ID so we can compare to it next time the
+                    # bot checks.
+                    # TODO: It's dangerous to update this before replying to the
+                    # tweet.
+                    if DEBUG.BOT:
+                        print(
+                            COLOR.WARNING + 'Not saving last_tweet_id while debugging.' + COLOR.END)
                     else:
-                        db.log(rec, 'I guess that move didn\'t work.')
-                        message = mbuild(user['screen_name'], random.choice(error_message))
-                        # db.log(rec, db.storeerror(move, user['position']))
+                        print(
+                            COLOR.GREEN + 'Saving tweet as last_tweet_id.' + COLOR.END)
+                        db.update(user_UNSAFE['tweet_id'],
+                                  user_UNSAFE['id'], 'last_tweet_id')
                 else:
-                    db.log(rec, 'Command acquired, printing reply...')
-                    message = mbuild(user['screen_name'], cmd)
+                    # Bot already replied to this tweet.
+                    print('Old tweet.')
+                    print(' ')
 
-                db.log(rec, 'reply: ' + message)
-                if debug == False:
-                    db.log(rec, '#TweetingIt')
-                    twitter.reply(message, user['tweet_id'])
+            # If this mention should be replied to, do so.
+            # TODO: Might want to add double-check to make sure the tweet sent.
+            if reply == True:
+                print('Tweet: ' + tweet)
 
-                db.log(rec, ' ') # prints user data separate from other logs
-                db.log(rec, user['screen_name'] + '\'s data: ' + str(user))
-                db.log(rec, ' ')
+                # TODO: Feels like all of this could be a bit more concise. Can
+                # we make fewer calls to the database for this information?
+
+                # Get the player's position.
+                user_UNSAFE['position'] = db.select(
+                    'position', 'users', 'id', user_UNSAFE['id'])
+
+                # Get the player's inventory.
+                user_UNSAFE['inventory'] = db.select(
+                    'inventory', 'users', 'id', user_UNSAFE['id'])
+
+                # Get the player's state.
+                user_UNSAFE['events'] = json.loads(
+                    db.select('events', 'users', 'id', user_UNSAFE['id']))
+
+                # Handles commands (drop/give/inventory). Also @LiltBuilder
+                # queries. TODO: How this is being handled ain't great.
+                print('Checking if this is a command tweet...')
+                command_message = command.get(
+                    tweet, user_UNSAFE['inventory'], user_UNSAFE['id'], user_UNSAFE['position'])
+
+                # If there was a message returned above, I can assume this is
+                # a "command" move. Need a better name for this. Command move
+                # responses are generated, not queried from the database.
+                if len(command_message) != 0:
+                    print('Command acquired, printing reply...')
+
+                    # This is the completed message that will be sent. Can skip
+                    # most of what's below.
+                    message = build_tweet(
+                        user_UNSAFE['screen_name'], command_message)
+                else:
+                    print('Did not receive a command message. Not a command tweet.')
+                    # This is it. Time to figure out what the correct response
+                    # is for this tweet.
+                    print('Move:', move)
+
+                    # Get current event that applies to this move (requires
+                    # items from user_UNSAFE). This is because the inventory is being
+                    # added to state ("events").
+                    user_UNSAFE['current_event'] = event.get_current_event(
+                        move, user_UNSAFE['position'], user_UNSAFE['inventory'], user_UNSAFE['events'])
+
+                    # Loop through requests to moves table (requires
+                    # current_event). TODO: Would make more sense to use *...
+                    move_data = ['response', 'item',
+                                 'drop', 'trigger', 'travel']
+                    for move_property in move_data:
+                        # Given the move and current state, get the above "move
+                        # data". TODO: I'm assigning this to the user_UNSAFE dict -
+                        # seems messy.
+                        user_UNSAFE[move_property] = db.select(
+                            move_property, 'moves', 'move', move, user_UNSAFE['position'], user_UNSAFE['current_event'])
+                        if user_UNSAFE[move_property] != None:
+                            print('For ' + move_property + ', \'' +
+                                  str(user_UNSAFE[move_property]) + '\'.')
+
+                    # If a change was triggered, such as "chest: closed", add
+                    # that change to player state for their current location.
+                    if user_UNSAFE['trigger'] != None:
+                        # Converts the trigger property to JSON.
+                        user_UNSAFE['trigger'] = json.loads(
+                            user_UNSAFE['trigger'])
+
+                        # Updates the player's position with the updated state.
+                        user_UNSAFE['events'][user_UNSAFE['position']].update(
+                            user_UNSAFE['trigger'])
+
+                        # Saves change to database.
+                        if DEBUG.BOT:
+                            print(
+                                COLOR.WARNING + 'Not saving state changes while debugging.' + COLOR.END)
+                        else:
+                            print(
+                                COLOR.GREEN + 'Saving state changes.' + COLOR.END)
+                            db.update(user_UNSAFE['events'],
+                                      user_UNSAFE['id'], 'events')
+
+                    # If the player is traveling, move them and add new location
+                    # to state.
+                    if user_UNSAFE['travel'] != None:
+                        # Save position to database.
+                        if DEBUG.BOT:
+                            print(
+                                COLOR.WARNING + 'Not updating position while debugging.' + COLOR.END)
+                        else:
+                            print(COLOR.GREEN +
+                                  'Updating position.' + COLOR.END)
+                            db.update(user_UNSAFE['travel'],
+                                      user_UNSAFE['id'], 'position')
+
+                        # If the position doesn't exist in player state yet...
+                        if user_UNSAFE['travel'] not in user_UNSAFE['events']:
+                            # Initialize the position in state (events).
+                            user_UNSAFE['events'][user_UNSAFE['travel']] = {}
+
+                            # Save state (events) to database.
+                            if DEBUG.BOT:
+                                print(
+                                    COLOR.WARNING + 'Not adding position to state while debugging.' + COLOR.END)
+                            else:
+                                print(
+                                    COLOR.GREEN + 'Adding position to state.' + COLOR.END)
+                                db.update(
+                                    user_UNSAFE['events'], user_UNSAFE['id'], 'events')
+
+                    # Get a response.
+                    print('Handle any inventory changes and respond.')
+
+                    if user_UNSAFE['response'] != None:
+                        # These item functions are essentially pass-throughs for
+                        # the response unless there's an issue with the player's
+                        # inventory.
+
+                        # The player is updating an item, so we must remove the
+                        # old item and replace with the new version of it.
+                        if (user_UNSAFE['item'] != None) and (user_UNSAFE['drop'] != None):
+                            print('Let\'s replace ' +
+                                  user_UNSAFE['drop'] + ' with ' + user_UNSAFE['item'] + '.')
+                            message = build_tweet(user_UNSAFE['screen_name'], item.replace(
+                                user_UNSAFE['drop'], user_UNSAFE['item'], user_UNSAFE['inventory'], user_UNSAFE['id'], user_UNSAFE['response']))
+
+                        # The player is getting a new item.
+                        elif user_UNSAFE['item'] != None:
+                            message = build_tweet(user_UNSAFE['screen_name'], item.get(
+                                user_UNSAFE['item'], user_UNSAFE['inventory'], user_UNSAFE['id'], user_UNSAFE['response']))
+
+                        # The player is dropping an item.
+                        elif user_UNSAFE['drop'] != None:
+                            message = build_tweet(user_UNSAFE['screen_name'], item.drop(
+                                user_UNSAFE['drop'], user_UNSAFE['inventory'], user_UNSAFE['id'], user_UNSAFE['response']))
+
+                        # We're not modifying the inventory. Return the response.
+                        else:
+                            message = build_tweet(
+                                user_UNSAFE['screen_name'], user_UNSAFE['response'])
+                    else:
+                        # No response was found. Return an error message.
+                        print('That move didn\'t work.')
+                        message = build_tweet(
+                            user_UNSAFE['screen_name'], random.choice(ERROR_MESSAGES))
+
+                print('Replying with, "{message}"'.format(message=message))
+                if DEBUG.BOT:
+                    print(
+                        COLOR.WARNING + 'Not tweeting while debugging.' + COLOR.END)
+                else:
+                    print(
+                        COLOR.GREEN + 'Tweeting.' + COLOR.END)
+                    twitter.reply(message, user_UNSAFE['tweet_id'])
+
+                print(' ')
+                print(user_UNSAFE['screen_name'] +
+                      '\'s dump: ' + str(user_UNSAFE))
+                print(' ')
         except:
             pass
 

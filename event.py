@@ -1,20 +1,47 @@
 # -*- coding: utf-8 -*-
+
+"""
+Functions for checking player state.
+"""
+
+# Internal
+import copy
 import db
 
-def getcurrent(move, position, inventory, events):
-    events_inv = events
+
+def get_current_event(move, position, inventory, state):
+    # TODO: `events` should perhaps be renamed "state" - it persists the current
+    # state of the player's environment bucketed by location.
+
+    # Creating a copy of events to modify.
+    state_and_inventory = copy.deepcopy(state)
+
+    # Getting the list of items in the player's inventory.
     items = list(inventory.keys())
+
+    # Here, I'm doing some weird stuff. On top of existing state, I'm adding
+    # inventory.
     for item in items:
-        events_inv[position][item] = 'inventory'
+        state_and_inventory[position][item] = 'inventory'
+
+    # Here's where checking if any of the state is applicable to the current
+    # player move.
     current_event = None
-    for key, value in events_inv[position].iteritems():
+    # Loop through each key/value pair in state (and the inventory)...
+    for key, value in state_and_inventory[position].items():
+        # Rebuild dict from key/value pair for querying.
         event = {}
         event[key] = value
-        # check if there is a response for this move when condition is met (this event)
-        response = db.select('response', 'moves', 'move', move, position, event)
+
+        # Check if there is a response for this move for any current state.
+        response = db.select('response', 'moves', 'move',
+                             move, position, event)
+
+        # If we did get a response, there is a stateful response for this move.
+        # Store that state and break the loop.
         if response != None:
             current_event = event
             break
-    for item in items: # shouldn't need this, but it works for now...
-        del events_inv[position][item]
+
+    print("Returning current event:", current_event)
     return current_event
