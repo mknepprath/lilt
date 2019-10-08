@@ -156,8 +156,8 @@ def update(val1, val2, col='inventory'):
         cur.execute("UPDATE users SET " + col +
                     " = %s WHERE id = %s;", (val1, val2))
     elif col == 'attempts':
-        cur.execute("UPDATE attempts SET " + col +
-                    " = %s WHERE move = %s", (val1, val2))
+        cur.execute(
+            "UPDATE attempts SET attempts = %s WHERE move = %s", (val1, val2))
     else:
         cur.execute("UPDATE users SET " + col +
                     " = %s WHERE id = %s;", (json.dumps(val1), val2))
@@ -203,12 +203,12 @@ def newmove(move, response, position, traits=None):
         conn.commit()
 
 
-def copymove(ogmove, newmove, position):
+def copy_move(ogmove, newmove, position):
     cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (newmove, ogmove, position))
     conn.commit()
 
 
-def newitem(traits):
+def new_item(traits):
     tq = 0
     dbcallstart = "INSERT INTO items ("
     dbdata = ()
@@ -223,3 +223,17 @@ def newitem(traits):
     dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
     cur.execute(dbcallstart + dbcallend, dbdata)
     conn.commit()
+
+
+def store_error(move, position):
+    # Check if someone has attempted to make this failed move before.
+    attempt = select('attempts', 'attempts', 'move', move, position)
+
+    # If no, add it as a new entry.
+    if attempt == None:
+        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(
+            move), str(position), 1))
+        conn.commit()
+    else:
+        # Someone else attempted this move previously, update the attempt count.
+        update(attempt + 1, move, 'attempts')

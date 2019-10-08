@@ -90,11 +90,11 @@ def get(tweet, inventory, id, position):
                     if trait == 'm':
                         traits['max'] = traits['m']
                         del traits['m']
-                db.newitem(traits)
+                db.new_item(traits)
                 return traits['name'].capitalize() + ' was added to Lilt.'
             elif builder_query_array[0] == 'copy':
                 if len(builder_query_array) == 3:
-                    db.copymove(
+                    db.copy_move(
                         builder_query_array[1], builder_query_array[2], position)
                     return '\'' + builder_query_array[2] + '\' was added to Lilt as a copy of \'' + builder_query_array[1] + '\'.'
             elif builder_query_array[0] == 'do':

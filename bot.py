@@ -371,6 +371,14 @@ if __name__ == "__main__":
                         message = build_tweet(
                             user_UNSAFE['screen_name'], random.choice(ERROR_MESSAGES))
 
+                        if DEBUG.BOT:
+                            print(
+                                COLOR.WARNING + 'Not saving the failed attempt while debugging.' + COLOR.END)
+                        else:
+                            print(
+                                COLOR.GREEN + 'Saving the failed attempt for future reference.' + COLOR.END)
+                            db.store_error(move, user_UNSAFE['position'])
+
                 print('Replying with, "{message}"'.format(message=message))
                 if DEBUG.BOT:
                     print(
