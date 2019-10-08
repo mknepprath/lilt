@@ -7,7 +7,7 @@ How To Run:
 1. Clone this repo.
 1. Install [Homebrew](https://brew.sh) if you haven't yet.
 1. Run `brew install postgresql`.
-1. `pip3 install psycopg2-binary`
+1. `pip3 install psycopg2-binary` (Note: This is why running `pip install -r requirements.txt` will not work - I'm running the `psycopg2-binary` locally, not `psycopg2`)
 1. `pip3 install tweepy`
 1. `pip3 install urllib3`
 1. Export environment variables - `DATABASE_URL` & Twitter auth tokens.

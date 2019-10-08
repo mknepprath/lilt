@@ -74,6 +74,8 @@ if __name__ == "__main__":
                 })
 
         # Gets the rest of the mentions.
+        # TODO: Check the timestamp - should not respond to tweets older than a
+        # day or two.
         for mention in raw_mentions:
             mentioned = False
 
