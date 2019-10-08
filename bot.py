@@ -79,8 +79,8 @@ if __name__ == "__main__":
         # Default to not skip tweet.
         skip_tweet = False
 
-        # If the tweet is greater than 2 weeks old, skip it.
-        if (datetime.now() - mention.created_at).days > 14:
+        # If the tweet is greater than 3 days, skip it.
+        if (datetime.now() - mention.created_at).days > 3:
             skip_tweet = True
 
         if not skip_tweet:
@@ -116,6 +116,8 @@ if __name__ == "__main__":
                 'text': mention.text,
                 'tweet_id': mention.id_str
             })
+
+    print(' ')
 
     # Go through all mentions to see which require a response from Lilt.
     for mention in mentions:
