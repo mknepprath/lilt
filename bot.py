@@ -5,6 +5,7 @@ Main bot code.
 """
 
 # External
+from datetime import datetime
 import json
 import os
 import random
@@ -73,32 +74,48 @@ if __name__ == "__main__":
                     'tweet_id': mention.id_str
                 })
 
-        # Gets the rest of the mentions.
-        # TODO: Check the timestamp - should not respond to tweets older than a
-        # day or two.
-        for mention in raw_mentions:
-            mentioned = False
+    # Gets the rest of the mentions.
+    for mention in raw_mentions:
+        # Default to not skip tweet.
+        skip_tweet = False
 
-            # TODO: I could be smarter here? mention.entities['user_mentions'])
-            # TODO: Allow replies to self.
-            if mention.in_reply_to_user_id_str != FAMILIARLILT:  # @familiarlilt's ID
-                mentioned = True
+        # If the tweet is greater than 2 weeks old, skip it.
+        if (datetime.now() - mention.created_at).days > 14:
+            skip_tweet = True
+
+        if not skip_tweet:
+            print('=> @{name}: {text}'.format(
+                name=mention.user.screen_name, text=mention.text))
+
+        # TODO: I could be smarter here? mention.entities['user_mentions'])
+        # TODO: Allow replies to self. It happens.
+        if not skip_tweet and mention.in_reply_to_user_id_str != FAMILIARLILT:
+            skip_tweet = True
+
+        # While debugging, ignore tweets by other players.
+        if not skip_tweet and DEBUG.BOT and mention.user.id_str != MKNEPPRATH:
+            print('Skipping non-@mknepprath tweets while debugging.',
+                  (datetime.now() - mention.created_at).days)
+            skip_tweet = True
+
+        # Check currently aggregated mentions to see if we've already
+        # found a tweet by this player.
+        if not skip_tweet:
             for m in mentions:
-                # If mention is already in mentioned.
+                # If mention is already in skip_tweet.
                 if mention.user.id_str == m['user_id']:
-                    mentioned = True
+                    skip_tweet = True
+                    break
 
-            # if mention.user.id_str != MKNEPPRATH:  # TODO: REMOVE THIS MKNEPPRATH ID FILTER/TESTING ONLY
-            #     mentioned = True
-
-            # if user hasn't been mentioned, append it to mentions
-            if mentioned == False:
-                mentions.append({
-                    'screen_name': mention.user.screen_name,
-                    'user_id': mention.user.id_str,
-                    'text': mention.text,
-                    'tweet_id': mention.id_str
-                })
+        # If the skip_tweet flag hasn't been set to True, append tweet to
+        # mentions.
+        if not skip_tweet:
+            mentions.append({
+                'screen_name': mention.user.screen_name,
+                'user_id': mention.user.id_str,
+                'text': mention.text,
+                'tweet_id': mention.id_str
+            })
 
     # Go through all mentions to see which require a response from Lilt.
     for mention in mentions:
