@@ -81,11 +81,11 @@ def delete(table, column, value):
     psql.commit()
 
 
-def new_user(name, id, tweet_id, position, inventory, events):
+def new_user(name, user_id, tweet_id):
     cursor.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
                    (
                        name,
-                       id,
+                       user_id,
                        tweet_id,
                        'start',
                        json.dumps({}),
