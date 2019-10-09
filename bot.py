@@ -178,17 +178,10 @@ if __name__ == "__main__":
                     # Should reply to new players.
                     reply = True
 
-                    INITIAL_POSITION = 'start'
-                    INITIAL_STATE = {}
-                    INITIAL_STATE[INITIAL_POSITION] = {}
-
-                    db.newuser(
+                    db.new_user(
                         user_UNSAFE['screen_name'],
                         user_UNSAFE['id'],
-                        user_UNSAFE['tweet_id'],
-                        INITIAL_POSITION,
-                        {},  # Inventory.
-                        INITIAL_STATE
+                        user_UNSAFE['tweet_id']
                     )
                 else:
                     # Otherwise, they mentioned Lilt and aren't playing.
@@ -219,8 +212,8 @@ if __name__ == "__main__":
                     else:
                         print(
                             COLOR.GREEN + 'Saving tweet as last_tweet_id.' + COLOR.END)
-                        db.update(user_UNSAFE['tweet_id'],
-                                  user_UNSAFE['id'], 'last_tweet_id')
+                        db.update_user(user_UNSAFE['tweet_id'],
+                                       user_UNSAFE['id'], 'last_tweet_id')
                 else:
                     # Bot already replied to this tweet.
                     print('Old tweet.')
@@ -306,8 +299,8 @@ if __name__ == "__main__":
                         else:
                             print(
                                 COLOR.GREEN + 'Saving state changes.' + COLOR.END)
-                            db.update(user_UNSAFE['events'],
-                                      user_UNSAFE['id'], 'events')
+                            db.update_user(user_UNSAFE['events'],
+                                           user_UNSAFE['id'], 'events')
 
                     # If the player is traveling, move them and add new location
                     # to state.
@@ -319,8 +312,8 @@ if __name__ == "__main__":
                         else:
                             print(COLOR.GREEN +
                                   'Updating position.' + COLOR.END)
-                            db.update(user_UNSAFE['travel'],
-                                      user_UNSAFE['id'], 'position')
+                            db.update_user(user_UNSAFE['travel'],
+                                           user_UNSAFE['id'], 'position')
 
                         # If the position doesn't exist in player state yet...
                         if user_UNSAFE['travel'] not in user_UNSAFE['events']:
@@ -334,7 +327,7 @@ if __name__ == "__main__":
                             else:
                                 print(
                                     COLOR.GREEN + 'Adding position to state.' + COLOR.END)
-                                db.update(
+                                db.update_user(
                                     user_UNSAFE['events'], user_UNSAFE['id'], 'events')
 
                     # Get a response.
@@ -372,14 +365,6 @@ if __name__ == "__main__":
                         print('That move didn\'t work.')
                         message = build_tweet(
                             user_UNSAFE['screen_name'], random.choice(ERROR_MESSAGES))
-
-                        if DEBUG.BOT:
-                            print(
-                                COLOR.WARNING + 'Not saving the failed attempt while debugging.' + COLOR.END)
-                        else:
-                            print(
-                                COLOR.GREEN + 'Saving the failed attempt for future reference.' + COLOR.END)
-                            db.store_error(move, user_UNSAFE['position'])
 
                 print('Replying with, "{message}"'.format(message=message))
                 if DEBUG.BOT:

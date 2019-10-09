@@ -13,17 +13,136 @@ from constants import COLOR, DEBUG
 # Initialize PostgreSQL database
 parse.uses_netloc.append('postgres')
 url = parse.urlparse(os.environ['DATABASE_URL'])
-conn = psycopg2.connect(
+psql = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
     password=url.password,
     host=url.hostname,
     port=url.port
 )
-cur = conn.cursor()
+cursor = psql.cursor()
 
 
-def do(action, table, data, val=None):  # all of these need to return something
+def select(col1, table, col2, val, position=None, condition=None, quantity='one'):
+    query = 'SELECT {col1} FROM {table} WHERE {col2}=\'{val}\''.format(
+        col1=col1,
+        table=table,
+        col2=col2,
+        val=val
+    )
+
+    if position:
+        # Append position and condition if position is provided.
+        query += ' AND position=\'{p}\' AND condition'.format(p=position)
+        query += ' IS NULL;' if not condition else '=\'{condition}\';'.format(
+            condition=json.dumps(condition)
+        )
+
+    cursor.execute(query)
+
+    if quantity == 'one':
+        o = cursor.fetchone()
+
+        if DEBUG.DB:
+            print(COLOR.BLUE + 'Returning ' +
+                  'one.' if o else 'None.' + COLOR.END)
+
+        return o[0] if o else o  # o would be None here. Passing it through.
+    else:
+        o = cursor.fetchall()
+
+        if DEBUG.DB:
+            print(COLOR.BLUE + 'Returning all:' + COLOR.END, o)
+
+        return o
+
+
+def update_user(val1, user_id, col='inventory'):
+    if DEBUG.DB:
+        print(COLOR.BLUE + 'Updating database.' + COLOR.END)
+
+    query = 'UPDATE users SET {col}=\'{val1}\' WHERE id=\'{id}\';'.format(
+        col=col,
+        val1=json.dumps(val1) if isinstance(val1, dict) else val1,
+        id=user_id
+    )
+
+    cursor.execute(query)
+    psql.commit()
+
+
+def delete(table, column, value):
+    query = 'DELETE FROM {table} WHERE {column}=\'{value}\';'.format(
+        table=table,
+        column=column,
+        value=value
+    )
+    cursor.execute(query)
+    psql.commit()
+
+
+def new_user(name, id, tweet_id, position, inventory, events):
+    cursor.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
+                   (
+                       name,
+                       id,
+                       tweet_id,
+                       'start',
+                       json.dumps({}),
+                       json.dumps({'start': {}})
+                   )
+                   )
+    psql.commit()
+
+
+# Admin only from this point down... I believe.
+
+
+def new_move(move, response, position, traits=None):
+    if traits == None:
+        cursor.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)",
+                       (move, response, position))
+        psql.commit()
+    else:
+        tq = 0
+        dbcallstart = "INSERT INTO moves (move, response, position"
+        dbdata = (move, response, position)
+        for trait in traits:
+            tq += 1
+            dbcallstart = dbcallstart + ', ' + str(trait)
+            if type(traits[trait]) is dict:
+                dbdata = dbdata + (json.dumps(traits[trait]),)
+            else:
+                # must factor if inputting json (json.dumps)
+                dbdata = dbdata + (traits[trait],)
+        dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
+        cursor.execute(dbcallstart + dbcallend, dbdata)
+        psql.commit()
+
+
+def copy_move(ogmove, new_move, position):
+    cursor.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (new_move, ogmove, position))
+    psql.commit()
+
+
+def new_item(traits):
+    tq = 0
+    dbcallstart = "INSERT INTO items ("
+    dbdata = ()
+    for trait in traits:
+        tq += 1
+        if tq == 1:
+            dbcallstart = dbcallstart + str(trait)
+        else:
+            dbcallstart = dbcallstart + ', ' + str(trait)
+        # must factor if inputting json (json.dumps)
+        dbdata = dbdata + (traits[trait],)
+    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
+    cursor.execute(dbcallstart + dbcallend, dbdata)
+    psql.commit()
+
+
+def do(action, table, data, val=None):
     if action == 'insert':
         # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
         dbstate = 'INSERT INTO ' + table + ' ('
@@ -113,127 +232,9 @@ def do(action, table, data, val=None):  # all of these need to return something
             # ('0','1','2','3',)
         dbstate = dbstate + ';'
         # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('0','1','2','3',)
-    cur.execute(dbstate, dbdata)
+    cursor.execute(dbstate, dbdata)
     if action == 'select':
-        return cur.fetchall()
+        return cursor.fetchall()
     else:
-        conn.commit()
+        psql.commit()
         return
-
-
-def select(col1, table, col2, val, position=None, condition=None, quantity='one'):
-    if condition != None:
-        cur.execute("SELECT " + col1 + " FROM " + table +
-                    " WHERE move = %s AND position = %s AND condition = %s;", (val, position, json.dumps(condition)))
-    elif position != None:
-        cur.execute("SELECT " + col1 + " FROM " + table +
-                    " WHERE move = %s AND position = %s AND condition IS NULL;", (val, position))
-    else:
-        cur.execute("SELECT " + col1 + " FROM " + table +
-                    " WHERE " + col2 + " = %s;", (val,))
-
-    if quantity == 'one':
-        o = cur.fetchone()
-        if o == None:
-            if DEBUG.DB:
-                print(COLOR.BLUE + 'Returning None.' + COLOR.END)
-            return o
-        else:
-            if DEBUG.DB:
-                print(COLOR.BLUE + 'Returning one:' + COLOR.END, o[0])
-            return o[0]
-    else:
-        o = cur.fetchall()
-        if DEBUG.DB:
-            print(COLOR.BLUE + 'Returning all:' + COLOR.END, o)
-        return o
-
-
-def update(val1, val2, col='inventory'):
-    if DEBUG.DB:
-        print(COLOR.BLUE + 'Updating database.' + COLOR.END)
-    if (col != 'inventory') and (col != 'events') and (col != 'attempts'):
-        cur.execute("UPDATE users SET " + col +
-                    " = %s WHERE id = %s;", (val1, val2))
-    elif col == 'attempts':
-        cur.execute(
-            "UPDATE attempts SET attempts = %s WHERE move = %s", (val1, val2))
-    else:
-        cur.execute("UPDATE users SET " + col +
-                    " = %s WHERE id = %s;", (json.dumps(val1), val2))
-    conn.commit()
-
-
-def delete(table, col, val):
-    if table == 'console':
-        cur.execute("DELETE FROM " + table +
-                    " WHERE " + col + " != %s;", (val,))
-        conn.commit()
-    else:
-        cur.execute("DELETE FROM " + table +
-                    " WHERE " + col + " = %s;", (val,))
-        conn.commit()
-
-
-def newuser(name, id, tweet_id, position, inventory, events):
-    cur.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
-                (name, id, tweet_id, position, json.dumps(inventory), json.dumps(events)))
-    conn.commit()
-
-
-def newmove(move, response, position, traits=None):
-    if traits == None:
-        cur.execute("INSERT INTO moves (move, response, position) VALUES (%s, %s, %s)",
-                    (move, response, position))
-        conn.commit()
-    else:
-        tq = 0
-        dbcallstart = "INSERT INTO moves (move, response, position"
-        dbdata = (move, response, position)
-        for trait in traits:
-            tq += 1
-            dbcallstart = dbcallstart + ', ' + str(trait)
-            if type(traits[trait]) is dict:
-                dbdata = dbdata + (json.dumps(traits[trait]),)
-            else:
-                # must factor if inputting json (json.dumps)
-                dbdata = dbdata + (traits[trait],)
-        dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
-        cur.execute(dbcallstart + dbcallend, dbdata)
-        conn.commit()
-
-
-def copy_move(ogmove, newmove, position):
-    cur.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (newmove, ogmove, position))
-    conn.commit()
-
-
-def new_item(traits):
-    tq = 0
-    dbcallstart = "INSERT INTO items ("
-    dbdata = ()
-    for trait in traits:
-        tq += 1
-        if tq == 1:
-            dbcallstart = dbcallstart + str(trait)
-        else:
-            dbcallstart = dbcallstart + ', ' + str(trait)
-        # must factor if inputting json (json.dumps)
-        dbdata = dbdata + (traits[trait],)
-    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
-    cur.execute(dbcallstart + dbcallend, dbdata)
-    conn.commit()
-
-
-def store_error(move, position):
-    # Check if someone has attempted to make this failed move before.
-    attempt = select('attempts', 'attempts', 'move', move, position)
-
-    # If no, add it as a new entry.
-    if attempt == None:
-        cur.execute("INSERT INTO attempts (move, position, attempts) VALUES (%s, %s, %s)", (str(
-            move), str(position), 1))
-        conn.commit()
-    else:
-        # Someone else attempted this move previously, update the attempt count.
-        update(attempt + 1, move, 'attempts')

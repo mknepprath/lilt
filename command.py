@@ -171,7 +171,7 @@ def get(tweet, inventory, id, position):
                     return builder_query_array[2].capitalize() + ' was updated with ' + str(dbval) + '.'
                 elif builder_query_array[1] == 'delete':
                     return '\'' + str(data) + '\' was deleted from ' + builder_query_array[2].capitalize() + '.'
-            else:  # newmove
+            else:  # new_move
                 # la(tweet_array[0]) eat meat cake(1)~It looks pretty nasty! But you eat it...(2)~c|meat cake^inventory(3)~d|meat cake(4)
                 if len(builder_query_array) >= 3:
                     traits = dict(trait.split('|')
@@ -198,7 +198,7 @@ def get(tweet, inventory, id, position):
                                                  for t in (traits[trait]).split('~'))
                 else:
                     traits = None
-                db.newmove(
+                db.new_move(
                     builder_query_array[0], builder_query_array[1], position, traits)
                 return ('\'' + builder_query_array[0] + '\' was added to Lilt.')
     return ''

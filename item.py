@@ -45,7 +45,7 @@ def get(item, inventory, user_id, response):
     else:
         print(COLOR.GREEN + 'Updating inventory.' + COLOR.END)
         # Update the database with the modified inventory.
-        db.update(inventory, user_id)
+        db.update_user(inventory, user_id)
 
     # Return the pass-through response.
     return response
@@ -72,7 +72,7 @@ def drop(item_to_drop, inventory, user_id, response=None, quantity=None):
     else:
         print(COLOR.GREEN + 'Updating inventory.' + COLOR.END)
         # Update the database with the modified inventory.
-        db.update(inventory, user_id)
+        db.update_user(inventory, user_id)
 
     if response != None:
         # If there is a pass-through response, return it.
@@ -146,8 +146,8 @@ def give(item_to_give, inventory, user_id, position, recipient):
         print(COLOR.WARNING + 'Not updating inventories while debugging.' + COLOR.END)
     else:
         print(COLOR.GREEN + 'Updating inventories.' + COLOR.END)
-        db.update(recipient_inventory, recipient_id)
-        db.update(inventory, user_id)
+        db.update_user(recipient_inventory, recipient_id)
+        db.update_user(inventory, user_id)
 
     return 'You gave {item} to @{screen_name}.'.format(item=item_to_give, screen_name=recipient)
 
@@ -201,7 +201,7 @@ def replace(prev_item, next_item, inventory, user_id, response):
     else:
         print(COLOR.GREEN + 'Updating inventory.' + COLOR.END)
         # Update the database with the modified inventory.
-        db.update(inventory, user_id)
+        db.update_user(inventory, user_id)
 
     # Return the pass-through response.
     return response
