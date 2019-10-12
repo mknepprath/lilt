@@ -143,8 +143,13 @@ if __name__ == "__main__":
 
             move = filter_tweet(tweet)
 
+            # If a user includes any text after '//', ignore it.
+            move = move.split('//')[0]
+
             # Converts synonyms to common word.
             # TODO: Move to filter_tweet? This is doing similar things.
+            # 'check out' has to be first, otherwise 'check' gets removed by the
+            # next replace.
             if move.startswith(('check out')):
                 move = 'look at ' + move.split(' ', 2)[2]
             elif move.startswith(('inspect', 'examine', 'check', 'scan')):
