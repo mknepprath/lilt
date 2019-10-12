@@ -60,7 +60,7 @@ def get(tweet, inventory, id, position):
             return (item.give(give_item, inventory, id, position, tweet_array[1][1:].lower()))
 
     # Inventory request.
-    elif (tweet_array[0] == 'inventory') or (' '.join(tweet_array) == 'check inventory') or (' '.join(tweet_array) == 'what am i holding'):
+    elif (tweet_array[0] == 'inventory') or (' '.join(tweet_array) == 'check inventory') or (' '.join(tweet_array) == 'check my inventory') or (' '.join(tweet_array) == 'what am i holding'):
         if inventory == {}:
             return 'Your inventory is empty at the moment.'
         else:
