@@ -26,7 +26,7 @@ ERROR_MESSAGES = [
     'Didn\'t work.',
     'Nice try, but that didn\'t work.',
     'Nice try, but you can\'t do that.',
-    'Nice try! Tweet "help" for tips.'
+    'Nice try! Tweet "help" for tips.',
     'Oops, can\'t do that.',
     'Oops, didn\'t work.',
     'Oops, try something else.',
