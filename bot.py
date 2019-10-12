@@ -145,10 +145,10 @@ if __name__ == "__main__":
 
             # Converts synonyms to common word.
             # TODO: Move to filter_tweet? This is doing similar things.
-            if move.startswith(('inspect', 'check out', 'examine', 'check', 'scan')):
-                move = 'look at ' + move.split(' ', 1)[1]
-            elif move.startswith(('check out')):
+            if move.startswith(('check out')):
                 move = 'look at ' + move.split(' ', 2)[2]
+            elif move.startswith(('inspect', 'examine', 'check', 'scan')):
+                move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('grab', 'get')):
                 move = 'take ' + move.split(' ', 1)[1]
             elif move.startswith(('pick up')):
