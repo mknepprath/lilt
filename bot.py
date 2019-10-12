@@ -83,10 +83,6 @@ if __name__ == "__main__":
         if (datetime.now() - mention.created_at).days > 3:
             skip_tweet = True
 
-        if not skip_tweet:
-            print('=> @{name}: {text}'.format(
-                name=mention.user.screen_name, text=mention.text))
-
         # TODO: I could be smarter here? mention.entities['user_mentions'])
         # TODO: Allow replies to self. It happens.
         if not skip_tweet and mention.in_reply_to_user_id_str != FAMILIARLILT:
@@ -110,6 +106,9 @@ if __name__ == "__main__":
         # If the skip_tweet flag hasn't been set to True, append tweet to
         # mentions.
         if not skip_tweet:
+            print('=> @{name}: {text}'.format(
+                name=mention.user.screen_name, text=mention.text))
+
             mentions.append({
                 'screen_name': mention.user.screen_name,
                 'user_id': mention.user.id_str,
