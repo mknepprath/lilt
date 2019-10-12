@@ -141,8 +141,9 @@ if __name__ == "__main__":
             if tweet[0][0] == '@':
                 tweet = (tweet).split(' ', 1)[1]
 
-            # If a player includes any text after '//', ignore it.
+            # If a player includes any text after '//' or ',', ignore it.
             tweet = tweet.split('//')[0]
+            tweet = tweet.split(',')[0]
 
             move = filter_tweet(tweet)
 
