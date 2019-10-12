@@ -23,19 +23,21 @@ class DEBUG:  # These should probably be all True or all False at this time.
 
 
 ERROR_MESSAGES = [
-    'You can\'t do that.',
-    'That can\'t be done.',
     'Didn\'t work.',
+    'Nice try, but that didn\'t work.',
+    'Nice try, but you can\'t do that.',
+    'Nice try! Tweet "help" for tips.'
     'Oops, can\'t do that.',
-    'Sorry, you can\'t do that.',
-    'That didn\'t work.',
-    'Try something else.',
-    'Sorry, you\'ll have to try something else.',
     'Oops, didn\'t work.',
     'Oops, try something else.',
-    'Nice try, but you can\'t do that.',
-    'Nice try, but that didn\'t work.',
+    'Sorry, you can\'t do that.',
+    'Sorry, you\'ll have to try something else.',
+    'That can\'t be done.',
+    'That didn\'t work.',
+    'That doesn\'t seem to do anything.',
+    'Try something else.',
     'Try something else, that didn\'t seem to work.'
+    'You can\'t do that.',
 ]
 
 FAMILIARLILT = '2705523196'

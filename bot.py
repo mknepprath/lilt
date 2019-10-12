@@ -178,7 +178,7 @@ if __name__ == "__main__":
                     # Should reply to new players.
                     reply = True
 
-                    db.new_user(
+                    db.create_new_user(
                         user_UNSAFE['screen_name'],
                         user_UNSAFE['id'],
                         user_UNSAFE['tweet_id']

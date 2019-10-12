@@ -45,7 +45,7 @@ def select(col1, table, col2, val, position=None, condition=None, quantity='one'
 
         if DEBUG.DB:
             print(COLOR.BLUE + 'Returning ' +
-                  'one.' if o else 'None.' + COLOR.END)
+                  ('one.' if o else 'None.') + COLOR.END)
 
         return o[0] if o else o  # o would be None here. Passing it through.
     else:
@@ -81,7 +81,7 @@ def delete(table, column, value):
     psql.commit()
 
 
-def new_user(name, user_id, tweet_id):
+def create_new_user(name, user_id, tweet_id):
     cursor.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
                    (
                        name,
