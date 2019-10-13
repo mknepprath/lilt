@@ -9,6 +9,7 @@ from datetime import datetime
 import json
 import os
 import random
+import re
 import string
 import tweepy
 
@@ -141,9 +142,12 @@ if __name__ == "__main__":
             if tweet[0][0] == '@':
                 tweet = (tweet).split(' ', 1)[1]
 
-            # If a player includes any text after '//' or ',', ignore it.
-            tweet = tweet.split('//')[0]
-            tweet = tweet.split(',')[0]
+            # If a player includes any text after a semicolon, double slash,
+            # comma, period, or star, ignore it.
+            # TODO: DANGER DANGER, tweet is still referenced later despite
+            # that not being obvious here. Probably shouldn't be modifying the
+            # tweet at all, actually.
+            tweet = re.split('; | // |, |\. |\*|\n', tweet)[0]
 
             move = filter_tweet(tweet)
 

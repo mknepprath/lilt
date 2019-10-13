@@ -36,7 +36,7 @@ ERROR_MESSAGES = [
     'That didn\'t work.',
     'That doesn\'t seem to do anything.',
     'Try something else.',
-    'Try something else, that didn\'t seem to work.'
+    'Try something else, that didn\'t seem to work.',
     'You can\'t do that.',
 ]
 
