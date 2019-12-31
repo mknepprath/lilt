@@ -34,6 +34,7 @@ ERROR_MESSAGES = [
     'Sorry, you\'ll have to try something else.',
     'That can\'t be done.',
     'That didn\'t work.',
+    'That can\'t be done. Don\'t forget, you can tweet "inventory" to check your inventory.',
     'That doesn\'t seem to do anything.',
     'Try something else.',
     'Try something else, that didn\'t seem to work.',

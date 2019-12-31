@@ -2,10 +2,11 @@
 Runs bot.py on an interval.
 """
 
-# External
-from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 import os  # Required despite not being in this file.
+
+# External
+from apscheduler.schedulers.blocking import BlockingScheduler
 import tweepy  # Required despite not being in this file.
 
 logging.basicConfig()

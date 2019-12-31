@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# External
 import json
 import os
-import psycopg2
 from urllib import parse
+
+# External
+import psycopg2
 
 # Internal
 from constants import COLOR, DEBUG

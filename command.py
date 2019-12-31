@@ -6,7 +6,6 @@ queries. For instance, requesting an inventory status or giving another player
 an item.
 """
 
-# External
 import re
 
 # Internal

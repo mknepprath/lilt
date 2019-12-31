@@ -4,13 +4,14 @@
 Main bot code.
 """
 
-# External
 from datetime import datetime
 import json
 import os
 import random
 import re
 import string
+
+# External
 import tweepy
 
 # Internal
