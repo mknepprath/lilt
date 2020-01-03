@@ -158,7 +158,7 @@ if __name__ == "__main__":
             # next replace.
             if move.startswith(('check out')):
                 move = 'look at ' + move.split(' ', 2)[2]
-            elif move.startswith(('inspect', 'examine', 'check', 'scan')):
+            elif move.startswith(('check', 'examine', 'inspect', 'scan', 'see', 'view')):
                 move = 'look at ' + move.split(' ', 1)[1]
             elif move.startswith(('grab', 'get')):
                 move = 'take ' + move.split(' ', 1)[1]
