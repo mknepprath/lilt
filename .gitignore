@@ -10,3 +10,8 @@ distribute-*
 
 *.pyc
 *.pyo
+
+.env.local
+
+bundle
+bundle.zip
