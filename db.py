@@ -10,7 +10,6 @@ import psycopg2
 # Internal
 from constants import COLOR, DEBUG
 
-
 # Initialize PostgreSQL database
 parse.uses_netloc.append('postgres')
 url = parse.urlparse(os.environ['DATABASE_URL'])
@@ -83,16 +82,18 @@ def delete(table, column, value):
 
 
 def create_new_user(name, user_id, tweet_id):
-    cursor.execute("INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
-                   (
-                       name,
-                       user_id,
-                       tweet_id,
-                       'start',
-                       json.dumps({}),
-                       json.dumps({'start': {}})
-                   )
-                   )
+    print(COLOR.BLUE + 'Creating new user.' + COLOR.END)
+    cursor.execute(
+        "INSERT INTO users (name, id, last_tweet_id, position, inventory, events) VALUES (%s, %s, %s, %s, %s, %s)",
+        (
+            name,
+            user_id,
+            tweet_id,
+            'start',
+            json.dumps({}),
+            json.dumps({'start': {}})
+        )
+        )
     psql.commit()
 
 
@@ -116,13 +117,15 @@ def new_move(move, response, position, traits=None):
             else:
                 # must factor if inputting json (json.dumps)
                 dbdata = dbdata + (traits[trait],)
-        dbcallend = ") VALUES (%s, %s, %s" + ', %s'*tq + ")"
+        dbcallend = ") VALUES (%s, %s, %s" + ', %s' * tq + ")"
         cursor.execute(dbcallstart + dbcallend, dbdata)
         psql.commit()
 
 
 def copy_move(ogmove, new_move, position):
-    cursor.execute("INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;", (new_move, ogmove, position))
+    cursor.execute(
+        "INSERT INTO moves (move, response, position, item, condition, trigger, drop, travel) SELECT %s, response, position, item, condition, trigger, drop, travel FROM moves WHERE move = %s AND position = %s;",
+        (new_move, ogmove, position))
     psql.commit()
 
 
@@ -138,7 +141,7 @@ def new_item(traits):
             dbcallstart = dbcallstart + ', ' + str(trait)
         # must factor if inputting json (json.dumps)
         dbdata = dbdata + (traits[trait],)
-    dbcallend = ") VALUES (%s" + ', %s'*(tq-1) + ")"
+    dbcallend = ") VALUES (%s" + ', %s' * (tq - 1) + ")"
     cursor.execute(dbcallstart + dbcallend, dbdata)
     psql.commit()
 
@@ -163,7 +166,7 @@ def do(action, table, data, val=None):
             else:
                 dbdata = dbdata + (data[key],)
             # ('1','2','3',)
-        dbstate = dbstate + ') VALUES (%s' + ', %s'*(tq-1) + ');'
+        dbstate = dbstate + ') VALUES (%s' + ', %s' * (tq - 1) + ');'
         # 'INSERT INTO table (x, y, z) VALUES (%s, %s, %s);', ('1','2','3',)
     elif action == 'select':
         # 'SELECT a FROM table WHERE x = %s AND y = %s AND z = %s;',('1','2','3',)
@@ -210,7 +213,7 @@ def do(action, table, data, val=None):
     elif action == 'update':
         # 'UPDATE table SET a = %s WHERE x = %s AND y = %s AND z = %s;'('0','1','2','3',)
         dbstate = 'UPDATE ' + table + ' SET ' + \
-            list(val.keys())[0] + ' = %s WHERE '
+                  list(val.keys())[0] + ' = %s WHERE '
         # 'UPDATE table SET a = %s WHERE '
         tq = 0
         if type(list(val.values())[0]) is dict:
