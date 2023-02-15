@@ -11,7 +11,7 @@ import db
 
 def get_current_event(move, position, inventory, state):
     # TODO: `events` should perhaps be renamed "state" - it persists the current
-    # state of the player's environment bucketed by location.
+    #  state of the player's environment bucketed by location.
 
     # Creating a copy of events to modify.
     state_and_inventory = copy.deepcopy(state)
@@ -30,8 +30,7 @@ def get_current_event(move, position, inventory, state):
     # Loop through each key/value pair in state (and the inventory)...
     for key, value in state_and_inventory[position].items():
         # Rebuild dict from key/value pair for querying.
-        event = {}
-        event[key] = value
+        event = {key: value}
 
         # Check if there is a response for this move for any current state.
         response = db.select('response', 'moves', 'move',
@@ -39,7 +38,7 @@ def get_current_event(move, position, inventory, state):
 
         # If we did get a response, there is a stateful response for this move.
         # Store that state and break the loop.
-        if response != None:
+        if response is not None:
             current_event = event
             break
 

@@ -12,7 +12,7 @@ import re
 from constants import LILTBUILDER, MKNEPPRATH
 import db
 import item
-from utils import filter_tweet, build_inventory_tweet
+from utils import normalize_post, build_inventory_tweet
 
 
 def get(tweet, inventory, id, position):
@@ -32,13 +32,13 @@ def get(tweet, inventory, id, position):
             # Set quantity to all.
             quantity = 'all'
             # Derive item to drop from tweet array.
-            drop_item = filter_tweet(' '.join(tweet_array[2:len(tweet_array)]))
+            drop_item = normalize_post(' '.join(tweet_array[2:len(tweet_array)]))
         # Remove articles and derive item to drop from tweet array.
         elif (len(tweet_array) >= 3) and ((tweet_array[1] == 'the') or (tweet_array[1] == 'a') or (tweet_array[1] == 'an') or (tweet_array[1] == 'some')):
-            drop_item = filter_tweet(' '.join(tweet_array[2:len(tweet_array)]))
+            drop_item = normalize_post(' '.join(tweet_array[2:len(tweet_array)]))
         # Derive item to drop from tweet array.
         else:
-            drop_item = filter_tweet(' '.join(tweet_array[1:len(tweet_array)]))
+            drop_item = normalize_post(' '.join(tweet_array[1:len(tweet_array)]))
 
         # Check that the derived item exists before returning it.
         if db.select('name', 'items', 'name', drop_item) != None:
@@ -49,9 +49,9 @@ def get(tweet, inventory, id, position):
     elif (tweet_array[0] == 'give') and (len(tweet_array) >= 3):
         # Derive item to give from tweet word array.
         if (len(tweet_array) >= 4) and ((tweet_array[2] == 'the') or (tweet_array[2] == 'a') or (tweet_array[2] == 'an') or (tweet_array[2] == 'some')):
-            give_item = filter_tweet(' '.join(tweet_array[3:len(tweet_array)]))
+            give_item = normalize_post(' '.join(tweet_array[3:len(tweet_array)]))
         else:
-            give_item = filter_tweet(' '.join(tweet_array[2:len(tweet_array)]))
+            give_item = normalize_post(' '.join(tweet_array[2:len(tweet_array)]))
         print('Giving ' + give_item + '.')
 
         # Check if the item exists.
@@ -59,7 +59,7 @@ def get(tweet, inventory, id, position):
             return (item.give(give_item, inventory, id, position, tweet_array[1][1:].lower()))
 
     # Inventory request.
-    elif (tweet_array[0] == 'inventory') or (' '.join(tweet_array) == 'check inventory') or (' '.join(tweet_array) == 'check my inventory') or (' '.join(tweet_array) == 'what am i holding'):
+    elif (tweet_array[0] == 'inventory') or (' '.join(tweet_array) == 'check inventory') or (' '.join(tweet_array) == 'check my inventory') or (' '.join(tweet_array) == 'what am i holding') or (' '.join(tweet_array) == 'look at inventory'):
         if inventory == {}:
             return 'Your inventory is empty at the moment.'
         else:
