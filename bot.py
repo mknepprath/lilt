@@ -12,7 +12,7 @@ import random
 import re
 
 # External
-import openai
+from openai import OpenAI
 from mastodon import Mastodon
 
 # Internal
@@ -24,7 +24,9 @@ import item
 from utils import normalize_post, build_tweet
 
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY")
+)
 
 
 class HTMLFilter(HTMLParser):
@@ -42,16 +44,22 @@ def openai_transform(move):
              "'talk to X', 'look around', 'look in X', 'look right', 'check inventory', etc. to play the " \
              "game. Translate the following into a command: " + move + ". Command:"
 
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        temperature=0.7,
-        max_tokens=20,
-        frequency_penalty=0,
-        presence_penalty=0,
-    )
+    try:
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": prompt
+                }
+            ],
+            model="gpt-4",
+        )
+    except Exception as e:
+        print("Error:", str(e))
+        return None
 
-    text = response.choices[0].text
+    print(response)
+    text = response.choices[0].message.content
     text = re.split('; | // |, |\. |\*|\n', text)[0]
     move = normalize_post(text)
 

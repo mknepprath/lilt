@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Bundle the dependencies
-pip install -t bundle -r requirements.txt --upgrade
+pip install --platform manylinux2014_x86_64 --only-binary=:all: -t bundle -r requirements.txt --upgrade
 
 # Add function code to bundle
 cp bot.py bundle
@@ -25,7 +25,7 @@ cd ..
 aws s3 cp bundle.zip s3://liltbot
 
 # Delete the bundle locally
-rm -rf bundle bundle.zip
+#rm -rf bundle bundle.zip
 
 # Update the Lambda function
 aws lambda update-function-code --function-name lilt --s3-bucket liltbot --s3-key bundle.zip --region us-east-1
