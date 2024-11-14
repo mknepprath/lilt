@@ -55,7 +55,7 @@ def drop(item_to_drop, inventory, user_id, response=None, quantity=None):
     # If the user attempts to drop something they don't have...
     if item_to_drop not in inventory:
         print('Player does not have {item}.'.format(item=item_to_drop))
-        return 'You don\'t have anything like that.'
+        return 'You don\'t have anything like that. You need to have {item} in your inventory before you can use it.'.format(item=item_to_drop)
 
     # If they are removing an item from their inventory entirely...
     if inventory[item_to_drop]['quantity'] <= 1 or quantity == 'all':

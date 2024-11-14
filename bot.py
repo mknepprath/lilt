@@ -12,7 +12,7 @@ import random
 import re
 
 # External
-# import openai
+from openai import OpenAI
 from mastodon import Mastodon
 
 # Internal
@@ -21,9 +21,12 @@ from constants import COLOR, DEBUG, ERROR_MESSAGES, MKNEPPRATH
 import db
 import event
 import item
-from utils import filter_tweet, build_tweet
+from utils import normalize_post, build_tweet
 
-# openai.api_key = os.environ.get("OPENAI_API_KEY")
+
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY")
+)
 
 
 class HTMLFilter(HTMLParser):
@@ -31,6 +34,36 @@ class HTMLFilter(HTMLParser):
 
     def handle_data(self, data):
         self.text += data
+
+
+def openai_transform(move):
+    """
+    Takes a move and returns a transformed move that the game can understand.
+    """
+    prompt = "Example commands: 'inspect X', 'use X on Y', 'open X', 'pick up X', 'go to X', 'eat X', 'drink X', " \
+             "'talk to X', 'look around', 'look in X', 'look right', 'check inventory', etc. to play the " \
+             "game. Translate the following into a command: " + move + ". Command:"
+
+    try:
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": prompt
+                }
+            ],
+            model="gpt-4",
+        )
+    except Exception as e:
+        print("Error:", str(e))
+        return None
+
+    print(response)
+    text = response.choices[0].message.content
+    text = re.split('; | // |, |\. |\*|\n', text)[0]
+    move = normalize_post(text)
+
+    return move
 
 
 def main():
@@ -45,14 +78,14 @@ def main():
     mentions = []
 
     # Get the latest 200 mentions.
-    raw_mentions = mastodon.notifications(limit=200, types=["mention"])
+    raw_mentions = mastodon.notifications(limit=100, types=["mention"])
 
     # Gets the rest of the mentions.
     for mention in raw_mentions:
-        # Default to not skip tweet.
+        # Default to not skip post.
         skip_tweet = False
 
-        # If the tweet is greater than 3 days, skip it.
+        # If the post is greater than 3 days, skip it.
         if (datetime.now(timezone.utc) - mention.created_at).days > 3:
             skip_tweet = True
 
@@ -70,7 +103,7 @@ def main():
             skip_tweet = True
 
         # Check currently aggregated mentions to see if we've already
-        # found a tweet by this player.
+        # found a post by this player.
         if not skip_tweet:
             for m in mentions:
                 # If mention is already in skip_tweet.
@@ -78,7 +111,7 @@ def main():
                     skip_tweet = True
                     break
 
-        # If the skip_tweet flag hasn't been set to True, append tweet to
+        # If the skip_tweet flag hasn't been set to True, append post to
         # mentions.
         if not skip_tweet:
             print('=> @{name}: {text}'.format(
@@ -112,54 +145,26 @@ def main():
 
             reply = False
 
-            # gets tweet unsafe_user['text'] sans @familiarlilt - removes @lilt_bird (or other @xxxxx) if included in
-            # tweet
-            tweet = '' if len((unsafe_user['text']).split()) == 1 else (
+            # gets post unsafe_user['text'] sans @lilt - removes @lilt_bird (or other @xxxxx) if included in
+            # post
+            post = '' if len((unsafe_user['text']).split()) == 1 else (
                 unsafe_user['text']).split(' ', 1)[1]
 
-            # If the tweet begins with a screen_name, remove it.
-            if tweet[0][0] == '@':
-                tweet = tweet.split(' ', 1)[1]
+            # If the post begins with a screen_name, remove it.
+            if post[0][0] == '@':
+                post = post.split(' ', 1)[1]
 
             # If a player includes any text after a semicolon, double slash,
             # comma, period, or star, ignore it.
-            # TODO: DANGER DANGER, tweet is still referenced later despite
-            # that not being obvious here. Probably shouldn't be modifying the
-            # tweet at all, actually.
-            tweet = re.split('; | // |, |\. |\*|\n', tweet)[0]
-
-            move = filter_tweet(tweet)
-
-            # Converts synonyms to common word.
-            # TODO: Move to filter_tweet? This is doing similar things.
-            # 'check out' has to be first, otherwise 'check' gets removed by the
-            # next replace.
-            if move.startswith('check out'):
-                move = 'look at ' + move.split(' ', 2)[2]
-            elif move.startswith(('check', 'examine', 'inspect', 'scan', 'see', 'view')):
-                move = 'look at ' + move.split(' ', 1)[1]
-            elif move.startswith('pick up'):
-                move = 'take ' + move.split(' ', 2)[2]
-            elif move.startswith(('get', 'grab', 'pick')):
-                move = 'take ' + move.split(' ', 1)[1]
-            elif move.startswith('shut'):
-                move = 'close ' + move.split(' ', 1)[1]
-
-            move = move.replace('liltbluebird', 'bird')
-            move = move.replace('blue bird', 'bird')
-            move = move.replace('liltmerchant', 'merchant')
-            move = move.replace('shopkeeper', 'merchant')
-            move = move.replace('apple paste', 'paste')
-            move = move.replace(u'🌺', 'flower')
-            move = move.replace(' an ', ' ')
-            move = move.replace(' a ', ' ')
+            post = re.split('; | // |, |\. |\*|\n', post)[0]
+            move = normalize_post(post)
 
             # Attempts to fetch the player data from users table.
             user_exists = db.select('name', 'users', 'id', unsafe_user['id'])
 
             # If none is found, check intent.
             if user_exists is None:
-                # If the tweet says "start," a new player is added.
+                # If the post says "start," a new player is added.
                 if move == 'start':
                     print('New player: ' + unsafe_user['screen_name'] + '.')
 
@@ -179,40 +184,40 @@ def main():
                 print('Current player: ' + unsafe_user['screen_name'] + '.')
 
                 # This is a current player, check if the bot has already
-                # replied to this tweet.
+                # replied to this post.
                 tweet_exists = db.select(
                     'name', 'users', 'last_tweet_id', unsafe_user['tweet_id'])
 
                 if tweet_exists is None:
-                    print('New tweet. I will reply.')
+                    print('New post. I will reply.')
 
-                    # If the tweet ID doesn't match the last one saved, the bot
+                    # If the post ID doesn't match the last one saved, the bot
                     # should reply.
                     reply = True
 
-                    # Save this tweet ID so we can compare to it next time the
+                    # Save this post ID so we can compare to it next time the
                     # bot checks.
-                    # TODO: It's dangerous to update this before replying to the tweet.
+                    # TODO: It's dangerous to update this before replying to the post.
                     if DEBUG.BOT:
                         print(
                             COLOR.WARNING + 'Not saving last_tweet_id while debugging.' + COLOR.END)
                     else:
                         print(
-                            COLOR.GREEN + 'Saving tweet as last_tweet_id.' + COLOR.END)
+                            COLOR.GREEN + 'Saving post as last_tweet_id.' + COLOR.END)
                         db.update_user(unsafe_user['tweet_id'],
                                        unsafe_user['id'], 'last_tweet_id')
                 else:
-                    # Bot already replied to this tweet.
-                    print('Old tweet.')
+                    # Bot already replied to this post.
+                    print('Old post.')
                     print(' ')
 
             # If this mention should be replied to, do so.
-            # TODO: Might want to add double-check to make sure the tweet sent.
+            # TODO: Might want to add double-check to make sure the post sent.
             if reply:
-                print('Tweet: ' + tweet)
+                print('Normalized post: ' + move)
 
                 # TODO: Feels like all of this could be a bit more concise. Can
-                # we make fewer calls to the database for this information?
+                #  we make fewer calls to the database for this information?
 
                 # Get the player's position.
                 unsafe_user['position'] = db.select(
@@ -226,48 +231,20 @@ def main():
                 unsafe_user['events'] = json.loads(
                     db.select('events', 'users', 'id', unsafe_user['id']))
 
-                # Handles commands (drop/give/inventory). Also @LiltBuilder
-                # queries. TODO: How this is being handled ain't great.
-                print('Checking if this is a command tweet...')
-                command_message = command.get(
-                    tweet, unsafe_user['inventory'], unsafe_user['id'], unsafe_user['position'])
+                unsafe_user, message = parse_move(unsafe_user, move)
 
-                # If there was a message returned above, I can assume this is
-                # a "command" move. Need a better name for this. Command move
-                # responses are generated, not queried from the database.
-                if len(command_message) != 0:
-                    print('Command acquired, printing reply...')
+                if unsafe_user['response'] is None and message is None:
+                    # attempt to transform move with openai
+                    print('Starting OpenAI translation...')
+                    unsafe_user, message = parse_move(unsafe_user, openai_transform(move))
 
-                    # This is the completed message that will be sent. Can skip
-                    # most of what's below.
+                # If there is still no valid response,
+                if unsafe_user['response'] is None and message is None:
+                    # No response was found. Return an error message.
+                    print('That move didn\'t work.')
                     message = build_tweet(
-                        unsafe_user['screen_name'], command_message)
+                        unsafe_user['screen_name'], random.choice(ERROR_MESSAGES))
                 else:
-                    print('Did not receive a command message. Not a command tweet.')
-                    # This is it. Time to figure out what the correct response
-                    # is for this tweet.
-                    print('Move:', move)
-
-                    # Get current event that applies to this move (requires
-                    # items from unsafe_user). This is because the inventory is being
-                    # added to state ("events").
-                    unsafe_user['current_event'] = event.get_current_event(
-                        move, unsafe_user['position'], unsafe_user['inventory'], unsafe_user['events'])
-
-                    # Loop through requests to moves table (requires
-                    # current_event). TODO: Would make more sense to use *...
-                    move_data = ['response', 'item',
-                                 'drop', 'trigger', 'travel']
-                    for move_property in move_data:
-                        # Given the move and current state, get the above "move
-                        # data". TODO: I'm assigning this to the unsafe_user dict -
-                        # seems messy.
-                        unsafe_user[move_property] = db.select(
-                            move_property, 'moves', 'move', move, unsafe_user['position'], unsafe_user['current_event'])
-                        if unsafe_user[move_property] is not None:
-                            print('For ' + move_property + ', \'' +
-                                  str(unsafe_user[move_property]) + '\'.')
-
                     # If a change was triggered, such as "chest: closed", add
                     # that change to player state for their current location.
                     if unsafe_user['trigger'] is not None:
@@ -290,7 +267,7 @@ def main():
                                            unsafe_user['id'], 'events')
 
                     # If the player is traveling, move them and add new location
-                    # to state.
+                    #  to state.
                     if unsafe_user['travel'] is not None:
                         # Save position to database.
                         if DEBUG.BOT:
@@ -326,7 +303,7 @@ def main():
                         # inventory.
 
                         # The player is updating an item, so we must remove the
-                        # old item and replace with the new version of it.
+                        #  old item and replace with the new version of it.
                         if (unsafe_user['item'] is not None) and (unsafe_user['drop'] is not None):
                             print('Let\'s replace ' +
                                   unsafe_user['drop'] + ' with ' + unsafe_user['item'] + '.')
@@ -350,11 +327,6 @@ def main():
                         else:
                             message = build_tweet(
                                 unsafe_user['screen_name'], unsafe_user['response'])
-                    else:
-                        # No response was found. Return an error message.
-                        print('That move didn\'t work.')
-                        message = build_tweet(
-                            unsafe_user['screen_name'], random.choice(ERROR_MESSAGES))
 
                 print('Replying with, "{message}"'.format(message=message))
                 if DEBUG.BOT:
@@ -362,7 +334,7 @@ def main():
                         COLOR.WARNING + 'Not tweeting while debugging.' + COLOR.END)
                 else:
                     print(
-                        COLOR.GREEN + 'Tweeting.' + COLOR.END)
+                        COLOR.GREEN + 'Tooting.' + COLOR.END)
                     mastodon.status_post(
                         status=message,
                         in_reply_to_id=unsafe_user['tweet_id'],
@@ -375,6 +347,55 @@ def main():
                 print(' ')
         except:
             pass
+
+
+def parse_move(unsafe_user, move):
+    # Handles commands (drop/give/inventory). Also @LiltBuilder
+    #  queries. TODO: How this is being handled ain't great.
+    print('Checking if this is a command post...')
+    command_message = command.get(
+        move, unsafe_user['inventory'], unsafe_user['id'], unsafe_user['position'])
+    # If there was a message returned above, I can assume this is
+    # a "command" move. Need a better name for this. Command move
+    # responses are generated, not queried from the database.
+    if len(command_message) != 0:
+        print('Command acquired, printing reply...')
+
+        # This is the completed message that will be sent. Can skip
+        # most of what's below.
+        message = build_tweet(
+            unsafe_user['screen_name'], command_message)
+
+        print('Replying with, "{message}"'.format(message=message))
+
+        return unsafe_user, message
+    else:
+        print('Did not receive a command message. Not a command post.')
+        # This is it. Time to figure out what the correct response
+        # is for this post.
+        print('Move:', "'" + move + "'")
+
+        # Get current event that applies to this move (requires
+        # items from unsafe_user). This is because the inventory is being
+        # added to state ("events").
+        unsafe_user['current_event'] = event.get_current_event(
+            move, unsafe_user['position'], unsafe_user['inventory'], unsafe_user['events'])
+
+        # Loop through requests to moves table (requires
+        # current_event). TODO: Would make more sense to use *...
+        move_data = ['response', 'item',
+                     'drop', 'trigger', 'travel']
+        for move_property in move_data:
+            # Given the move and current state, get the above "move
+            #  data". TODO: I'm assigning this to the unsafe_user dict -
+            #          seems messy.
+            unsafe_user[move_property] = db.select(
+                move_property, 'moves', 'move', move, unsafe_user['position'], unsafe_user['current_event'])
+            if unsafe_user[move_property] is not None:
+                print('For ' + move_property + ', \'' +
+                      str(unsafe_user[move_property]) + '\'.')
+
+        return unsafe_user, None
 
 
 # db.cur.close()
