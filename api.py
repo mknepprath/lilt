@@ -12,6 +12,8 @@ POST /start
 
 import os
 import re
+import threading
+import time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -106,6 +108,37 @@ def poll():
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok'})
+
+
+# --- Background Mastodon polling ---
+
+_POLL_INTERVAL = int(os.environ.get('POLL_INTERVAL', 300))  # seconds, default 5 min
+
+
+def _poll_loop():
+    """Background thread that polls Mastodon mentions on a timer."""
+    while True:
+        time.sleep(_POLL_INTERVAL)
+        try:
+            import mastodon_bot
+            mastodon_bot.main()
+            print(f'[LILT] Poll complete')
+        except Exception as e:
+            print(f'[LILT] Poll error: {e}')
+            import traceback
+            traceback.print_exc()
+
+
+def _start_poller():
+    if not os.environ.get('MASTODON_ACCESS_TOKEN'):
+        print('[LILT] No MASTODON_ACCESS_TOKEN set, skipping poller')
+        return
+    t = threading.Thread(target=_poll_loop, daemon=True)
+    t.start()
+    print(f'[LILT] Mastodon poller started (every {_POLL_INTERVAL}s)')
+
+
+_start_poller()
 
 
 if __name__ == '__main__':
