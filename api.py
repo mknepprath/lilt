@@ -84,6 +84,25 @@ def move():
     return jsonify(result)
 
 
+@app.route('/poll', methods=['POST'])
+def poll():
+    """Trigger Mastodon mention polling. Called by Railway cron."""
+    secret = request.headers.get('Authorization', '')
+    expected = os.environ.get('POLL_SECRET', '')
+    if not expected or secret != f'Bearer {expected}':
+        return jsonify({'error': 'unauthorized'}), 401
+
+    try:
+        import mastodon_bot
+        mastodon_bot.main()
+        return jsonify({'status': 'polled'})
+    except Exception as e:
+        print(f'[LILT] Poll error: {e}')
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/health', methods=['GET'])
 def health():
     return jsonify({'status': 'ok'})

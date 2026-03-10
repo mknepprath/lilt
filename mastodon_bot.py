@@ -16,12 +16,11 @@ from mastodon import Mastodon
 
 import engine
 
-# User state persistence (S3 on Lambda/Railway, local file otherwise)
-_S3_BUCKET = 'liltbot'
-_S3_USERS_KEY = 'users.json'
-_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-_USERS_PATH = os.path.join(_DATA_DIR, 'users.json')
-_USE_S3 = bool(os.environ.get('USE_S3'))
+# User state persistence (local file, use USERS_PATH env var for Railway volume)
+_USERS_PATH = os.environ.get(
+    'USERS_PATH',
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'users.json'),
+)
 
 MKNEPPRATH = '231610'
 DEBUG = bool(os.environ.get('LILT_DEBUG'))
@@ -41,14 +40,6 @@ class HTMLFilter(HTMLParser):
 # --- User state persistence ---
 
 def _load_users():
-    if _USE_S3:
-        import boto3
-        try:
-            s3 = boto3.client('s3')
-            obj = s3.get_object(Bucket=_S3_BUCKET, Key=_S3_USERS_KEY)
-            return json.loads(obj['Body'].read().decode('utf-8'))
-        except Exception:
-            return []
     if not os.path.exists(_USERS_PATH):
         return []
     with open(_USERS_PATH, 'r') as f:
@@ -59,13 +50,7 @@ def _load_users():
 
 
 def _save_users(users):
-    if _USE_S3:
-        import boto3
-        s3 = boto3.client('s3')
-        s3.put_object(Bucket=_S3_BUCKET, Key=_S3_USERS_KEY,
-                      Body=json.dumps(users, indent=2).encode('utf-8'),
-                      ContentType='application/json')
-        return
+    os.makedirs(os.path.dirname(_USERS_PATH), exist_ok=True)
     with open(_USERS_PATH, 'w') as f:
         json.dump(users, f, indent=2)
 
