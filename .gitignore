@@ -1,19 +1,25 @@
-#setup_env.sh contains Twitter API credentials. Don't commit!
+# Environment
+.env.local
 setup_env.sh
 
-#The following for virtualenv
+# Python
+*.pyc
+*.pyo
+__pycache__/
 .Python
 bin/
 include/
 lib/
 distribute-*
 
-*.pyc
-*.pyo
-
-.env.local
-
-bundle
-bundle.zip
+# Data
 data/users.json
+
+# IDE
 .idea/
+.vscode/
+.DS_Store
+
+# Old Lambda artifacts
+bundle/
+bundle.zip

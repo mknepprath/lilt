@@ -1,19 +1,28 @@
 # Lilt
 
-A Twitter text adventure.
+A text adventure game. Play it at [mknepprath.com/lilt](https://mknepprath.com/lilt) or on [Mastodon](https://mastodon.social/@familiarlilt).
 
-To run:
+## Architecture
 
-1. Pull down the repo.
-2. Get some tokens from Twitter and set them up as environment variables.
-3. Run `python bot.py`.
+- **`engine.py`** — Stateless game engine. `play(move, state) → {response, state}`
+- **`api.py`** — Flask API wrapping the engine (deployed on Railway)
+- **`mastodon_bot.py`** — Mastodon adapter with user state persistence
+- **`cli.py`** — Command-line interface for local play
+- **`data/`** — Game data (moves, items) as JSON
 
-To deploy:
+## Run locally
 
-1. Make sure you have AWS CLI installed and configured.
-2. Run `sh deploy.sh`.
+```
+pip install -r requirements.txt
+python cli.py
+```
 
-This will automatically bundle up the function and dependencies and deploy it to AWS Lambda.
+## API
 
-Note that `psycopg2` are not included in the deployment bundle. They must
-be added as layers to the Lambda function. Add them using the ARN here: [Layers for Python 3.9](https://github.com/keithrozario/Klayers/tree/master/deployments/python3.9).
+```
+POST /start         → {response, state}
+POST /move          → {move, state} → {response, state}
+GET  /health        → {status}
+```
+
+State is passed by the client with each request. The API is stateless.

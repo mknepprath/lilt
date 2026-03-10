@@ -16,6 +16,7 @@ State shape:
 import copy
 import json
 import os
+import random
 import re
 import string
 
@@ -243,8 +244,6 @@ def play(move_text, state=None):
     Returns:
         dict with 'response' (str) and 'state' (dict).
     """
-    import random
-
     if state is None:
         state = copy.deepcopy(INITIAL_STATE)
 
@@ -311,13 +310,7 @@ def play(move_text, state=None):
         response, inventory = _item_get(item_to_get, inventory, response)
     elif item_to_drop is not None:
         # Drop triggered by game event (not player command)
-        inv = copy.deepcopy(inventory)
-        if item_to_drop in inv:
-            if inv[item_to_drop]['quantity'] <= 1:
-                del inv[item_to_drop]
-            else:
-                inv[item_to_drop]['quantity'] -= 1
-            inventory = inv
+        _, inventory = _item_drop(item_to_drop, inventory)
 
     state['inventory'] = inventory
     state['events'] = events
