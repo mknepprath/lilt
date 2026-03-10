@@ -61,6 +61,11 @@ def normalize(text):
     text = text.replace('shopkeeper', 'merchant')
     text = text.replace('apple paste', 'paste')
     text = text.replace(u'\U0001f33a', 'flower')
+    text = text.replace('translucent figure', 'spirit')
+    text = text.replace('figure', 'spirit')
+    text = text.replace('ghost', 'spirit')
+    text = text.replace('apparition', 'spirit')
+    text = text.replace('phantom', 'spirit')
     text = text.replace(' an ', ' ')
     text = text.replace(' a ', ' ')
 
