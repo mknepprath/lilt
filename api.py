@@ -85,7 +85,9 @@ def move():
 
 @app.route('/health', methods=['GET'])
 def health():
-    return jsonify({'status': 'ok'})
+    has_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    client = _get_client()
+    return jsonify({'status': 'ok', 'llm': has_key, 'client': client is not None, 'version': 2})
 
 
 if __name__ == '__main__':
