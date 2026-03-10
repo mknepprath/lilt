@@ -195,9 +195,57 @@ def _item_replace(old_item, new_item, inventory, response):
     return response, inv
 
 
+# --- Map ---
+
+_CONNECTIONS = {
+    'start': ['room'],
+    'room': ['crescent', 'cellar'],
+    'cellar': ['tunnels'],
+    'tunnels': ['reservoir', 'garden'],
+    'reservoir': [],
+    'crescent': ['spookytown', 'garden'],
+    'garden': [],
+    'spookytown': ['graveyard', 'swamp', 'tower'],
+    'graveyard': [],
+    'swamp': [],
+    'tower': ['void'],
+    'void': [],
+}
+
+_LOCATION_NAMES = {
+    'start': 'Start',
+    'room': 'Room',
+    'cellar': 'Cellar',
+    'tunnels': 'Tunnels',
+    'reservoir': 'Reservoir',
+    'crescent': 'Crescent Plaza',
+    'garden': 'Garden',
+    'spookytown': 'Spookytown',
+    'graveyard': 'Graveyard',
+    'swamp': 'Swamp',
+    'tower': 'Tower',
+    'void': 'Void',
+}
+
+
+def _format_map(position, events):
+    visited = set(events.keys())
+    lines = []
+    for loc_id, name in _LOCATION_NAMES.items():
+        if loc_id in visited:
+            if loc_id == position:
+                lines.append(f'> {name} <')
+            else:
+                lines.append(f'  {name}')
+    unvisited = len(_LOCATION_NAMES) - len(visited & set(_LOCATION_NAMES))
+    if unvisited > 0:
+        lines.append(f'  ({unvisited} undiscovered)')
+    return '\n'.join(lines)
+
+
 # --- Command handling (drop, inventory, etc.) ---
 
-def _handle_command(words, inventory):
+def _handle_command(words, inventory, position=None, events=None):
     if words[0] == 'drop' and len(words) >= 2:
         quantity = None
         if len(words) >= 3 and words[1] == 'all':
@@ -219,6 +267,11 @@ def _handle_command(words, inventory):
         if not inventory:
             return 'Your inventory is empty at the moment.', None
         return _format_inventory(inventory), None
+
+    if words[0] == 'map' or ' '.join(words) in ('show map', 'check map', 'view map'):
+        if position is not None and events is not None:
+            return _format_map(position, events), None
+        return None, None
 
     return None, None
 
@@ -293,7 +346,7 @@ def play(move_text, state=None, world=None):
     # Check commands (drop, inventory)
     words = re.sub(r'http\S+', '', move).lower().split() if move else []
     if words:
-        cmd_response, cmd_inventory = _handle_command(words, inventory)
+        cmd_response, cmd_inventory = _handle_command(words, inventory, position, events)
         if cmd_response is not None:
             if cmd_inventory is not None:
                 state['inventory'] = cmd_inventory
