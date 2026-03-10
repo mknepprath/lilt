@@ -643,7 +643,7 @@
   },
   {
     "move": "start",
-    "response": "You wake up in an unfamiliar room. \\n\\nSuggested moves:\\n- \"look around\u201d\\n- \"inventory\u201d\\n- \"inspect the A\u201d\\n- \"take a B\u201d\\n- \"use X on Y\u201d\\n\\n",
+    "response": "You wake up in an unfamiliar room. \\n\\nSuggested moves:\\n- \"look around\u201d\\n- \"inventory\u201d\\n- \"map\u201d\\n- \"inspect the A\u201d\\n- \"take a B\u201d\\n- \"use X on Y\u201d\\n\\n",
     "position": "start",
     "item": null,
     "condition": null,
@@ -3715,7 +3715,7 @@
   },
   {
     "move": "help",
-    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"map\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
     "position": "crescent",
     "item": null,
     "condition": null,
@@ -3725,7 +3725,7 @@
   },
   {
     "move": "what are my options",
-    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"map\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
     "position": "crescent",
     "item": null,
     "condition": null,
@@ -4523,7 +4523,7 @@
   },
   {
     "move": "help",
-    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"map\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
     "position": "room",
     "item": null,
     "condition": null,
