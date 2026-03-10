@@ -73,10 +73,14 @@ def move():
     result = engine.play(data['move'], data['state'])
 
     # If the engine didn't recognize the move, try LLM translation
-    if result['response'] in engine.ERROR_MESSAGES:
+    is_error = result['response'] in engine.ERROR_MESSAGES
+    print(f"[LILT] Move: {data['move']!r}, error: {is_error}, response: {result['response']!r}")
+    if is_error:
         translated = llm_transform(data['move'])
+        print(f"[LILT] LLM translated to: {translated!r}")
         if translated:
             result2 = engine.play(translated, data['state'])
+            print(f"[LILT] Translated result: {result2['response']!r}")
             if result2['response'] not in engine.ERROR_MESSAGES:
                 result = result2
 
@@ -96,7 +100,7 @@ def translate():
 def health():
     has_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
     client = _get_client()
-    return jsonify({'status': 'ok', 'llm': has_key, 'client': client is not None, 'version': 2})
+    return jsonify({'status': 'ok', 'llm': has_key, 'client': client is not None, 'version': 3})
 
 
 if __name__ == '__main__':
