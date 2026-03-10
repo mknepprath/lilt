@@ -10,6 +10,7 @@ POST /start
   -> {response: "...", state: {...}}
 """
 
+import json
 import os
 import re
 import threading
@@ -22,6 +23,39 @@ import engine
 
 app = Flask(__name__)
 CORS(app)
+
+# --- World state persistence (shared across all players) ---
+
+_DATA_DIR = os.path.dirname(os.path.abspath(__file__))
+_WORLD_PATH = os.environ.get(
+    'WORLD_PATH',
+    os.path.join(_DATA_DIR, 'data', 'world.json'),
+)
+_world_lock = threading.Lock()
+
+
+def _load_world():
+    if not os.path.exists(_WORLD_PATH):
+        return {}
+    with open(_WORLD_PATH, 'r') as f:
+        try:
+            return json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            return {}
+
+
+def _save_world(world):
+    os.makedirs(os.path.dirname(_WORLD_PATH), exist_ok=True)
+    with open(_WORLD_PATH, 'w') as f:
+        json.dump(world, f, indent=2)
+
+
+def _apply_world_update(world, update):
+    for position, changes in update.items():
+        if position not in world:
+            world[position] = {}
+        world[position].update(changes)
+    return world
 
 _anthropic_client = None
 
@@ -63,7 +97,12 @@ def llm_transform(move):
 
 @app.route('/start', methods=['POST'])
 def start():
-    result = engine.play('start')
+    with _world_lock:
+        world = _load_world()
+        result = engine.play('start', world=world)
+        if result.get('world_update'):
+            world = _apply_world_update(world, result['world_update'])
+            _save_world(world)
     return jsonify(result)
 
 
@@ -73,15 +112,21 @@ def move():
     if not data or 'move' not in data or 'state' not in data:
         return jsonify({'error': 'Request must include "move" and "state".'}), 400
 
-    result = engine.play(data['move'], data['state'])
+    with _world_lock:
+        world = _load_world()
+        result = engine.play(data['move'], data['state'], world=world)
 
-    # If the engine didn't recognize the move, try LLM translation
-    if result['response'] in engine.ERROR_MESSAGES:
-        translated = llm_transform(data['move'])
-        if translated:
-            result2 = engine.play(translated, data['state'])
-            if result2['response'] not in engine.ERROR_MESSAGES:
-                result = result2
+        # If the engine didn't recognize the move, try LLM translation
+        if result['response'] in engine.ERROR_MESSAGES:
+            translated = llm_transform(data['move'])
+            if translated:
+                result2 = engine.play(translated, data['state'], world=world)
+                if result2['response'] not in engine.ERROR_MESSAGES:
+                    result = result2
+
+        if result.get('world_update'):
+            world = _apply_world_update(world, result['world_update'])
+            _save_world(world)
 
     return jsonify(result)
 

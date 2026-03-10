@@ -245,7 +245,8 @@ def main():
                         world = _apply_world_update(world, result['world_update'])
                         _save_world(world)
 
-            # Send reply
+            # Send reply — convert literal \n sequences to real newlines
+            response_text = response_text.replace('\\n', '\n')
             message = f'@{screen_name} {response_text}'
             print(f'Reply: {message}')
             if not DEBUG:
