@@ -117,16 +117,20 @@ _POLL_INTERVAL = int(os.environ.get('POLL_INTERVAL', 300))  # seconds, default 5
 
 def _poll_loop():
     """Background thread that polls Mastodon mentions on a timer."""
+    failures = 0
     while True:
         time.sleep(_POLL_INTERVAL)
         try:
             import mastodon_bot
             mastodon_bot.main()
-            print(f'[LILT] Poll complete')
+            print('[LILT] Poll complete')
+            failures = 0
         except Exception as e:
-            print(f'[LILT] Poll error: {e}')
-            import traceback
-            traceback.print_exc()
+            failures += 1
+            print(f'[LILT] Poll error ({failures}): {e}')
+            if failures >= 3:
+                print('[LILT] Too many failures, stopping poller. Fix credentials and redeploy.')
+                return
 
 
 def _start_poller():
