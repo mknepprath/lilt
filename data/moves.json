@@ -7517,7 +7517,10 @@
       "reservoir": "drained"
     },
     "drop": null,
-    "travel": null
+    "travel": null,
+    "world_trigger": {
+      "reservoir": "drained"
+    }
   },
   {
     "move": "pull chain",
@@ -8386,6 +8389,167 @@
     "item": null,
     "condition": {
       "time": "dawn"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pull chain",
+    "response": "Someone has already pulled the chain. The reservoir is drained. You can see the mosaic floor and a lockbox in the corner.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "world_reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "write name on tablet",
+    "response": "You scratch your name into the stone. It joins others \u2014 some fresh, some ancient. A community of strangers who all found this garden.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null,
+    "world_trigger": {
+      "tablet": "inscribed"
+    }
+  },
+  {
+    "move": "inspect tablet",
+    "response": "A flat stone near the fountain. Fresh names scratched alongside ancient ones. You're not the first to find this place. You won't be the last.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "world_tablet": "inscribed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "light campfire",
+    "response": "You gather scattered sticks and strike a spark. A small fire catches, flickering bravely against the darkness. It won't last forever, but it's here now.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null,
+    "world_trigger": {
+      "campfire": "lit"
+    }
+  },
+  {
+    "move": "look at campfire",
+    "response": "Someone lit a fire here. It crackles softly, pushing back the dark. You're not alone in this.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "world_campfire": "lit"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect campfire",
+    "response": "Warm. Recent. Someone else passed through here and thought to leave a light.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "world_campfire": "lit"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "sit by campfire",
+    "response": "You sit. The warmth is real. For a moment, Spookytown feels almost bearable.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "world_campfire": "lit"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "write on signpost",
+    "response": "You scratch a message into the wood. Maybe someone will read it. Maybe it'll outlast you.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null,
+    "world_trigger": {
+      "signpost": "marked"
+    }
+  },
+  {
+    "move": "inspect signpost",
+    "response": "The signpost has three arms pointing in different directions: Umbra Road (but the path is closed), Spookytown, and E-b--- (the rest is chipped off). Below, someone has scratched a fresh message into the wood.",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "world_signpost": "marked"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "leave offering",
+    "response": "You place something small at the base of the tower. It feels right. Maybe the next visitor will understand.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null,
+    "world_trigger": {
+      "offering": "left"
+    }
+  },
+  {
+    "move": "inspect offering",
+    "response": "Someone left something at the base of the tower. A small gesture, deliberately placed. You're not the first to feel something here.",
+    "position": "tower",
+    "item": null,
+    "condition": {
+      "world_offering": "left"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "mark wall",
+    "response": "You scratch an arrow into the stone, pointing toward the garden. Maybe it'll help the next person through.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null,
+    "world_trigger": {
+      "marked": "garden"
+    }
+  },
+  {
+    "move": "inspect walls",
+    "response": "Chisel marks. Someone carved these tunnels deliberately. Among the tool marks \u2014 a fresh arrow, scratched recently, pointing north toward the garden.",
+    "position": "tunnels",
+    "item": null,
+    "condition": {
+      "world_marked": "garden"
     },
     "trigger": null,
     "drop": null,

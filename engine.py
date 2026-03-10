@@ -107,7 +107,7 @@ def _get_time_period():
     return 'night'
 
 
-def _get_current_condition(move, position, inventory, events):
+def _get_current_condition(move, position, inventory, events, world=None):
     state = copy.deepcopy(events)
     if position not in state:
         state[position] = {}
@@ -115,6 +115,11 @@ def _get_current_condition(move, position, inventory, events):
         state[position][item_name] = 'inventory'
     # Inject time of day so moves can have time-based conditions
     state[position]['time'] = _get_time_period()
+    # Inject world state so moves can check shared state
+    if world:
+        for key, value in world.get(position, {}).items():
+            if key not in state[position]:
+                state[position]['world_' + key] = value
 
     for key, value in state[position].items():
         cond = {key: value}
@@ -247,21 +252,25 @@ ERROR_MESSAGES = [
 ]
 
 
-def play(move_text, state=None):
+def play(move_text, state=None, world=None):
     """
     Process a player move and return the result.
 
     Args:
         move_text: Raw text input from the player.
         state: Current game state dict, or None to start a new game.
+        world: Shared world state dict (optional, for multiplayer).
 
     Returns:
-        dict with 'response' (str) and 'state' (dict).
+        dict with 'response', 'state', and optionally 'world_update'.
+        'world_update' is a dict of {position: {key: value}} to merge
+        into the shared world state.
     """
     if state is None:
         state = copy.deepcopy(INITIAL_STATE)
 
     state = copy.deepcopy(state)
+    world = copy.deepcopy(world) if world else {}
     position = state['position']
     inventory = state['inventory']
     events = state['events']
@@ -286,7 +295,7 @@ def play(move_text, state=None):
             return {'response': cmd_response, 'state': state}
 
     # Look up move in game data
-    condition = _get_current_condition(move, position, inventory, events)
+    condition = _get_current_condition(move, position, inventory, events, world)
     row = _find_move(move, position, condition)
 
     if row is None:
@@ -300,14 +309,22 @@ def play(move_text, state=None):
     item_to_drop = row.get('drop')
     trigger = row.get('trigger')
     travel = row.get('travel')
+    world_trigger = row.get('world_trigger')
 
-    # Apply trigger (state change)
+    # Apply trigger (player state change)
     if trigger is not None:
         if isinstance(trigger, str):
             trigger = json.loads(trigger)
         if position not in events:
             events[position] = {}
         events[position].update(trigger)
+
+    # Apply world trigger (shared state change)
+    world_update = None
+    if world_trigger is not None:
+        if isinstance(world_trigger, str):
+            world_trigger = json.loads(world_trigger)
+        world_update = {position: world_trigger}
 
     # Apply travel
     if travel is not None:
@@ -329,4 +346,7 @@ def play(move_text, state=None):
     state['inventory'] = inventory
     state['events'] = events
 
-    return {'response': response, 'state': state}
+    result = {'response': response, 'state': state}
+    if world_update:
+        result['world_update'] = world_update
+    return result

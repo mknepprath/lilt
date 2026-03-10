@@ -16,10 +16,15 @@ from mastodon import Mastodon
 
 import engine
 
-# User state persistence (local file, use USERS_PATH env var for Railway volume)
+# Persistence paths (use env vars for Railway volume)
+_DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 _USERS_PATH = os.environ.get(
     'USERS_PATH',
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'users.json'),
+    os.path.join(_DATA_DIR, 'data', 'users.json'),
+)
+_WORLD_PATH = os.environ.get(
+    'WORLD_PATH',
+    os.path.join(_DATA_DIR, 'data', 'world.json'),
 )
 
 MKNEPPRATH = '231610'
@@ -53,6 +58,33 @@ def _save_users(users):
     os.makedirs(os.path.dirname(_USERS_PATH), exist_ok=True)
     with open(_USERS_PATH, 'w') as f:
         json.dump(users, f, indent=2)
+
+
+# --- World state persistence ---
+
+def _load_world():
+    if not os.path.exists(_WORLD_PATH):
+        return {}
+    with open(_WORLD_PATH, 'r') as f:
+        try:
+            return json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            return {}
+
+
+def _save_world(world):
+    os.makedirs(os.path.dirname(_WORLD_PATH), exist_ok=True)
+    with open(_WORLD_PATH, 'w') as f:
+        json.dump(world, f, indent=2)
+
+
+def _apply_world_update(world, update):
+    """Merge a world_update dict into the world state."""
+    for position, changes in update.items():
+        if position not in world:
+            world[position] = {}
+        world[position].update(changes)
+    return world
 
 
 def _get_user(user_id):
@@ -137,6 +169,8 @@ def main():
                 'visibility': mention.status.visibility,
             })
 
+    world = _load_world()
+
     for mention in mentions:
         try:
             screen_name = mention['screen_name'].lower()
@@ -159,15 +193,18 @@ def main():
                 move = engine.normalize(post)
                 if move == 'start':
                     print(f'New player: {screen_name}')
-                    state = engine.play('start')
+                    result = engine.play('start', world=world)
                     user = {
                         'name': screen_name,
                         'id': user_id,
                         'last_tweet_id': tweet_id,
-                        'state': state['state'],
+                        'state': result['state'],
                     }
                     _save_user(user)
-                    response_text = state['response']
+                    if result.get('world_update'):
+                        world = _apply_world_update(world, result['world_update'])
+                        _save_world(world)
+                    response_text = result['response']
                 else:
                     print(f'{screen_name} is not playing Lilt.')
                     continue
@@ -188,14 +225,14 @@ def main():
                 print(f'Processing move from {screen_name}: {post}')
 
                 # Try the move
-                result = engine.play(post, user['state'])
+                result = engine.play(post, user['state'], world=world)
 
                 # If it was an error, try LLM translation
                 if result['response'] in engine.ERROR_MESSAGES:
                     translated = llm_transform(post)
                     if translated:
                         print(f'LLM translated to: {translated}')
-                        result2 = engine.play(translated, user['state'])
+                        result2 = engine.play(translated, user['state'], world=world)
                         if result2['response'] not in engine.ERROR_MESSAGES:
                             result = result2
 
@@ -204,6 +241,9 @@ def main():
                 user['last_tweet_id'] = tweet_id
                 if not DEBUG:
                     _save_user(user)
+                    if result.get('world_update'):
+                        world = _apply_world_update(world, result['world_update'])
+                        _save_world(world)
 
             # Send reply
             message = f'@{screen_name} {response_text}'
