@@ -6905,6 +6905,30 @@
   },
   {
     "move": "look around",
+    "response": "A stone cellar. Collapsed shelving lines one wall, broken bottles glinting in the dim light. A grandfather clock stands against the far wall, silent now. Its face hangs open. A narrow passage leads into darkness to the east. Above, you can see the hole you fell through.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "emptied"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "A stone cellar. Collapsed shelving lines one wall, broken bottles glinting in the dim light. A grandfather clock stands against the far wall, its face hanging open. A narrow passage leads into darkness to the east. Above, you can see the hole you fell through.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
     "response": "A stone cellar. Collapsed shelving lines one wall, broken bottles glinting in the dim light. A grandfather clock stands against the far wall, still ticking. A narrow passage leads into darkness to the east. Above, you can see the hole you fell through.",
     "position": "cellar",
     "item": null,
@@ -7945,7 +7969,7 @@
     "travel": null
   },
   {
-    "move": "inspect tree",
+    "move": "look at tree",
     "response": "Withered but not dead. The bark is warm to the touch. It's waiting for something. Light, maybe. Real light.",
     "position": "garden",
     "item": null,
@@ -7969,7 +7993,7 @@
     "travel": null
   },
   {
-    "move": "inspect tree",
+    "move": "look at tree",
     "response": "Golden fruit hangs from every branch. The tree hums with warmth. You did this.",
     "position": "garden",
     "item": null,
@@ -8565,6 +8589,210 @@
     },
     "trigger": null,
     "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to crescent",
+    "response": "You find the path back through the thorns to Crescent Plaza.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "go back",
+    "response": "You find the path back through the thorns to Crescent Plaza.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "look left",
+    "response": "An iron gate leads to a graveyard. Fog spills through the bars.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "A crumbling tower rises above the treeline. A faint blue glow pulses from its window.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at graves",
+    "response": "Row after row of crooked headstones. Most of the names have worn away. A few are unsettlingly recent.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at tombstone",
+    "response": "The inscription reads: 'Here lies one who tried to leave.' Comforting.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at tombstones",
+    "response": "Most are too weathered to read. One says: 'She who wandered.' Another: 'He who waited.' The newest one is blank.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at flowers",
+    "response": "Wilted flowers rest at the base of a headstone. Someone was here recently.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at tree",
+    "response": "Gnarled and ancient. Its roots disappear into the black water. Strange markings are carved into the bark.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at trees",
+    "response": "They lean toward you as if listening. Their branches are bare despite the season.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at vine",
+    "response": "Thick vines hang from the branches, trailing into the water. They pulse faintly, like veins.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at vines",
+    "response": "Thick vines hang from the branches, trailing into the water. They pulse faintly, like veins.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat apple",
+    "response": "You take a bite. It's crisp and sweet. You feel a little better.",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "apple": "inventory"
+    },
+    "trigger": null,
+    "drop": "apple",
+    "travel": null
+  },
+  {
+    "move": "eat apple",
+    "response": "You take a bite. It's crisp and sweet. You feel a little better.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "apple": "inventory"
+    },
+    "trigger": null,
+    "drop": "apple",
+    "travel": null
+  },
+  {
+    "move": "eat apple",
+    "response": "You take a bite. It's crisp and sweet. You feel a little better.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {
+      "apple": "inventory"
+    },
+    "trigger": null,
+    "drop": "apple",
+    "travel": null
+  },
+  {
+    "move": "eat apple",
+    "response": "You take a bite. It's crisp and sweet. You feel a little better.",
+    "position": "swamp",
+    "item": null,
+    "condition": {
+      "apple": "inventory"
+    },
+    "trigger": null,
+    "drop": "apple",
+    "travel": null
+  },
+  {
+    "move": "eat apple",
+    "response": "You take a bite. It's crisp and sweet. You feel a little better.",
+    "position": "tower",
+    "item": null,
+    "condition": {
+      "apple": "inventory"
+    },
+    "trigger": null,
+    "drop": "apple",
+    "travel": null
+  },
+  {
+    "move": "eat banana",
+    "response": "You peel and eat the banana. Not bad.",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "banana": "inventory"
+    },
+    "trigger": null,
+    "drop": "banana",
+    "travel": null
+  },
+  {
+    "move": "eat banana",
+    "response": "You peel and eat the banana. Not bad.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "banana": "inventory"
+    },
+    "trigger": null,
+    "drop": "banana",
     "travel": null
   }
 ]
