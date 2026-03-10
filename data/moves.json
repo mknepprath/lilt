@@ -6989,11 +6989,23 @@
   },
   {
     "move": "look at clock",
-    "response": "The clock face hangs open. Inside, the mechanism is a nest of gears \u2014 except for one conspicuous gap where a gear is missing. No, wait. You already took it.",
+    "response": "The clock face hangs open. Inside, the mechanism is a nest of gears. One brass gear catches your eye \u2014 it's slightly loose, like it could be removed.",
     "position": "cellar",
     "item": null,
     "condition": {
       "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at clock",
+    "response": "The clock face hangs open. Inside, the mechanism is a nest of gears \u2014 except for one conspicuous gap where a gear is missing.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "emptied"
     },
     "trigger": null,
     "drop": null,
