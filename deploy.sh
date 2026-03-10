@@ -12,6 +12,7 @@ cp event.py bundle
 cp item.py bundle
 cp lambda_function.py bundle
 cp utils.py bundle
+cp -r data bundle
 
 # Delete dependencies hosted on AWS
 rm -rf bundle/numpy bundle/pandas bundle/numpy-*.dist-info bundle/pandas-*.dist-info

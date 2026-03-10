@@ -10,6 +10,11 @@ from constants import COLOR, DEBUG
 _DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 _MOVES_PATH = os.path.join(_DATA_DIR, 'moves.json')
 _ITEMS_PATH = os.path.join(_DATA_DIR, 'items.json')
+# On AWS Lambda, use S3 for persistent user state (Lambda filesystem is ephemeral).
+# Locally, store alongside the other data files.
+_ON_LAMBDA = bool(os.environ.get('AWS_LAMBDA_FUNCTION_NAME'))
+_S3_BUCKET = 'liltbot'
+_S3_USERS_KEY = 'users.json'
 _USERS_PATH = os.path.join(_DATA_DIR, 'users.json')
 
 # Load read-only game data
@@ -21,7 +26,15 @@ with open(_ITEMS_PATH, 'r') as f:
 
 
 def _load_users():
-    """Load users from JSON file. Returns a list of user dicts."""
+    """Load users from S3 (Lambda) or local JSON file."""
+    if _ON_LAMBDA:
+        import boto3
+        try:
+            s3 = boto3.client('s3')
+            obj = s3.get_object(Bucket=_S3_BUCKET, Key=_S3_USERS_KEY)
+            return json.loads(obj['Body'].read().decode('utf-8'))
+        except Exception:
+            return []
     if not os.path.exists(_USERS_PATH):
         return []
     with open(_USERS_PATH, 'r') as f:
@@ -32,7 +45,14 @@ def _load_users():
 
 
 def _save_users(users):
-    """Save users list to JSON file."""
+    """Save users to S3 (Lambda) or local JSON file."""
+    if _ON_LAMBDA:
+        import boto3
+        s3 = boto3.client('s3')
+        s3.put_object(Bucket=_S3_BUCKET, Key=_S3_USERS_KEY,
+                      Body=json.dumps(users, indent=2).encode('utf-8'),
+                      ContentType='application/json')
+        return
     with open(_USERS_PATH, 'w') as f:
         json.dump(users, f, indent=2)
 
