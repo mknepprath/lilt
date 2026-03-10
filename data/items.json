@@ -1,0 +1,107 @@
+[
+  {
+    "name": "apple",
+    "health": 1,
+    "damage": null,
+    "max": 10,
+    "give": null
+  },
+  {
+    "name": "banana",
+    "health": 3,
+    "damage": null,
+    "max": 5,
+    "give": null
+  },
+  {
+    "name": "coin",
+    "health": null,
+    "damage": null,
+    "max": 10,
+    "give": null
+  },
+  {
+    "name": "paste",
+    "health": 1,
+    "damage": null,
+    "max": 10,
+    "give": null
+  },
+  {
+    "name": "dawn porter",
+    "health": null,
+    "damage": null,
+    "max": 5,
+    "give": null
+  },
+  {
+    "name": "lune porter",
+    "health": null,
+    "damage": null,
+    "max": 5,
+    "give": null
+  },
+  {
+    "name": "mango",
+    "health": 2,
+    "damage": null,
+    "max": 5,
+    "give": null
+  },
+  {
+    "name": "bread",
+    "health": 1,
+    "damage": null,
+    "max": 10,
+    "give": null
+  },
+  {
+    "name": "flower",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "blanket",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "bent coin",
+    "health": null,
+    "damage": null,
+    "max": 10,
+    "give": false
+  },
+  {
+    "name": "key",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": false
+  },
+  {
+    "name": "ant",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "medallion",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "totem",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  }
+]

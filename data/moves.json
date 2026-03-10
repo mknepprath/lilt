@@ -1,0 +1,5510 @@
+[
+  {
+    "move": "give coin to merchant for apple",
+    "response": "You've got a deal! You receive an apple for your coin.",
+    "position": "crescent",
+    "item": "apple",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for apple",
+    "response": "You've got a deal! You receive an apple for your coin.",
+    "position": "crescent",
+    "item": "apple",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "take flower",
+    "response": "You're already holding it very carefully.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "There's a window with a flower on the sill.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "You see a chest and bucket.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "There are some unusual markings, but it appears to be impenetrable.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Wood floor. It appears to be bent out of shape in some areas.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at banana",
+    "response": "You don't have a banana!",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw banana",
+    "response": "You throw it at the wall and it splatters everywhere. What a mess.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "banana": "inventory"
+    },
+    "trigger": null,
+    "drop": "banana",
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "Darkness devours the sky as you leave Crescent Plaza. You trip through a thorn bush into a clearing. There, you see a hut with a medallion hanging from the doorframe. #LiltSpookytown",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "look under hut",
+    "response": "You pick it up to look at what's inside. The totem is there! Whoops! You fumble the hut. It falls to the ground and crumbles.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close chest",
+    "response": "You close the chest.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": {
+      "chest": "closed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open chest",
+    "response": "It's already open.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket",
+    "response": "You wrap yourself in the blanket for a minute.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "smash window with bed",
+    "response": "The bed isn't heavy, but it's too big and unwieldy for you to lift.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "really what am i doing there",
+    "response": "Fair question. Perhaps you should look around.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "touch bars",
+    "response": "They seem to be slightly askew, but they hold firm.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bird",
+    "response": "They're pretty far away.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "smash",
+    "response": "Okay, Hulk. Smash what?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "purchase banana give me banana",
+    "response": "You look for someone selling bananas, but there's no one here.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take flower with blanket",
+    "response": "You wrap your hand with the blanket and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take key",
+    "response": "You're already holding it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "fly",
+    "response": "Even if you could, the ceiling looks solid.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "spit paste",
+    "response": "You spit it across the room. The ants grab it and carry it down the drain.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "look under bed",
+    "response": "You use the coin to reflect some light from the window under the bed... Pretty dusty.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at key",
+    "response": "It's a very small, plain looking key. It appears to be well-used.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at flower",
+    "response": "It's drooping a bit.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "There's a window.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use key",
+    "response": "You use the key to etch your name into the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use key",
+    "response": "You can't use it until you pick it up.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is on right wall",
+    "response": "There's a window. It is ajar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to big ants",
+    "response": "They really don't want it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to ants",
+    "response": "They really don't want it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to bird",
+    "response": "You try to bribe the bird to fly over with the coin... It's not interested.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "This place is a dump. You did this.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is around me",
+    "response": "Spookytown was around you. Now... ruins.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use chest",
+    "response": "You don't have anything to store in it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take chest",
+    "response": "You don't need a chest. Not right now, at least.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go out door",
+    "response": "The door remains shut and locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "reach arm out of bars",
+    "response": "You can't reach anything from here, except for some of the ants. You pick one up. It bites you and falls to the ground.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is on right wall",
+    "response": "There's a window with a flower on the sill. The window is ajar.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where are ants going",
+    "response": "They're carrying food to a drain in the middle of the room.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "its early so i go back to sleep",
+    "response": "You tuck yourself in and shut your eyes for a while.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take blanket",
+    "response": "You're holding it. It's surprisingly soft.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at chest",
+    "response": "I wonder if anything else was stored in here?",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take in bed",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to bird",
+    "response": "You don't have a coin...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at coin",
+    "response": "Looks valuable!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill bird",
+    "response": "You try to destroy it with your thoughts, but this fails. Of course. You may be a bad person.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at back wall",
+    "response": "A comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is around me",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take door",
+    "response": "You can open the door, but you can't remove it from the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open door",
+    "response": "It doesn't budge. Appears to be the only way out, though.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "view room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at key",
+    "response": "It's all goopy.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at right wall",
+    "response": "There's a window framing a forested view.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to back wall",
+    "response": "A comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "start",
+    "response": "You wake up in an unfamiliar room. \\n\\nSuggested moves:\\n- \"look around”\\n- \"inventory”\\n- \"inspect the A”\\n- \"take a B”\\n- \"use X on Y”\\n\\n#LiltRoom",
+    "position": "start",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "room"
+  },
+  {
+    "move": "look at sign",
+    "response": "Per the topmost sign, you're in Crescent Plaza. The other signs read 'Umbra Road', 'Spookytown', and 'E-b ---'.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "read sign",
+    "response": "Per the topmost sign, you're in Crescent Plaza. The other signs read 'Umbra Road', 'Spookytown', and 'E-b ---'.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open door with key",
+    "response": "The door opens and make your way out of the room... You walk until you find yourself in an open area. Look around! #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "look at totem",
+    "response": "Someone wanted to keep this safe. Now you have it.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin",
+    "response": "Nice.",
+    "position": "room",
+    "item": "coin",
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "put paste on bars",
+    "response": "You smear your paste across the bars. The ants grab it as it drips down to them and carry it down the drain.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "punch wall",
+    "response": "That did more damage to you than the wall.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "bend bars",
+    "response": "You try to bend the bars with your bare hands, but they don't move.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "step on ant",
+    "response": "You step on an ant, but there are so many. It doesn't appear to make a difference.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill ants",
+    "response": "You step on an ant, but there are so many. It doesn't appear to make a difference.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use key",
+    "response": "You can't use what you don't have.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at spookytown",
+    "response": "This place is a dump. Nice work.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "put coin down drain",
+    "response": "You toss the useless coin down the drain.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "bent coin",
+    "travel": null
+  },
+  {
+    "move": "put coin down drain",
+    "response": "You toss it down the drain.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "put coin down drain",
+    "response": "You don't have a coin!",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "jump on bed",
+    "response": "It's not very bouncy, but you get a few jumps in.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open chest",
+    "response": "It's empty.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": {
+      "chest": "open"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under bed",
+    "response": "Empty. Better look elsewhere.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open chest",
+    "response": "There's a coin in it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "chest": "open"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw paste at bird",
+    "response": "It splatters across the window.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use medallion on totem",
+    "response": "You're not holding the medallion. It melted.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin",
+    "response": "You already took it!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "rub coin",
+    "response": "Perhaps this will bring you luck.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take key",
+    "response": "It's just out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close chest",
+    "response": "It's currently closed.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push bucket",
+    "response": "The bucket tips a bit, but you catch it and set it back upright.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push bowl",
+    "response": "You give the bowl a push, but the paste remains inside.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "follow ant trail",
+    "response": "They're carrying food to a drain in the middle of the room.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to front",
+    "response": "The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "stamp on bent floor",
+    "response": "It looks very beat up. No amount of stamping will change that, although you do try.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "do i have wifi",
+    "response": "You check your phone, but it has no signal. You realize it's a rock. You drop it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is around me",
+    "response": "You see a large signpost, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at ants",
+    "response": "They're carrying food to a drain in the middle of the room.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch through left wall",
+    "response": "You punch it with all your might. You feel the room shift a bit...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "left"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch left wall",
+    "response": "You punch it with all your might. You feel the room shift a bit...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "left"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick right wall",
+    "response": "You kick it HARD. You feel the room shift a bit...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "right"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick left wall",
+    "response": "You run across the room and give it a flying kick. The room seems to shift a bit.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "left"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push bed",
+    "response": "There's some space between the bed and the wall, so you push it against the wall.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use right wall",
+    "response": "You give the wall a good kick. The room rocks a bit...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open window",
+    "response": "The window is ajar, but you fail to pry it open any further.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push bars",
+    "response": "The bars don't move an inch.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open right wall",
+    "response": "The window is ajar, but you fail to pry it open any further.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push back wall",
+    "response": "You give the back wall a good push, but nothing happens.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to window",
+    "response": "You call out through the window, but nobody seems to be around.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to flower",
+    "response": "You hum a classical tune. The flower seems to perk up a bit.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch right wall",
+    "response": "Huh? The room seems to shift slightly!",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "right"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to bird",
+    "response": "You call out to the bird. It appears to be a bit nervous now.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch through right wall",
+    "response": "You fail to punch through it, but the room seems to shift a bit.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "tilt": "right"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket to take flower",
+    "response": "You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket to grab flower",
+    "response": "You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket to pick up flower",
+    "response": "You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "block drain",
+    "response": "You cover the drain with your foot, but the ants start biting it. You remove it before your foot is useless.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close drain",
+    "response": "You cover the drain with your foot, but the ants start biting it. You remove it before your foot is useless.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use window",
+    "response": "There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open pillow",
+    "response": "There doesn't appear to be anything hidden inside.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open front wall",
+    "response": "You try to bend the bars with your bare hands, but they don't move.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "jump out window",
+    "response": "It's closed, and I doubt you'd fit through it anyway.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use paste",
+    "response": "You spread some on the pillow.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use lune porter",
+    "response": "You are transported to Crescent Plaza. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "lune porter": "inventory"
+    },
+    "trigger": null,
+    "drop": "lune porter",
+    "travel": "crescent"
+  },
+  {
+    "move": "look on floor",
+    "response": "Giant ants have taken over. They're carrying food they've collected down a drain.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to merchant",
+    "response": "They mumble something before looking up. 'Hi, welcome to Crescent Plaza! Looking to trade?'\\n\\n- “Give the merchant a coin for an apple.”\\n- \"Give the merchant a coin for a banana.”",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind me",
+    "response": "A comfy bed is there. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at shop",
+    "response": "You're surprised to see someone else out here. A shopkeeper tends to her store. \\n\\nSuggested moves:\\n- \"talk to the merchant”\\n- \"give the merchant a coin for an X”\\n\\nYou can chat directly with the shopkeeper: @LiltMerchant.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind me",
+    "response": "A comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "walk to shop",
+    "response": "There isn't much to it, but you see the shopkeeper tending to their shop. \\n\\nSuggested moves:\\n- \"talk to the merchant”\\n- \"give the merchant a coin for an X”\\n\\nYou can chat directly with the shopkeeper: @LiltMerchant.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "train ants with flower",
+    "response": "You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": {
+      "ants": "training"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open floor",
+    "response": "You try to chip away at the floor with little success.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open drain",
+    "response": "It's already open, and the ants continue to crawl down into it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "train ants",
+    "response": "They become more and more receptive to receiving your orders. You reward them with more paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "ants": "training"
+    },
+    "trigger": {
+      "ants": "trained"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open ceiling",
+    "response": "If only you could...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "train ants",
+    "response": "You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": {
+      "ants": "training"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open bars",
+    "response": "You try to bend the bars with your bare hands, but they don't move.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open back wall",
+    "response": "How do you plan on doing that?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower with ants",
+    "response": "You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": {
+      "ants": "training"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "direct ants",
+    "response": "They become more and more receptive to receiving your orders. You reward them with more paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "ants": "training"
+    },
+    "trigger": {
+      "ants": "trained"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use pillow",
+    "response": "You place your head upon it for a few minutes.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use left wall",
+    "response": "You knock on the left wall to deduce its thickness. It would take quite a hit to knock this down.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use front wall",
+    "response": "You take a running leap at the bars. You land on the floor.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower",
+    "response": "Could be useful for something, but you're not sure what.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use floor",
+    "response": "You're already standing on it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use drain",
+    "response": "You think about what you might put down the drain...",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use door",
+    "response": "The door remains shut and locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use chest",
+    "response": "You stand on the chest to get a better view of your room, but there's not much to see.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bucket",
+    "response": "You don't need to use it right now. Better to focus on getting out of here.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bowl",
+    "response": "It's already full of paste.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bird",
+    "response": "You sing a little tune to the blue bird, which seems to get its attention. It gives you a wary look.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take key with ants",
+    "response": "The ants, expecting a reward, pick up the key and bring it over to you.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "ants": "trained"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket",
+    "response": "You wrap yourself in the blanket for a minute before resting it back on the bed.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bars",
+    "response": "You rest your head on the bars for a minute and think about how you might escape.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin out of chest",
+    "response": "You pick up the coin.",
+    "position": "room",
+    "item": "coin",
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "put coin in pocket",
+    "response": "You pick up the coin.",
+    "position": "room",
+    "item": "coin",
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "lay in bed",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "feed paste to ants",
+    "response": "Wow, they really like it!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "look in bucket",
+    "response": "You're afraid to look inside.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take key",
+    "response": "You grab the key right before it gets carried down the drain.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw paste at key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on drain",
+    "response": "Don't be wasteful.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use paste with key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "put paste on key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "stand up",
+    "response": "You are standing, although this room isn't very spacious.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw paste on key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "look through bars",
+    "response": "You see a trail of ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "dump paste on key",
+    "response": "The paste you lobbed at the key covers it. The ants grab it and start carrying it over to the drain with their food.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": {
+      "key": "pasted"
+    },
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use medallion",
+    "response": "All of your focus is drawn to this medallion despite you barely being able to see it at your current scale.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "Darkness devours the sky as you leave Crescent Plaza. You trip through a thorn bush into a clearing. There, you see pile of rubble. #LiltSpookytown",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "where am i",
+    "response": "You're in a room. There's a front wall with bars, back, left, and right wall.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "💀",
+    "response": "Is that a threat?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "start",
+    "response": "You're already playing! You should look around.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to front wall",
+    "response": "The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in chest",
+    "response": "It's a small chest. It's closed, but it doesn't appear to be locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in chest",
+    "response": "I wonder if anything else was stored in here?",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through drain",
+    "response": "It's far too small.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "squeeze through bars",
+    "response": "You try to bend the bars, but they don't move.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look outside",
+    "response": "There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill hut",
+    "response": "You barrel over the hut, demolishing it.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin",
+    "response": "You're already holding the coin.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin",
+    "response": "That was the only coin, and now it's ruined.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at sky",
+    "response": "Your eyes adjust to the sun. There are a few clouds, and a bird flies overhead.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "walk towards door",
+    "response": "It's locked. For now.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to back wall",
+    "response": "A comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "unlock door",
+    "response": "You open the door and make your way out of the room... You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "look around",
+    "response": "You see a large sign, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use key with door",
+    "response": "The door swings open and you leave the room. You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "whistle",
+    "response": "You whistle a tune. You hear someone in the distance repeat it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at well",
+    "response": "It appears to be falling apart. You see water, but the bucket looks too old to be useful.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "You look around and see a large signpost, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give paste to ants",
+    "response": "Wow, they really like it!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "pet bird",
+    "response": "You can't reach it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "Darkness devours the sky as you leave Crescent Plaza. You trip through a thorn bush into a clearing. There, you see a the crushed remains of a hut. A totem stands in the rubble. #LiltSpookytown",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "walk to front wall",
+    "response": "The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look inside chest",
+    "response": "It's a small chest. It's closed, but it doesn't appear to be locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to bed",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take paste",
+    "response": "You get some paste. What are you going to do with it?",
+    "position": "room",
+    "item": "paste",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take medallion",
+    "response": "You currently have the medallion. It seems to be the cause of your current gigantic stature.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in well",
+    "response": "You see glittering below. Perhaps you should make a wish, as well. (Donate: https://t.co/ZOSn5O2p7Z)",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "help",
+    "response": "Tweet at me to do things.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bars",
+    "response": "You try to take them, but they hold firm.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "sleep in bed",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through window",
+    "response": "You are much larger than the window.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at floor",
+    "response": "Wood floor. It appears to be bent out of shape in some areas.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look out window",
+    "response": "There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "sleep",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at paste",
+    "response": "It's definitely old.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take flower",
+    "response": "It's pretty, but prickly. You decide against it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bed",
+    "response": "It would be nice to have your own bed, but it doesn't seem useful right now.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at key",
+    "response": "It's small and simple.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at drain",
+    "response": "The ant colony must be that way. You hear gurgling sounds from below.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bars",
+    "response": "Too tight to squeeze through.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take pillow",
+    "response": "You pick it up and give it a hug, then put it back down.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "put coin in pocket",
+    "response": "You place the coin in your pocket.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push hut",
+    "response": "It doesn't take much force on your part, you push it down like a domino. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bucket",
+    "response": "The stench is overwhelming, you drop it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take totem",
+    "response": "Hunting through the wreckage, you find the totem and pick it up. The medallion melts away.",
+    "position": "spookytown",
+    "item": "totem",
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": "medallion",
+    "travel": null
+  },
+  {
+    "move": "talk to ants",
+    "response": "...You are lonely.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take chest",
+    "response": "You don't need a chest, but maybe there's something useful inside it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use ants",
+    "response": "What are you going to use them for?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "put paste in drain",
+    "response": "Don't be wasteful.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at pillow",
+    "response": "Nothing fancy, it's just a pillow.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use ant",
+    "response": "What are you going to use them for?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at left wall",
+    "response": "You see a chest and bucket.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at flower",
+    "response": "A nice touch.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bucket",
+    "response": "You're afraid to look inside.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat some paste",
+    "response": "You eat it, but it's so bad you spit it out. A few ants are attracted to the smell.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bird",
+    "response": "Its song gives you hope.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "run",
+    "response": "Not a lot of space to move around in here. I better look around.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at wall",
+    "response": "The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at window",
+    "response": "There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look through window",
+    "response": "There's a dense forest. You can see a blue bird (@LiltBlueBird) tweeting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at door",
+    "response": "It's locked. Maybe there's another way out.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bird",
+    "response": "You can't reach it from here. It's outside.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at forest",
+    "response": "It looks oddly magical. You can make out a clearing in the distance.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at blanket",
+    "response": "Soft and warm. What else could it be used for?",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat paste",
+    "response": "You eat it, but it's so bad you spit it out. A few ants are attracted to the smell.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take door",
+    "response": "It doesn't budge.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at chest",
+    "response": "It's a small chest. It doesn't appear to be locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bed",
+    "response": "Small bed featuring blanket and pillow. It looks very uncomfortable.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take blanket",
+    "response": "You pick it up. It's very soft.",
+    "position": "room",
+    "item": "blanket",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at walls",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw paste",
+    "response": "That was definitely an improvement to the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on back wall",
+    "response": "That was definitely an improvement to the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on right wall",
+    "response": "That was definitely an improvement to the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "dump paste on key",
+    "response": "It's already covered in paste, but you add more anyway.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "look down well",
+    "response": "You see glittering below. Perhaps you should make a wish. (Donate: https://t.co/2IARFLAjfX)",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at ceiling",
+    "response": "There are some unusual markings, but it appears to be impenetrable.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bowl",
+    "response": "A small, white ceramic bowl. Good for holding paste of all kinds.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look inside chest",
+    "response": "Not much to look at.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ant",
+    "response": "It bites you. You drop it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ants",
+    "response": "They bite you. You drop them.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bowl",
+    "response": "You take a close look at the bowl before putting it back down. It's colored with the stains of past meals. ",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ceiling",
+    "response": "You really can't do that. It's a ceiling.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at back wall",
+    "response": "A comfy bed is there, with pillow and blanket. A bowl of old(ish) apple paste sits next to it.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bed",
+    "response": "You don't feel tired. You just woke up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at front wall",
+    "response": "The front wall has a door, and through the bars you see a trail of large ants and a key on the floor out of reach.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at right wall",
+    "response": "There's a window with a flower on the sill.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "🍌",
+    "response": "Sure, here's a banana.",
+    "position": "room",
+    "item": "banana",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to merchant for banana",
+    "response": "Yum! You receive a banana for your coin.",
+    "position": "crescent",
+    "item": "banana",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "i know",
+    "response": "Very well then.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ant",
+    "response": "You carefully remove one giant ant from the colony. It's bites you. You drop it. These ants need more training.",
+    "position": "room",
+    "item": "ant",
+    "condition": {
+      "ants": "training"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pull medallion",
+    "response": "Your arm seems to go through the medallion, grabbing a knotty object on the other side. It yanks you through itself back into your current location... 5 minutes ago.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what can i see in room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is in room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "whats in room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks pretty interesting.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use paste on key",
+    "response": "It's already covered in paste, but you add more anyway.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "throw paste at key",
+    "response": "It's already covered in paste, but you add more anyway.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste with key",
+    "response": "It's already covered in paste, but you add more anyway.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "throw paste on key",
+    "response": "It's already covered in paste, but you add more anyway.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on wall",
+    "response": "That was definitely an improvement to the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste on ants",
+    "response": "They like it. They carry it down the drain. They're basically having an ant party.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use paste with ants",
+    "response": "They like it. They carry it down the drain. They're basically having an ant party.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "use dawn porter",
+    "response": "You've been transported back to the room!",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "dawn porter": "inventory"
+    },
+    "trigger": null,
+    "drop": "dawn porter",
+    "travel": "room"
+  },
+  {
+    "move": "use paste on left wall",
+    "response": "That was definitely an improvement to the wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "direct ants to key",
+    "response": "The ants, expecting a reward, pick up the key and bring it over to you.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "ants": "trained"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give paste to ants",
+    "response": "They like it and carry it down the drain. They're having an ant party.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": "paste",
+    "travel": null
+  },
+  {
+    "move": "smash hut",
+    "response": "With your giant fists, you punch a hole straight through it. The hut is smashed. 💥",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "crush hut",
+    "response": "You stomp a hole straight through it with your monstrous foot. Absolutely crushed.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take some paste",
+    "response": "You get paste. Pasty.",
+    "position": "room",
+    "item": "paste",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at wall",
+    "response": "The front wall has a door, and through the bars you see a bunch of large ants.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at banana",
+    "response": "It's glowing green.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "banana": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bars",
+    "response": "Too tight to squeeze through, but you have the key so who cares?",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bed",
+    "response": "Small bed featuring a pillow. It looks extremely uncomfortable.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bird",
+    "response": "It looks cheerful.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at ceiling",
+    "response": "You stand on the chest to get a closer look. Huh. Nothing here.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "closed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at chest",
+    "response": "It's still small and still unlocked.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "closed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at coin",
+    "response": "It is valuable!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bent coin",
+    "response": "It's worthless. You did this.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at drain",
+    "response": "Ants continue to march down the drain. You wish you could join them. You are one with the ants.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "ants": "trained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "this is normal",
+    "response": "Yes. Yes, it is.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at floor",
+    "response": "Wood floor. It appears to be bent out of shape in some areas. Paste is everywhere.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at front wall",
+    "response": "The front wall has a door, and through the bars you see large ants carrying the key.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "pasted"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at left wall",
+    "response": "You see the open chest and a bucket.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at paste",
+    "response": "It's definitely old and definitely sticky. How about a smackerel?",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "paste": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at pillow",
+    "response": "The pattern on it matches this blanket.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go out door",
+    "response": "You open the door... You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "look around",
+    "response": "There's a back wall, left wall, right wall, and a front wall with a door. A door! ",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at window",
+    "response": "There's a dense forest. A blue bird (@LiltBlueBird) is watching you carefully.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at front wall",
+    "response": "That door shouldn't give you any trouble. The ants continue to march through the bars.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at crescent plaza",
+    "response": "While surveying Crescent Plaza you see a large sign, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bucket",
+    "response": "The bucket is attached to the well and has been for a long time.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go out door",
+    "response": "You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "look at merchant",
+    "response": "They're looking to sell.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind hut",
+    "response": "Can't get a good look.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind medallion",
+    "response": "The back is the front.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind totem",
+    "response": "It's the only thing in there.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at bird",
+    "response": "It's singing as it flies by. It looks distinctly blue...",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for banana",
+    "response": "Good deal! You receive a banana for your coin.",
+    "position": "crescent",
+    "item": "banana",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "look at door",
+    "response": "It's open. You can walk right through. You are now in Crescent Plaza. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "look under hut",
+    "response": "Digging a hole underneath would take too long. Probably.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks interesting. Something over there catches your attention.\\n\\nSuggested move:\\n- \"inspect the front wall\"",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use door",
+    "response": "You open the door and make your way out of the room. You walk until you find yourself in a new area. You should look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "look around liltcrescent",
+    "response": "You see a large sign, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ant",
+    "response": "You carefully remove one giant ant from the colony. 🐜",
+    "position": "room",
+    "item": "ant",
+    "condition": {
+      "ants": "trained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ants",
+    "response": "You carefully remove one giant ant from the colony. Just one.",
+    "position": "room",
+    "item": "ant",
+    "condition": {
+      "ants": "trained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "direct ant to key",
+    "response": "The ant, expecting a reward, picks up the key and brings it over to you.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "ant": "inventory"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use ant on key",
+    "response": "You've trained this ant well. It picks up the key and brings it over to you.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "ant": "inventory"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take ants",
+    "response": "You grab a handful, and they do not like it. These ants need more training.",
+    "position": "room",
+    "item": "ant",
+    "condition": {
+      "ants": "training"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take chest",
+    "response": "It's small, but heavy. Not worth carrying right now.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "chest": "closed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin out of chest",
+    "response": "You're already holding the coin.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin out of chest",
+    "response": "That was the only coin, and now it's ruined.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take coin out of chest",
+    "response": "You already took it!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket with flower",
+    "response": "You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use blanket on flower",
+    "response": "You wrap the blanket around your hand and gently lift the flower off of the sill.",
+    "position": "room",
+    "item": "flower",
+    "condition": {
+      "blanket": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at room",
+    "response": "There's a back wall, left wall, right wall, and a front wall with a door. A door! ",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion on hut",
+    "response": "There is no medallion. There is no hut.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open hut",
+    "response": "Prying on the door causes it to splinter a bit, but it does not budge.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pull medallion",
+    "response": "All of your focus is drawn to this medallion. As soon as your fingers wrap around it, you feel energy blast through your body - you are now four times taller than the hut.",
+    "position": "spookytown",
+    "item": "medallion",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch spookytown",
+    "response": "The ground shakes.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push medallion",
+    "response": "As soon as you touch it, it adheres to your hand. You feel dark forces pervade your entire being. You are now eight times taller than the hut.",
+    "position": "spookytown",
+    "item": "medallion",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push totem",
+    "response": "The totem seems to know your thoughts.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take hut",
+    "response": "You and what army?",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take spookytown",
+    "response": "This land is not your land.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at room",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks interesting. Something over there catches your attention.\\n\\nSuggested move:\\n- \"inspect the front wall\"",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through well",
+    "response": "Hanging onto the edge, you try to reach the water with your feet. It's still pretty far down. You climb back out.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through shop",
+    "response": "The shop only has a couple items right now: apples and bananas.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open door",
+    "response": "You open the door and leave of the room. You walk until you reach an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "use key on door",
+    "response": "It works! You leave the room and walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "help",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what are my options",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to hut",
+    "response": "\"Anyone there?\" No response.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to spookytown",
+    "response": "\"Hello?\" There doesn't appear to be anyone around.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through crescent plaza",
+    "response": "Shouldn't you explore here a bit first?",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill bird",
+    "response": "The bird pecks your head as it flies by. Can it read your thoughts? Hope it doesn't come back with friends.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill merchant",
+    "response": "They aren't having it. You lose a health point. Didn't know I was tracking that, did you?",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "The sun beats down.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Stone. Fairly well-maintained, actually. It doesn't appear that many have traveled this path - sorry to this shop.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "Lots of trees over there. Nothing worth investigating. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "Not much to see over there.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to totem",
+    "response": "The shroud surrounding it thickens with each utterance.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at totem",
+    "response": "Someone wants to keep this safe. The hut is covered with glowing symbols, presumably there to protect the totem.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at spookytown",
+    "response": "This is Spookytown? A single hut slumps opposite you. You see a totem inside.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through hut",
+    "response": "While attempting to push the tiny door open, you knock down the entire hut.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at medallion",
+    "response": "This doesn't seem to belong here. Light seems to fracture off of its surface.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch hut",
+    "response": "With your giant fists, you punch a hole straight through it. The hut collapses in on itself.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take medallion",
+    "response": "All of your focus is drawn to this medallion. As soon as your fingers wrap around it, you feel energy blast through your body - you are now six times taller than the hut.",
+    "position": "spookytown",
+    "item": "medallion",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to medallion",
+    "response": "It tells you a secret.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at hut",
+    "response": "Totally wrecked.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at hut",
+    "response": "What is this, a hut for ants?",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at medallion",
+    "response": "It's hard to make out the details, it's so small.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "With your head over the trees, you can see for miles - where the sky turns from grey to blue, Crescent Plaza, and below you: a little totem calling for you from within a hut.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem",
+    "response": "You commune with the totem. It transports you. #LiltVoid",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "void"
+  },
+  {
+    "move": "look around",
+    "response": "A dense fog obscures your vision. What's that in your hand?\\n\\nSuggested moves:\\n- Inventory",
+    "position": "null",
+    "item": "boot",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind crescent plaza",
+    "response": "You can't see far into the forest.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind merchant",
+    "response": "Behind them is their very well organized shop.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind sky",
+    "response": "What lies beyond the clouds?",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind bucket",
+    "response": "Nothing there!",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under bird",
+    "response": "You are under the bird. Watch out.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind well",
+    "response": "You see letters etched into the back of the well. Relationships memorialized in stone. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under bucket",
+    "response": "Oh yeah, there are a bunch of holes in the bottom of this thing. Not fetching any water with this.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under crescent plaza",
+    "response": "You think about recruiting an excavation crew.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under merchant",
+    "response": "They've worn a path where they've been pacing back and forth in front of their shop. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under sign",
+    "response": "It's planted into the ground quite sturdily.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push sign",
+    "response": "You straighten it out a bit. Much nicer.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about sky",
+    "response": "Much nicer than the ceiling of that cell!",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about sign",
+    "response": "Per the topmost sign, you're in Crescent Plaza. The other signs read 'Umbra Road', 'Spookytown', and 'E-b ---'.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about shop",
+    "response": "They don't have much in stock. Might want to wait until the going-out-of-business sale.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about merchant",
+    "response": "Why do they look so busy? There are no customers around.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about crescent plaza",
+    "response": "You find yourself at a crossroads. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about bucket",
+    "response": "The image of this bucket has burned into your brain. Why? ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about bird",
+    "response": "Pretty sure I saw a bird from that cell. Same one?",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to bird",
+    "response": "It didn't seem to respond well to, \"HEY YOU BIRD!\"",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take well",
+    "response": "It's not exactly portable.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take shop",
+    "response": "It's on wheels, so you try to push it away. The merchant trips you and pushes it back.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take bucket",
+    "response": "It's attached to the well with a rope.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push merchant",
+    "response": "They dodge you push and you fall to the ground. Learn your lesson?",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push shop",
+    "response": "It starts a'rolling. The merchant runs over and pushes it back. They don't look pleased.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "push bucket",
+    "response": "You hear it crash against the sides of the well as it goes down toward the water. Quickly, you bring it back up.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch well",
+    "response": "Bruised fists.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch sign",
+    "response": "The sign spins around and rests back in its original position.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch shop",
+    "response": "An apple falls off its shelf. The shopkeeper is not pleased.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch merchant",
+    "response": "They swiftly block your punch while tripping you to the ground. You don't got what it takes.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch bucket",
+    "response": "Another hole has been added to the bucket.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through hut",
+    "response": "The door rejects your advances, blasting you backwards.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look behind hut",
+    "response": "I think... there's someone... back there?",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "The ground is so, so, so far away.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close bucket",
+    "response": "You don't see anything around to close it with.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close crescent plaza",
+    "response": "You try to close the plaza, but you don't have that authority.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close shop",
+    "response": "It's not yours to close. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close well",
+    "response": "You attempt to move the heavy stone cover. It's far too heavy.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat bird",
+    "response": "Can't reach it from here. It's a free bird.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat bucket",
+    "response": "You gnaw on it a bit. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat crescent plaza",
+    "response": "It's Crescent PLAZA, not Crescent PIZZA. 🍕",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat merchant",
+    "response": "911 help",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat sign",
+    "response": "I'm not sure how you'd even approach this. Suffice it to say, it doesn't work.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "purchase banana",
+    "response": "Yum! You receive one banana for your coin.",
+    "position": "crescent",
+    "item": "banana",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "buy banana",
+    "response": "+1 banana. 🍌",
+    "position": "crescent",
+    "item": "banana",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "look behind shop",
+    "response": "A well is tucked away to the right of the plaza. Other than that, trees. Lots of them.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use shop",
+    "response": "The shop has a display of apples and bananas. Might want to talk to the merchant before taking one.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use well",
+    "response": "It appears to be falling apart. You see water, but the bucket looks too old to be useful.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through door",
+    "response": "You make your way out of the room. You walk until you find yourself in a new area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "go through door",
+    "response": "The door remains shut and locked.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "why not",
+    "response": "idk, ask @mknepprath",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go down umbra road",
+    "response": "Strangely, you don't see a road there.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to umbra road",
+    "response": "Despite what the sign says, you don't see a road in that direction.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to shop",
+    "response": "There isn't much to it, but you see the shopkeeper tending to their shop. \\n\\nSuggested moves:\\n- \"talk to the merchant”\\n- \"give the merchant a coin for an X”\\n\\nYou can chat directly with the shopkeeper: @LiltMerchant.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "help",
+    "response": "Try moves like these:\\n- \"look around\"\\n- \"inventory\"\\n- \"inspect the A\"\\n- \"pick up a B\"\\n- \"use the X on Y\"",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat banana",
+    "response": "Potassium! Great!",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "banana": "inventory"
+    },
+    "trigger": null,
+    "drop": "banana",
+    "travel": null
+  },
+  {
+    "move": "use door",
+    "response": "You make your way out of the room. You walk until you find yourself in a new area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "look at door",
+    "response": "You can open it. You do open it. It is now open.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": null
+  },
+  {
+    "move": "use door",
+    "response": "You open the door and make your way out of the room. You walk until you find yourself in a new area. You should look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "open door with key",
+    "response": "The door opens and make your way out of the room... You walk until you find yourself in an open area. Look around! #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "go through door",
+    "response": "You open the door and make your way out of the room. You walk until you find yourself in a new area. You should look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "go out door",
+    "response": "You open the door... You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "open door",
+    "response": "You open the door and leave of the room. You walk until you reach an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "unlock door",
+    "response": "You open the door and make your way out of the room... You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "use key with door",
+    "response": "The door swings open and you leave the room. You walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "use key on door",
+    "response": "It works! You leave the room and walk until you find yourself in an open area. Might want to look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "closed"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "use key with door",
+    "response": "You lock that door.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": {
+      "door": "closed"
+    },
+    "drop": "key",
+    "travel": null
+  },
+  {
+    "move": "use key on door",
+    "response": "It's locked now. But why?",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "door": "open"
+    },
+    "trigger": {
+      "door": "closed"
+    },
+    "drop": "key",
+    "travel": null
+  },
+  {
+    "move": "look behind sign",
+    "response": "Ah, all of Crescent Plaza. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under shop",
+    "response": "May be a chipmunk hiding under there? It darted into the woods before you could get a good look at it.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open bucket",
+    "response": "It's open, you can look right in. Nothing there.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open crescent plaza",
+    "response": "\"It's open and ready for business!\" exclaims the merchant.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open shop",
+    "response": "\"Hey, only I can do that! ...And it's already open.\"",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use merchant",
+    "response": "They mumble something before looking up. 'Hi, welcome to Crescent Plaza! Looking to trade?'\\n\\n- “Give the merchant a coin for an apple.”\\n- \"Give the merchant a coin for a banana.”",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bucket",
+    "response": "As it nears a the well water, the bucket starts to shake. A pulse of golden light flares out of the well, then vanishes. ",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bird",
+    "response": "Analyzing how the bird glides through the air, you outstretch your arms and start running. You never leave the ground, however.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about well",
+    "response": "Doesn't seem to get used much anymore.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through door",
+    "response": "You open the door and make your way out of the room. You walk until you find yourself in a new area. You should look around. #LiltCrescent",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": "crescent"
+  },
+  {
+    "move": "look under medallion",
+    "response": "The bottom is the top.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look under totem",
+    "response": "Yeah, it's just floating there.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open hut",
+    "response": "You lift the roof off of the hut, causing the entire thing to collapse.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about hut",
+    "response": "It's barely a hut.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about medallion",
+    "response": "This is something unnatural.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about spookytown",
+    "response": "Even within your head, it's unclear.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "think about totem",
+    "response": "Is there a face on it? It does seem to be slightly illuminated from within itself.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use hut",
+    "response": "It's not an outhouse. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "why not",
+    "response": "good question, maybe @mknepprath knows",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "You spy a totem in some kind in the hut. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower on ants",
+    "response": "They become more and more receptive to receiving your orders. You reward them with more paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "ants": "training"
+    },
+    "trigger": {
+      "ants": "trained"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower on ants",
+    "response": "You place the flower on the ground and direct the ants to carry it across the room. You reward them with paste.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "flower": "inventory"
+    },
+    "trigger": {
+      "ants": "training"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower on ants",
+    "response": "You don't have that item as it's a bit tricky to pick up.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use flower on ants",
+    "response": "You don't have a flower in your inventory. The ants would like one, though.",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "ants": "training"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "get key with ant",
+    "response": "The ant is so well trained,  it scurries over to the key and picks it up for you. You have the key.",
+    "position": "room",
+    "item": "key",
+    "condition": {
+      "ant": "inventory"
+    },
+    "trigger": {
+      "key": "acquired"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat medallion",
+    "response": "I don't know...",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close hut",
+    "response": "You place the hut's door on top of the pile and... close it. The door slides to the ground.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "close spookytown",
+    "response": "We do have safety concerns about this place.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat hut",
+    "response": "Tastes a bit bitter. You spit it out.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat spookytown",
+    "response": "As you start pulling up the ground around Spookytown, you realize it probably has a bad aftertaste. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat totem",
+    "response": "Chomp. Broke a tooth.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "help",
+    "response": "Suggested moves:\\n- \"look around\"\\n- \"pick up A\"\\n- \"push B\"",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "The ground feels so close to you.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "Murky.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "You are in Spookytown.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what is around me",
+    "response": "You spy a totem of some kind in the hut. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "what are my options",
+    "response": "Suggested moves:\\n- \"look around\"\\n- \"pick up A\"\\n- \"push B\"",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion",
+    "response": "All of your focus is drawn to this medallion. As soon as your fingers wrap around it, you feel energy blast through your body - you are now 40 meters tall.",
+    "position": "spookytown",
+    "item": "medallion",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion on hut",
+    "response": "You may need to pick it up if you want to try to do that.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion on totem",
+    "response": "You're not holding the medallion. Trust me, you want to hold the medallion.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem",
+    "response": "You commune with the totem. It dismisses you.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take hut",
+    "response": "You transplant it from the ground, but it crumbles in your hands. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "why not",
+    "response": "blame @mknepprath, idk",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion on hut",
+    "response": "It's so small, yet is sending a searing pain through your head - needling you to get that totem below.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at water",
+    "response": "In the darkness you catch different colors reflecting off of its surface.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for apple",
+    "response": "You don't have a coin!",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for banana",
+    "response": "You don't have a coin. No banana for you.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for apple",
+    "response": "The merchant generously gives you an apple for your bent coin.",
+    "position": "crescent",
+    "item": "apple",
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "bent coin",
+    "travel": null
+  },
+  {
+    "move": "give merchant coin for banana",
+    "response": "This coin is bent! You're not getting a banana for that.",
+    "position": "crescent",
+    "item": null,
+    "condition": {
+      "bent coin": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "You spy a totem in some kind in the hut. ",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "You see a large sign, a small shop across the way, and an old well.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "With your head over the trees, you can see for miles - where the sky turns from grey to blue, Crescent Plaza, and below you: a little totem calling for you from within a hut.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "This place is a dump. You did this.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "There's a back wall, left wall, right wall, and a front wall with a door. A door! ",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around me",
+    "response": "There's a front wall with bars, back wall, left wall, and right wall. That front wall looks interesting. Something over there catches your attention.\\n\\nSuggested move:\\n- \"inspect the front wall\"",
+    "position": "room",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at door",
+    "response": "You can open it. You do open it. It is now open.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "key": "inventory"
+    },
+    "trigger": {
+      "door": "open"
+    },
+    "drop": "key",
+    "travel": null
+  },
+  {
+    "move": "use coin with door",
+    "response": "The coin is now bent.",
+    "position": "room",
+    "item": "bent coin",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "use coin on door",
+    "response": "The coin is now bent. This was a strange thing to do with a coin.",
+    "position": "room",
+    "item": "bent coin",
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "use medallion on hut",
+    "response": "The medallion is yearning for something within the hut's remains. The totem pulses.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through medallion",
+    "response": "A portal opens up around you and you pass through into... Spookytown, 5 minutes ago.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go through spookytown",
+    "response": "There doesn't seem to be a way through.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill medallion",
+    "response": "It is not of this plane.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill spookytown",
+    "response": "You hear yowls in reply to the mere thought.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kill totem",
+    "response": "It is not benevolent, and it doesn't appreciate you considering that.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at hut",
+    "response": "Honestly, calling it a hut is being generous. It's a crude structure.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use medallion on totem",
+    "response": "You're HUGE, you smash a hole through the top of the hut, which then collapses. Guess you can get at that totem now.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "medallion": "inventory"
+    },
+    "trigger": {
+      "hut": "smashed"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem on hut",
+    "response": "The purpose of this totem is not yet clear. But this ain't it.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem on hut",
+    "response": "There's no fixing that.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "hut": "smashed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "Thick, inky nothingness surrounds you. ",
+    "position": "void",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem on spookytown",
+    "response": "Spookytown responds to the totem. Spookytown has been angered.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem on spookytown",
+    "response": "Spookytown responds to the totem.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use totem",
+    "response": "The grip of the void is loosened and you slip down onto a glassy surface. Your surroundings are still quite foggy, however. #LiltNull",
+    "position": "void",
+    "item": null,
+    "condition": {
+      "totem": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "null"
+  },
+  {
+    "move": "thank you",
+    "response": "You're welcome!",
+    "position": "room",
+    "item": "banana",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  }
+]

@@ -1,3 +1,2 @@
 Mastodon.py
 openai
-# psycopg2 // Included as a layer in AWS Lambda
