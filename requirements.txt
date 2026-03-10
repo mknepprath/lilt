@@ -1,2 +1,5 @@
 Mastodon.py
 anthropic
+flask
+flask-cors
+gunicorn

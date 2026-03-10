@@ -15,3 +15,5 @@ distribute-*
 
 bundle
 bundle.zip
+data/users.json
+.idea/
