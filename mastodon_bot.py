@@ -107,12 +107,30 @@ def _save_user(user_data):
 
 # --- LLM move translation ---
 
-def llm_transform(move):
+def _get_moves_for_position(position):
+    """Return the list of known move strings for a given position."""
+    return list({row['move'] for row in engine.MOVES if row.get('position') == position})
+
+
+def llm_transform(move, position=None):
+    valid_moves = _get_moves_for_position(position) if position else []
+    if valid_moves:
+        moves_hint = "Valid commands for this location: " + ", ".join(
+            f"'{m}'" for m in sorted(valid_moves)
+        ) + ". "
+    else:
+        moves_hint = (
+            "Example commands: 'inspect X', 'use X on Y', 'open X', 'pick up X', "
+            "'go to X', 'eat X', 'drink X', 'talk to X', 'look around', 'look in X', "
+            "'look right', 'check inventory', etc. "
+        )
+
     prompt = (
-        "Example commands: 'inspect X', 'use X on Y', 'open X', 'pick up X', "
-        "'go to X', 'eat X', 'drink X', 'talk to X', 'look around', 'look in X', "
-        "'look right', 'check inventory', etc. to play the game. "
-        "Translate the following into a command: " + move + ". Command:"
+        "You are translating player input for a text adventure game. "
+        + moves_hint
+        + "Translate the following player input into the closest matching command. "
+        "Reply with ONLY the command, nothing else. "
+        "Player input: " + move
     )
     try:
         response = anthropic_client.messages.create(
@@ -229,7 +247,7 @@ def main():
 
                 # If it was an error, try LLM translation
                 if result['response'] in engine.ERROR_MESSAGES:
-                    translated = llm_transform(post)
+                    translated = llm_transform(post, user['state'].get('position'))
                     if translated:
                         print(f'LLM translated to: {translated}')
                         result2 = engine.play(translated, user['state'], world=world)
