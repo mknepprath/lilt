@@ -12,7 +12,7 @@ import random
 import re
 
 # External
-from openai import OpenAI
+import anthropic
 from mastodon import Mastodon
 
 # Internal
@@ -24,8 +24,8 @@ import item
 from utils import normalize_post, build_tweet
 
 
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY")
+client = anthropic.Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY")
 )
 
 
@@ -36,7 +36,7 @@ class HTMLFilter(HTMLParser):
         self.text += data
 
 
-def openai_transform(move):
+def llm_transform(move):
     """
     Takes a move and returns a transformed move that the game can understand.
     """
@@ -45,21 +45,19 @@ def openai_transform(move):
              "game. Translate the following into a command: " + move + ". Command:"
 
     try:
-        response = client.chat.completions.create(
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=100,
             messages=[
-                {
-                    "role": "system",
-                    "content": prompt
-                }
+                {"role": "user", "content": prompt}
             ],
-            model="gpt-4",
         )
     except Exception as e:
         print("Error:", str(e))
         return None
 
     print(response)
-    text = response.choices[0].message.content
+    text = response.content[0].text
     text = re.split('; | // |, |\. |\*|\n', text)[0]
     move = normalize_post(text)
 
@@ -234,9 +232,9 @@ def main():
                 unsafe_user, message = parse_move(unsafe_user, move)
 
                 if unsafe_user['response'] is None and message is None:
-                    # attempt to transform move with openai
-                    print('Starting OpenAI translation...')
-                    unsafe_user, message = parse_move(unsafe_user, openai_transform(move))
+                    # attempt to transform move with llm
+                    print('Starting LLM translation...')
+                    unsafe_user, message = parse_move(unsafe_user, llm_transform(move))
 
                 # If there is still no valid response,
                 if unsafe_user['response'] is None and message is None:
