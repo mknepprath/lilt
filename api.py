@@ -83,6 +83,15 @@ def move():
     return jsonify(result)
 
 
+@app.route('/translate', methods=['POST'])
+def translate():
+    data = request.get_json()
+    raw = data.get('move', '')
+    normalized = engine.normalize(raw)
+    translated = llm_transform(raw)
+    return jsonify({'raw': raw, 'normalized': normalized, 'translated': translated})
+
+
 @app.route('/health', methods=['GET'])
 def health():
     has_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
