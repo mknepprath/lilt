@@ -1016,7 +1016,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "left"
+      "floor": "cracked_left"
     },
     "drop": null,
     "travel": null
@@ -1028,7 +1028,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "left"
+      "floor": "cracked_left"
     },
     "drop": null,
     "travel": null
@@ -1040,7 +1040,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "right"
+      "floor": "cracked_right"
     },
     "drop": null,
     "travel": null
@@ -1052,7 +1052,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "left"
+      "floor": "cracked_left"
     },
     "drop": null,
     "travel": null
@@ -1144,7 +1144,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "right"
+      "floor": "cracked_right"
     },
     "drop": null,
     "travel": null
@@ -1166,7 +1166,7 @@
     "item": null,
     "condition": null,
     "trigger": {
-      "tilt": "right"
+      "floor": "cracked_right"
     },
     "drop": null,
     "travel": null
@@ -6646,6 +6646,1746 @@
     "item": null,
     "condition": {
       "compass": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch left wall",
+    "response": "CRACK. The whole room groans. A jagged split runs across the floor from wall to wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_right"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch through left wall",
+    "response": "CRACK. The whole room groans. A jagged split runs across the floor from wall to wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_right"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick left wall",
+    "response": "CRACK. The impact sends a shudder through everything. The floor splits wide.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_right"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch right wall",
+    "response": "CRACK. The whole room groans. A jagged split runs across the floor from wall to wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_left"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch through right wall",
+    "response": "CRACK. The whole room groans. A jagged split runs across the floor from wall to wall.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_left"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick right wall",
+    "response": "CRACK. The impact sends a shudder through everything. The floor splits wide.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_left"
+    },
+    "trigger": {
+      "floor": "cracked_both"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch left wall",
+    "response": "The floor is barely holding together. One more stomp and you're going through.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch right wall",
+    "response": "The floor is barely holding together. One more stomp and you're going through.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick left wall",
+    "response": "The floor is barely holding together. One more stomp and you're going through.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick right wall",
+    "response": "The floor is barely holding together. One more stomp and you're going through.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "A crack runs along the left side of the floor. The wood is splintering.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_left"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "A crack runs along the right side of the floor. The wood is splintering.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_right"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "A gaping crack runs across the entire floor. Cold air rises from the darkness below. One good stomp and you'd fall right through.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at floor",
+    "response": "A gaping crack runs across the entire floor. Cold air rises from the darkness below.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "break floor",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "stomp floor",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "jump on floor",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "jump down",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "go down",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "stomp on floor",
+    "response": "You bring your foot down hard. The wood gives way and you tumble through darkness, landing in a heap on cold stone. Dust rains down from above.\\nYou're in some kind of cellar.",
+    "position": "room",
+    "item": null,
+    "condition": {
+      "floor": "cracked_both"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "look around",
+    "response": "A stone cellar. Collapsed shelving lines one wall, broken bottles glinting in the dim light. A grandfather clock stands against the far wall, still ticking. A narrow passage leads into darkness to the east. Above, you can see the hole you fell through.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "A stone cellar. Broken glass everywhere. The grandfather clock is open and empty. A narrow passage leads east into darkness.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "Collapsed shelving. Broken bottles. Something glints among the glass.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "A grandfather clock. It shouldn't still be ticking, but it is.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "The grandfather clock, its face hanging open. Empty inside.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "The hole you fell through. The room above is too high to reach.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Cold stone floor. A drain in one corner, water trickling through it.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at clock",
+    "response": "A grandfather clock, impossibly old. The pendulum swings. The face reads a time that can't be right. There's a small keyhole beneath the face.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at clock",
+    "response": "The clock face hangs open. Inside, the mechanism is a nest of gears \u2014 except for one conspicuous gap where a gear is missing. No, wait. You already took it.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect clock",
+    "response": "The glass over the face is cracked. Behind it, you can hear gears turning. The keyhole is too small for any key you've seen.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "wind clock",
+    "response": "You find a winding stem on the side and turn it. The ticking accelerates. The hands spin. The glass cracks further. The face pops open with a click.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "clock": "open"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open clock",
+    "response": "You try to pry it open. It won't budge. Maybe try winding it first.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open clock",
+    "response": "Already open. The mechanism is exposed \u2014 an intricate nest of gears with one conspicuous gap.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take brass gear",
+    "response": "You carefully extract the brass gear. It's warm to the touch, still humming faintly. The clock stops ticking.",
+    "position": "cellar",
+    "item": "brass gear",
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": {
+      "clock": "emptied"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take gear",
+    "response": "You carefully extract the brass gear. It's warm to the touch, still humming faintly. The clock stops ticking.",
+    "position": "cellar",
+    "item": "brass gear",
+    "condition": {
+      "clock": "open"
+    },
+    "trigger": {
+      "clock": "emptied"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at shelves",
+    "response": "Rotten wood, collapsed inward. Among the broken bottles, a long shard of green glass catches the light. Sharp enough to cut.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect shelves",
+    "response": "Mostly ruined. Wine bottles, all smashed. One shard stands out \u2014 long, green, wickedly sharp.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take shard",
+    "response": "You wrap the base in a scrap of cloth and pick it up carefully. It's surprisingly sturdy.",
+    "position": "cellar",
+    "item": "shard",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take glass",
+    "response": "You wrap the base in a scrap of cloth and pick it up carefully. It's surprisingly sturdy.",
+    "position": "cellar",
+    "item": "shard",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect drain",
+    "response": "Water trickles into a grate in the floor. Something glints below the grate \u2014 wedged between the bars.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "reach into drain",
+    "response": "You work your fingers through the grate and fish out... a bent coin. Someone dropped this a long time ago.",
+    "position": "cellar",
+    "item": "bent coin",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in drain",
+    "response": "Something metallic, wedged between the bars.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to tunnels",
+    "response": "You squeeze through the narrow passage. The air gets cooler as the cellar falls behind you.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go east",
+    "response": "You squeeze through the narrow passage into the tunnels.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go to room",
+    "response": "The hole is too high to reach. You're not getting back up that way.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "climb up",
+    "response": "You jump for the edge of the hole. Not even close. The ceiling is too high.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "listen",
+    "response": "The clock ticks. Water drips somewhere. From the eastern passage, a faint echo \u2014 could be wind, could be something else.",
+    "position": "cellar",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "listen",
+    "response": "Water drips somewhere. From the eastern passage, a faint echo \u2014 could be wind, could be something else.",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "clock": "emptied"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "A junction of rough-hewn stone corridors. Glowing mushrooms cling to the walls in clusters, casting everything in pale blue. Three paths branch off: a breeze from the north, dripping water to the south, and the cellar passage behind you to the west.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "The northern passage. A faint breeze carries the smell of green things.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "The southern passage. You can hear water dripping steadily.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "Low ceiling, rough stone. The mushrooms are brighter here, clustered around the junction.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Damp stone floor, smooth from running water long ago.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect mushrooms",
+    "response": "Bioluminescent. They pulse faintly, like breathing. One cluster near the floor looks different from the others \u2014 rounder, with a faint sweet smell.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at mushrooms",
+    "response": "They glow pale blue. Beautiful, in an unsettling way.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "eat mushroom",
+    "response": "You bite into one. It tastes like starlight and regret. For a moment, you can hear the mushrooms humming. Then it passes. You feel... fine? Probably fine.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take mushroom",
+    "response": "It crumbles the moment you pull it from the wall. The glow fades instantly.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect walls",
+    "response": "Chisel marks. Someone carved these tunnels deliberately. Among the tool marks, a small symbol repeats: a circle with a line through it.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at walls",
+    "response": "Rough stone, glowing mushrooms. Chisel marks suggesting these were carved by hand.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go north",
+    "response": "You follow the breeze. The tunnel narrows, then opens into light.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "garden"
+  },
+  {
+    "move": "follow breeze",
+    "response": "The air gets warmer. The tunnel narrows, then opens into light.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "garden"
+  },
+  {
+    "move": "go to garden",
+    "response": "You follow the northern passage toward the smell of green things.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "garden"
+  },
+  {
+    "move": "go south",
+    "response": "You follow the sound of dripping water deeper underground.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "reservoir"
+  },
+  {
+    "move": "follow dripping",
+    "response": "The sound of water grows louder as you descend.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "reservoir"
+  },
+  {
+    "move": "go to reservoir",
+    "response": "You follow the southern passage toward the water.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "reservoir"
+  },
+  {
+    "move": "go west",
+    "response": "You head back through the narrow passage to the cellar.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "go to cellar",
+    "response": "You retrace your steps to the cellar.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "go back",
+    "response": "You head back to the cellar.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "cellar"
+  },
+  {
+    "move": "listen",
+    "response": "Wind from the north. Water from the south. Silence from the west.",
+    "position": "tunnels",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "An underground reservoir. Still black water fills a wide stone basin. A heavy chain hangs from the ceiling into the water. The chamber echoes. The tunnel back north is the only way out.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The drained reservoir. The basin is empty, revealing a mosaic on the floor and a corroded lockbox in the corner. The chain hangs slack from the ceiling.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Black water. You can't see the bottom.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "The basin floor is covered in a mosaic of colored tiles. A corroded lockbox sits in the corner.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "The chain disappears into a mechanism in the ceiling. Some kind of sluice gate.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect water",
+    "response": "Perfectly still and perfectly black. Occasionally, something pale moves beneath the surface. Blind fish, maybe.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in water",
+    "response": "You lean close. Pale shapes drift in the dark \u2014 eyeless fish, translucent as ghosts.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "drink water",
+    "response": "You cup some in your hands. It's ice cold and tastes of stone. The fish scatter at your touch.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect chain",
+    "response": "Thick iron links, rusted but solid. It connects to something in the ceiling \u2014 a sluice gate, maybe. Worth pulling.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pull chain",
+    "response": "You haul on the chain. Something groans overhead. A grinding sound, then a rush \u2014 water begins pouring out through a drain in the far wall. Slowly, the basin empties. The fish thrash, then slip away through the drain.\\nThe floor of the reservoir is revealed.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "reservoir": "drained"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pull chain",
+    "response": "The chain hangs slack. The reservoir is already drained.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use chain",
+    "response": "You haul on the chain. Something groans overhead. A grinding sound, then a rush \u2014 water begins pouring out through a drain in the far wall. Slowly, the basin empties.\\nThe floor of the reservoir is revealed.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": {
+      "reservoir": "drained"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect mosaic",
+    "response": "Tiny colored tiles form a map. You recognize a room, a plaza, a dark town. But there are places marked that you haven't seen \u2014 a garden, a tower, passages underground. At the center, a compass rose. Beneath it, in faded letters: ALL PATHS LEAD INWARD.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at mosaic",
+    "response": "A map of... everything? Places you've been and places you haven't. It's beautiful and unsettling.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect lockbox",
+    "response": "Corroded green metal, sealed shut. No keyhole \u2014 just corrosion fusing it closed. You'd need something sharp to pry it open.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at lockbox",
+    "response": "A metal box, crusted shut with age.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open lockbox",
+    "response": "You pull at the lid. The corrosion holds fast. You'd need something sharp to pry it.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use shard on lockbox",
+    "response": "You work the glass shard under the lid and lever it up. The corrosion cracks. Inside: a small round mirror, perfectly intact. Its surface doesn't show your reflection \u2014 it shows light. Pure, concentrated light, like a piece of trapped noon.",
+    "position": "reservoir",
+    "item": "mirror",
+    "condition": {
+      "shard": "inventory"
+    },
+    "trigger": null,
+    "drop": "shard",
+    "travel": null
+  },
+  {
+    "move": "pry open lockbox",
+    "response": "With what? You'd need something sharp.",
+    "position": "reservoir",
+    "item": null,
+    "condition": {
+      "reservoir": "drained"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pry open lockbox",
+    "response": "You work the glass shard under the lid. The corrosion cracks. Inside: a small round mirror that doesn't show your reflection \u2014 it shows light. Pure, trapped light.",
+    "position": "reservoir",
+    "item": "mirror",
+    "condition": {
+      "shard": "inventory"
+    },
+    "trigger": null,
+    "drop": "shard",
+    "travel": null
+  },
+  {
+    "move": "inspect fish",
+    "response": "Blind cave fish, pale as paper. They drift in slow circles, unbothered by your presence.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take fish",
+    "response": "You try. They slip through your fingers like cold silk.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to tunnels",
+    "response": "You head back through the passage to the tunnel junction.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go north",
+    "response": "You head back to the tunnels.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go back",
+    "response": "You return to the tunnel junction.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "look around",
+    "response": "An overgrown walled garden, open to the sky. Stone paths disappear under moss and wildflowers. An ancient fountain trickles at the center near a sundial. To the west, an iron gate leads to what looks like a plaza. To the east, a thorny hedge archway opens onto a dark path. Against the south wall, a glass greenhouse, fogged and locked. Behind you, the tunnel entrance.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The walled garden. Fountain, sundial, wildflowers. The greenhouse door stands open now. Gate west to the plaza. Thorny archway east to the dark path. Tunnel south.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "greenhouse": "unlocked"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "The iron gate to the west. Through the bars, you can see an open plaza.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "The thorny hedge archway. Beyond it, darkness.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "Open sky. After the tunnels, it feels impossibly wide.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Moss-covered flagstones. Tiny flowers growing between the cracks.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect fountain",
+    "response": "Carved from a single block of stone, cracked and green with age. Water still trickles from somewhere \u2014 a thin stream down the basin. At the bottom, a few coins, too deep to reach. Wishes that never came true.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at fountain",
+    "response": "An ancient stone fountain, barely flowing. Coins at the bottom.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "throw coin in fountain",
+    "response": "The coin sinks slowly. For a moment, all the coins at the bottom glow \u2014 then fade. You feel lighter.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "coin": "inventory"
+    },
+    "trigger": null,
+    "drop": "coin",
+    "travel": null
+  },
+  {
+    "move": "drink from fountain",
+    "response": "The water is cool and sweet, with a faint mineral taste. It's the best water you've ever had.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect sundial",
+    "response": "Brass, gone green. The gnomon casts a shadow that doesn't match the sun. Engraved around the edge: THE HOURS ARE NOT WHAT THEY SEEM. COME BACK WHEN THE SHADOW POINTS NOWHERE.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at sundial",
+    "response": "A brass sundial. The shadow falls on a symbol you don't recognize.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use sundial",
+    "response": "You trace your finger along the engraved hours. The shadow shivers, then settles. Whatever this means, you haven't figured it out yet.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect greenhouse",
+    "response": "Glass panels, most intact, fogged from inside. The door has a mechanism \u2014 not a lock exactly, more like a clockwork latch. A gear-shaped socket sits empty at its center.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at greenhouse",
+    "response": "A glass greenhouse against the south wall. The door mechanism has an empty gear-shaped socket.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open greenhouse",
+    "response": "The clockwork latch won't budge. There's a gear-shaped socket that needs filling.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open greenhouse",
+    "response": "Already open. The door stands ajar, warm air spilling out.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "greenhouse": "unlocked"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use brass gear on greenhouse",
+    "response": "The gear slides into the socket with a satisfying click. The mechanism whirs to life \u2014 gears turning gears turning gears. The latch releases. The door swings open, and warm humid air spills out.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "brass gear": "inventory"
+    },
+    "trigger": {
+      "greenhouse": "unlocked"
+    },
+    "drop": "brass gear",
+    "travel": null
+  },
+  {
+    "move": "use brass gear on door",
+    "response": "The gear slides into the socket. The mechanism whirs to life. The greenhouse door swings open.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "brass gear": "inventory"
+    },
+    "trigger": {
+      "greenhouse": "unlocked"
+    },
+    "drop": "brass gear",
+    "travel": null
+  },
+  {
+    "move": "enter greenhouse",
+    "response": "You step inside. It's warm and close, like being inside a breath. A single tree stands in the center, withered but alive. Its branches reach toward the glass ceiling. Soil, cracked and dry. The tree needs something \u2014 light, real light, not the grey filter through fogged glass.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "greenhouse": "unlocked"
+    },
+    "trigger": {
+      "greenhouse": "entered"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "enter greenhouse",
+    "response": "The door is locked. A gear-shaped socket sits empty in the clockwork latch.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "enter greenhouse",
+    "response": "The tree stands tall now, golden fruit heavy on its branches. Light pours from the mirror embedded in the soil, refracting through the glass walls.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "tree": "bloomed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect tree",
+    "response": "Withered but not dead. The bark is warm to the touch. It's waiting for something. Light, maybe. Real light.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "greenhouse": "entered"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at tree",
+    "response": "Bare branches, cracked soil. Alive, barely.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "greenhouse": "entered"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect tree",
+    "response": "Golden fruit hangs from every branch. The tree hums with warmth. You did this.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "tree": "bloomed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use mirror",
+    "response": "You set the mirror in the soil at the tree's base. It catches what little light filters through the fogged glass and \u2014 amplifies it. Concentrates it. A beam of pure noon hits the trunk.\\nThe tree shudders. Bark splits and heals in the same instant. Leaves unfurl, impossibly green. Then flowers. Then fruit \u2014 golden, luminous, warm.\\nThe greenhouse fills with light.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "mirror": "inventory"
+    },
+    "trigger": {
+      "tree": "bloomed"
+    },
+    "drop": "mirror",
+    "travel": null
+  },
+  {
+    "move": "use mirror on tree",
+    "response": "You angle the mirror toward the tree. A beam of concentrated light strikes the trunk.\\nThe tree shudders. Bark splits and heals. Leaves unfurl. Flowers bloom. Then fruit \u2014 golden and warm.\\nThe greenhouse fills with light.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "mirror": "inventory"
+    },
+    "trigger": {
+      "tree": "bloomed"
+    },
+    "drop": "mirror",
+    "travel": null
+  },
+  {
+    "move": "use mirror",
+    "response": "The mirror shows light, not reflections. But there's nothing here that needs it.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "mirror": "inventory"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take golden apple",
+    "response": "You reach up and twist one free. It's warm in your hands, heavier than it looks, and it pulses faintly \u2014 like a heartbeat.",
+    "position": "garden",
+    "item": "golden apple",
+    "condition": {
+      "tree": "bloomed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take fruit",
+    "response": "You reach up and twist one free. It's warm in your hands, heavier than it looks, and it pulses faintly \u2014 like a heartbeat.",
+    "position": "garden",
+    "item": "golden apple",
+    "condition": {
+      "tree": "bloomed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take apple",
+    "response": "You reach up and twist one free. It's warm, heavier than it looks, pulsing faintly.",
+    "position": "garden",
+    "item": "golden apple",
+    "condition": {
+      "tree": "bloomed"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to crescent",
+    "response": "You push through the iron gate. It groans open, and you step into a familiar open plaza.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "go west",
+    "response": "You push through the iron gate into the plaza.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "go through gate",
+    "response": "The gate groans open. The plaza stretches out before you.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "crescent"
+  },
+  {
+    "move": "go to spookytown",
+    "response": "You duck through the thorny archway. Branches scrape your shoulders. The darkness beyond swallows you, then spits you out into a clearing.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go east",
+    "response": "You push through the thorny hedge. It opens onto a dark clearing.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go through hedge",
+    "response": "Thorns catch your clothes as you push through. Then you're out \u2014 into darkness.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go to tunnels",
+    "response": "You duck back into the tunnel entrance.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go south",
+    "response": "You head back into the tunnels.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "go back",
+    "response": "You head back into the tunnels.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tunnels"
+  },
+  {
+    "move": "listen",
+    "response": "Birdsong. The fountain. Wind through the hedge. It's peaceful here.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "smell flowers",
+    "response": "Sweet and wild. Nothing cultivated about this garden anymore. It belongs to itself.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to birds",
+    "response": "They pause their singing to look at you. Then resume, slightly louder, as if performing.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect gate",
+    "response": "Wrought iron, partially overgrown with vines. Through the bars, you can see an open plaza with a signpost.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect hedge",
+    "response": "Dense and thorny, but there's a gap \u2014 an archway, almost deliberate. Beyond it, darkness and the faint smell of smoke.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to garden",
+    "response": "You slip through a vine-covered gate you hadn't noticed before. It opens into a walled garden.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "garden"
+  },
+  {
+    "move": "inspect gate",
+    "response": "Partially hidden by vines. Through the bars, you can see an overgrown garden with a fountain.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at gate",
+    "response": "A vine-covered iron gate in the wall. It looks like it leads somewhere green.",
+    "position": "crescent",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to garden",
+    "response": "You push through the thorny hedge. Branches part reluctantly, then you stumble into green light and birdsong.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "garden"
+  },
+  {
+    "move": "give golden apple to spirit",
+    "response": "The spirit reaches out. As its fingers close around the apple, the gold deepens to amber, then to sunset red. Light pours between its fingers.\\nThe spirit smiles \u2014 wider than before, full of warmth. A single tear rolls down its face and crystallizes before falling into your palm.\\n'Where did you find this?' it whispers. 'It tastes like a whole life.' And it fades into the light.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {
+      "golden apple": "inventory"
+    },
+    "trigger": {
+      "spirit": "freed"
+    },
+    "drop": "golden apple",
+    "travel": null
+  },
+  {
+    "move": "give spirit golden apple",
+    "response": "The spirit reaches out. As its fingers close around the apple, light pours between them.\\nIt smiles. A tear crystallizes and falls into your palm.\\n'Where did you find this?' it whispers. And it fades into the light.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {
+      "golden apple": "inventory"
+    },
+    "trigger": {
+      "spirit": "freed"
+    },
+    "drop": "golden apple",
+    "travel": null
+  },
+  {
+    "move": "use golden apple on spirit",
+    "response": "The spirit takes the golden apple. Light pours between its fingers. It smiles, weeps a single crystallized tear into your palm, and fades into warmth.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {
+      "golden apple": "inventory"
+    },
+    "trigger": {
+      "spirit": "freed"
+    },
+    "drop": "golden apple",
+    "travel": null
+  },
+  {
+    "move": "inspect tablet",
+    "response": "A flat stone near the fountain, covered in scratched names. Some are old enough to be illegible. There's space to add yours.",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "write name on tablet",
+    "response": "You scratch your name into the stone with a sharp edge. It joins dozens of others. Some you recognize. Some you don't. How long has this garden been here?",
+    "position": "garden",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect walls",
+    "response": "Scratch marks everywhere. Some are tally marks. Some are words: PULL THE CHAIN. And below that, in different handwriting: DON'T. And below that: I DID. IT WAS WORTH IT.",
+    "position": "reservoir",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The garden glows under a low sun. Long shadows stretch from the fountain. Fireflies are beginning to appear among the wildflowers. The greenhouse glass catches the last light like amber. Gate west. Hedge east. Tunnel south.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "time": "dusk"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "Moonlight fills the garden. Fireflies drift everywhere, thick as snow. The fountain catches starlight. The sundial's shadow has vanished entirely. Everything is silver and alive. Gate west. Hedge east. Tunnel south.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "time": "night"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "First light. Dew on everything. The garden holds its breath. A single bird begins to sing, then another, then the whole garden erupts. The sundial casts its first shadow of the day. Gate west. Hedge east. Tunnel south.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "time": "dawn"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect sundial",
+    "response": "The shadow has vanished. The brass surface reflects moonlight. The engraved text seems to shift: COME BACK WHEN THE SHADOW POINTS NOWHERE. This is that moment.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "time": "night"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use sundial",
+    "response": "You place your hand on the brass plate where the shadow should be. It's warm \u2014 warmer than it should be at night. Something clicks beneath the surface. A tiny drawer slides out of the base: inside, a single perfect coin.",
+    "position": "garden",
+    "item": "coin",
+    "condition": {
+      "time": "night"
+    },
+    "trigger": {
+      "sundial": "opened"
+    },
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use sundial",
+    "response": "The little drawer is already open and empty.",
+    "position": "garden",
+    "item": null,
+    "condition": {
+      "sundial": "opened"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at clock",
+    "response": "The hands point to... now? That can't be right. The face reads the current hour perfectly. How?",
+    "position": "cellar",
+    "item": null,
+    "condition": {
+      "time": "night"
+    },
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "Dawn reaches even here, barely. The darkness thins to grey. For a moment, the hut almost looks cozy. The iron gate, the tower, the dark path \u2014 all softened by the early light. It won't last.",
+    "position": "spookytown",
+    "item": null,
+    "condition": {
+      "time": "dawn"
     },
     "trigger": null,
     "drop": null,

@@ -14,6 +14,7 @@ State shape:
 """
 
 import copy
+from datetime import datetime
 import json
 import os
 import random
@@ -95,12 +96,25 @@ def _find_move(move, position, condition=None):
     return None
 
 
+def _get_time_period():
+    hour = datetime.now().hour
+    if 5 <= hour < 8:
+        return 'dawn'
+    elif 8 <= hour < 18:
+        return 'day'
+    elif 18 <= hour < 21:
+        return 'dusk'
+    return 'night'
+
+
 def _get_current_condition(move, position, inventory, events):
     state = copy.deepcopy(events)
     if position not in state:
         state[position] = {}
     for item_name in inventory:
         state[position][item_name] = 'inventory'
+    # Inject time of day so moves can have time-based conditions
+    state[position]['time'] = _get_time_period()
 
     for key, value in state[position].items():
         cond = {key: value}
