@@ -103,5 +103,33 @@
     "damage": null,
     "max": 1,
     "give": null
+  },
+  {
+    "name": "lantern",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "bone key",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": false
+  },
+  {
+    "name": "ghost tear",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": null
+  },
+  {
+    "name": "compass",
+    "health": null,
+    "damage": null,
+    "max": 1,
+    "give": false
   }
 ]

@@ -99,7 +99,7 @@
   },
   {
     "move": "go to spookytown",
-    "response": "Darkness devours the sky as you leave Crescent Plaza. You trip through a thorn bush into a clearing. There, you see a hut with a medallion hanging from the doorframe. #LiltSpookytown",
+    "response": "Darkness devours the sky as you leave Crescent Plaza. You trip through a thorn bush into a clearing. There, you see a hut with a medallion hanging from the doorframe. An iron gate, a crumbling tower, and a dark path branch off in different directions. #LiltSpookytown",
     "position": "crescent",
     "item": null,
     "condition": null,
@@ -389,7 +389,7 @@
   },
   {
     "move": "look around",
-    "response": "This place is a dump. You did this.",
+    "response": "This place is a dump. You did this. Through the rubble, you can still make out paths to the graveyard, the tower, and the swamp.",
     "position": "spookytown",
     "item": null,
     "condition": {
@@ -3949,7 +3949,7 @@
   },
   {
     "move": "look around",
-    "response": "With your head over the trees, you can see for miles - where the sky turns from grey to blue, Crescent Plaza, and below you: a little totem calling for you from within a hut.",
+    "response": "With your head over the trees, you can see for miles — where the sky turns from grey to blue, Crescent Plaza, and below you: a little totem calling for you from within a hut. You also spot an iron gate to a graveyard, a crumbling tower, and a dark path into a swamp.",
     "position": "spookytown",
     "item": null,
     "condition": {
@@ -4909,7 +4909,7 @@
   },
   {
     "move": "look around",
-    "response": "You spy a totem in some kind in the hut. ",
+    "response": "A clearing in the gloom. A hut stands ahead with a medallion hanging from its doorframe. To the left, an iron gate leads to a graveyard. A crumbling tower rises to the right. Behind the hut, a dark path descends toward a swamp.",
     "position": "spookytown",
     "item": null,
     "condition": null,
@@ -5503,6 +5503,1082 @@
     "position": "room",
     "item": "banana",
     "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+
+  {
+    "move": "go to graveyard",
+    "response": "A crooked iron gate creaks open as you approach. Headstones lean at odd angles, half-swallowed by fog. A single lantern flickers near a freshly turned grave. Beyond the rows of stone, you see a sealed crypt. #LiltGraveyard",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "graveyard"
+  },
+  {
+    "move": "go to swamp",
+    "response": "You can barely see your hand in front of your face. The swamp is too dark to navigate without a light source.",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to swamp",
+    "response": "Your lantern cuts through the murk as you wade into knee-deep water. Gnarled trees claw at the sky. A rickety dock juts out into the blackness, where a hooded figure stands motionless in a boat. #LiltSwamp",
+    "position": "spookytown",
+    "item": null,
+    "condition": {"lantern": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": "swamp"
+  },
+  {
+    "move": "go to tower",
+    "response": "A crumbling stone staircase spirals up through a gap in the thorns. At the top, a watchtower leans against the wind. A faint blue glow pulses from the window above. #LiltTower",
+    "position": "spookytown",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "tower"
+  },
+
+  {
+    "move": "look around",
+    "response": "Fog clings to everything. Crooked headstones stretch in every direction. A lantern flickers near a grave to your left. Ahead, a stone crypt is sealed with a heavy door. The iron gate behind you leads back to the clearing.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The headstones are unchanged, but the crypt door hangs open now. Darkness spills out from within.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"crypt": "open"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "A lantern sits on the ground near a freshly turned grave. The earth here is soft and dark.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "More headstones disappearing into the fog. Some have been knocked over. One has deep claw marks scratched into it.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "No stars. No moon. Just a low ceiling of grey nothing.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Wet grass and mud. Something white pokes out of the soil near your foot. On closer inspection, it's a small bone. You leave it alone.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take lantern",
+    "response": "You pick up the lantern. Its flame dances but doesn't go out, despite there being no oil inside. Weird.",
+    "position": "graveyard",
+    "item": "lantern",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pick up lantern",
+    "response": "You pick up the lantern. Its flame dances but doesn't go out, despite there being no oil inside. Weird.",
+    "position": "graveyard",
+    "item": "lantern",
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect lantern",
+    "response": "A small iron lantern with no oil reservoir. The flame inside flickers blue at its core. It's warm to the touch.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at lantern",
+    "response": "A small iron lantern with no oil reservoir. The flame inside flickers blue at its core. It's warm to the touch.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect grave",
+    "response": "The headstone reads: 'Here lies one who wandered far and forgot the way home.' Fresh dirt. No flowers.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at grave",
+    "response": "The headstone reads: 'Here lies one who wandered far and forgot the way home.' Fresh dirt. No flowers.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "read headstone",
+    "response": "'Here lies one who wandered far and forgot the way home.' The letters are carved deep, as if by fingernails.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "read headstones",
+    "response": "Most are too weathered to read. One says 'REMEMBERED.' Another: 'SHE TRIED.' A third is blank.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect crypt",
+    "response": "Heavy stone door with an iron lock shaped like a ribcage. There's a keyhole where the heart would be.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at crypt",
+    "response": "Heavy stone door with an iron lock shaped like a ribcage. There's a keyhole where the heart would be.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open crypt",
+    "response": "The door won't budge. The lock holds firm. You'd need some kind of key — something that fits the ribcage.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "open crypt",
+    "response": "The bone key slides into the ribcage lock with a soft click. The stone door grinds open, releasing air that hasn't moved in a very long time.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"bone key": "inventory"},
+    "trigger": {"crypt": "open"},
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use bone key on crypt",
+    "response": "The bone key slides into the ribcage lock with a soft click. The stone door grinds open, releasing air that hasn't moved in a very long time.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"bone key": "inventory"},
+    "trigger": {"crypt": "open"},
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use key on crypt",
+    "response": "The key doesn't fit. The lock is shaped like a ribcage — you need something more... anatomical.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"key": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "enter crypt",
+    "response": "The door is sealed. An iron lock shaped like a ribcage holds it shut.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "enter crypt",
+    "response": "You step inside. It's small and cold. On a stone pedestal in the center sits a brass compass. Its needle spins lazily, then locks onto something you can't see.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"crypt": "open"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look in crypt",
+    "response": "On a stone pedestal sits a brass compass. The needle points somewhere beyond the walls.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"crypt": "open"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "take compass",
+    "response": "You lift the compass from the pedestal. It's heavier than it looks. The needle swings toward you for a moment, then settles on a direction that doesn't exist on any map.",
+    "position": "graveyard",
+    "item": "compass",
+    "condition": {"crypt": "open"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "pick up compass",
+    "response": "You lift the compass from the pedestal. It's heavier than it looks. The needle swings toward you for a moment, then settles on a direction that doesn't exist on any map.",
+    "position": "graveyard",
+    "item": "compass",
+    "condition": {"crypt": "open"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect compass",
+    "response": "Brass, tarnished, warm. The glass face is cracked but intact. The needle points somewhere impossible.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"compass": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "dig grave",
+    "response": "You claw at the dirt with your hands. After a while you stop. Whatever is down there wants to stay down there.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "dig",
+    "response": "You scratch at the earth near the closest grave. The soil is soft but your resolve isn't. You stop.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "punch crypt",
+    "response": "You punch the stone. The stone wins.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "kick crypt",
+    "response": "You kick it. Your foot hurts now. The crypt is unimpressed.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "You slip back through the iron gate into the clearing.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go back",
+    "response": "You slip back through the iron gate into the clearing.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "leave",
+    "response": "You slip back through the iron gate into the clearing.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "help",
+    "response": "You're in an old graveyard. Try: look around, inspect things, take items, read headstones, open the crypt.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "A graveyard on the edge of Spookytown. Fog everywhere. Headstones, a lantern, and a sealed crypt.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to ghost",
+    "response": "You call out into the fog. No answer. But you swear the mist shifts, just slightly, in acknowledgment.",
+    "position": "graveyard",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use lantern",
+    "response": "You hold the lantern up. The fog retreats a few inches around you. The headstone inscriptions seem sharper in this light.",
+    "position": "graveyard",
+    "item": null,
+    "condition": {"lantern": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+
+  {
+    "move": "look around",
+    "response": "Dark water stretches in every direction. Your lantern catches the gleam of eyes just below the surface — then they're gone. A hooded figure stands on a dock ahead, waiting beside a small boat.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The dock is empty now. The ferryman has departed. Ripples fan out across the black water where the boat was.",
+    "position": "swamp",
+    "item": null,
+    "condition": {"ferryman": "departed"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "Twisted roots breach the water like grasping fingers. Something glints beneath the surface but it's too deep to reach.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "Cattails and silence. A heron watches you from a dead tree, perfectly still.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "The canopy is so thick it feels like being underground. Your lantern is the only sky down here.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Murky water. You can see your own dim reflection, but it takes a moment too long to mirror your movements.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to ferryman",
+    "response": "The figure doesn't look up. A dry voice: 'I ferry the grieving. Bring me a tear shed by one who cannot cry, and I will give you what you seek.'",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect ferryman",
+    "response": "A tall figure in a tattered hood. You can't see a face — just shadow where a face should be. Bony hands grip a long pole.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at ferryman",
+    "response": "A tall figure in a tattered hood. You can't see a face — just shadow where a face should be. Bony hands grip a long pole.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give ghost tear to ferryman",
+    "response": "The ferryman extends a skeletal palm. The tear rolls off your hand and into his. It glows faintly, then absorbs into his bones. 'Passage granted.' He reaches into the boat and offers you a key carved from bone.",
+    "position": "swamp",
+    "item": "bone key",
+    "condition": {"ghost tear": "inventory"},
+    "trigger": {"ferryman": "departed"},
+    "drop": "ghost tear",
+    "travel": null
+  },
+  {
+    "move": "give ferryman ghost tear",
+    "response": "The ferryman extends a skeletal palm. The tear rolls off your hand and into his. It glows faintly, then absorbs into his bones. 'Passage granted.' He reaches into the boat and offers you a key carved from bone.",
+    "position": "swamp",
+    "item": "bone key",
+    "condition": {"ghost tear": "inventory"},
+    "trigger": {"ferryman": "departed"},
+    "drop": "ghost tear",
+    "travel": null
+  },
+  {
+    "move": "use ghost tear on ferryman",
+    "response": "The ferryman extends a skeletal palm. The tear rolls off your hand and into his. It glows faintly, then absorbs into his bones. 'Passage granted.' He reaches into the boat and offers you a key carved from bone.",
+    "position": "swamp",
+    "item": "bone key",
+    "condition": {"ghost tear": "inventory"},
+    "trigger": {"ferryman": "departed"},
+    "drop": "ghost tear",
+    "travel": null
+  },
+  {
+    "move": "inspect boat",
+    "response": "A flat-bottomed skiff, barely held together by pitch and stubbornness. The ferryman's hand rests on the pole, ready.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at boat",
+    "response": "A flat-bottomed skiff, barely held together by pitch and stubbornness. The ferryman's hand rests on the pole, ready.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "enter boat",
+    "response": "The ferryman holds up a hand. 'Not yet. You haven't paid.'",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give coin to ferryman",
+    "response": "The ferryman shakes his head slowly. 'I have no use for the currency of the living.'",
+    "position": "swamp",
+    "item": null,
+    "condition": {"coin": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "swim",
+    "response": "You dip a foot in. The water is ice cold and something brushes against your ankle. You pull back. Nope.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect water",
+    "response": "Black and still. Occasionally a bubble rises to the surface and pops silently. You don't want to think about what's down there.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at water",
+    "response": "Black and still. Occasionally a bubble rises to the surface and pops silently. You don't want to think about what's down there.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect heron",
+    "response": "It stares at you with one ancient eye. You get the feeling it's been here longer than anything else.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to heron",
+    "response": "It blinks once. That's all you're getting.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use lantern",
+    "response": "You sweep the lantern across the water. For a moment you see shapes moving beneath the surface — long, pale, drifting. Then the water goes dark again.",
+    "position": "swamp",
+    "item": null,
+    "condition": {"lantern": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "You wade back through the muck toward the clearing.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go back",
+    "response": "You wade back through the muck toward the clearing.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "leave",
+    "response": "You wade back through the muck toward the clearing.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "help",
+    "response": "You're in a dark swamp. Try: look around, talk to the ferryman, inspect things, give items.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "A swamp at the edge of Spookytown. A ferryman waits at a dock. The water is not friendly.",
+    "position": "swamp",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+
+  {
+    "move": "look around",
+    "response": "A circular room at the top of a crumbling staircase. Moonlight leaks through cracks in the stone. A translucent figure hovers in the center of the room, flickering like a candle. It looks... sad.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look around",
+    "response": "The tower room is still. The spirit is gone. Where it floated, a faint warmth remains in the air. Through the window, you can see further than before.",
+    "position": "tower",
+    "item": null,
+    "condition": {"spirit": "freed"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look left",
+    "response": "A narrow window. Through it you can see the graveyard far below, lit by a faint glow.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look right",
+    "response": "Cracked stone walls. Someone carved tally marks here — hundreds of them.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "A hole in the roof. You can see one star through it. Just one.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "The staircase spirals into darkness below. You'd rather not think about how high up you are.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look out window",
+    "response": "You can see the whole of Spookytown from here. The graveyard. The swamp's canopy. The hut clearing. And beyond it all — a void where the horizon should be.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "talk to spirit",
+    "response": "The figure turns toward you. Its mouth moves but the sound arrives late, like an echo in reverse: 'I've forgotten what living things feel like. Something growing. Something real. Do you have anything... alive?'",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect spirit",
+    "response": "A wispy, translucent figure. Neither old nor young. Its edges blur and reform constantly. It seems to be looking at something far away, or maybe at nothing at all.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at spirit",
+    "response": "A wispy, translucent figure. Neither old nor young. Its edges blur and reform constantly. It seems to be looking at something far away, or maybe at nothing at all.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give flower to spirit",
+    "response": "The spirit reaches out. As its fingers close around the flower, color floods into the petals — brighter than before. The spirit smiles. A single tear rolls down its face and crystallizes in the air before falling into your palm. 'Thank you,' it whispers, and fades into the moonlight.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {"flower": "inventory"},
+    "trigger": {"spirit": "freed"},
+    "drop": "flower",
+    "travel": null
+  },
+  {
+    "move": "give spirit flower",
+    "response": "The spirit reaches out. As its fingers close around the flower, color floods into the petals — brighter than before. The spirit smiles. A single tear rolls down its face and crystallizes in the air before falling into your palm. 'Thank you,' it whispers, and fades into the moonlight.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {"flower": "inventory"},
+    "trigger": {"spirit": "freed"},
+    "drop": "flower",
+    "travel": null
+  },
+  {
+    "move": "use flower on spirit",
+    "response": "The spirit reaches out. As its fingers close around the flower, color floods into the petals — brighter than before. The spirit smiles. A single tear rolls down its face and crystallizes in the air before falling into your palm. 'Thank you,' it whispers, and fades into the moonlight.",
+    "position": "tower",
+    "item": "ghost tear",
+    "condition": {"flower": "inventory"},
+    "trigger": {"spirit": "freed"},
+    "drop": "flower",
+    "travel": null
+  },
+  {
+    "move": "give apple to spirit",
+    "response": "The spirit looks at the apple and shakes its head slowly. 'Something growing. Not something harvested.'",
+    "position": "tower",
+    "item": null,
+    "condition": {"apple": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "give banana to spirit",
+    "response": "The spirit eyes the banana with what might be amusement. 'That is... not what I meant.'",
+    "position": "tower",
+    "item": null,
+    "condition": {"banana": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect tally marks",
+    "response": "You try to count them. You lose track after three hundred. Each one is scratched deep into the stone. Days? Years? Whatever this was, they were here a long time.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at tally marks",
+    "response": "You try to count them. You lose track after three hundred. Each one is scratched deep into the stone.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect star",
+    "response": "It's brighter than any star you've seen. It pulses faintly, like a heartbeat.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at star",
+    "response": "It's brighter than any star you've seen. It pulses faintly, like a heartbeat.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go to spookytown",
+    "response": "You descend the crumbling staircase back to the clearing.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go back",
+    "response": "You descend the crumbling staircase back to the clearing.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "go down",
+    "response": "You descend the crumbling staircase back to the clearing.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "leave",
+    "response": "You descend the crumbling staircase back to the clearing.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": "spookytown"
+  },
+  {
+    "move": "help",
+    "response": "You're in an old watchtower. Try: look around, talk to the spirit, inspect things, give items.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "A watchtower overlooking Spookytown. A spirit lingers here.",
+    "position": "tower",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "A watchtower overlooking Spookytown. The spirit has moved on. Only moonlight remains.",
+    "position": "tower",
+    "item": null,
+    "condition": {"spirit": "freed"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use lantern",
+    "response": "The lantern's flame brightens. For a moment, the spirit seems more solid — you can almost make out features. Then it flickers back to translucence.",
+    "position": "tower",
+    "item": null,
+    "condition": {"lantern": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+
+  {
+    "move": "use compass",
+    "response": "The compass needle spins wildly, then points straight down. The void ripples. A path of light unfurls beneath your feet, leading somewhere new. You follow it. #LiltBeyond",
+    "position": "void",
+    "item": null,
+    "condition": {"compass": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": "beyond"
+  },
+  {
+    "move": "look at compass",
+    "response": "The needle is frantic. It wants to show you something.",
+    "position": "void",
+    "item": null,
+    "condition": {"compass": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+
+  {
+    "move": "look around",
+    "response": "Light. Actual, warm light. You're standing on a glass plain that stretches to the horizon. The sky is pale gold. In the distance, something tall and bright shimmers — a city, maybe. Or a memory of one. The compass needle has gone still. It points forward.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look up",
+    "response": "The sky is the color of late afternoon, forever. No sun, but light comes from everywhere.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look down",
+    "response": "Glass, or something like it. Beneath it, clouds drift slowly. You're standing on the sky.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "go forward",
+    "response": "You walk toward the shimmering city. With each step, the glass beneath you chimes softly. The city grows larger, but never closer. Maybe that's the point. You keep walking anyway.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "inspect city",
+    "response": "Towers of light, shifting and reforming. It looks like every place you've ever wanted to be, layered on top of itself. It's beautiful and impossible.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at city",
+    "response": "Towers of light, shifting and reforming. It looks like every place you've ever wanted to be, layered on top of itself. It's beautiful and impossible.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "use compass",
+    "response": "The needle spins gently, then points at your chest. Oh. It was never pointing to a place.",
+    "position": "beyond",
+    "item": null,
+    "condition": {"compass": "inventory"},
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "where am i",
+    "response": "Beyond. Past the void, past the dark. Somewhere that feels like it was waiting for you.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "help",
+    "response": "You're beyond the void. Look around. Walk forward. Use what you have.",
+    "position": "beyond",
+    "item": null,
+    "condition": null,
+    "trigger": null,
+    "drop": null,
+    "travel": null
+  },
+  {
+    "move": "look at compass",
+    "response": "The needle points at you. Steady as a heartbeat.",
+    "position": "beyond",
+    "item": null,
+    "condition": {"compass": "inventory"},
     "trigger": null,
     "drop": null,
     "travel": null
